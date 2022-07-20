@@ -176,7 +176,10 @@
         }
         .dropdown-menu {
             padding: 15px 0;
-            min-width: 12.5rem;
+			border-bottom-left-radius: 1em;
+			border-bottom-right-radius: 1em;
+			background-color: #252430;
+			min-width: 12.5rem;
             a {
                 &:hover,
                 &:focus,
@@ -184,12 +187,15 @@
                     color: $primary;
                 }
             }
+			p {
+			    padding: 0px 24px;
+			}
         }
         img {
             width: 57px;
             height: 57px;
-            border-radius: 0;
-			box-shadow: 0 0 0 4px #fff;
+			border-radius: 50%;
+			//box-shadow: 0 0 0 4px #fff;
 				
 			@include respond('laptop') {
 				 width: 39px;

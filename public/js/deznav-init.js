@@ -6,7 +6,7 @@
 
 	var dezSettingsOptions = {
 		typography: "poppins",
-		version: "light",
+		version: "dark",
 		layout: "Vertical",
 		headerBg: "color_1",
 		navheaderBg: "color_1",

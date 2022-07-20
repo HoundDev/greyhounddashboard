@@ -57,7 +57,7 @@
 						{
 							label: "My First dataset",
 							data:  [50, 75, 34, 55, 25, 70, 50, 80, 60, 90, 45, 65],
-							borderColor: '#ffab2d',
+							borderColor: '#CE5C6D',
 							borderWidth: "4",
 							barThickness:'flex',
 							backgroundColor: 'rgba(255, 171, 45, 0.05)',
@@ -134,24 +134,24 @@
 	}
 	
 	
-	var widgetChart1 = function(){
-		if(jQuery('#widgetChart1').length > 0 ){
-			const chart_widget_1 = document.getElementById("widgetChart1").getContext('2d');
+	var trustlineChart = function(){
+		if(jQuery('#trustlineChart').length > 0 ){
+			const chart_widget_1 = document.getElementById("trustlineChart").getContext('2d');
 
 			new Chart(chart_widget_1, {
 				type: "line",
 				data: {
 					labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April"],
 					datasets: [{
-						label: "Sales Stats",
-						backgroundColor: ['rgba(234, 73, 137, 0)'],
-						borderColor: '#ffab2d',
-						pointBackgroundColor: '#ffab2d',
-						pointBorderColor: '#ffab2d',
+						label: "Trustlines",
+						backgroundColor: '#CE5C6D',
+						borderColor: '#CE5C6D',
+						pointBackgroundColor: '#CE5C6D',
+						pointBorderColor: '#CE5C6D',
 						borderWidth:2,
-						pointHoverBackgroundColor: '#ffab2d',
-						pointHoverBorderColor: '#ffab2d',
-						data: [8, 7, 6, 3, 2, 4, 6, 8, 12, 6, 12, 13, 10, 18, 14, 24, 16, 12, 19, 21, 16, 14, 24, 21, 13, 15, 27, 29, 21, 11, 14, 19, 21, 17]
+						pointHoverBackgroundColor: '#CE5C6D',
+						pointHoverBorderColor: '#CE5C6D',
+						data: [11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 14700, 14600, 15550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590]
 					}]
 				},
 				options: {
@@ -216,25 +216,27 @@
 
 		}
 	}
+
 	
-	var widgetChart2 = function(){
-		if(jQuery('#widgetChart2').length > 0 ){
-			const chart_widget_2 = document.getElementById("widgetChart2").getContext('2d');
+	
+	var holdersChart = function(){
+		if(jQuery('#holdersChart').length > 0 ){
+			const chart_widget_2 = document.getElementById("holdersChart").getContext('2d');
 
 			new Chart(chart_widget_2, {
 				type: "line",
 				data: {
 					labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "January", "February", "March", "April"],
 					datasets: [{
-						label: "Sales Stats",
-						backgroundColor: ['rgba(234, 73, 137, 0)'],
-						borderColor: '#DC3CCC',
-						pointBackgroundColor: '#DC3CCC',
-						pointBorderColor: '#DC3CCC',
+						label: "Trustlines",
+						backgroundColor: '#CE5C6D',
+						borderColor: '#CE5C6D',
+						pointBackgroundColor: '#CE5C6D',
+						pointBorderColor: '#CE5C6D',
 						borderWidth:2,
-						pointHoverBackgroundColor: '#DC3CCC',
-						pointHoverBorderColor: '#DC3CCC',
-						data: [19, 21, 16, 14, 24, 21, 13, 15, 27, 29, 21, 11, 14, 19, 21, 17, 12, 6, 12, 13, 10, 18, 14, 24, 16, 12, 8, 7, 6, 3, 2, 7, 6, 8]
+						pointHoverBackgroundColor: '#CE5C6D',
+						pointHoverBorderColor: '#CE5C6D',
+						data: [11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590, 14700, 14600, 15550, 11560, 11620, 11600, 11605, 11590, 11700, 11600, 11550, 11560, 11620, 11600, 11605, 11590]
 					}]
 				},
 				options: {
@@ -474,8 +476,8 @@
 			
 			load:function(){
 				donutChart();
-				widgetChart1();	
-				widgetChart2();	
+				trustlineChart();				
+				holdersChart();	
 				widgetChart3();	
 				widgetChart4();		
 				activityBar();

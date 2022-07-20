@@ -1,24 +1,47 @@
+
+
+
 import Login from './Components/Login'
+
+
 import Dashboard from './Components/Dashboard'
 import { Route, Routes, Redirect, Link } from "react-router-dom";
 import {isMobile} from 'react-device-detect';
 import React, { useState, useRef, useEffect } from "react";
 import Cookies from 'universal-cookie';
 import RichList from './Components/Richlist.js';
+import SpringRescue from './Components/springRescue.js';
+import Footer from './layouts/Footer';
+import PerfectScrollbar from "react-perfect-scrollbar";
 require("dotenv").config();
+
+
+
+
 
 function App() {
   const [userAddress, setUserAddress] = React.useState('')
   const [userSession, setUserSession] = React.useState('')
   const [activeStyleDashboard, setActiveStyleDashboard] = React.useState('mm-active')
   const [activeStyleRichList, setActiveStyleRichlist] = React.useState('')
+ 
+  const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
   const [snapShotTier, setsnapShotTier] = React.useState('None')
+  
+  const [toggle, setToggle] = useState(false);
+  
+  const [checked, setChecked] = React.useState(false);
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+  
+  
 
   useEffect(() => {
     const cookies = new Cookies();
     let userAddress = cookies.get('userAddress');
     let userSession = cookies.get('userSession');
-    if(userAddress != undefined && userSession != undefined)
+    if(userAddress !== undefined && userSession !== undefined)
     {
       setUserAddress(userAddress);
       setUserSession(userSession);
@@ -53,10 +76,17 @@ function App() {
     if(str === 'dashboardLI'){
       setActiveStyleDashboard('mm-active')
       setActiveStyleRichlist('')
+	  setActiveStyleSpringRescue('')
     } else if (str === 'richlistLI')
     {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('mm-active')
+	  setActiveStyleSpringRescue('')
+    }else if (str === 'SpringRescueLI')
+    {
+      setActiveStyleDashboard('')
+	  setActiveStyleRichlist('')
+      setActiveStyleSpringRescue('mm-active')
     }
   }
 
@@ -64,19 +94,21 @@ function App() {
 
   return (
       <>
-      {userAddress == '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper">
+      {userAddress === '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper" className={`show ${toggle ? "menu-toggle" : ""}`}>
       <div className="nav-header">
         <a href="index.html" className="brand-logo">
-          <img className="logo-abbr" src="./images/svg/logo.svg" draggable="false" alt="" />
-          <img className="logo-compact" src="./images/svg/logo-text.svg" draggable="false" alt="" />
-          <img className="brand-title" src="./images/svg/logo-text.svg" draggable="false" alt="" />
+		  <div className="logo-abbr" draggable="false" alt=""></div>
+          <img className="logo-compact" src="./images/svg/logo-icon-light.svg" alt=""/>
+          <div className="brand-title" draggable="false" alt=""></div>
         </a>
   
-        <div className="nav-control">
-          <div className="hamburger">
-            <span className="line"></span><span className="line"></span><span className="line"></span>
-          </div>
-        </div>
+        <div className="nav-control" onClick={() => setToggle(!toggle)}>
+            <div className={`hamburger ${toggle ? "is-active" : ""}`}>
+               <span className="line"></span>
+               <span className="line"></span>
+               <span className="line"></span>
+            </div>
+         </div>
       </div>
   
 <div className="header">
@@ -91,23 +123,51 @@ function App() {
 
   <ul className="navbar-nav header-right">
 
-    {snapShotTier != 'None' ? <li className="nav-item dropdown notification_dropdown">
+    {/* snapShotTier !== 'None' ? <li className="nav-item dropdown notification_dropdown">
       <a className="nav-link" href="#" data-toggle="modal" data-target="#badge-nft-airdrop">
         <img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
           draggable="false" />
       </a>
-    </li> : <></> }
-
-
-
-    {/* <li className="nav-item dropdown notification_dropdown">
-      <a className="nav-link" href="#" data-toggle="modal" data-target="#badge-greyhound-og">
-        <img src="./images/badges/og.png" title="Rosie NFT Snapshot 2022" draggable="false" />
-      </a>
-    </li> */}
-
+    </li> : <></> */}
+	
+	
+	
+	
+	<li className="nav-item ">
+		<a className="nav-link pl-3">
+			<label className="theme-toggle theme-toggle--toggled" title="Toggle theme">
+				
+				<input id="theme-toggle" type="checkbox" checked={checked} onChange={handleChange} />
+				<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1em" height="1em" fill="currentColor" strokeLinecap="round" className="theme-toggle__classic" viewBox="0 0 32 32">
+					<clipPath id="theme-toggle__classic__cutout">
+						<path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+					</clipPath>
+					<g clipPath="url(#theme-toggle__classic__cutout)">
+						<circle cx="16" cy="16" r="9.34" />
+						<g stroke="currentColor" strokeWidth="1.5">
+							<path d="M16 5.5v-4" />
+							<path d="M16 30.5v-4" />
+							<path d="M1.5 16h4" />
+							<path d="M26.5 16h4" />
+							<path d="m23.4 8.6 2.8-2.8" />
+							<path d="m5.7 26.3 2.9-2.9" />
+							<path d="m5.8 5.8 2.8 2.8" />
+							<path d="m23.4 23.4 2.9 2.9" />
+						</g>
+					</g>
+				</svg>
+			</label>
+		</a>
+	</li>
+	
+	
+	
+	
+	
+	
+	
     <li className="nav-item dropdown header-profile">
-      <a className="nav-link" href="#" role="button" data-toggle="dropdown">
+      <a className="nav-link" role="button" data-toggle="dropdown">
         <div className="header-info">
           <span className="text-white"
             id="wallet-address"><strong>{userAddress}
@@ -137,69 +197,83 @@ function App() {
 
 
 		<div className="deznav">
-			<div className="deznav-scroll">
+			<PerfectScrollbar className="deznav-scroll">
 				<ul className="metismenu" id="menu">
 					<li id="dashboardLI" className={activeStyleDashboard}><Link onClick={() => setActive('dashboardLI')} to="/" className=" ai-icon" aria-expanded="false">
-							<i className="fa-solid fa-grip"></i>
+							<i className="fi fi-sr-apps"></i>
 							<span className="nav-text">Dashboard</span>
-              </Link>
+              			</Link>
 					</li>
 
 					<li id="richlistLI" className={activeStyleRichList}><Link onClick={() => setActive('richlistLI')} to="/richlist" className=" ai-icon" aria-expanded="false">
-							<i className="fa-solid fa-table-list" title="Richlist"></i>
+							<i className="fi fi-rr-list"></i>
 							<span className="nav-text">Richlist</span>
-              </Link>
+              			</Link>
 					</li>
+					
+					<li id="richlistLI" className={activeStyleSpringRescue}><Link onClick={() => setActive('SpringRescueLI')} to="/springrescue" className=" ai-icon" aria-expanded="false">
+							<i className="fi fi-sr-calendar"></i>
+							<span className="nav-text">Events</span>
+              			</Link>
+					</li>
+					
+					
+					
+					
+					
+
+					
+					
+										
+					
+					
+					
 
 					<li><a className="ai-icon" href="#" aria-expanded="false">
-							<i className="fa-regular fa-calendar" title="Events"></i>
-							<span className="nav-text">Events (Coming Soon)</span>
+							<i className="fi fi-sr-gallery"></i>
+							<span className="nav-text">NFTs <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
 						</a>
 					</li>
-
 					<li><a className="ai-icon" href="#" aria-expanded="false">
-							<i className="fa-solid fa-clone" title="NFTs"></i>
-							<span className="nav-text">NFTs (Coming Soon)</span>
+							<i className="fi fi-sr-gamepad"></i>
+							<span className="nav-text">Games <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
 						</a>
 					</li>
 
 					<li><a className="ai-icon" href="https://greyhoundcoin.net/" aria-expanded="false">
-							<i className="fa-solid fa-arrow-up-right-from-square" title="Main Website"></i>
+							<i className="fi fi-rr-globe"></i>
 							<span className="nav-text">Main Website</span>
 						</a>
 					</li>
 
 				</ul>
 
-				<a href="https://greyhoundcoin.net/blog/announcement/2022/03/13/snapshot-wrapup.html">
+				
 
-					<div className="add-menu-sidebar">
-
-						<p>Snapshot Wrap-Up and Plans for the Future</p>
-						<svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M23.725 5.14889C23.7248 5.14861 23.7245 5.14828 23.7242 5.148L18.8256 0.272997C18.4586 -0.0922062 17.865 -0.0908471 17.4997 0.276184C17.1345 0.643169 17.1359 1.23675 17.5028 1.602L20.7918 4.875H0.9375C0.419719 4.875 0 5.29472 0 5.8125C0 6.33028 0.419719 6.75 0.9375 6.75H20.7917L17.5029 10.023C17.1359 10.3882 17.1345 10.9818 17.4998 11.3488C17.865 11.7159 18.4587 11.7172 18.8256 11.352L23.7242 6.477C23.7245 6.47672 23.7248 6.47639 23.7251 6.47611C24.0923 6.10964 24.0911 5.51414 23.725 5.14889Z"
-								fill="white" />
-						</svg>
-
-					</div>
-				</a>
-				<div className="copyright">
-					<p><strong>Greyhound</strong> © 2022 All Rights Reserved</p>
+				<div className="add-menu-sidebar ">
+					<img src="./images/staking-bitrue.png" draggable="false" />
+					<a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-primary rounded-4 mb-2" target="blank">Stake On Bitrue</a>
 				</div>
-			</div>
+			</PerfectScrollbar>
 		</div>
-    <Routes>
+    
+	
+	<Routes>
         <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
         <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
-      </Routes>
+		<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
+    </Routes>
       
-
+   <Footer /> 
 </div>
+ 
   
+   
   
   } </>
   );
+  
 }
+
 
 export default App;

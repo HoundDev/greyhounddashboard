@@ -3,6 +3,25 @@
     .header {
         background-color: $dark-card;
     }
+	.nav-header {
+		background-color: $dark-card!important;
+		.brand-title {
+			margin-left: 10px;
+		    height: 28px;
+		    width: 170px;
+		    background: url(../images/svg/logo-text-white.svg) no-repeat;
+		}
+		.logo-abbr {
+			height: 50px;
+			width: 50px;
+			background: url(../images/svg/logo-icon.svg) no-repeat;
+		}
+	}
+	
+	.nav-control {
+		background: none!important;
+	}	
+	
 
     .header-left {
         input {
@@ -25,6 +44,9 @@
 			i{
 				color: $white;
 			}
+		}
+		.dashboard_bar {
+			color: #fff;
 		}
     }
 
@@ -59,4 +81,18 @@
         }
     }
 
+}
+
+.nav-header {
+			.logo-abbr {
+				height: 50px;
+				width: 50px;
+				background: url(../images/svg/logo-icon-light.svg) no-repeat;
+			}
+			.brand-title {
+				margin-left: 10px;
+			    height: 28px;
+			    width: 170px;
+			    background: url(../images/svg/logo-text-black.svg) no-repeat;
+			}
 }

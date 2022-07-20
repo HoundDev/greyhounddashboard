@@ -1,8 +1,8 @@
 function TransactionsSent(props) {
     const transactions = props.transactions;
     const linkBase = "https://bithomp.com/explorer/";
-    const listItems = transactions.map((transaction) =>
-        <tr>
+    const listItems = transactions.slice(0, 7).map((transaction) =>
+        <tr key={transaction.hash}>
         <td>
         <div className="media">
             <span className="p-3 ">
@@ -11,9 +11,9 @@ function TransactionsSent(props) {
             </svg>
             </span>
             <div className="media-body align-self-center">
-           <a href={linkBase + transaction.hash} target={window}><h5 className="font-w600 text-white">{transaction.date} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {transaction.currency} {transaction.amount}
+           <a href={linkBase + transaction.hash}><h5 className="font-w600 text-white fs-14">{transaction.date} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {transaction.currency} {transaction.amount}
             </h5></a>
-            <a href={linkBase + transaction.hash} target={window}><p className="mb-0 fs-15">{transaction.account}
+            <a href={linkBase + transaction.hash}><p className="mb-0 fs-15 truncate">{transaction.account}
             </p></a>
             </div>
             <span className="p-3 ">
