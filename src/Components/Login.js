@@ -111,32 +111,32 @@ function Login(props) {
             ws.current.onmessage = async (e) => {
                 if (!listenWs) return;
                 let responseObj = JSON.parse(e.data.toString())
-                if(responseObj.signed != null)
+                if(responseObj.signed !== null)
                 {
                   console.log(responseObj)
                   const payload = await getXummPayload(responseObj.payload_uuidv4)
                   console.log(payload)
 
                   const isValid = await checkValidSignature(payload.data.response.hex)
-                  if(payload.data != null)
+                  if(payload.data !== null)
                   {
                     let payloadMeta = payload.data
-                    if(payloadMeta.meta.resolved == true && payloadMeta.meta.signed == true)
+                    if(payloadMeta.meta.resolved === true && payloadMeta.meta.signed === true)
                     {
                        setSignedinAccount(payloadMeta.response.account);
                        setrequestResolvedMessage('Sign-In request successful.');
                     }
-                    else if(payloadMeta.meta.resolved == true && payloadMeta.meta.signed == false)
+                    else if(payloadMeta.meta.resolved === true && payloadMeta.meta.signed === false)
                     {
                        setRequestFailed(true)
                        setrequestResolvedMessage('Sign-In request has been rejected.');
                     }
-                    else if(payloadMeta.meta.resolved == false && payloadMeta.meta.signed == false && payloadMeta.meta.cancelled == true && payloadMeta.meta.expired == true)
+                    else if(payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === true && payloadMeta.meta.expired === true)
                     {
                        setRequestFailed(true)
                        setrequestResolvedMessage('Sign-In request has been cancelled.');
                     }
-                    else if(payloadMeta.meta.resolved == false && payloadMeta.meta.signed == false && payloadMeta.meta.cancelled == false && payloadMeta.meta.expired == true)
+                    else if(payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === false && payloadMeta.meta.expired === true)
                     {
                        setRequestFailed(true)
                        setrequestResolvedMessage('Sign-In request has expired.');
@@ -147,7 +147,7 @@ function Login(props) {
                   setRequestResolved(true);
                   ws.current.close();
                   console.log(isValid);
-                  if(isValid.data.xrpAddress != undefined && isValid.data.session != undefined)
+                  if(isValid.data.xrpAddress !== undefined && isValid.data.session !== undefined)
                   {
                     props.setStateValues(isValid.data);
                   }
@@ -170,7 +170,7 @@ function Login(props) {
                                 <form action="index.html">
                                     <div className="text-center mt-3">
                                         <Button className="btn btn-primary btn-lg btn-block" onClick={Signin}>LOGIN WITH XUMM</Button>
-                                        {!showSpinner && requestResolved && requestResolvedMessage != '' && requestFailed ? 
+                                        {!showSpinner && requestResolved && requestResolvedMessage !== '' && requestFailed ? 
                                         <Alert status="error" style={{marginTop:'20px'}}><AlertIcon />{requestResolvedMessage}</Alert> : <></>}
 
                                         {showSpinner ? <Spinner size='md' color={'white'} /> : <></>}

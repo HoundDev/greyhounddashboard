@@ -64,47 +64,48 @@
 ////////////////////
 // Abstracts
 ////////////////////
-@import "./abstracts/abstracts";
+@import "./abstracts/abstracts.scss";
 
 //bootstrap library scss files
-@import "./../vendor/bootstrap/scss/bootstrap";
+@import "./../vendor/bootstrap/scss/bootstrap.scss";
 
 
 
 ////////////////////
 // Global
 ////////////////////
-@import "./base/base";
+@import "./base/base.scss";
 
-@import "./preloader";
-
-
-////////////////////
-// Components
-////////////////////
-@import "./layout/layout";
+@import "./preloader.scss";
 
 
 ////////////////////
 // Components
 ////////////////////
-@import "./components/components";
+@import "./layout/layout.scss";
+
+
+////////////////////
+// Components
+////////////////////
+@import "./components/components.scss";
 
 
 ////////////////////
 // All pages
 ////////////////////
-@import "./pages/pages";
+@import "./pages/pages.scss";
 
 
 
 ////////////////////
 // RTL
 ////////////////////
-@import "./layout/rtl/rtl";
+@import "./layout/rtl/rtl.scss";
 
 
 ////////////////////
 // Version Color
 ////////////////////
-@import "./layout/version-dark/main";
+@import "./layout/version-dark/main.scss";
+@import "./custom.scss";

@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Route, Routes, Redirect, Link, useSearchParams, useLocation  } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useSearchParams, useLocation  } from "react-router-dom";
+import GreyHolders from "./greyhoundHolders";
+import GreyTrustlines from "./greyhoundTrustlines";
 require("dotenv").config();
 
     export default function Richlist(props) {
@@ -16,7 +18,7 @@ require("dotenv").config();
           {
             let rowsFound = pageOfItems.find(x => x.xrpAddress.includes(event.target.value) === true);
             let arryItems = [];
-            if(rowsFound != undefined)
+            if(rowsFound !== undefined)
             {
               arryItems.push(rowsFound);
             }
@@ -61,20 +63,56 @@ require("dotenv").config();
       return (
         <div className="content-body">
           <div className="container-fluid">
-            <div className="form-head d-flex mb-4 mb-md-5 align-items-start">
-              <div className="input-group search-area d-inline-flex">
-                <div className="input-group-append">
-                  <span className="input-group-text"><i className="flaticon-381-search-2" /></span>
+            <div className="row">
+                    <div className="col-xl-2 col-xxl-2 col-lg-2 col-sm-2">
+                        <div className="card">
+                            <div className="card-body text-center card-text  align-middle">
+                                <h2 className=" text-white fs-28">
+                                    #13</h2>
+                                    <h2 className="text-white fs-18 mb-2 font-w600">Wealthiest Hound</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="col-xl-5 col-xxl-5 col-lg-5 col-sm-5">
+						<div className="card overflow-hidden">
+							<div className="card-header border-0 pb-0 card-bx">
+								<div className="me-auto">
+									<h2 className="text-white mb-2 font-w600">Trustlines</h2>
+									<p className="mb-1 fs-16">11,218 (+4% in 30 days)</p>
+								</div>
+							</div>
+							<div className="card-body p-0">
+								<GreyTrustlines/>
+							</div>
+						</div>
+                    </div>
+                    <div className="col-xl-5 col-xxl-5 col-lg-5 col-sm-5">
+						<div className="card overflow-hidden">
+							<div className="card-header border-0 pb-0 card-bx">
+								<div className="me-auto">
+									<h2 className="text-white mb-2 font-w600">Holders</h2>
+									<p className="mb-1 fs-16">11,218 (+4% in 30 days)</p>
+								</div>
+							</div>
+							<div className="card-body p-0">
+								<GreyHolders/>	
+							</div>
+						</div>
+                    </div>
                 </div>
-                <input type="text" className="form-control" placeholder="Insert Wallet Address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
+            <div className="form-head d-flex mb-4 mb-md-3 align-items-start">
+              <div className="input-group search-area d-inline-flex">
+                <input id="walletAddy" type="text" className="form-control" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
               </div>
-              <a href="javascript:void(0);" className="btn btn-primary ml-auto"><i className="fa-solid fa-arrows-rotate" /></a>
+              <button className="btn btn-md btn-primary ml-auto"><i className="fa-solid fa-arrows-rotate" /></button>
             </div>
+            
             <div className="row">
               <div className="col-xl-12">
                 <div className="table-responsive table-hover fs-14">
                   <div id="example-5_wrapper" className="dataTables_wrapper no-footer">
-                    <table className="table display mb-4 dataTablesCard dataTable no-footer" id="example-5" role="grid" aria-describedby="example-5_info">
+                    <table className="table display mb-4 dataTablesCard dataTable no-footer" id="richlist" role="grid" aria-describedby="example-5_info">
                       <thead>
                         <tr role="row">
                           <th style={{width: '10px'}}>Rank</th>
@@ -89,7 +127,7 @@ require("dotenv").config();
                       {pageOfItems.map(item =>
                         <tr key={item.id} role="row" className="odd">
                         <td className="width sorting_1">
-                          <span className="bgl-primary text-primary d-inline-block p-3 ">#{item.id}</span>
+                          <span className="text-white"><b>#{item.id}</b></span>
                         </td>
                         <td>
                           <div className="d-flex align-items-center">
@@ -113,11 +151,11 @@ require("dotenv").config();
                         <><div className="dataTables_info" id="example-5_info" role="status" aria-live="polite">
                         Showing {pager.currentPage} of {pager.totalPages} Pages</div>
                         <div className="dataTables_paginate paging_simple_numbers" id="example-5_paginate">
-    <a className="paginate_button previous disabled" aria-controls="example-5" data-dt-idx={0} tabIndex={0} id="example-5_previous">Previous</a>
+    <button className="paginate_button previous disabled" aria-controls="example-5" data-dt-idx={0} tabIndex={0} id="example-5_previous"><i className="la la-angle-left"></i></button>
     {pager.pages.map(page =>
         <span key={page}><Link to={`/richlist?page=${page}`} className={`paginate_button ${pager.currentPage === page ? 'current' : ''}`} aria-controls="example-5" data-dt-idx={1} tabIndex={0}>{page}</Link></span>
                             )}
-    <a className="paginate_button next disabled" aria-controls="example-5" data-dt-idx={2} tabIndex={0} id="example-5_next">Next</a>
+    <button className="paginate_button next disabled" aria-controls="example-5" data-dt-idx={2} tabIndex={0} id="example-5_next"><i className="la la-angle-right"></i></button>
     </div></> : <></>
     }
                   </div>
