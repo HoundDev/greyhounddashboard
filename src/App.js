@@ -159,11 +159,7 @@ function App() {
 			</label>
 		</a>
 	</li>
-	
-	
-	
-	
-	
+  
 	
 	
     <li className="nav-item dropdown header-profile">
@@ -217,16 +213,7 @@ function App() {
               			</Link>
 					</li>
 					
-					
-					
-					
-					
-
-					
-					
-										
-					
-					
+	
 					
 
 					<li><a className="ai-icon" href="#" aria-expanded="false">
@@ -252,7 +239,7 @@ function App() {
 
 				<div className="add-menu-sidebar ">
 					<img src="./images/staking-bitrue.png" draggable="false" />
-					<a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-primary rounded-4 mb-2" target="blank">Stake On Bitrue</a>
+					<a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-primary rounded-4" target="blank">Stake On Bitrue</a>
 				</div>
 			</PerfectScrollbar>
 		</div>

@@ -194,7 +194,7 @@ function Dashboard(props) {
 			   			 	<div className="balance-info pb-4">
 								<a className="price-toggle"><i className="fi fi-rr-exchange text-white"></i></a>
 								<div>
-								<h2 className="card-text text-white fs-22 greyhound-price"style={{fontWeight: 700}} id="greyhound-amount">{greyHoundBalance} GREY</h2>
+								<h2 className="card-text text-white fs-20 greyhound-price"style={{fontWeight: 700}} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
 									<span>≈ </span><h2 className="card-text fs-14 dollar-price"> 7,342.00 USD</h2><br/>
 									<a href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank" className="btn btn-primary rounded-4 mb-2 btn-xs">View More</a>
 								</div>
@@ -329,45 +329,49 @@ function Dashboard(props) {
 									<div className="card-body">
 										<div className="row">
 											<div className="col-xl-5 col-xxl-5 col-lg-5 col-sm-12 align-self-center text-center quick-trade">
-												<form>
-													<div className="dropdown custom-dropdown d-block mt-3 mt-sm-0">
-								                        <div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-								                          <img className="gh-icon" src="./images/tokens/greyhound.svg" height="30px"/>
-								                          <div className="text-left ml-3">
-								                            <span className="d-block fs-16 text-white">Grey</span>
-								                          </div>
-								                          <i className="fa fa-angle-down scale5 ml-3 text-white" />
-								                        </div>
-								                        <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)', borderRadius: '4px'}}>
-								                          <a className="dropdown-item" href="">1000 XRP</a>
-								                          <a className="dropdown-item" href="">4 KATANA</a>
-								                        </div>
-								                    </div>
-													<input type="number" className="form-control fs-28" placeholder="50000000"/>
-												</form>
-												<p className="fs-14">1 GREY = 0.0000001 XRP</p>
+												<div>
+													<form>
+														<div className="dropdown custom-dropdown d-block mt-3 mt-sm-0">
+															<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
+															<img className="gh-icon" src="./images/tokens/greyhound.svg" height="30px"/>
+															<div className="text-left ml-3">
+																<span className="d-block fs-16 text-white">HOUND</span>
+															</div>
+															<i className="fa fa-angle-down scale5 ml-3 text-white" />
+															</div>
+															<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)', borderRadius: '4px'}}>
+															<a className="dropdown-item" href="">1000 XRP</a>
+															<a className="dropdown-item" href="">4 KATANA</a>
+															</div>
+														</div>
+														<input type="number" className="form-control fs-28" placeholder="50000000"/>
+													</form>
+													<p className="fs-14">1 HOUND = 0.0000001 XRP</p>
+												</div>
 											</div>
 											<div className="col-xl-2 col-xxl-2 col-lg-2 col-sm-12 align-self-center text-center">
 												<i className="fi fi-rr-exchange circle-icon"></i>
 											</div>
 											<div className="col-xl-5 col-xxl-5 col-lg-5 col-sm-12 align-self-center text-center quick-trade">
-												<form>
-													<div className="dropdown custom-dropdown d-block mt-3 mt-sm-0">
-								                        <div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-								                          <img src="./images/tokens/xrp.png" height="30px"/>
-								                          <div className="text-left ml-3">
-								                            <span className="d-block fs-16 text-white">XRP</span>
-								                          </div>
-								                          <i className="fa fa-angle-down scale5 ml-3 text-white" />
-								                        </div>
-								                        <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)', borderRadius: '4px'}}>
-								                          <a className="dropdown-item" href="">1000 XRP</a>
-								                          <a className="dropdown-item" href="">4 KATANA</a>
-								                        </div>
-								                    </div>
-													<input type="number" className="form-control fs-28" placeholder="50000000"/>
-												</form>
-												<p className="fs-14">1 GREY = 0.0000001 XRP</p>
+												<div>
+													<form>
+														<div className="dropdown custom-dropdown d-block mt-3 mt-sm-0">
+															<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
+															<img src="./images/tokens/xrp.png" height="30px"/>
+															<div className="text-left ml-3">
+																<span className="d-block fs-16 text-white">XRP</span>
+															</div>
+															<i className="fa fa-angle-down scale5 ml-3 text-white" />
+															</div>
+															<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)', borderRadius: '4px'}}>
+															<a className="dropdown-item" href="">1000 XRP</a>
+															<a className="dropdown-item" href="">4 KATANA</a>
+															</div>
+														</div>
+														<input type="number" className="form-control fs-28" placeholder="50000000"/>
+													</form>
+													<p className="fs-14">1 HOUND = 0.0000001 XRP</p>
+												</div>
 											</div>
 										</div>
 									</div>

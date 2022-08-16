@@ -1,0 +1,108 @@
+body{
+    background: url(../images/bg.jpg) no-repeat center center fixed !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#main-wrapper {
+    background: rgba(26,25,33,.9);
+}
+[data-theme-version="dark"] .header{
+    background: transparent;
+}
+[data-theme-version="dark"] .nav-header{
+    background-color: transparent !important;
+}
+[data-theme-version="dark"] .deznav{
+    background: transparent;
+}
+[data-theme-version="dark"] .header .header-content{
+    background: transparent;
+}
+
+[data-theme-version="dark"]  .card {
+    background: rgba(166,176,207,.05);
+    backdrop-filter: blur(12px);
+    --webkit-backdrop-filter: blur(12px);
+    border-radius: 1em;
+}
+
+[data-theme-version="dark"] .dollar-price{
+    color: #a6b0cf !important;
+}
+
+#pins{
+    justify-content: left;
+}
+
+[data-theme-version="dark"] .footer .copyright p{
+    opacity: 1;
+    color: #a6b0cf;
+}
+[data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu>li>a{
+    color: #a6b0cf;
+}
+.add-menu-sidebar img{
+    bottom: 40px;
+}
+.header-profile{
+    cursor: pointer;
+}
+.event-goal{
+    box-shadow: rgb(0 0 0 / 13%) 0 34px 58px -3px;
+}
+
+.quick-trade > div{
+    border: solid 1px rgba(255,255,255,0.1) !important;
+    border-radius: 0.5em;
+    padding: 20px;
+}
+
+[data-theme-version="dark"] .quick-trade {
+    border: solid 0px rgba(255,255,255,0.1) !important;
+}
+.btn{
+    border-radius: 0.5em !important;
+    box-shadow: 8px 8px 20px 0 rgba(0,0,0,.1) !important;
+}
+.quick-trade .btn{
+    justify-content: center;
+}
+.truncate {
+    color: #a6b0cf
+}
+.add-menu-sidebar{
+    position: relative !important;
+    bottom: 0;
+    margin: 100px 50px 30px !important;
+    background: rgba(166,176,207,.05) !important;
+    backdrop-filter: blur(12px);
+    --webkit-backdrop-filter: blur(12px);
+}
+.bg-login {
+    background-image: url(../images/bg-login.jpg);
+    background-size: cover;
+    background-position: center center;
+  }
+  .login{
+  min-height: 100vh;
+  text-align: center;
+}
+.bg-login-split{
+background-color: #1C1B24;
+}.bg-login-split button{
+    background-color: #F7F7F8;
+    color: #272727; 
+}.bg-login-split button:hover, .bg-login-split button:active{
+    background-color: #F7F7F8;
+    color: #272727; 
+}.bg-login-split button > img{
+    padding-right: 1rem;
+}
+[data-theme-version="dark"] .text-muted {
+    color: #a6b0cf  !important;
+}
+.deznav-scroll{
+    padding-top: 15px;
+}

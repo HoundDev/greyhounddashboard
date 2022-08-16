@@ -530,7 +530,7 @@ input[type=number] {
 	cursor: pointer!important;
 }
 
-[data-theme-version="dark"] .quick-trade {
+[data-theme-version="dark"] .quick-trade > div {
     border: solid 1px rgba(255, 255, 255, .1) !important;
     border-radius: 0.5em;
     padding: 20px;
@@ -541,7 +541,7 @@ input[type=number] {
 .gh-icon{
 	filter: invert(1);
 }
-.quick-trade {
+.quick-trade > div {
     border: 1px solid #ddd;
     border-radius: 0.5em;
     padding: 20px;
