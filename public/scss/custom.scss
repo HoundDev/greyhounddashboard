@@ -25,6 +25,10 @@ body {
 
 [data-theme-version="dark"] .medal-lock {
 	background-color: #1A1921;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
 }
 
 .medal-lock {
@@ -701,6 +705,10 @@ input[type=number] {
 
 
 
+[data-theme-version="dark"] .authincation-content {
+    margin-top: 30%;
+}	
+
 
 [data-theme-version="dark"] .add-menu-sidebar {
     background-color: #1A1921;
@@ -872,6 +880,78 @@ input[type=number] {
 }
 .dataTables_wrapper .dataTables_paginate span {
     text-align: center;
+}
+
+
+
+/*—modal—*/
+
+.springEvent {		
+		svg {
+			max-height: 400px;
+		}
+		.modal-dialog {
+			max-width: 600px;
+    		margin: 15% auto;
+		}
+		.modal-content {
+			background-color: #252430!important;
+			text-align: center;
+		}
+		/*.modal-body {
+		    padding-top: 0;
+			padding-bottom: 0;
+		}*/
+		.modal-header {
+			padding:0; 
+		}
+		.title {
+			font-size: 13px;
+			color: #CE5C6D;
+			font-weight: bold;
+			margin-bottom: 20px;
+			margin-top: 20px;
+		}
+		.description {
+			b{
+				font-weight: bold;
+				color: #fff;
+			}
+			p{
+				line-height: 18px;
+				color: #fff;
+				display: block;
+			}
+			p.prize{
+				color: #a6b0cf;
+				margin-top: 40px;
+			}
+			p.prize img{
+				width: 150px;
+			}
+		}
+		
+		
+		img.border {
+		    border: 1px solid #fff!important;
+			border-radius: 5px;
+			width: 100%;
+		}
+}
+
+@media only screen and (max-width: 767px) {
+	.springEvent {		
+		img {
+			margin-top: 20px;
+		}
+		.description {
+			p.prize img{
+				width: 100%;
+				margin-top: 0;
+				
+			}
+		}
+	}
 }
 
 
