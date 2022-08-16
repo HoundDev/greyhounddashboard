@@ -44,28 +44,6 @@ require("dotenv").config();
 								<div className="card-body">
 								
 								
-								
-								<div className="card-footer border-0 pt-0">
-							<h5 className="card-title text-white">Pin Collection</h5>
-							<div id="pins">
-								<li className="nav-item dropdown medal">
-									<a className="nav-link" href="#" data-toggle="modal">
-										<img src="./images/badges/airdropnft.png" title="Spring Rescue 2022"
-											draggable="false"/>
-										<i className="fa-solid fa-lock medal-lock"></i>
-									</a>
-								</li>
-								<li className="nav-item dropdown medal">
-									<a className="nav-link" onClick={() => setSpringModal(true)}>
-										<img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
-											draggable="false"/>
-									</a>
-								</li>
-							</div>
-						</div>
-								
-								
-								
 								<div className="text-center mb-3">
 									
 									
@@ -538,15 +516,7 @@ require("dotenv").config();
 												</div>
 												<span className="text-primary d-block mb-3" href="#">
 													<i className="fi fi-sr-copy-alt"></i> Rescue</span>
-												<p className="fs-14 text-white font-w200">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-													eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-													ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-													aliquip ex ea commodo consequat. Duis aute irure dolor in
-													reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-													pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-													culpa qui officia deserunt mollit anim id est laborum
-												</p>
+												<p className="fs-14 text-white font-w200">11 pieces of the Greyhound. Each corresponds to a challenge ranging from social media engagement to riddle solving. 1 week to solve.</p>
 											</div>
 										</div>
 										<div className="row">
