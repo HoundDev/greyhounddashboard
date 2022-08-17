@@ -11,6 +11,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Cookies from 'universal-cookie';
 import RichList from './Components/Richlist.js';
 import SpringRescue from './Components/springRescue.js';
+import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
 import PerfectScrollbar from "react-perfect-scrollbar";
 require("dotenv").config();
@@ -249,6 +250,7 @@ function App() {
         <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
         <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
 		<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
+		<Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
     </Routes>
       
    <Footer /> 

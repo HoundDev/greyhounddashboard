@@ -341,6 +341,13 @@ input[type=number] {
 	transition: all 0.5s;
 	cursor: pointer;
 }
+.st1{fill:none;}
+.st2{fill:#CE5C6D;}
+.st4{font-size:40px!important;}
+
+.pb-300 {
+ padding-bottom: 300px;	
+}
 
 [data-theme-version="dark"] .bgl-primary {
     background: none;
@@ -929,6 +936,12 @@ input[type=number] {
 			p.prize img{
 				width: 150px;
 			}
+			a{
+				color: #CE5C6D;
+				}
+		}
+		h3 span {
+			color: #CE5C6D;
 		}
 		
 		

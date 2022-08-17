@@ -34,7 +34,7 @@ require("dotenv").config();
 				</div>
 				
 				<div className="row">
-				<div className="col-xl-4 col-xxl-4 col-lg-4">
+				<div className="col-xl-6 col-xxl-6 col-lg-6">
 						<div className="card">
 
 								<div className="card-header pb-0 border-0">
@@ -48,40 +48,98 @@ require("dotenv").config();
 									
 									
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" xmlSpace="preserve" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px">
-										
-										<g>
-											<a className="nav-link" onClick={() => setSpringModal3(true)}>
-											<polygon className="st0" points="1200.14,1492.69 1200.27,1492.43 1200.24,1492.35 1200.32,1492.32 1235.65,1417.12 1164.76,1385.33 1118.35,1482.48 1125.56,1502.29 1169.03,1538.87 1207.1,1511.26 1200.4,1492.81 	" /></a>
-											
-											<a className="nav-link" onClick={() => setSpringModal5(true)}><polygon className="st0" id="piece-v" points="1378.12,1113.89 1268.12,944.29 1228.46,918.38 973.39,752.32 830.32,980.16 814.83,1128.35 986.11,1290.65 1241.29,1405.1 	" /></a>
-											
-											<a className="nav-link" onClick={() => setSpringModal(true)}><path className="st0" id="piece-i" d="M1133.62,1526.59l-96.62,57.22c0,0-0.37,20.54,9.57,20.54c9.94,0,32.17,0,32.17,0l79.12-57.38L1133.62,1526.59 z" /></a>
-											
-											<a className="nav-link" onClick={() => setSpringModal4(true)}><polygon className="st0" id="piece-iv" points="1537.51,1359.64 1386.63,1127 1214.63,1493.08 1221.55,1512.13 1411.13,1672.26 1544.28,1625.12 1580.11,1492.84 	" /></a>
-											
-											<a className="nav-link" onClick={() => setSpringModal2(true)}><path className="st0" id="piece-ii" d="M1042.62,1646.96l1,2.88c0,0,2.58,25.86,11.96,26.17c9.38,0.31,339.77,0.31,339.77,0.31l-181.66-153.43 L1042.62,1646.96z" /></a>
-											
-											<a className="nav-link" onClick={() => setSpringModal9(true)}><polyline className="st0"
-												points="810.51,525.4 729.21,576.88 669.7,781.14 672.05,854.71 822.5,642.72 832.99,451.61 	" /></a>
-											<a className="nav-link" onClick={() => setSpringModal11(true)}><polygon className="st0 piece-xi"
-												points="773.9,325.43 465.42,400.24 441.57,451.01 691.6,500.6 	" /></a>
-											<path className="st0"
-												d="M431.65,408.43c-11.09,2.83,0,32.46,0,32.46l17.21-36.64C448.86,404.26,442.74,405.6,431.65,408.43z" />
-											<g>
-												<g>
-													<a className="nav-link" onClick={() => setSpringModal8(true)}><polygon className="st0" points="756.69,1656.99 853.18,1182.98 850.57,1180.51 801.35,1133.87 801.94,1133.24 800.98,1133.14 
-				817.42,975.79 817.39,975.77 965.98,739.16 844.11,451.61 835.6,647.21 835.5,647.2 835.57,647.25 672.75,876.67 672.95,882.98 
-				731.87,1117.64 731.87,1603 			" /></a>
-													<a className="nav-link" onClick={() => setSpringModal6(true)}><polygon className="st0"
-														points="797.41,1604.36 899.46,1226.83 864.65,1193.85 781.08,1604.36 			" /></a>
-												</g>
-												<a className="nav-link" onClick={() => setSpringModal7(true)}><path className="st0"
-													d="M750.81,1676.31l-29.3-63.73l-61.36,48.59c0,0-1.02,15.14,6.96,15.14S750.81,1676.31,750.81,1676.31z" /></a>
-											</g>
-											<a className="nav-link" onClick={() => setSpringModal10(true)}><path className="st0" id="piece-x" d="M799.14,516.69c0,0,39.28-128.26,45.21-149.17c5.93-20.91-54.52-44.16-54.52-44.16l-87.11,184.8l-6.85,20.49
-		l30.28,34.43L799.14,516.69z" /></a>
-										</g>
-									</svg>
+	<g>
+		<a className="nav-link" onClick={() =>
+			setSpringModal3(true)}>
+			<polygon id="piece-iii" class="st0" points="1272.9,1624.1 1273.1,1623.7 1273,1623.6 1273.1,1623.6 1319.1,1525.8 1226.9,1484.5 1166.5,1610.8 1175.9,1636.6 1232.4,1684.1 1281.9,1648.2 1273.2,1624.2 	" />
+		</a>
+		<a className="nav-link" onClick={() =>
+			setSpringModal5(true)}>
+			<polygon id="piece-v" class="st0" points="1504.3,1131.5 1361.3,911 1309.7,877.3 978.1,661.4 792,957.6 771.9,1150.3 
+		994.6,1361.4 1326.4,1510.2 	" />
+		</a>
+		
+		<a className="nav-link" onClick={() =>
+			setSpringModal(true)}>
+			<path id="piece-i" class="st0" d="M1186.4,1668.2l-125.6,74.4c0,0-0.5,26.7,12.4,26.7s41.8,0,41.8,0l102.9-74.6L1186.4,1668.2z" />
+		</a>
+		<a className="nav-link" onClick={() =>
+			setSpringModal4(true)}>
+			<polygon id="piece-iv" class="st0" points="1711.6,1451.1 1515.4,1148.6 1291.7,1624.6 1300.7,1649.4 1547.2,1857.6 1720.4,1796.3 
+			1767,1624.3 	" />
+		</a>
+		
+		
+		<a className="nav-link" onClick={() =>
+			setSpringModal2(true)}>
+			<path id="piece-ii" class="st0" d="M1068.1,1824.7l1.3,3.7c0,0,3.4,33.6,15.6,34c12.2,0.4,441.8,0.4,441.8,0.4l-236.2-199.5
+		L1068.1,1824.7z" />
+		</a>
+		<a className="nav-link" onClick={() =>
+			setSpringModal9(true)}>
+			<polyline class="st0" points="766.3,366.3 660.6,433.3 583.2,698.9 586.2,794.5 781.9,518.9 795.5,270.4 	" />
+		</a>
+		<a className="nav-link" onClick={() =>
+			setSpringModal11(true)}>
+			<polygon class="st0" points="718.7,106.3 317.6,203.6 286.5,269.6 611.6,334.1 	" />
+		</a>
+		
+		
+		<path class="st0" d="M273.6,214.2c-14.4,3.7,0,42.2,0,42.2l22.4-47.6C296,208.8,288.1,210.6,273.6,214.2z" />
+		
+		<g>
+			<g>
+				<a className="nav-link" onClick={() =>
+					setSpringModal8(true)}><polygon class="st0" points="696.3,1837.7 821.8,1221.4 818.4,1218.2 754.4,1157.5 755.1,1156.7 753.9,1156.6 775.3,952 
+					775.2,951.9 968.4,644.3 810,270.4 798.9,524.7 798.8,524.7 798.9,524.8 587.1,823.1 587.4,831.3 664,1136.4 664,1767.5 			" />
+				</a>
+				<a className="nav-link" onClick={() =>
+					setSpringModal6(true)}><polygon class="st0" points="749.2,1769.3 881.9,1278.4 836.7,1235.5 728,1769.3 			" />
+				</a>
+			</g>
+			<a className="nav-link" onClick={() =>
+				setSpringModal7(true)}><path class="st0" d="M688.6,1862.8l-38.1-82.9l-79.8,63.2c0,0-1.3,19.7,9.1,19.7S688.6,1862.8,688.6,1862.8z" />
+			</a>
+		</g>
+		<a className="nav-link" onClick={() =>
+			setSpringModal10(true)}><path id="piece-x" class="st0" d="M751.5,355c0,0,51.1-166.8,58.8-194c7.7-27.2-70.9-57.4-70.9-57.4L626.1,343.9l-8.9,26.6
+			l39.4,44.8L751.5,355z" />
+		</a>
+	</g>
+	<rect x="1285.7" y="1777.3" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 1285.7389 1800.0615)" class="st2 st3 st4">II</text>
+	<rect x="1136.1" y="1708" class="st1" width="95.3" height="49.4" />
+	
+	<text transform="matrix(1 0 0 1 1136.1044 1730.7969)" class="st2 st3 st4">I</text>
+	<rect x="1224.4" y="1568.6" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 1224.3542 1591.3575)" class="st2 st3 st4">III</text>
+	<rect x="1529.4" y="1556.6" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 1529.3535 1579.3702)" class="st2 st3 st4">IV</text>
+	<rect x="1147.6" y="1090.2" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 1147.5582 1112.9563)" class="st2 st3 st4">V</text>
+	<rect x="799" y="1440.3" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 798.9631 1463.1373)" class="st2 st3 st4">VI</text>
+	<rect x="676.6" y="940.9" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 676.6329 963.6602)" class="st2 st3 st4">VIII</text>
+	<rect x="612.9" y="1819.4" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 612.9039 1842.2064)" class="st2 st3 st4">VII</text>
+	<rect x="690.6" y="496.2" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 690.6329 519.0414)" class="st2 st3 st4">IX</text>
+	<rect x="708.7" y="245.8" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 708.7122 268.5889)" class="st2 st3 st4">X</text>
+	<rect x="511.1" y="212.3" class="st1" width="95.3" height="88.3" />
+	
+	<text transform="matrix(1 0 0 1 511.1397 235.0935)" class="st2 st3 st4">XI</text>
+</svg>
 
 								</div>
 								
@@ -115,8 +173,8 @@ require("dotenv").config();
 											<img src="./images/svg/spring-3.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">III – Tweet Mentions</div>
-											<h3>@XRPLGreyhound</h3>
+										
+											<h3><span>III:</span> @XRPLGreyhound</h3>
 											<div className="description">
 												<p>Needs to be mentioned in 25 tweets</p>
 												<p className="prize"><b>Prize:</b> 50 million Greyhound<br/><sub>(one winner choosen randomly)</sub></p>
@@ -140,11 +198,10 @@ require("dotenv").config();
 		                           <Modal.Body>
 								   <div className="row">
                                         <div className="col-md-6">
-											<img src="./images/svg/spring-5.png" className="border" draggable="false"/>
+											<a href="/images/svg/maze.svg"><img src="./images/svg/spring-5.png" className="border" draggable="false"/></a>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">V - Riddle</div>
-											<h3>The Maze</h3>
+											<h3><span>V:</span> The Maze</h3>
 											<div className="description">
 												<p>Be the first to complete the maze</p>
 												<p className="prize"><b>Prize:</b> 200 million Greyhound</p>
@@ -172,10 +229,9 @@ require("dotenv").config();
 											<img src="./images/svg/spring-4.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">IV - Following</div>
-											<h3>Discord Followers</h3>
+											<h3><span>IV:</span> Discord</h3>
 											<div className="description">
-												<p>Need to hit 1.5k followers</p>
+												<p>Discord needs to hit 1500 members!</p>
 												<p className="prize"><b>Prize:</b> 50 million Greyhound<br/><sub>(one active discord auser choosen randomly)</sub></p>
 											</div>
 										</div>
@@ -201,8 +257,7 @@ require("dotenv").config();
 											<img src="./images/svg/spring-2.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">II - Puzzle</div>
-											<h3>Numbers</h3>
+											<h3><span>II:</span> Numbers</h3>
 											<div className="description">
 												<p>What is the last line of numbers?</p>
 												<p className="prize"><b>Prize:</b> 200 million Greyhound<br/></p>
@@ -231,8 +286,7 @@ require("dotenv").config();
 											<img src="./images/svg/spring-1.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">I - Announcement</div>
-											<h3>Rescue Announcement Tweet</h3>
+											<h3><span>I:</span> Rescue Announcement Tweet</h3>
 											<div className="description">
 												<p>The rescue announcement tweet must reach 250 likes</p>
 												<p className="prize"><b>Prize:</b> 50 million Greyhound<br/><sub>(one winner choosen randomly)</sub></p>
@@ -261,8 +315,7 @@ require("dotenv").config();
 											<img src="./images/svg/spring-6.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">VI - Followers</div>
-											<h3>Telegram</h3>
+											<h3><span>VI:</span> Telegram</h3>
 											<div className="description">
 												<p>telegram followers must reach 500 followers</p>
 												<p className="prize"><b>Prize:</b> 50 million Greyhound<br/><sub>(one winner choosen randomly)</sub></p>
@@ -289,10 +342,9 @@ require("dotenv").config();
 											<img src="./images/svg/spring-8.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">VIII - Riddle</div>
-											<h3>Message</h3>
+											<h3>You wont find <span>VIII</span> here!</h3>
 											<div className="description">
-												<p>Find the hidden message and report back to us!</p>
+												<p>Where could it be? Find it, decode the secret message, and then report back to us.</p>
 												<p className="prize"><b>Prize:</b> 200 million Greyhound<br/></p>
 											</div>
 										</div>
@@ -314,13 +366,12 @@ require("dotenv").config();
 		                           <Modal.Body>
 								   <div className="row">
                                         <div className="col-md-6">
-											<img src="./images/svg/spring-9.svg" className="border" draggable="false"/>
+											<a href="/images/events/QR.png"><img src="./images/svg/spring-9.svg" className="border" draggable="false"/></a>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">IX - Spread the word</div>
-											<h3>QR code</h3>
+											<h3><span>IX:</span> QR code</h3>
 											<div className="description">
-												<p>This QR code must be posted in 10 different cities</p>
+												<p>This QR code must be posted in 10 different cities<br/> <a href="/images/events/QR.png"><sub>Click here to enlarge</sub></a></p>
 												<p className="prize"><b>Prize:</b> 200 million Greyhound<br/><sub>(one winner choosen randomly)</sub></p>
 											</div>
 										</div>
@@ -345,11 +396,10 @@ require("dotenv").config();
 											<img src="./images/svg/spring-7.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">VII - Infuencer</div>
-											<h3>Vote</h3>
+											<h3><span>VII:</span> Vote</h3>
 											<div className="description">
-												<p>The one with most votes at end of day receives a custom NFT</p>
-												<p className="prize"><b>Prize:</b> Custom NFT gifted to influencer<br/></p>
+												<p>Vote for your favourite character in the XRP community. Votes counted after 24 hours!</p>
+												<p className="prize"><b>Prize:</b> The winner gets a custom NFT</p>
 											</div>
 										</div>
                                     </div>
@@ -370,13 +420,12 @@ require("dotenv").config();
 		                           <Modal.Body>
 								   <div className="row">
                                         <div className="col-md-6">
-											<img src="./images/svg/spring-10.svg" className="border" draggable="false"/>
+											<a href="/images/events/map.png"><img src="./images/svg/spring-10.svg" className="border" draggable="false"/></a>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">X - Riddle</div>
-											<h3>Find the treasure win this NFT</h3>
+											<h3><span>X:</span> Find the treasure win this NFT</h3>
 											<div className="description">
-												<p className="prize"><img src="./images/events/indiana-bones.png"/></p>
+												<p className="prize"><img src="./images/events/prize-2.png"/></p>
 											</div>
 										</div>
                                     </div>
@@ -400,10 +449,9 @@ require("dotenv").config();
 											<img src="./images/svg/spring-11.svg" className="border" draggable="false"/>
 										</div>
                                         <div className="col-md-6 ml-auto justify-content-center align-self-center">
-											<div className="title">XI - Puzzle</div>
-											<h3>Complete & win this NFT</h3>
+											<h3><span>XI:</span> Complete & win this NFT</h3>
 											<div className="description">
-												<p className="prize"><img src="./images/events/ra.png"/></p>
+												<p className="prize"><img src="./images/events/prize-1.png"/></p>
 											</div>
 										</div>
                                     </div>
@@ -471,7 +519,7 @@ require("dotenv").config();
 				
 				
 				
-					<div className="col-xl-8 col-xxl-8 col-lg-8">
+					<div className="col-xl-6 col-xxl-6 col-lg-6">
 						<div className="row">
 							<div className="col-xl-12 col-xxl-12 col-lg-12">
 								<div className="card">
@@ -508,15 +556,15 @@ require("dotenv").config();
 									</div>
 									<div className="card-body">
 										<div
-											className="media d-md-flex d-block pb-sm-4 pb-2 mb-4 text-md-left text-center">
-											<img src="./images/events/spring-rescue.png" alt="" width="280" className="rounded mr-0 mr-md-4 mb-2 mb-md-0"/>
-											<div className="media-body">
+											className="media  d-block pb-sm-4 pb-2 text-md-left text-center">
+											<img src="./images/events/spring-rescue.png" alt="" width="100%" className="rounded mr-0 mr-md-4 mb-5 mb-md-0"/>
+											<div className="media-body mt-4">
 												<div className="d-md-flex d-block justify-content-between">
 													<h4 className="fs-22 text-white">Spring Rescue 2022</h4>
 												</div>
 												<span className="text-primary d-block mb-3" href="#">
 													<i className="fi fi-sr-copy-alt"></i> Rescue</span>
-												<p className="fs-14 text-white font-w200">11 pieces of the Greyhound. Each corresponds to a challenge ranging from social media engagement to riddle solving. 1 week to solve.</p>
+												<p className="fs-14 text-white font-w200">11 pieces of the Greyhound. Each corresponds to a challenge ranging from social media challenges to riddle solving.  Once that piece has been completed by a community member, it will light up on the dashboard and the next challenge will become available. There will be a grand prize for the community if the whole Greyhound is lit up, a <b>50 billion burn!</b> Leave all answers to puzzles/riddles in the riddle guesses channel on the discord</p>
 											</div>
 										</div>
 										<div className="row">
@@ -524,7 +572,7 @@ require("dotenv").config();
 												<div className="mediaInfo media bgl-primary p-3 rounded align-items-center">
 													<i className="fi fi-sr-trophy mr-4"></i>
 													<div className="media-body"><span className="fs-12 d-block mb-1">Total Prize</span>
-														<span className="fs-18 text-white"><b>100,000,000 Greyhound</b></span>
+														<span className="fs-18 text-white"><b>1,000,000,000 Greyhound</b></span>
 													</div>
 												</div>
 											</div>
