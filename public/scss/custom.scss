@@ -377,6 +377,23 @@ input[type=number] {
     border: none!important;
 }
 
+
+
+#sent .table tbody tr td, #received .table tbody tr td, #send .table tbody tr td, #sell .table tbody tr td, #buy .table tbody tr td {
+    border: none!important;
+}
+
+#sent .table a, #received .table a, #send .table a, #sell .table a, #buy .table a {
+    display: contents;
+	color: #a6b0cf!important;
+}
+#sent .table a i, #received .table a i, #send .table a i, #sell .table a i, #buy .table a i {
+    color: #CE5C6D!important;
+}
+#sent .table a:hover i, #received .table a:hover i, #send .table a:hover i, #sell .table a:hover i, #buy .table a:hover i {
+    color: #fff!important;
+}
+
 .table tbody tr td {
     vertical-align: middle;
     border-color: #f0f1f5;

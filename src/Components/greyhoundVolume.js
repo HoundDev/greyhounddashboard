@@ -3,7 +3,8 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
-const data = {
+
+export var data = {
    defaultFontFamily: "Poppins",
    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
    datasets: [{
