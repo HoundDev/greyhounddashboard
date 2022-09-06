@@ -28,8 +28,8 @@ require("dotenv").config();
           		
           		<div className="page-titles">
 					<ol className="breadcrumb">
-						<li className="breadcrumb-item active"><a>Events</a></li>
-						<li className="breadcrumb-item"><a>Spring Rescue 2022</a></li>
+						<li className="breadcrumb-item"><a>Events</a></li>
+						<li className="breadcrumb-item active"><a>Spring Rescue 2022</a></li>
 					</ol>
 				</div>
 				

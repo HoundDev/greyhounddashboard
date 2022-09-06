@@ -132,8 +132,7 @@ function App() {
 
                   <li className="nav-item ">
                     <a className="nav-link pl-3">
-                      <label className="theme-toggle theme-toggle--toggled" title="Toggle theme">
-
+                      <label className="theme-toggle " title="Toggle theme">
                         <input id="theme-toggle" type="checkbox" checked={checked} onChange={handleChange} />
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1em" height="1em" fill="currentColor" strokeLinecap="round" className="theme-toggle__classic" viewBox="0 0 32 32">
                           <clipPath id="theme-toggle__classic__cutout">
@@ -155,6 +154,44 @@ function App() {
                         </svg>
                       </label>
                     </a>
+                  </li>
+
+                  <li className="nav-item dropdown notification_dropdown">
+                    <a className="nav-link" href="#" data-toggle="dropdown">
+                      <i className="fi fi-sr-bell text-white"></i>
+                      <span className="badge light bg-secondary">3</span>
+                    </a>
+
+                    <div className="dropdown-menu dropdown-menu-right">
+                      <div  className="widget-media dz-scroll p-3 ps">
+                        <ul className="timeline">
+                          <li>
+                            <div className="timeline-panel">
+                              <div className="media-body">
+                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
+                                <h5 className="text-white">New blog post</h5>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="timeline-panel">
+                              <div className="media-body">
+                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
+                                <h5 className="text-white">Dr sultads Send you Photo</h5>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="timeline-panel">
+                              <div className="media-body">
+                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
+                                <h5 className="text-white">Dr sultads Send you Photo</h5>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                       </div>
+                    </div>
                   </li>
 
 
