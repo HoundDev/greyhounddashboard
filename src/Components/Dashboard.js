@@ -2,7 +2,9 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { dataa } from './greyhoundVolume';
+import { data } from './ActivityLine3';
+import { GHdata } from './ActivityLine';
 import TransactionsSent from './TransactionsSent'
 import TransactionsReceived from './TransactionsReceived'
 import GreyVolume from "./greyhoundVolume";
@@ -38,6 +40,38 @@ function Dashboard(props) {
 				body: JSON.stringify({ "xrpAddress": requestContent })
 			});
 			let json = await response.json()
+			var VolumeDict = json.TokenVolume
+			var xrppricess = json.XRPPrices
+			var ghpricess = json.GHPrices
+			var labelsArray = []
+			var dataArray = []
+			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			var counter = 0
+			for (var key in VolumeDict) {
+				// console.log(VolumeDict[key])
+				// console.log(key)
+				labelsArray.push(months[counter])
+				dataArray.push(VolumeDict[key])
+				counter += 1
+			}
+			dataa.datasets[0].data = dataArray
+			dataa.labels = labelsArray
+			var xrpPirces = []
+			var days = []
+			for (var key in xrppricess) {
+				xrpPirces.push(xrppricess[key])
+				days.push(key)
+			}
+			data.datasets[0].data = xrpPirces
+			data.labels = days
+			var ghPirces = []
+			var dayss = []
+			for (var key in ghpricess) {
+				ghPirces.push(ghpricess[key])
+				dayss.push(key)
+			}
+			GHdata.datasets[0].data = ghPirces
+			GHdata.labels = dayss
 			return { success: true, data: json };
 		} catch (error) {
 			return { success: false };

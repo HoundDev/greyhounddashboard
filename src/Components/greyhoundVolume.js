@@ -4,9 +4,9 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 
-export var data = {
+export var dataa = {
    defaultFontFamily: "Poppins",
-   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+   labels: [],
    datasets: [{
 		label: "Issue Supply",
 		backgroundColor: '#CE5C6C',
@@ -81,7 +81,7 @@ const options = {
 };
 class GreyhoundVolume extends Component {
    render() {
-      return <Line data={data} options={options} height={100} />;
+      return <Line data={dataa} options={options} height={100} />;
    }
 }
 
