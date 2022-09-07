@@ -91,33 +91,20 @@ background-color: #1C1B24;
 }.bg-login-split button{
     background-color: #F7F7F8;
     color: #272727; 
+    border: 1px #fff;
 }.bg-login-split button:hover, .bg-login-split button:active{
-    background-color: #F7F7F8;
-    color: #272727; 
+    background-color: #F7F7F8 !important;
+    color: #272727 !important;
+    border: 1px #fff;
 }.bg-login-split button > img{
     padding-right: 1rem;
 }
 [data-theme-version="dark"] .text-muted {
-    color: rgba(255, 255, 255, 0.6)  !important;
+    color: #a6b0cf  !important;
 }
 .deznav-scroll{
     padding-top: 15px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -205,9 +192,7 @@ background-color: #1C1B24;
     animation-duration: 380ms;
     animation-name: itvSYN;
  }
-.chakra-modal__body {
-    background-color: red !important;
-}
+
 .page-titles {
     background: transparent !important;
 }
@@ -329,6 +314,24 @@ background-color: #1C1B24;
     color: #a6b0cf;
 }.dropdown-menu .dropdown-item:hover{
     color: #fff !important;
+}
+
+/* Login */
+
+.chakra-modal__overlay{
+    backdrop-filter: blur(12px);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+    animation-duration: 380ms;
+}
+
+.chakra-modal__body{
+    border-radius: 1em;
+    background: rgba(166,176,207,.05); !important;
+}
+
+.chakra-modal__content {
+    background: transparent !important;
 }
 
 /* NFTS */
