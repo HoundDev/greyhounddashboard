@@ -39,7 +39,7 @@ export default function NftHome() {
                     </div>
 
                     <div className="col-xl-4 col-xxl-4 col-lg-4">
-                        <div className="card">
+                        <div className="card card-gradient">
                             <div className="card-header border-0 pb-0">
                                 <h5 className="card-title text-white">Current Balance</h5>
                             </div>
@@ -54,9 +54,7 @@ export default function NftHome() {
                 </div>
 
                 <div className="row overflow-h">
-                <div className="nft-gradient-bg">
-                    <img src="./images/test/gradient-1.png"/>
-                </div>
+
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
 								<div className="d-flex  mt-4 ">
 									<div>

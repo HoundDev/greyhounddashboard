@@ -408,6 +408,30 @@ background-color: #1C1B24;
     max-width: 100%;
 }
 
+.css-selector {
+    background: linear-gradient(-45deg, #ffe66d, #a6b0cf, #ce5c6d) !important;
+    background-size: 400% 400%;
+    -webkit-animation: AnimationGradient 43s ease infinite;
+    -moz-animation: AnimationGradient 43s ease infinite;
+    animation: AnimationGradient 43s ease infinite;
+}
+
+@-webkit-keyframes AnimationGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
 /* NFT Explore */
 
 .explore-container{
