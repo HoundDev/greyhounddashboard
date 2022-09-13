@@ -1,10 +1,4 @@
-body{
-    background: url(../images/bg.jpg) no-repeat center center fixed !important;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
+
 #main-wrapper {
     background: rgba(26,25,33,1);
 }
@@ -115,6 +109,14 @@ background-color: #1C1B24;
 }
 .btn:active, button:active{
     transform: scale(0.95);
+}
+
+.btn-white{
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+}.btn-white:hover{
+    color: #000 !important;
 }
 
 [data-theme-version="dark"] .dropdown-menu{
@@ -328,10 +330,16 @@ background-color: #1C1B24;
 .chakra-modal__body{
     border-radius: 1em;
     background: rgba(166,176,207,.05); !important;
+    
 }
 
 .chakra-modal__content {
     background: transparent !important;
+    box-shadow: rgb(0 0 0 / 0%) 0px 6px 12px !important;
+}
+
+.chakra-stack img{
+    border-radius: 0.5em;
 }
 
 /* NFTS */
@@ -387,9 +395,9 @@ background-color: #1C1B24;
     top: 70px;
     height: 390px;
     right: 0px;
-    z-index: -1;
+    z-index: 1;
 }.nft-gradient-bg > img{
-    z-index: -1;
+    z-index: 1;
     position: absolute;
     bottom: -500px;
     width: 100%;

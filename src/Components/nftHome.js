@@ -25,14 +25,14 @@ export default function NftHome() {
                                         <h2 className="card-text text-white">Discover, Collect and Trade XLS-20 NFTs</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                             eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <a href="#" className="btn btn-primary rounded-4 mb-2">
+                                        <a href="#" className="btn btn-white rounded-4 mb-2">
                                             Explore
                                         </a>
                                     </div>
                                 </div>
 
                                 <div className="col-md-4">
-                                    <img draggable="false" src="./images/hound.png" alt="NFT 1" />
+                                    <img draggable="false" src="./images/hound-3d.png" alt="NFT 1" />
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ export default function NftHome() {
 
                 <div className="row overflow-h">
                 <div className="nft-gradient-bg">
-                    <img src="./images/test/gradient.png"/>
+                    <img src="./images/test/gradient-1.png"/>
                 </div>
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
 								<div className="d-flex  mt-4 ">
