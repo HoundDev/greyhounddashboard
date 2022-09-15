@@ -5,16 +5,14 @@ import Login from './Components/Login'
 
 
 import Dashboard from './Components/Dashboard'
-import { Route, Routes, Redirect, Link } from "react-router-dom";
-import { isMobile } from 'react-device-detect';
-import React, { useState, useRef, useEffect } from "react";
+import { Route, Routes, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Cookies from 'universal-cookie';
 import RichList from './Components/Richlist.js';
 import SpringRescue from './Components/springRescue.js';
 import NftHome from './Components/nftHome.js';
 import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
-import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
 import PerfectScrollbar from "react-perfect-scrollbar";
 require("dotenv").config();

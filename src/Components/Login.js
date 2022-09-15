@@ -1,8 +1,6 @@
-import { Route, Switch, Redirect, NavLink } from "react-router-dom";
 import { isMobile, isBrowser } from 'react-device-detect';
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import TransactionXumm from "./TransactionXumm";
-import { verifySignature } from 'verify-xrpl-signature'
 import {
   Spinner,
   Alert,

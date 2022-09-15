@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-
+import React from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css'
 
