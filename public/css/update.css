@@ -408,28 +408,28 @@ background-color: #1C1B24;
     max-width: 100%;
 }
 
-.css-selector {
+.card-gradient {
     background: linear-gradient(-45deg, #ffe66d, #a6b0cf, #ce5c6d) !important;
-    background-size: 400% 400%;
-    -webkit-animation: AnimationGradient 43s ease infinite;
-    -moz-animation: AnimationGradient 43s ease infinite;
-    animation: AnimationGradient 43s ease infinite;
+    background-size: 400% 400% !important;
+    -webkit-animation: AnimationGradient 30s ease infinite !important;
+    -moz-animation: AnimationGradient 30s ease infinite !important;
+    animation: AnimationGradient 30s ease infinite !important;
 }
 
 @-webkit-keyframes AnimationGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 50% !important}
+    50%{background-position:100% 50% !important}
+    100%{background-position:0% 50% !important }
 }
 @-moz-keyframes AnimationGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 50% !important}
+    50%{background-position:100% 50% !important}
+    100%{background-position:0% 50% !important}
 }
 @keyframes AnimationGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 50% !important}
+    50%{background-position:100% 50% !important}
+    100%{background-position:0% 50% !important}
 }
 
 /* NFT Explore */
