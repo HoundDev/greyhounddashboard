@@ -7,6 +7,8 @@ import { data } from './ActivityLine3';
 import { GHdata } from './ActivityLine';
 import TransactionsSent from './TransactionsSent'
 import TransactionsReceived from './TransactionsReceived'
+import TransactionsSell from './TransactionsSell'
+import TransactionsBuy from './TransactionsBuy'
 import GreyVolume from "./greyhoundVolume";
 import GreySupply from "./greyhoundSupply";
 import ActivityLine from "./ActivityLine";
@@ -27,6 +29,8 @@ function Dashboard(props) {
 	const [greyHoundAmountBurnt, setGreyHoundAmountBurnt] = useState(0)
 	const [lastTransactionsSent, setLastTransactionsSent] = useState([])
 	const [lastTransactionsReceived, setLastTransactionsReceived] = useState([])
+	const [lastTransactionsSell, setLastTransactionsSell] = useState([])
+    const [lastTransactionsBuy, setLastTransactionsBuy] = useState([])
 	const [snapShotTier, setSnapShotTier] = useState('None')
 	const [snapShotTierBalance, setSnapShotTierBalance] = useState(0)
 	const [basicModal, setBasicModal] = useState(false);
@@ -134,6 +138,8 @@ function Dashboard(props) {
 			//Set Transactions
 			let receivedTxns = []
 			let sentTxns = []
+			let sellTxns = []
+            let buyTxns = []
 			for (let i = 0; i < mainData.data.Transactions.length; i++) {
 				if (mainData.data.Transactions[i].tx.TransactionType === 'Payment') {
 					if (mainData.data.Transactions[i].tx.Destination === props.xrpAddress) {
@@ -171,10 +177,21 @@ function Dashboard(props) {
 					}
 				}
 			}
+			//Sell Buy Transactions
+            for(let i = 0; i < mainData.data.TokenBuy.length; i++)
+            {
+                buyTxns.push({amount: mainData.data.TokenBuy[i].amountGH, amountXrp: mainData.data.TokenBuy[i].TakerGetsXRP, exchangeRate: mainData.data.TokenBuy[i].price, address: mainData.data.TokenBuy[i].address})
+            }
+			for(let i = 0; i < mainData.data.TokenSell.length; i++)
+            {
+                sellTxns.push({amount: mainData.data.TokenSell[i].amount, amountXrp: mainData.data.TokenSell[i].priceXrp, exchangeRate: mainData.data.TokenSell[i].price, address: mainData.data.TokenSell[i].seller})
+            }
 
 			console.log(sentTxns, receivedTxns)
 			setLastTransactionsSent(sentTxns);
 			setLastTransactionsReceived(receivedTxns);
+			setLastTransactionsSell(sellTxns);
+            setLastTransactionsBuy(buyTxns);
 
 		} catch (err) {
 
@@ -566,7 +583,7 @@ function Dashboard(props) {
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
 									<div>
-										<h4 className="fs-20 text-white">Last Transactions</h4>
+										<h4 className="fs-20 text-white">Recent Orders</h4>
 									</div>
 									<div className="card-action card-tabs mt-3 mt-sm-0">
 										<ul className="nav nav-tabs" role="tablist">
@@ -577,7 +594,7 @@ function Dashboard(props) {
 											</li>
 											<li className="nav-item">
 												<a className="nav-link" data-toggle="tab" href="#send" role="tab" aria-selected="false">
-													Send
+													Sell
 												</a>
 											</li>
 										</ul>
@@ -585,7 +602,7 @@ function Dashboard(props) {
 								</div>
 								<div className="card-body p-0 tab-content">
 									{/* send */}
-									<div className="tab-pane fade active show" id="send">
+									<div className="tab-pane" id="send">
 										<div className="table-responsive">
 											<table className="table text-center bg-info-hover card-table">
 												<thead>
@@ -595,49 +612,13 @@ function Dashboard(props) {
 													</tr>
 												</thead>
 												<tbody>
-													<tr className="sell">
-														<td className="text-left">80,000,000</td>
-														<td>0.0000048</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="sell">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
+													<TransactionsSell transactions={lastTransactionsSell} />
 												</tbody>
 											</table>
 										</div>
 									</div>
 									{/* buy */}
-									<div className="tab-pane" id="buy">
+									<div className="tab-pane fade active show" id="buy">
 										<div className="table-responsive">
 											<table className="table text-center bg-info-hover card-table">
 												<thead>
@@ -647,42 +628,7 @@ function Dashboard(props) {
 													</tr>
 												</thead>
 												<tbody>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
-													<tr className="buy">
-														<td className="text-left">14,602,196</td>
-														<td>0.00000378</td>
-													</tr>
+													<TransactionsBuy transactions={lastTransactionsBuy} />
 												</tbody>
 											</table>
 										</div>

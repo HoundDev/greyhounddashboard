@@ -43,14 +43,14 @@ const options = {
             gridColor: "navy",
             gridLines: {
                color: "rgba(0,0,0,0.1)",
-               height: 50,
+               height: 150,
                drawBorder: true,
             },
             ticks: {
                fontColor: "#3e4954",
-               max: 100,
-               min: 0,
-               stepSize: 20,
+               max: 0.00001,
+               min: 0.0000001,
+               stepSize: .0000025,
             },
          },
       ],
