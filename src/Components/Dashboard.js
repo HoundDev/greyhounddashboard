@@ -17,7 +17,6 @@ import Tilt from 'react-vanilla-tilt';
 
 
 
-
 require("dotenv").config();
 const xrpl = require("xrpl");
 
@@ -35,6 +34,8 @@ function Dashboard(props) {
 	const [snapShotTierBalance, setSnapShotTierBalance] = useState(0)
 	const [basicModal, setBasicModal] = useState(false);
 	const [ogModal, setOgModal] = useState(false);
+	const [greyHoundPrice, setGreyHoundPrice] = useState(0)
+	const [xrpPrice, setXrpPrice] = useState(0)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -134,7 +135,10 @@ function Dashboard(props) {
 				setGreyHoundSupply(Math.round(mainData.data.GreyHoundAmount[0].sum));
 				setGreyHoundAmountBurnt(parseFloat((1 - parseFloat(mainData.data.GreyHoundAmount[0].sum) / 1000000000000) * 100).toFixed(2))
 			}
-
+			//Get Greyhound Price
+			setGreyHoundPrice(mainData.data.CurrentGH)
+			//Get XRP Price
+			setXrpPrice(mainData.data.CurrentXRP)
 			//Set Transactions
 			let receivedTxns = []
 			let sentTxns = []
@@ -550,7 +554,8 @@ function Dashboard(props) {
 											<div className="d-flex align-items-center mt-3 mt-sm-0">
 												<p className="mb-0 fs-13 mr-3">Current price</p>
 												<h2 className="mb-0 text-black font-w600">
-													000000.5
+													{xrpPrice}<br></br>
+													{greyHoundPrice}
 												</h2>
 											</div>
 										</div>
