@@ -25,7 +25,7 @@ export var data = {
          borderWidth: "4",
          barThickness: "flex",
          backgroundColor: "rgba(255, 171, 45, 0.05)",
-         minBarLength: 10,
+         minBarLength: 30,
       },
    ],
 };
@@ -48,9 +48,9 @@ const options = {
             },
             ticks: {
                fontColor: "#3e4954",
-               max: 100,
-               min: 0,
-               stepSize: 20,
+               max: 0.80,
+               min: 0.20,
+               stepSize: 0.2,
             },
          },
       ],
@@ -63,7 +63,7 @@ const options = {
                zeroLineColor: "transparent",
             },
             ticks: {
-               stepSize: 20,
+               stepSize: 1,
                fontColor: "#3e4954",
                fontFamily: "Nunito, sans-serif",
             },
