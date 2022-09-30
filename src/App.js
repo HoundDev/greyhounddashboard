@@ -23,12 +23,12 @@ require("dotenv").config();
 
 function App() {
   const [userAddress, setUserAddress] = React.useState('')
-  const [userSession, setUserSession] = React.useState('')
+  //const [userSession, setUserSession] = React.useState('')
   const [activeStyleDashboard, setActiveStyleDashboard] = React.useState('mm-active')
   const [activeStyleRichList, setActiveStyleRichlist] = React.useState('')
 
   const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
-  const [snapShotTier, setsnapShotTier] = React.useState('None')
+  //const [snapShotTier, setsnapShotTier] = React.useState('None')
 
   const [toggle, setToggle] = useState(false);
 
@@ -42,15 +42,16 @@ function App() {
   useEffect(() => {
     const cookies = new Cookies();
     let userAddress = cookies.get('userAddress');
-    let userSession = cookies.get('userSession');
-    if (userAddress !== undefined && userSession !== undefined) {
+    //let userSession = cookies.get('userSession');
+    //if (userAddress !== undefined && userSession !== undefined) {
+    if (userAddress !== undefined) {
       setUserAddress(userAddress);
-      setUserSession(userSession);
+      //setUserSession(userSession);
     }
   }, []);
 
   function getTier(tier) {
-    setsnapShotTier(tier);
+    //setsnapShotTier(tier);
   }
 
 
@@ -64,9 +65,9 @@ function App() {
   function Logout() {
     const cookies = new Cookies();
     cookies.remove('userAddress');
-    cookies.remove('userSession');
+    //cookies.remove('userSession');
     setUserAddress('');
-    setUserSession('');
+    //setUserSession('');
   }
 
   function setActive(str) {
@@ -84,8 +85,6 @@ function App() {
       setActiveStyleSpringRescue('mm-active')
     }
   }
-
-  console.log(userAddress)
 
   return (
     <>
@@ -129,7 +128,7 @@ function App() {
 
 
                   <li className="nav-item ">
-                    <a className="nav-link pl-3">
+                    <button className="nav-link pl-3">
                       <label className="theme-toggle " title="Toggle theme">
                         <input id="theme-toggle" type="checkbox" checked={checked} onChange={handleChange} />
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1em" height="1em" fill="currentColor" strokeLinecap="round" className="theme-toggle__classic" viewBox="0 0 32 32">
@@ -151,14 +150,14 @@ function App() {
                           </g>
                         </svg>
                       </label>
-                    </a>
+                    </button>
                   </li>
 
                   <li className="nav-item dropdown notification_dropdown">
-                    <a className="nav-link" href="#" data-toggle="dropdown">
+                    <button className="nav-link" data-toggle="dropdown">
                       <i className="fi fi-sr-bell text-white"></i>
                       <span className="badge light bg-secondary">3</span>
-                    </a>
+                    </button>
 
                     <div className="dropdown-menu dropdown-menu-right">
                       <div  className="widget-media dz-scroll p-3 ps">
@@ -195,7 +194,7 @@ function App() {
 
 
                   <li className="nav-item dropdown header-profile">
-                    <a className="nav-link" role="button" data-toggle="dropdown">
+                    <button className="nav-link" data-toggle="dropdown">
                       <div className="header-info">
                         <span className="text-white"
                           id="wallet-address"><strong>{userAddress}
@@ -203,9 +202,9 @@ function App() {
                         <p className="fs-15 mb-0">Wallet Address</p>
                       </div>
                       <img src="./images/avatar/default-avatar.jpg" width="20" alt="" draggable="false" />
-                    </a>
+                    </button>
                     <div className="dropdown-menu dropdown-menu-right">
-                      <a onClick={Logout} className="dropdown-item ai-icon">
+                      <button onClick={Logout} className="dropdown-item ai-icon">
                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" className="text-danger"
                           width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                           strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -214,7 +213,7 @@ function App() {
                           <line x1="21" y1="12" x2="9" y2="12"></line>
                         </svg>
                         <span className="ml-2">Logout </span>
-                      </a>
+                      </button>
                     </div>
                   </li>
                 </ul>
@@ -248,15 +247,15 @@ function App() {
 
 
 
-              <li><a className="ai-icon" href="#" aria-expanded="false">
+              <li><button className="ai-icon" aria-expanded="false">
                 <i className="fi fi-sr-gallery"></i>
                 <span className="nav-text">NFTs <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
-              </a>
+              </button>
               </li>
-              <li><a className="ai-icon" href="#" aria-expanded="false">
+              <li><button className="ai-icon" aria-expanded="false">
                 <i className="fi fi-sr-gamepad"></i>
                 <span className="nav-text">Games <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
-              </a>
+              </button>
               </li>
 
               <li><a className="ai-icon" href="https://greyhoundcoin.net/" aria-expanded="false">
@@ -270,7 +269,7 @@ function App() {
 
 
             <div className="add-menu-sidebar ">
-              <img src="./images/staking-bitrue.png" draggable="false" />
+              <img src="./images/staking-bitrue.png" draggable="false" alt="Stake On Bitrue" />
               <a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-primary rounded-4" target="blank">Stake On Bitrue</a>
             </div>
           </PerfectScrollbar>
