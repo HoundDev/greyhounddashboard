@@ -74,6 +74,8 @@ function Dashboard(props) {
 	const [ogModal, setOgModal] = useState(false);
 	const [greyHoundPrice, setGreyHoundPrice] = useState(0)
 	const [xrpPrice, setXrpPrice] = useState(0)
+	const [qrcodepng, setQrcodepng] = useState('')
+	const [popupTrade, setPopupTrade] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -146,8 +148,15 @@ function Dashboard(props) {
 			body: JSON.stringify(xummPayload)
 		});
 		let json = await response.json()
-		console.log(json.next.always)
+		console.log(json)
+		let qrCode = json.refs.qr_png
+		//check if the user is on mobile
+		let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		if (isMobile) {
 		window.open(json.next.always, '_blank');
+		} else {
+		setQrcodepng(qrCode)
+		}
 	}
 		//detect button click and call function
 		document.addEventListener("DOMContentLoaded", function () {
@@ -159,6 +168,11 @@ function Dashboard(props) {
 				amountCounter = amountCounter * 1000000
 				if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
 					createOffer(amountBase, amountCounter)
+					let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+					// setPopupTrade(true)
+					if (!isMobile) {
+						setPopupTrade(true)
+					}
 				}
 				else {
 					alert("Please enter an amount")
@@ -338,9 +352,7 @@ function Dashboard(props) {
 		>
 			<div className="content-body">
 				<div className="container-fluid">
-
 					<div className="row">
-
 						<div className="col-xl-3 col-xxl-3 col-lg-3">
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
@@ -357,8 +369,6 @@ function Dashboard(props) {
 											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br />
 											<a href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank" className="btn btn-primary rounded-4 mb-2 btn-xs">View More</a>
 										</div>
-
-
 									</div>
 
 
@@ -537,10 +547,21 @@ function Dashboard(props) {
 										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 										{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
 										<button className="btn btn-primary rounded-4 mb-2" id='myButton'>Trade</button></div></div></div>
-
-
-
-
+									<Modal show={popupTrade} className="fade" size='lg'>
+										<Modal.Header>
+											<Modal.Title>Scan QR Code</Modal.Title>
+										</Modal.Header>
+										<Modal.Body>
+											<div className="close=button">
+												<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{alignSelf: 'flex-end'}}>Close</button>
+											</div>
+											<div className="qr-code-img">
+												<center>
+												<img src={qrcodepng} alt="QR Code" />
+												</center>
+											</div>
+										</Modal.Body>
+									</Modal>
 									</div>
 								</div>
 							</div>
