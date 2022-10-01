@@ -18,45 +18,95 @@ import Tilt from 'react-vanilla-tilt';
 require("dotenv").config();
 const xrpl = require("xrpl");
 
+// const format = (num, decimals) => {
+// 	  return num.toLocaleString(undefined, {
+// 		minimumFractionDigits: 0,
+// 		maximumFractionDigits: decimals,
+// 	  });
+// 	};
+//above method but with error handling
 const format = (num, decimals) => {
-	  return num.toLocaleString(undefined, {
-		minimumFractionDigits: 0,
-		maximumFractionDigits: decimals,
-	  });
-	};
+	  try {
+		return num.toLocaleString(undefined, {
+		  minimumFractionDigits: 0,
+		  maximumFractionDigits: decimals,
+		});
+	} catch (e) {
+		return num;
+	}
+};		
 
 // make a function that converts big numbers to formats such as `k`, `m`
+// const formatNumber = (num) => {
+// 	  if (num >= 1000000000) {
+// 		return format(num / 1000000000, 3) + "B";
+// 	  } else if (num >= 1000000) {
+// 		return format(num / 1000000, 2) + "M";
+// 	  } else if (num >= 1000) {
+// 		return format(num / 1000, 1) + "K";
+// 	  } else {
+// 		return format(num, 0);
+// 	  }
+// 	};
+//above method but with error handling
 const formatNumber = (num) => {
-	  if (num >= 1000000000) {
-		return format(num / 1000000000, 3) + "B";
-	  } else if (num >= 1000000) {
-		return format(num / 1000000, 2) + "M";
-	  } else if (num >= 1000) {
-		return format(num / 1000, 1) + "K";
-	  } else {
-		return format(num, 0);
-	  }
-	};
+	  try {
+		if (num >= 1000000000) {
+			return format(num / 1000000000, 3) + "B";
+		} else if (num >= 1000000) {
+			return format(num / 1000000, 2) + "M";
+		} else if (num >= 1000) {
+			return format(num / 1000, 1) + "K";
+		} else {
+			return format(num, 0);
+		}
+	} catch (e) {
+		return num;
+	}
+};
 
 //reverse the format function
+// const reverseFormat = (num) => {
+// 	  const len = num.length;
+// 	  if (len > 1) {
+// 		const lastChar = num.charAt(len - 1);
+// 		const value = parseFloat(num.substring(0, len - 1));
+// 		switch (lastChar) {
+// 			case "K":
+// 				return value * 1000;
+// 			case "M":
+// 				return value * 1000000;
+// 			case "B":
+// 				return value * 1000000000;
+// 			default:
+// 				return num;
+// 		}
+// 	  }
+// 	  return num;
+// 	};
+//above method but with error handling
 const reverseFormat = (num) => {
-	  const len = num.length;
-	  if (len > 1) {
-		const lastChar = num.charAt(len - 1);
-		const value = parseFloat(num.substring(0, len - 1));
-		switch (lastChar) {
-			case "K":
-				return value * 1000;
-			case "M":
-				return value * 1000000;
-			case "B":
-				return value * 1000000000;
-			default:
-				return num;
+	  try {
+		const len = num.length;
+		if (len > 1) {
+			const lastChar = num.charAt(len - 1);
+			const value = parseFloat(num.substring(0, len - 1));
+			switch (lastChar) {
+				case "K":
+					return value * 1000;
+				case "M":
+					return value * 1000000;
+				case "B":
+					return value * 1000000000;
+				default:
+					return num;
+			}
 		}
-	  }
-	  return num;
-	};
+		return num;
+	} catch (e) {
+		return num;
+	}
+};
 
 
 function Dashboard(props) {
