@@ -276,8 +276,6 @@ button:active {
     background: transparent;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {}
-
 .overflow-h {
     overflow: hidden;
 }
@@ -402,8 +400,7 @@ button:active {
 
 .chakra-modal__body {
     border-radius: 1em;
-    background: rgba(166, 176, 207, .05);
-     !important;
+    background: rgba(166, 176, 207, .05)!important;
 
 }
 

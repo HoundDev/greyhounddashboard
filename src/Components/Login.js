@@ -188,9 +188,7 @@ function Login(props) {
 
 
         <div className="col-md-8 d-none d-md-flex bg-login">
-          <video autoPlay muted loop>
-            <source src="./videos/houndcity.mp4" type="video/mp4" />
-          </video>
+          
         </div>
 
         
