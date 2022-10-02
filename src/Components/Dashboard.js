@@ -403,37 +403,48 @@ function Dashboard(props) {
 			<div className="content-body">
 				<div className="container-fluid">
 					<div className="row">
-						<div className="col-xl-3 col-xxl-3 col-lg-3">
-							<div className="card overflow-hidden">
+						<div className="col-xl-12 col-xxl-12 col-lg-12">
+							<div className="card card-highlight overflow-hidden">
 								<div className="card-header border-0 pb-0">
-									<h5 className="card-title text-white">Balance</h5>
+									<h5 className="card-title text-black">Balance</h5>
 									<div className="card-header-right">
-										<a className="fs-16 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</a>
+										
 									</div>
+									<div className="dropdown custom-dropdown mb-0 d-md-block d-none">
+											<div data-toggle="dropdown">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+														stroke="#fff" strokeWidth="2"
+														stroke-linecap="round" stroke-linejoin="round">
+													</path>
+													<path
+														d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+														stroke="#fff" strokeWidth="2"
+														stroke-linecap="round" stroke-linejoin="round">
+													</path>
+													<path
+														d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+														stroke="#fff" strokeWidth="2"
+														stroke-linecap="round" stroke-linejoin="round">
+													</path>
+												</svg>
+											</div>
+											<div className="dropdown-menu dropdown-menu-right">
+												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View More</a>
+											</div>
+										</div>
 								</div>
 								<div className="card-body">
 									<div className="balance-info pb-4">
-										<a className="price-toggle"><i className="fi fi-rr-exchange text-white"></i></a>
 										<div>
-											<h2 className="card-text text-white fs-20 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br />
-											<a href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank" className="btn btn-primary rounded-4 mb-2 btn-xs">View More</a>
+											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br /><a className="fs-16 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</a>
 										</div>
 									</div>
 
 
-									<div className="event-goal d-flex flex-wrap align-items-center mt-4">
-										<div className="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
-											<a href="#" className="text-white mb-1 fs-16">NFT Airdrop</a>
-											<span>You have <a>1 Legendary unclaimed NFT</a></span>
-										</div>
-									</div>
-									<div className="event-goal d-flex flex-wrap align-items-center mt-4">
-										<div className="d-flex flex-column flex-grow-1 my-lg-0 my-2 mr-2">
-											<a href="#" className="text-white mb-1 fs-16">NFT Airdrop</a>
-											<span>You have <a>1 Original Greyhound unclaimed NFT</a></span>
-										</div>
-									</div>
 								</div>
 
 
@@ -464,10 +475,6 @@ function Dashboard(props) {
 										</li>
 									</div>
 								</div>
-
-
-
-
 
 
 
@@ -535,13 +542,13 @@ function Dashboard(props) {
 							</div>
 						</div>
 
-						<div className="col-xl-5 col-xxl-5 col-lg-5">
+						<div className="col-xl-8 col-xxl-8 col-lg-8">
 							<div className="row">
 								<div className="col-xl-12 col-xxl-12 col-lg-12">
 									<div className="card overflow-hidden trade-card">
 
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
-											<h5 className="card-title text-white">Quick Trade</h5>
+											<h5 className="card-title text-white">Quick Swap</h5>
 										</div>
 
 										<div className="card-body">
@@ -596,7 +603,7 @@ function Dashboard(props) {
 
 										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 										{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-										<button className="btn btn-primary rounded-4 mb-2" id='myButton'>Trade</button></div></div></div>
+										<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
 									<Modal show={popupTrade} className="fade" size='lg'>
 										<Modal.Header>
 											<Modal.Title>Scan QR Code</Modal.Title>

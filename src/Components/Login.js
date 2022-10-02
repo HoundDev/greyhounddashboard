@@ -157,11 +157,13 @@ function Login(props) {
       </div>
 
       <div className="row no-gutter">
-        <div className="col-md-6 bg-login-split">
+        
+
+      <div className="col-md-4 bg-login-split">
           <div className="login d-flex align-items-center py-5">
             <div className="container">
               <div className="row">
-                
+
                 <div className="col-lg-10 col-xl-10 mx-auto">
                   <h3 className="display-4">Connect Wallet</h3>
                   <p className="text-muted mb-4">Add an account from a XUMM Wallet</p>
@@ -183,7 +185,15 @@ function Login(props) {
 
           </div>
         </div>
-        <div className="col-md-6 d-none d-md-flex bg-login"></div>
+
+
+        <div className="col-md-8 d-none d-md-flex bg-login">
+          <video autoPlay muted loop>
+            <source src="./videos/houndcity.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        
       </div>
 
     </div>
