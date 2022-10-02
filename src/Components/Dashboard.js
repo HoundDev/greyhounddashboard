@@ -15,10 +15,98 @@ import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
 
-
-
 require("dotenv").config();
 const xrpl = require("xrpl");
+
+// const format = (num, decimals) => {
+// 	  return num.toLocaleString(undefined, {
+// 		minimumFractionDigits: 0,
+// 		maximumFractionDigits: decimals,
+// 	  });
+// 	};
+//above method but with error handling
+const format = (num, decimals) => {
+	  try {
+		return num.toLocaleString(undefined, {
+		  minimumFractionDigits: 0,
+		  maximumFractionDigits: decimals,
+		});
+	} catch (e) {
+		return num;
+	}
+};		
+
+// make a function that converts big numbers to formats such as `k`, `m`
+// const formatNumber = (num) => {
+// 	  if (num >= 1000000000) {
+// 		return format(num / 1000000000, 3) + "B";
+// 	  } else if (num >= 1000000) {
+// 		return format(num / 1000000, 2) + "M";
+// 	  } else if (num >= 1000) {
+// 		return format(num / 1000, 1) + "K";
+// 	  } else {
+// 		return format(num, 0);
+// 	  }
+// 	};
+//above method but with error handling
+const formatNumber = (num) => {
+	  try {
+		if (num >= 1000000000) {
+			return format(num / 1000000000, 3) + "B";
+		} else if (num >= 1000000) {
+			return format(num / 1000000, 2) + "M";
+		} else if (num >= 1000) {
+			return format(num / 1000, 1) + "K";
+		} else {
+			return format(num, 0);
+		}
+	} catch (e) {
+		return num;
+	}
+};
+
+//reverse the format function
+// const reverseFormat = (num) => {
+// 	  const len = num.length;
+// 	  if (len > 1) {
+// 		const lastChar = num.charAt(len - 1);
+// 		const value = parseFloat(num.substring(0, len - 1));
+// 		switch (lastChar) {
+// 			case "K":
+// 				return value * 1000;
+// 			case "M":
+// 				return value * 1000000;
+// 			case "B":
+// 				return value * 1000000000;
+// 			default:
+// 				return num;
+// 		}
+// 	  }
+// 	  return num;
+// 	};
+//above method but with error handling
+const reverseFormat = (num) => {
+	  try {
+		const len = num.length;
+		if (len > 1) {
+			const lastChar = num.charAt(len - 1);
+			const value = parseFloat(num.substring(0, len - 1));
+			switch (lastChar) {
+				case "K":
+					return value * 1000;
+				case "M":
+					return value * 1000000;
+				case "B":
+					return value * 1000000000;
+				default:
+					return num;
+			}
+		}
+		return num;
+	} catch (e) {
+		return num;
+	}
+};
 
 
 function Dashboard(props) {
@@ -36,6 +124,8 @@ function Dashboard(props) {
 	const [ogModal, setOgModal] = useState(false);
 	const [greyHoundPrice, setGreyHoundPrice] = useState(0)
 	const [xrpPrice, setXrpPrice] = useState(0)
+	const [qrcodepng, setQrcodepng] = useState('')
+	const [popupTrade, setPopupTrade] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -83,6 +173,100 @@ function Dashboard(props) {
 		}
 	}
 
+	//wrap above in async
+	async function createOffer(amountBase, amountCounter) {
+		//create offer
+		const xummPayload = {
+			"options": {
+				"submit": true
+			},
+			"txjson": {
+				"TransactionType": "OfferCreate",
+				"Account": props.xrpAddress,
+				"TakerPays": {
+					"currency": "47726579686F756E640000000000000000000000",
+					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+					"value": amountBase
+				},
+				"TakerGets": `${amountCounter}`
+			}
+		}
+		//send the payload to the XUMM API
+		let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(xummPayload)
+		});
+		let json = await response.json()
+		console.log(json)
+		let qrCode = json.refs.qr_png
+		//check if the user is on mobile
+		let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		if (isMobile) {
+		window.open(json.next.always, '_blank');
+		} else {
+		setQrcodepng(qrCode)
+		}
+	}
+		//detect button click and call function
+		document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("myButton").addEventListener("click", function () {
+				let amountBase = document.getElementById("baseCur").value
+				let amountCounter = document.getElementById("counterCur").value
+				amountBase = reverseFormat(amountBase)
+				//convert from drops to xrp
+				amountCounter = amountCounter * 1000000
+				if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
+					createOffer(amountBase, amountCounter)
+					let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+					// setPopupTrade(true)
+					if (!isMobile) {
+						setPopupTrade(true)
+					}
+				}
+				else {
+					alert("Please enter an amount")
+				}
+			});
+			//check if something is written in basecur
+			document.getElementById("baseCur").addEventListener("input", function () {
+				//disable the countercur
+				document.getElementById("counterCur").disabled = true
+				let price = document.getElementById("houndPriceXRP").innerHTML
+				price = price.split(" ")[3]
+				//convert from string to float
+				price = parseFloat(price)
+				price = price 
+				document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price,8)
+				document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price,8)
+				//change the text
+				// document.getElementById("counterCur").placeholder = "Disabled"
+				if (document.getElementById("baseCur").value == "") {
+					document.getElementById("counterCur").disabled = false
+					document.getElementById("counterCur").placeholder = " "
+				}
+			});
+			//check if something is written in countercur
+			document.getElementById("counterCur").addEventListener("input", function () {
+				//disable the basecur
+				document.getElementById("baseCur").disabled = true
+				let price = document.getElementById("houndPriceXRP2").innerHTML
+				//split price to an array
+				price = price.split(" ")
+				let ghPrice = price[3]
+				//convert from string to float
+				ghPrice = parseFloat(ghPrice)
+				ghPrice = ghPrice * 1000
+				document.getElementById("baseCur").value = formatNumber(ghPrice * document.getElementById("counterCur").value)
+				document.getElementById("baseCur").placeholder = formatNumber(ghPrice * document.getElementById("counterCur").value)
+				if (document.getElementById("counterCur").value == "") {
+					document.getElementById("baseCur").disabled = false
+					document.getElementById("baseCur").placeholder = " "
+				}
+			});
+		});
+
+
 	const handleButtonClicked = useCallback(() => {
 		setActive(value => !value)
 	}, [])
@@ -115,7 +299,6 @@ function Dashboard(props) {
 
 		return month + '/' + day + '/' + year;
 	}
-
 
 	function ParseDataUpdateState(mainData) {
 		try {
@@ -219,9 +402,7 @@ function Dashboard(props) {
 		>
 			<div className="content-body">
 				<div className="container-fluid">
-
 					<div className="row">
-
 						<div className="col-xl-3 col-xxl-3 col-lg-3">
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
@@ -235,11 +416,9 @@ function Dashboard(props) {
 										<a className="price-toggle"><i className="fi fi-rr-exchange text-white"></i></a>
 										<div>
 											<h2 className="card-text text-white fs-20 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> 7,342.00 USD</h2><br />
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br />
 											<a href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank" className="btn btn-primary rounded-4 mb-2 btn-xs">View More</a>
 										</div>
-
-
 									</div>
 
 
@@ -382,12 +561,12 @@ function Dashboard(props) {
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)'}}>
 																	<a className="dropdown-item" href="">1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KATANA</a>
+																	<a className="dropdown-item" href="">4 KODOKU</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder="50000000" />
+															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
 														</form>
-														<p className="fs-14">1 HOUND = 0.0000001 XRP</p>
+														<p className="fs-14" id='houndPriceXRP'>1 HOUND = {format(greyHoundPrice,8)} XRP</p>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
 														<button className="round-button"><i className="fi fi-rr-exchange"></i></button>
@@ -404,23 +583,35 @@ function Dashboard(props) {
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
 																	<a className="dropdown-item" href="">1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KATANA</a>
+																	<a className="dropdown-item" href="">4 KODOKU</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder="50000000" />
+															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
 														</form>
-														<p className="fs-14">1 HOUND = 0.0000001 XRP</p>
+														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1/greyHoundPrice)} HOUND</p>
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right"><a href="#" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div>
-
-
-
-
-
+										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
+										{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
+										<button className="btn btn-primary rounded-4 mb-2" id='myButton'>Trade</button></div></div></div>
+									<Modal show={popupTrade} className="fade" size='lg'>
+										<Modal.Header>
+											<Modal.Title>Scan QR Code</Modal.Title>
+										</Modal.Header>
+										<Modal.Body>
+											<div className="close=button">
+												<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{alignSelf: 'flex-end'}}>Close</button>
+											</div>
+											<div className="qr-code-img">
+												<center>
+												<img src={qrcodepng} alt="QR Code" />
+												</center>
+											</div>
+										</Modal.Body>
+									</Modal>
 									</div>
 								</div>
 							</div>
