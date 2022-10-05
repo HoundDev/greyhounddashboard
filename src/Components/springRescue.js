@@ -51,94 +51,94 @@ require("dotenv").config();
 	<g>
 		<a className="nav-link" onClick={() =>
 			setSpringModal3(true)}>
-			<polygon id="piece-iii" class="st0" points="1272.9,1624.1 1273.1,1623.7 1273,1623.6 1273.1,1623.6 1319.1,1525.8 1226.9,1484.5 1166.5,1610.8 1175.9,1636.6 1232.4,1684.1 1281.9,1648.2 1273.2,1624.2 	" />
+			<polygon id="piece-iii" className="st0" points="1272.9,1624.1 1273.1,1623.7 1273,1623.6 1273.1,1623.6 1319.1,1525.8 1226.9,1484.5 1166.5,1610.8 1175.9,1636.6 1232.4,1684.1 1281.9,1648.2 1273.2,1624.2 	" />
 		</a>
 		<a className="nav-link" onClick={() =>
 			setSpringModal5(true)}>
-			<polygon id="piece-v" class="st0" points="1504.3,1131.5 1361.3,911 1309.7,877.3 978.1,661.4 792,957.6 771.9,1150.3 
+			<polygon id="piece-v" className="st0" points="1504.3,1131.5 1361.3,911 1309.7,877.3 978.1,661.4 792,957.6 771.9,1150.3 
 		994.6,1361.4 1326.4,1510.2 	" />
 		</a>
 		
 		<a className="nav-link" onClick={() =>
 			setSpringModal(true)}>
-			<path id="piece-i" class="st0" d="M1186.4,1668.2l-125.6,74.4c0,0-0.5,26.7,12.4,26.7s41.8,0,41.8,0l102.9-74.6L1186.4,1668.2z" />
+			<path id="piece-i" className="st0" d="M1186.4,1668.2l-125.6,74.4c0,0-0.5,26.7,12.4,26.7s41.8,0,41.8,0l102.9-74.6L1186.4,1668.2z" />
 		</a>
 		<a className="nav-link" onClick={() =>
 			setSpringModal4(true)}>
-			<polygon id="piece-iv" class="st0" points="1711.6,1451.1 1515.4,1148.6 1291.7,1624.6 1300.7,1649.4 1547.2,1857.6 1720.4,1796.3 
+			<polygon id="piece-iv" className="st0" points="1711.6,1451.1 1515.4,1148.6 1291.7,1624.6 1300.7,1649.4 1547.2,1857.6 1720.4,1796.3 
 			1767,1624.3 	" />
 		</a>
 		
 		
 		<a className="nav-link" onClick={() =>
 			setSpringModal2(true)}>
-			<path id="piece-ii" class="st0" d="M1068.1,1824.7l1.3,3.7c0,0,3.4,33.6,15.6,34c12.2,0.4,441.8,0.4,441.8,0.4l-236.2-199.5
+			<path id="piece-ii" className="st0" d="M1068.1,1824.7l1.3,3.7c0,0,3.4,33.6,15.6,34c12.2,0.4,441.8,0.4,441.8,0.4l-236.2-199.5
 		L1068.1,1824.7z" />
 		</a>
 		<a className="nav-link" onClick={() =>
 			setSpringModal9(true)}>
-			<polyline class="st0" points="766.3,366.3 660.6,433.3 583.2,698.9 586.2,794.5 781.9,518.9 795.5,270.4 	" />
+			<polyline className="st0" points="766.3,366.3 660.6,433.3 583.2,698.9 586.2,794.5 781.9,518.9 795.5,270.4 	" />
 		</a>
 		<a className="nav-link" onClick={() =>
 			setSpringModal11(true)}>
-			<polygon class="st0" points="718.7,106.3 317.6,203.6 286.5,269.6 611.6,334.1 	" />
+			<polygon className="st0" points="718.7,106.3 317.6,203.6 286.5,269.6 611.6,334.1 	" />
 		</a>
 		
 		
-		<path class="st0" d="M273.6,214.2c-14.4,3.7,0,42.2,0,42.2l22.4-47.6C296,208.8,288.1,210.6,273.6,214.2z" />
+		<path className="st0" d="M273.6,214.2c-14.4,3.7,0,42.2,0,42.2l22.4-47.6C296,208.8,288.1,210.6,273.6,214.2z" />
 		
 		<g>
 			<g>
 				<a className="nav-link" onClick={() =>
-					setSpringModal8(true)}><polygon class="st0" points="696.3,1837.7 821.8,1221.4 818.4,1218.2 754.4,1157.5 755.1,1156.7 753.9,1156.6 775.3,952 
+					setSpringModal8(true)}><polygon className="st0" points="696.3,1837.7 821.8,1221.4 818.4,1218.2 754.4,1157.5 755.1,1156.7 753.9,1156.6 775.3,952 
 					775.2,951.9 968.4,644.3 810,270.4 798.9,524.7 798.8,524.7 798.9,524.8 587.1,823.1 587.4,831.3 664,1136.4 664,1767.5 			" />
 				</a>
 				<a className="nav-link" onClick={() =>
-					setSpringModal6(true)}><polygon class="st0" points="749.2,1769.3 881.9,1278.4 836.7,1235.5 728,1769.3 			" />
+					setSpringModal6(true)}><polygon className="st0" points="749.2,1769.3 881.9,1278.4 836.7,1235.5 728,1769.3 			" />
 				</a>
 			</g>
 			<a className="nav-link" onClick={() =>
-				setSpringModal7(true)}><path class="st0" d="M688.6,1862.8l-38.1-82.9l-79.8,63.2c0,0-1.3,19.7,9.1,19.7S688.6,1862.8,688.6,1862.8z" />
+				setSpringModal7(true)}><path className="st0" d="M688.6,1862.8l-38.1-82.9l-79.8,63.2c0,0-1.3,19.7,9.1,19.7S688.6,1862.8,688.6,1862.8z" />
 			</a>
 		</g>
 		<a className="nav-link" onClick={() =>
-			setSpringModal10(true)}><path id="piece-x" class="st0" d="M751.5,355c0,0,51.1-166.8,58.8-194c7.7-27.2-70.9-57.4-70.9-57.4L626.1,343.9l-8.9,26.6
+			setSpringModal10(true)}><path id="piece-x" className="st0" d="M751.5,355c0,0,51.1-166.8,58.8-194c7.7-27.2-70.9-57.4-70.9-57.4L626.1,343.9l-8.9,26.6
 			l39.4,44.8L751.5,355z" />
 		</a>
 	</g>
-	<rect x="1285.7" y="1777.3" class="st1" width="95.3" height="88.3" />
+	<rect x="1285.7" y="1777.3" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 1285.7389 1800.0615)" class="st2 st3 st4">II</text>
-	<rect x="1136.1" y="1708" class="st1" width="95.3" height="49.4" />
+	<text transform="matrix(1 0 0 1 1285.7389 1800.0615)" className="st2 st3 st4">II</text>
+	<rect x="1136.1" y="1708" className="st1" width="95.3" height="49.4" />
 	
-	<text transform="matrix(1 0 0 1 1136.1044 1730.7969)" class="st2 st3 st4">I</text>
-	<rect x="1224.4" y="1568.6" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 1136.1044 1730.7969)" className="st2 st3 st4">I</text>
+	<rect x="1224.4" y="1568.6" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 1224.3542 1591.3575)" class="st2 st3 st4">III</text>
-	<rect x="1529.4" y="1556.6" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 1224.3542 1591.3575)" className="st2 st3 st4">III</text>
+	<rect x="1529.4" y="1556.6" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 1529.3535 1579.3702)" class="st2 st3 st4">IV</text>
-	<rect x="1147.6" y="1090.2" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 1529.3535 1579.3702)" className="st2 st3 st4">IV</text>
+	<rect x="1147.6" y="1090.2" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 1147.5582 1112.9563)" class="st2 st3 st4">V</text>
-	<rect x="799" y="1440.3" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 1147.5582 1112.9563)" className="st2 st3 st4">V</text>
+	<rect x="799" y="1440.3" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 798.9631 1463.1373)" class="st2 st3 st4">VI</text>
-	<rect x="676.6" y="940.9" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 798.9631 1463.1373)" className="st2 st3 st4">VI</text>
+	<rect x="676.6" y="940.9" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 676.6329 963.6602)" class="st2 st3 st4">VIII</text>
-	<rect x="612.9" y="1819.4" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 676.6329 963.6602)" className="st2 st3 st4">VIII</text>
+	<rect x="612.9" y="1819.4" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 612.9039 1842.2064)" class="st2 st3 st4">VII</text>
-	<rect x="690.6" y="496.2" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 612.9039 1842.2064)" className="st2 st3 st4">VII</text>
+	<rect x="690.6" y="496.2" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 690.6329 519.0414)" class="st2 st3 st4">IX</text>
-	<rect x="708.7" y="245.8" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 690.6329 519.0414)" className="st2 st3 st4">IX</text>
+	<rect x="708.7" y="245.8" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 708.7122 268.5889)" class="st2 st3 st4">X</text>
-	<rect x="511.1" y="212.3" class="st1" width="95.3" height="88.3" />
+	<text transform="matrix(1 0 0 1 708.7122 268.5889)" className="st2 st3 st4">X</text>
+	<rect x="511.1" y="212.3" className="st1" width="95.3" height="88.3" />
 	
-	<text transform="matrix(1 0 0 1 511.1397 235.0935)" class="st2 st3 st4">XI</text>
+	<text transform="matrix(1 0 0 1 511.1397 235.0935)" className="st2 st3 st4">XI</text>
 </svg>
 
 								</div>
@@ -525,34 +525,7 @@ require("dotenv").config();
 								<div className="card">
 									<div className="card-header pb-0 border-0">
 										<h4 className="mb-0 text-white fs-20">Spring Rescue 2022</h4>
-										<div className="dropdown custom-dropdown mb-0 d-md-block d-none">
-											<div data-toggle="dropdown">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-													<path
-														d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-													<path
-														d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</div>
-											<div className="dropdown-menu dropdown-menu-right">
-												<a className="dropdown-item"
-													href="javascript:void(0);">Details</a>
-												<a className="dropdown-item text-danger"
-													href="javascript:void(0);">Cancel</a>
-											</div>
-										</div>
+										
 									</div>
 									<div className="card-body">
 										<div

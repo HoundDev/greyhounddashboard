@@ -417,17 +417,17 @@ function Dashboard(props) {
 													<path
 														d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
 														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
+														strokeLinecap="round" strokeLinejoin="round">
 													</path>
 													<path
 														d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
 														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
+														strokeLinecap="round" strokeLinejoin="round">
 													</path>
 													<path
 														d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
 														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
+														strokeLinecap="round" strokeLinejoin="round">
 													</path>
 												</svg>
 											</div>
@@ -440,7 +440,7 @@ function Dashboard(props) {
 									<div className="balance-info pb-4">
 										<div>
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br /><a className="fs-16 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</a>
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} XRP </h2><a className="fs-14 font-w500 text-success " href={'https://bithomp.com/explorer/' + props.xrpAddress}><i className="fi fi-rr-arrow-small-up"></i> 2.36%</a>
 										</div>
 									</div>
 
@@ -567,8 +567,7 @@ function Dashboard(props) {
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)'}}>
-																	<a className="dropdown-item" href="">1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KODOKU</a>
+																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
 															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
@@ -589,8 +588,7 @@ function Dashboard(props) {
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-																	<a className="dropdown-item" href="">1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KODOKU</a>
+																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
 															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
@@ -601,17 +599,15 @@ function Dashboard(props) {
 											</div>
 										</div>
 
-										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
+										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>.000015 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 										{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-										<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
-									<Modal show={popupTrade} className="fade" size='lg'>
+										<button className="btn btn-md btn-primary" id='myButton'>Place order</button></div></div></div>
+									<Modal show={popupTrade} className="fade" size='md'>
 										<Modal.Header>
-											<Modal.Title>Scan QR Code</Modal.Title>
+											Scan QR Code
+											<Button variant=""className="close"onClick={() => setPopupTrade(false)}> <span>&times;</span></Button>
 										</Modal.Header>
 										<Modal.Body>
-											<div className="close=button">
-												<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{alignSelf: 'flex-end'}}>Close</button>
-											</div>
 											<div className="qr-code-img">
 												<center>
 												<img src={qrcodepng} alt="QR Code" />
@@ -628,7 +624,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Greyhound Supply</h5>
-												<p className="mb-3 fs-14 font-w500">{greyHoundSupply} {greyHoundAmountBurnt}%</p>
+												<p className="mb-3 fs-14 font-w500">Total:{greyHoundSupply} Burnt:{greyHoundAmountBurnt}%</p>
 											</div>
 										</div>
 										<div className="card-body p-0">
@@ -728,7 +724,7 @@ function Dashboard(props) {
 									<div>
 										<h4 className="text-black fs-20">Market Overview</h4>
 										<p className="fs-13 mb-0">
-											Lorem ipsum dolor sit amet, consectetur
+											Current 30 day market information
 										</p>
 									</div>
 								</div>
@@ -749,12 +745,20 @@ function Dashboard(props) {
 													</Nav.Item>
 												</Nav>
 											</div>
-											<div className="d-flex align-items-center mt-3 mt-sm-0">
-												<p className="mb-0 fs-13 mr-3">Current price</p>
+											<div className="d-flex align-items-center mt-3 mt-sm-0" id="marketTab">
+
+												<Tab.Pane eventKey="all">
+												<p className="mb-0 fs-13 mr-3">Current HOUND price</p>
 												<h2 className="mb-0 text-black font-w600">
-													{xrpPrice}<br></br>
 													{greyHoundPrice}
 												</h2>
+												</Tab.Pane>
+												<Tab.Pane eventKey="xrp">
+												<p className="mb-0 fs-13 mr-3">Current XRP price</p>
+												<h2 eventKey="xrp" className="mb-0 text-black font-w600">
+													{xrpPrice}
+												</h2>
+												</Tab.Pane>
 											</div>
 										</div>
 										<Tab.Content

@@ -214,7 +214,9 @@ body {
 }
 .trade-card .form-control, .trade-card .input-group-text, .trade-card .form-control:hover, .trade-card .form-control:focus, .form-control.active {
     border-radius: 0;
-    background: transparent;
+    background: rgba(26, 25, 33, 1);
+	border-radius: 10px;
+	margin-bottom: 10px;
     border: 0px solid #f0f1f5;
     color: #fff;
 	text-align: center;
@@ -593,7 +595,7 @@ input[type=number] {
 
 .add-menu-sidebar {
 	background-color: #E7E7E7;
-	padding: 0px 20px 20px;
+	padding: 0px 20px 20px!important;
     border-radius: 1em;
     position: relative;
     margin: 20px 50px 30px;
@@ -603,6 +605,7 @@ input[type=number] {
 }
 
 /*menu hovers——*/
+
 
 
 
@@ -753,7 +756,7 @@ input[type=number] {
 }
 .add-menu-sidebar img {
     position: relative;
-	bottom: 0;
+	bottom: 0!important;
     background-repeat: no-repeat;
     content: "";
     width: 100%;
@@ -818,9 +821,10 @@ input[type=number] {
 	}
 	
 	.trade-card .form-control, .trade-card .input-group-text, .trade-card .form-control:hover, .trade-card .form-control:focus, .form-control.active {
-		
 			font-size: 30px!important;
 	}
+	
+	
 	.card-header .card-title {
 		text-align: center;
 	}
@@ -984,4 +988,8 @@ input[type=number] {
 	}
 }
 
+
+#marketTab .fade:not(.show) {
+	display: none;
+}
 
