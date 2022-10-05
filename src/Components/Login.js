@@ -157,19 +157,23 @@ function Login(props) {
       </div>
 
       <div className="row no-gutter">
-        
 
-      <div className="col-md-4 bg-login-split">
+        <div className="col-md-5 d-none d-md-flex bg-login">
+          <video poster="placeholder.png" autoPlay muted loop>
+            <source src="./videos/houndcity.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div className="col-md-5 bg-login-split">
           <div className="login d-flex align-items-center py-5">
             <div className="container">
               <div className="row">
 
-                <div className="col-lg-10 col-xl-10 mx-auto">
-                  <h3 className="display-4">Connect Wallet</h3>
-                  <p className="text-muted mb-4">Add an account from a XUMM Wallet</p>
+                <div className="col-lg-10 col-xl-10 mx-auto login-section">
+                  <h3 className="fs-28">Connect Wallet</h3>
+                  <p className="text-muted fs-18 mb-4">Add an account from a XUMM Wallet</p>
                   <form action="index.html">
-                    <div className="text-center mt-3">
-                      <Button className="btn btn-primary btn-lg btn-block" onClick={Signin}> <img src="https://greyhoundcoin.net/assets/images/icon/xumm.png"></img>Sign in with XUMM</Button>
+                    <div className="mt-3">
+                      <Button className="btn btn-login btn-lg btn-block" onClick={Signin}> <img src="https://greyhoundcoin.net/assets/images/icon/xumm.png"></img>Sign in with XUMM</Button>
                       {!showSpinner && requestResolved && requestResolvedMessage !== '' && requestFailed ?
                         <Alert status="error" style={{ marginTop: '20px' }}><AlertIcon />{requestResolvedMessage}</Alert> : <></>}
 
@@ -181,17 +185,24 @@ function Login(props) {
                   </form>
                 </div>
               </div>
+              <div className="row row2">
+
+                <div className="col-lg-10 col-xl-10 mx-auto login-section">
+                  <h3 className="fs-28">Don't have a wallet?</h3>
+                  <p className="text-muted fs-18 mb-4">Click below to create a Wallet in seconds and to start managing your digital assets.</p>
+                  <Button className="btn btn-white btn-lg btn-block" href="https://xumm.app/"> Get the XUMM Wallet</Button>
+  
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
 
 
-        <div className="col-md-8 d-none d-md-flex bg-login">
-          
-        </div>
 
-        
+
+
       </div>
 
     </div>

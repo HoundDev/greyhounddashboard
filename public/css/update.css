@@ -38,7 +38,9 @@
 #pins {
     justify-content: left;
 }
-
+.fs-28px{
+    font-size: 28px;
+}
 [data-theme-version="dark"] .footer .copyright p {
     opacity: 1;
     color: #a6b0cf;
@@ -79,9 +81,6 @@
     justify-content: center;
 }
 
-.truncate {
-    color: rgba(255, 255, 255, 0.6)
-}
 
 .add-menu-sidebar {
     position: relative !important;
@@ -101,32 +100,43 @@
 
 .bg-login video {
     position: absolute;
-    left: -133px;
+    left: -303px;
     bottom: 0;
     height: 100%;
     max-width: initial;
 }
 
 .login {
-    min-height: 100vh;
-    text-align: center;
+    min-height: 100vh;   
+}
+
+.login > .container > .row >.login-section{
+    padding-bottom: 45px;
+}
+.login > .container .row2 >.login-section{
+    padding-top: 45px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login .btn{
+    width: 60%
 }
 
 .bg-login-split {
     background-color: #1A1921;
 }
 
-.bg-login-split button {
-    background-color: #F7F7F8;
-    color: #272727;
-    border: 1px #fff;
+.btn-login {
+    background: rgba(166, 176, 207, .05);;
+    color: #fff;
+    border: 1px solid transparent;
+    box-shadow: none !important;
 }
 
-.bg-login-split button:hover,
-.bg-login-split button:active {
-    background-color: #F7F7F8 !important;
-    color: #272727 !important;
-    border: 1px #fff;
+.btn-login:hover,
+.btn-login:active {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
 }
 
 .bg-login-split button>img {
@@ -171,7 +181,7 @@ button:active {
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px !important;
     background: rgba(26, 25, 33, 0.7);
     border-radius: 1em;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(6px);
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px !important;
 }
 [data-theme-version="dark"] .dropdown-menu .dropdown-item.selected, [data-theme-version="dark"] .dropdown-menu .dropdown-item.selected.active, [data-theme-version="dark"] .dropdown-menu .dropdown-item.active, [data-theme-version="dark"] .dropdown-menu .dropdown-item:hover, [data-theme-version="dark"] .dropdown-menu .dropdown-item:focus {
@@ -356,6 +366,11 @@ button:active {
     width: calc(50% - 35px);
 }
 
+.trade-wrapper .disabled{
+    border: solid 1px transparent;
+    background: rgba(166, 176, 207, .05) !important;
+}
+
 .trade-wrapper .round-button {
     height: 33px;
     width: 33px;
@@ -388,7 +403,18 @@ button:active {
 .dropdown-menu .dropdown-item:hover {
     color: #fff !important;
 }
+.dropdown-menu-center{
+    position: absolute;
+    will-change: transform;
+    left: 0px;
+    transform: translate3d(98px, 60px, 0px);
+    right: auto;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
 
+}
 /* Login */
 
 .chakra-modal__overlay {
@@ -400,7 +426,7 @@ button:active {
 
 .chakra-modal__body {
     border-radius: 1em;
-    background: rgba(166, 176, 207, .05)!important;
+    background: #21212A !important;
 
 }
 
@@ -412,8 +438,8 @@ button:active {
 
 .modal-above-image {
     position: absolute;
-    height: 22px;
-    top: -40px;
+    height: 20px;
+    top: -38px;
 }
 
 .chakra-modal__content button {
@@ -447,9 +473,6 @@ button:active {
     -ms-transform: translateY(-10px);
     -o-transform: translateY(-10px);
     transform: translateY(-10px);
-    -webkit-filter: grayscale(0%);
-    -ms-filter: grayscale(0%);
-    -moz-filter: grayscale(0%);
     transition: all 0.3s ease;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
@@ -814,6 +837,12 @@ button:active {
 
 .nft-container {
     width: 90%;
+}
+
+@media screen and (max-width: 991px){
+    .card-header .card-title {
+        text-align: left;
+    }
 }
 
 @media only screen and (max-width: 767px) {

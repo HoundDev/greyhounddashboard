@@ -432,7 +432,7 @@ function Dashboard(props) {
 												</svg>
 											</div>
 											<div className="dropdown-menu dropdown-menu-right">
-												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View More</a>
+												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View Details</a>
 											</div>
 										</div>
 								</div>
@@ -591,7 +591,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
+															<input type="number" className="form-control fs-28"  placeholder="50" id='counterCur' />
 														</form>
 														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1/greyHoundPrice)} HOUND</p>
 													</div>
