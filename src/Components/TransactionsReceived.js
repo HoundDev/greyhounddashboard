@@ -12,12 +12,12 @@ function TransactionsReceived(props) {
           </svg>
         </span>
         <div className="media-body align-self-center">
-        <a href={linkBase + transaction.hash}><h5 className="font-w600 text-white fs-14">{transaction.date} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {transaction.currency} {transaction.amount}</h5></a>
+        <a href={linkBase + transaction.hash}><h5 className="font-w600 text-white fs-14">{transaction.date}</h5></a>
         <a href={linkBase + transaction.hash}><p className="mb-0 fs-15 truncate">{transaction.account}
           </p></a>
         </div>
         <span className="p-3 ">
-          <p className="font-w600 text-center text-white"></p>
+          <p className="font-w600 text-center text-white">{transaction.amount} {transaction.currency}</p>
         </span>
       </div>
     </td>
