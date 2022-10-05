@@ -159,7 +159,7 @@ function App() {
                   <li className="nav-item dropdown notification_dropdown">
                     <a className="nav-link" href="#" data-toggle="dropdown">
                       <i className="fi fi-sr-bell text-white"></i>
-                      <span className="badge light bg-secondary">3</span>
+                      <span className="badge light bg-secondary">2</span>
                     </a>
 
                     <div className="dropdown-menu dropdown-menu-right">
@@ -168,27 +168,20 @@ function App() {
                           <li>
                             <div className="timeline-panel">
                               <div className="media-body">
-                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
-                                <h5 className="text-white">New blog post</h5>
+                                <small className="d-block mb-1">NFT Airdrop</small>
+                                <h5 className="text-white">You have 1 Legendary unclaimed NFT</h5>
                               </div>
                             </div>
                           </li>
                           <li>
                             <div className="timeline-panel">
                               <div className="media-body">
-                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
-                                <h5 className="text-white">Dr sultads Send you Photo</h5>
+                                <small className="d-block mb-1">NFT Airdrop</small>
+                                <h5 className="text-white">You have 1 Original Greyhound unclaimed NFT</h5>
                               </div>
                             </div>
                           </li>
-                          <li>
-                            <div className="timeline-panel">
-                              <div className="media-body">
-                                <small className="d-block mb-1">29 July 2020 - 02:26 PM</small>
-                                <h5 className="text-white">Dr sultads Send you Photo</h5>
-                              </div>
-                            </div>
-                          </li>
+                      
                         </ul>
                        </div>
                     </div>

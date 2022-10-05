@@ -432,7 +432,7 @@ function Dashboard(props) {
 												</svg>
 											</div>
 											<div className="dropdown-menu dropdown-menu-right">
-												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View More</a>
+												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View Details</a>
 											</div>
 										</div>
 								</div>
