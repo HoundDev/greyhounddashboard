@@ -440,7 +440,7 @@ function Dashboard(props) {
 									<div className="balance-info pb-4">
 										<div>
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><br /><a className="fs-16 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</a>
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</span><br />
 										</div>
 									</div>
 
@@ -589,11 +589,11 @@ function Dashboard(props) {
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-																	<a className="dropdown-item" href="">1000 XRP</a>
+																	<a className="dropdown-item" href=""><img src="./images/tokens/xrp.png" height="30px" /> 1000 XRP</a>
 																	<a className="dropdown-item" href="">4 KODOKU</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
+															<input type="number" className="form-control fs-28"  placeholder="50" id='counterCur' />
 														</form>
 														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1/greyHoundPrice)} HOUND</p>
 													</div>

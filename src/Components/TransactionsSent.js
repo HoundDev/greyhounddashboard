@@ -17,7 +17,7 @@ function TransactionsSent(props) {
                         </p></a>
                     </div>
                     <span className="p-3 ">
-                        <p className="font-w600 text-center text-white">{transaction.currency} {transaction.amount}</p>
+                        <p className="font-w600 text-center text-white">{transaction.amount} {transaction.currency} </p>
                     </span>
                 </div>
             </td>

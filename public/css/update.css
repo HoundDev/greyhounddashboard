@@ -366,6 +366,11 @@ button:active {
     width: calc(50% - 35px);
 }
 
+.trade-wrapper .disabled{
+    border: solid 1px transparent;
+    background: rgba(166, 176, 207, .05) !important;
+}
+
 .trade-wrapper .round-button {
     height: 33px;
     width: 33px;
@@ -398,7 +403,18 @@ button:active {
 .dropdown-menu .dropdown-item:hover {
     color: #fff !important;
 }
+.dropdown-menu-center{
+    position: absolute;
+    will-change: transform;
+    left: 0px;
+    transform: translate3d(98px, 60px, 0px);
+    right: auto;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
 
+}
 /* Login */
 
 .chakra-modal__overlay {
