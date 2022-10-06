@@ -103,7 +103,6 @@ export default function Richlist(props) {
           <div className="input-group search-area d-inline-flex">
             <input id="walletAddy" type="text" className="form-control" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
           </div>
-          <button className="btn btn-md btn-primary ml-auto"><i className="fa-solid fa-arrows-rotate" /></button>
         </div>
 
         <div className="row">

@@ -587,8 +587,7 @@ function Dashboard(props) {
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-																	<a className="dropdown-item" href=""><img src="./images/tokens/xrp.png" height="30px" /> 1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KODOKU</a>
+																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
 															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
@@ -628,7 +627,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Greyhound Supply</h5>
-												<p className="mb-3 fs-14 font-w500">{greyHoundSupply} {greyHoundAmountBurnt}%</p>
+												<p className="mb-3 fs-14 font-w500">Total:{greyHoundSupply} Burnt:{greyHoundAmountBurnt}%</p>
 											</div>
 										</div>
 										<div className="card-body p-0">
@@ -728,7 +727,7 @@ function Dashboard(props) {
 									<div>
 										<h4 className="text-black fs-20">Market Overview</h4>
 										<p className="fs-13 mb-0">
-											Lorem ipsum dolor sit amet, consectetur
+											Current 30 day market information
 										</p>
 									</div>
 								</div>
@@ -749,12 +748,20 @@ function Dashboard(props) {
 													</Nav.Item>
 												</Nav>
 											</div>
-											<div className="d-flex align-items-center mt-3 mt-sm-0">
-												<p className="mb-0 fs-13 mr-3">Current price</p>
+											<div className="d-flex align-items-center mt-3 mt-sm-0" id="marketTab">
+
+												<Tab.Pane eventKey="all">
+												<p className="mb-0 fs-13 mr-3">Current HOUND price</p>
 												<h2 className="mb-0 text-black font-w600">
-													{xrpPrice}<br></br>
 													{greyHoundPrice}
 												</h2>
+												</Tab.Pane>
+												<Tab.Pane eventKey="xrp">
+												<p className="mb-0 fs-13 mr-3">Current XRP price</p>
+												<h2 eventKey="xrp" className="mb-0 text-black font-w600">
+													{xrpPrice}
+												</h2>
+												</Tab.Pane>
 											</div>
 										</div>
 										<Tab.Content

@@ -279,6 +279,7 @@ function App() {
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />
+		  <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
         </Routes>
 
         <Footer />
