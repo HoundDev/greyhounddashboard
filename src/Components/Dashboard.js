@@ -26,15 +26,15 @@ const xrpl = require("xrpl");
 // 	};
 //above method but with error handling
 const format = (num, decimals) => {
-	  try {
+	try {
 		return num.toLocaleString(undefined, {
-		  minimumFractionDigits: 0,
-		  maximumFractionDigits: decimals,
+			minimumFractionDigits: 0,
+			maximumFractionDigits: decimals,
 		});
 	} catch (e) {
 		return num;
 	}
-};		
+};
 
 // make a function that converts big numbers to formats such as `k`, `m`
 // const formatNumber = (num) => {
@@ -50,7 +50,7 @@ const format = (num, decimals) => {
 // 	};
 //above method but with error handling
 const formatNumber = (num) => {
-	  try {
+	try {
 		if (num >= 1000000000) {
 			return format(num / 1000000000, 3) + "B";
 		} else if (num >= 1000000) {
@@ -86,7 +86,7 @@ const formatNumber = (num) => {
 // 	};
 //above method but with error handling
 const reverseFormat = (num) => {
-	  try {
+	try {
 		const len = num.length;
 		if (len > 1) {
 			const lastChar = num.charAt(len - 1);
@@ -117,7 +117,7 @@ function Dashboard(props) {
 	const [lastTransactionsSent, setLastTransactionsSent] = useState([])
 	const [lastTransactionsReceived, setLastTransactionsReceived] = useState([])
 	const [lastTransactionsSell, setLastTransactionsSell] = useState([])
-    const [lastTransactionsBuy, setLastTransactionsBuy] = useState([])
+	const [lastTransactionsBuy, setLastTransactionsBuy] = useState([])
 	const [snapShotTier, setSnapShotTier] = useState('None')
 	const [snapShotTierBalance, setSnapShotTierBalance] = useState(0)
 	const [basicModal, setBasicModal] = useState(false);
@@ -203,68 +203,68 @@ function Dashboard(props) {
 		//check if the user is on mobile
 		let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 		if (isMobile) {
-		window.open(json.next.always, '_blank');
+			window.open(json.next.always, '_blank');
 		} else {
-		setQrcodepng(qrCode)
+			setQrcodepng(qrCode)
 		}
 	}
-		//detect button click and call function
-		document.addEventListener("DOMContentLoaded", function () {
-			document.getElementById("myButton").addEventListener("click", function () {
-				let amountBase = document.getElementById("baseCur").value
-				let amountCounter = document.getElementById("counterCur").value
-				amountBase = reverseFormat(amountBase)
-				//convert from drops to xrp
-				amountCounter = amountCounter * 1000000
-				if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
-					createOffer(amountBase, amountCounter)
-					let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-					// setPopupTrade(true)
-					if (!isMobile) {
-						setPopupTrade(true)
-					}
+	//detect button click and call function
+	document.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("myButton").addEventListener("click", function () {
+			let amountBase = document.getElementById("baseCur").value
+			let amountCounter = document.getElementById("counterCur").value
+			amountBase = reverseFormat(amountBase)
+			//convert from drops to xrp
+			amountCounter = amountCounter * 1000000
+			if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
+				createOffer(amountBase, amountCounter)
+				let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+				// setPopupTrade(true)
+				if (!isMobile) {
+					setPopupTrade(true)
 				}
-				else {
-					alert("Please enter an amount")
-				}
-			});
-			//check if something is written in basecur
-			document.getElementById("baseCur").addEventListener("input", function () {
-				//disable the countercur
-				document.getElementById("counterCur").disabled = true
-				let price = document.getElementById("houndPriceXRP").innerHTML
-				price = price.split(" ")[3]
-				//convert from string to float
-				price = parseFloat(price)
-				price = price 
-				document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price,8)
-				document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price,8)
-				//change the text
-				// document.getElementById("counterCur").placeholder = "Disabled"
-				if (document.getElementById("baseCur").value == "") {
-					document.getElementById("counterCur").disabled = false
-					document.getElementById("counterCur").placeholder = " "
-				}
-			});
-			//check if something is written in countercur
-			document.getElementById("counterCur").addEventListener("input", function () {
-				//disable the basecur
-				document.getElementById("baseCur").disabled = true
-				let price = document.getElementById("houndPriceXRP2").innerHTML
-				//split price to an array
-				price = price.split(" ")
-				let ghPrice = price[3]
-				//convert from string to float
-				ghPrice = parseFloat(ghPrice)
-				ghPrice = ghPrice * 1000
-				document.getElementById("baseCur").value = formatNumber(ghPrice * document.getElementById("counterCur").value)
-				document.getElementById("baseCur").placeholder = formatNumber(ghPrice * document.getElementById("counterCur").value)
-				if (document.getElementById("counterCur").value == "") {
-					document.getElementById("baseCur").disabled = false
-					document.getElementById("baseCur").placeholder = " "
-				}
-			});
+			}
+			else {
+				alert("Please enter an amount")
+			}
 		});
+		//check if something is written in basecur
+		document.getElementById("baseCur").addEventListener("input", function () {
+			//disable the countercur
+			document.getElementById("counterCur").disabled = true
+			let price = document.getElementById("houndPriceXRP").innerHTML
+			price = price.split(" ")[3]
+			//convert from string to float
+			price = parseFloat(price)
+			price = price
+			document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price, 8)
+			document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price, 8)
+			//change the text
+			// document.getElementById("counterCur").placeholder = "Disabled"
+			if (document.getElementById("baseCur").value == "") {
+				document.getElementById("counterCur").disabled = false
+				document.getElementById("counterCur").placeholder = " "
+			}
+		});
+		//check if something is written in countercur
+		document.getElementById("counterCur").addEventListener("input", function () {
+			//disable the basecur
+			document.getElementById("baseCur").disabled = true
+			let price = document.getElementById("houndPriceXRP2").innerHTML
+			//split price to an array
+			price = price.split(" ")
+			let ghPrice = price[3]
+			//convert from string to float
+			ghPrice = parseFloat(ghPrice)
+			ghPrice = ghPrice * 1000
+			document.getElementById("baseCur").value = formatNumber(ghPrice * document.getElementById("counterCur").value)
+			document.getElementById("baseCur").placeholder = formatNumber(ghPrice * document.getElementById("counterCur").value)
+			if (document.getElementById("counterCur").value == "") {
+				document.getElementById("baseCur").disabled = false
+				document.getElementById("baseCur").placeholder = " "
+			}
+		});
+	});
 
 
 	const handleButtonClicked = useCallback(() => {
@@ -326,7 +326,7 @@ function Dashboard(props) {
 			let receivedTxns = []
 			let sentTxns = []
 			let sellTxns = []
-            let buyTxns = []
+			let buyTxns = []
 			for (let i = 0; i < mainData.data.Transactions.length; i++) {
 				if (mainData.data.Transactions[i].tx.TransactionType === 'Payment') {
 					if (mainData.data.Transactions[i].tx.Destination === props.xrpAddress) {
@@ -365,20 +365,18 @@ function Dashboard(props) {
 				}
 			}
 			//Sell Buy Transactions
-            for(let i = 0; i < mainData.data.TokenBuy.length; i++)
-            {
-                buyTxns.push({amount: mainData.data.TokenBuy[i].amountGH, amountXrp: mainData.data.TokenBuy[i].TakerGetsXRP, exchangeRate: mainData.data.TokenBuy[i].price, address: mainData.data.TokenBuy[i].address})
-            }
-			for(let i = 0; i < mainData.data.TokenSell.length; i++)
-            {
-                sellTxns.push({amount: mainData.data.TokenSell[i].amount, amountXrp: mainData.data.TokenSell[i].priceXrp, exchangeRate: mainData.data.TokenSell[i].price, address: mainData.data.TokenSell[i].seller})
-            }
+			for (let i = 0; i < mainData.data.TokenBuy.length; i++) {
+				buyTxns.push({ amount: mainData.data.TokenBuy[i].amountGH, amountXrp: mainData.data.TokenBuy[i].TakerGetsXRP, exchangeRate: mainData.data.TokenBuy[i].price, address: mainData.data.TokenBuy[i].address })
+			}
+			for (let i = 0; i < mainData.data.TokenSell.length; i++) {
+				sellTxns.push({ amount: mainData.data.TokenSell[i].amount, amountXrp: mainData.data.TokenSell[i].priceXrp, exchangeRate: mainData.data.TokenSell[i].price, address: mainData.data.TokenSell[i].seller })
+			}
 
 			console.log(sentTxns, receivedTxns)
 			setLastTransactionsSent(sentTxns);
 			setLastTransactionsReceived(receivedTxns);
 			setLastTransactionsSell(sellTxns);
-            setLastTransactionsBuy(buyTxns);
+			setLastTransactionsBuy(buyTxns);
 
 		} catch (err) {
 
@@ -408,39 +406,39 @@ function Dashboard(props) {
 								<div className="card-header border-0 pb-0">
 									<h5 className="card-title text-black">Balance</h5>
 									<div className="card-header-right">
-										
+
 									</div>
 									<div className="dropdown custom-dropdown mb-0 d-md-block d-none">
-											<div data-toggle="dropdown">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-													<path
-														d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-													<path
-														d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-														stroke="#fff" strokeWidth="2"
-														stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</div>
-											<div className="dropdown-menu dropdown-menu-right">
-												<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View Details</a>
-											</div>
+										<div data-toggle="dropdown">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+													stroke="#fff" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+												<path
+													d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+													stroke="#fff" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+												<path
+													d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+													stroke="#fff" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+											</svg>
 										</div>
+										<div className="dropdown-menu dropdown-menu-right">
+											<a className="dropdown-item" href={'https://bithomp.com/explorer/' + props.xrpAddress} target="_blank">View Details</a>
+										</div>
+									</div>
 								</div>
 								<div className="card-body">
 									<div className="balance-info pb-4">
 										<div>
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice,8) * greyHoundBalance} </h2><span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</span><br />
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice, 8) * greyHoundBalance} </h2><span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</span><br />
 										</div>
 									</div>
 
@@ -566,14 +564,14 @@ function Dashboard(props) {
 																	</div>
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
-																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)'}}>
+																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
 																	<a className="dropdown-item" href="">1000 XRP</a>
 																	<a className="dropdown-item" href="">4 KODOKU</a>
 																</div>
 															</div>
 															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP'>1 HOUND = {format(greyHoundPrice,8)} XRP</p>
+														<p className="fs-14" id='houndPriceXRP'>1 HOUND = {format(greyHoundPrice, 8)} XRP</p>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
 														<button className="round-button"><i className="fi fi-rr-exchange"></i></button>
@@ -593,32 +591,34 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">4 KODOKU</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28"  placeholder="50" id='counterCur' />
+															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1/greyHoundPrice)} HOUND</p>
+														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1 / greyHoundPrice)} HOUND</p>
 													</div>
 												</div>
 											</div>
 										</div>
 
 										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
-										{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-										<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
-									<Modal show={popupTrade} className="fade" size='lg'>
-										<Modal.Header>
-											<Modal.Title>Scan QR Code</Modal.Title>
-										</Modal.Header>
-										<Modal.Body>
-											<div className="close=button">
-												<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{alignSelf: 'flex-end'}}>Close</button>
-											</div>
-											<div className="qr-code-img">
-												<center>
-												<img src={qrcodepng} alt="QR Code" />
-												</center>
-											</div>
-										</Modal.Body>
-									</Modal>
+											{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
+											<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
+										
+										<Modal show={popupTrade} className="fade" size='lg' isCentered>
+											<Modal.Header>
+												<Modal.Title>Scan QR Code</Modal.Title>
+											</Modal.Header>
+											<Modal.Body>
+												<div className="close=button">
+													<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{ alignSelf: 'flex-end' }}>Close</button>
+												</div>
+												<div className="qr-code-img">
+													<center>
+														<img src={qrcodepng} alt="QR Code" />
+													</center>
+												</div>
+											</Modal.Body>
+										</Modal>
+
 									</div>
 								</div>
 							</div>
