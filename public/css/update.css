@@ -343,7 +343,7 @@ button:active {
 
 .trade-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
     gap: 15px;
@@ -354,16 +354,26 @@ button:active {
     display: flex;
     padding: 15px 0;
     transition: .3s;
-    align-items: center;
+    align-items: start;
     border-radius: 0.5em;
     padding: 1.25rem;
     flex-direction: column;
-    text-align: center;
 }
 
 .trade-wrapper .trade-box {
     border: solid 1px rgba(255, 255, 255, 0.1);
-    width: calc(50% - 35px);
+    width: 100%;
+}
+
+.trade-wrapper .trade-box form{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center !important;
+}
+
+.trade-box .svg-btn{
+    padding-left: 0;
 }
 
 .trade-wrapper .disabled{
@@ -385,6 +395,8 @@ button:active {
     position: absolute;
     z-index: 1;
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px;
+    transform: rotate(90deg);
+
 }
 
 .trade-wrapper .round-button :active {
@@ -394,6 +406,11 @@ button:active {
 .trade-wrapper .btn {
     justify-content: center;
     box-shadow: rgb(0 0 0 / 0%) 0px 6px 12px !important;
+}
+
+.trade-card .form-control, .trade-card .form-control:hover, .trade-card .form-control:active, .trade-card .form-control:focus{
+    text-align: right;
+    background: transparent;
 }
 
 .dropdown-menu .dropdown-item {

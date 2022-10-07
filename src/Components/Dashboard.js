@@ -543,24 +543,23 @@ function Dashboard(props) {
 						<div className="col-xl-8 col-xxl-8 col-lg-8">
 							<div className="row">
 								<div className="col-xl-12 col-xxl-12 col-lg-12">
-									<div className="card overflow-hidden trade-card">
 
+
+									<div className="card overflow-hidden trade-card">
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
 											<h5 className="card-title text-white">Quick Swap</h5>
 										</div>
-
 										<div className="card-body">
-
 											<div className="row">
-
 												<div className="trade-wrapper">
 													<div className="flex-col trade-box">
+														<span className="text-white">Pay with</span>
 														<form>
-															<div className="dropdown d-block mt-3 mt-sm-0">
+															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img className="gh-icon" src="./images/tokens/greyhound.svg" height="30px" />
+																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" />
 																	<div className="text-left ml-3">
-																		<span className="d-block fs-16 text-white">HOUND</span>
+																		<span className="d-block fs-20 text-white">HOUND</span>
 																	</div>
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
@@ -571,18 +570,19 @@ function Dashboard(props) {
 															</div>
 															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP'>1 HOUND = {format(greyHoundPrice, 8)} XRP</p>
+														<p className="fs-14" id='houndPriceXRP'>Balance: {greyHoundBalance}</p>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
 														<button className="round-button"><i className="fi fi-rr-exchange"></i></button>
 													</div>
 													<div className="flex-col trade-box">
+														<span className="text-white">Receive</span>
 														<form>
-															<div className="dropdow d-block mt-3 mt-sm-0">
+															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
 																	<img src="./images/tokens/xrp.png" height="30px" />
 																	<div className="text-left ml-3">
-																		<span className="d-block fs-16 text-white">XRP</span>
+																		<span className="d-block fs-20 text-white">XRP</span>
 																	</div>
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
@@ -592,17 +592,25 @@ function Dashboard(props) {
 															</div>
 															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP2'>1 XRP = {format(1 / greyHoundPrice)} HOUND</p>
+														<p className="fs-14" id='houndPriceXRP2'>Balance: 0</p>
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<div className="card-footer border-0 pt-0"><div className="row align-items-center"><div className="col-md-5 col-sm-12"><p className="mb-0 fs-16 "><a className="text-white pr-3">Transaction Fee:</a>0 XRP</p></div><div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
-											{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-											<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
-										
-										<Modal show={popupTrade} className="fade" size='lg' isCentered>
+										<div className="card-footer border-0 pt-0">
+											<div className="row align-items-center">
+												<div className="col-md-5 col-sm-12">
+													<div className="form-check custom-checkbox ">
+														<input type="checkbox" className="form-check-input" id="customCheckBox1" />
+															<label className="form-check-label " for="customCheckBox1">Include issuer fee (1.5%)</label>
+													</div>
+												</div>
+												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
+													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
+													<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
+
+										<Modal show={popupTrade} className="xumm-tx" size='lg' isCentered>
 											<Modal.Header>
 												<Modal.Title>Scan QR Code</Modal.Title>
 											</Modal.Header>
@@ -751,16 +759,16 @@ function Dashboard(props) {
 											<div className="d-flex align-items-center mt-3 mt-sm-0" id="marketTab">
 
 												<Tab.Pane eventKey="all">
-												<p className="mb-0 fs-13 mr-3">Current HOUND price</p>
-												<h2 className="mb-0 text-black font-w600">
-													{greyHoundPrice}
-												</h2>
+													<p className="mb-0 fs-13 mr-3">Current HOUND price</p>
+													<h2 className="mb-0 text-black font-w600">
+														{greyHoundPrice}
+													</h2>
 												</Tab.Pane>
 												<Tab.Pane eventKey="xrp">
-												<p className="mb-0 fs-13 mr-3">Current XRP price</p>
-												<h2 eventKey="xrp" className="mb-0 text-black font-w600">
-													{xrpPrice}
-												</h2>
+													<p className="mb-0 fs-13 mr-3">Current XRP price</p>
+													<h2 eventKey="xrp" className="mb-0 text-black font-w600">
+														{xrpPrice}
+													</h2>
 												</Tab.Pane>
 											</div>
 										</div>
