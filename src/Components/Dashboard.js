@@ -570,7 +570,10 @@ function Dashboard(props) {
 															</div>
 															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP'>Balance: {greyHoundBalance}</p>
+														<div className='trade-value'>
+															<p className="fs-14" id='houndPriceXRP'>Balance: {greyHoundBalance}</p>
+															<p className="fs-14" id='houndPriceXRP'>0$</p>
+														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
 														<button className="round-button"><i className="fi fi-rr-exchange"></i></button>
@@ -592,7 +595,10 @@ function Dashboard(props) {
 															</div>
 															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
 														</form>
-														<p className="fs-14" id='houndPriceXRP2'>Balance: 0</p>
+														<div className='trade-value'>
+															<p className="fs-14" id='houndPriceXRP'>Balance: 0</p>
+															<p className="fs-14" id='houndPriceXRP'>0$</p>
+														</div>
 													</div>
 												</div>
 											</div>

@@ -365,7 +365,7 @@ button:active {
     width: 100%;
 }
 
-.trade-wrapper .trade-box form{
+.trade-wrapper .trade-box form, .trade-wrapper .trade-box .trade-value{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -374,6 +374,10 @@ button:active {
 
 .trade-box .svg-btn{
     padding-left: 0;
+}
+
+.trade-box input{
+    padding-right: 0;
 }
 
 .trade-wrapper .disabled{
