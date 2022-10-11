@@ -159,7 +159,7 @@ function Login(props) {
       <div className="row no-gutter">
 
         <div className="col-md-5 d-none d-md-flex bg-login">
-          <video poster="placeholder.png" autoPlay muted loop>
+          <video poster="./videos/houndcity-thumbnail.jpeg" autoPlay muted loop>
             <source src="./videos/houndcity.mp4" type="video/mp4" />
           </video>
         </div>
