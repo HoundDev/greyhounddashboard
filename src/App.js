@@ -40,7 +40,14 @@ function App() {
   };
 
 
-
+  async function notifsFetch() {
+    let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/notifs', {
+      method: 'post'
+    });
+    let data = await response.json();
+    console.log(data)
+  }
+  notifsFetch()
   useEffect(() => {
     const cookies = new Cookies();
     let userAddress = cookies.get('userAddress');

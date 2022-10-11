@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
-const data = {
+export var dataSup = {
    defaultFontFamily: "Poppins",
    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
    datasets: [{
@@ -78,7 +78,7 @@ const options = {
 };
 class GreyhoundSupply extends Component {
    render() {
-      return <Line data={data} options={options} height={100} />;
+      return <Line data={dataSup} options={options} height={100} />;
    }
 }
 

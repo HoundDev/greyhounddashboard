@@ -1,7 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
+import { Line } from "react-chartjs-2";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
-import GreyHolders from "./greyhoundHolders";
-import GreyTrustlines from "./greyhoundTrustlines";
+// import GreyHolders from "./greyhoundHolders";
+// import GreyTrustlines from "./greyhoundTrustlines";
+
+const format = (num, decimals) => {
+	try {
+		return num.toLocaleString(undefined, {
+			minimumFractionDigits: 0,
+			maximumFractionDigits: decimals,
+		});
+	} catch (e) {
+		return num;
+	}
+};
 require("dotenv").config();
 
 export default function Richlist(props) {
@@ -11,6 +23,174 @@ export default function Richlist(props) {
   const [searchParams] = useSearchParams();
   const { search } = useLocation();
   const [xrpAddressInputVal, setxrpAddressInputVal] = useState('');
+  const [userRank, setUserRank] = useState(0);
+  const [labelsHolder, setLabelsHolder] = useState([]);
+  const [dataHolder, setDataHolder] = useState([]);
+  const [labelTls, setLabelTls] = useState([]);
+  const [dataTls, setDataTls] = useState([]);
+  const [totalTls, setTotalTls] = useState(0);
+  const [totalHolders, setTotalHolders] = useState(0);
+  const [changeTls, setChangeTls] = useState(0);
+  const [changeHolders, setChangeHolders] = useState(0);
+
+  const dataholder = {
+    defaultFontFamily: "Poppins",
+    labels: labelsHolder,
+    datasets: [{
+     label: "Issue Supply",
+     backgroundColor: '#CE5C6C',
+     borderColor: '#CE5C6C',
+     pointBackgroundColor: '#CE5C6C',
+     pointBorderColor: '#CE5C6C',
+     borderWidth:2,
+     pointHoverBackgroundColor: '#CE5C6C',
+     pointHoverBorderColor: '#CE5C6C',
+     data: dataHolder
+   }],
+ };
+  const optionsholder = {
+      title: {
+      display: !1
+    },
+    tooltips: {
+      intersect: !1,
+      mode: "nearest",
+      xPadding: 20,
+      yPadding: 20,
+      caretPadding: 20
+    },
+    legend: {
+      display: !1
+    },
+    responsive: !0,
+    maintainAspectRatio: !1,
+    hover: {
+      mode: "index"
+    },
+      scales: {
+      xAxes: [{
+        display: !1,
+        gridLines: !1,
+        scaleLabel: {
+          display: !0,
+          labelString: "Month"
+        }
+      }],
+      yAxes: [{
+        display: !1,
+        gridLines: !1,
+        scaleLabel: {
+          display: !0,
+          labelString: "Value"
+        },
+        ticks: {
+          beginAtZero: !0
+        }
+      }]
+    },
+    elements: {
+      line: {
+        tension: .2
+      },
+      point: {
+        radius: 0,
+        borderWidth: 0
+      }
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 5,
+        bottom: 0
+      }
+    }
+    
+  };
+  class GreyHolders extends Component {
+      render() {
+        return <Line data={dataholder} options={optionsholder} height={50} id="chartHolder" />;
+      }
+  }
+  const datatls = {
+    defaultFontFamily: "Poppins",
+    labels: labelTls,
+    datasets: [{
+     label: "Issue Supply",
+     backgroundColor: '#CE5C6C',
+     borderColor: '#CE5C6C',
+     pointBackgroundColor: '#CE5C6C',
+     pointBorderColor: '#CE5C6C',
+     borderWidth:2,
+     pointHoverBackgroundColor: '#CE5C6C',
+     pointHoverBorderColor: '#CE5C6C',
+     data: dataTls
+   }],
+ };
+  const optionstls = {
+      title: {
+      display: !1
+    },
+    tooltips: {
+      intersect: !1,
+      mode: "nearest",
+      xPadding: 20,
+      yPadding: 20,
+      caretPadding: 20
+    },
+    legend: {
+      display: !1
+    },
+    responsive: !0,
+    maintainAspectRatio: !1,
+    hover: {
+      mode: "index"
+    },
+      scales: {
+      xAxes: [{
+        display: !1,
+        gridLines: !1,
+        scaleLabel: {
+          display: !0,
+          labelString: "Month"
+        }
+      }],
+      yAxes: [{
+        display: !1,
+        gridLines: !1,
+        scaleLabel: {
+          display: !0,
+          labelString: "Value"
+        },
+        ticks: {
+          beginAtZero: !0
+        }
+      }]
+    },
+    elements: {
+      line: {
+        tension: .2
+      },
+      point: {
+        radius: 0,
+        borderWidth: 0
+      }
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 5,
+        bottom: 0
+      }
+    }
+    
+  };
+  class GreyTrustlines extends Component {
+      render() {
+        return <Line data={datatls} options={optionstls} height={50} />;
+      }
+  }
 
   function handleAddressSearchChange(event) {
     setxrpAddressInputVal(event.target.value);
@@ -30,13 +210,66 @@ export default function Richlist(props) {
       let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/richlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "page": page })
+        body: JSON.stringify({ "page": page,"address": props.xrpAddress})
       });
       let json = await response.json()
       console.log(json.sum[0].sum)
       setPager(json.pager)
       setpageOfItems(json.pageOfItems)
       setSum(json.sum[0].sum)
+      setTotalHolders(json.totalHolders)
+      setTotalTls(json.totalTls)
+      let label = [];
+      let data = [];
+      for (var key in json.holderData) {
+        label.push(key);
+        data.push(json.holderData[key]);
+      }
+      //invert both arrays
+      label.reverse();
+      data.reverse();
+      //get the %change over the last 30 days
+      let before = data[data.length - 2];
+      let after = data[data.length - 1];
+      let change = ((after - before) / before) * 100;
+      if (change > 0) {
+        change = "+" + change.toFixed(2);
+      } else {
+        change = change.toFixed(2);
+      }
+      setChangeHolders(change);
+      setLabelsHolder(label);
+      setDataHolder(data);
+      let label2 = [];
+      let data2 = [];
+      let baseTl = json.totalTls
+      for (var key2 in json.tlData) {
+        label2.push(key2);
+        data2.push(baseTl);
+        baseTl = baseTl - json.tlData[key2];
+      }
+      //invert both arrays
+      label2.reverse();
+      data2.reverse();
+      //get the %change over the last 30 days
+      let before2 = data2[data2.length - 2];
+      let after2 = data2[data2.length - 1];
+      let change2 = ((after2 - before2) / before2) * 100;
+      //place a `+` in front of the number if it's positive
+      if (change2 > 0) {
+        change2 = "+" + change2.toFixed(2);
+      } else {
+        change2 = change2.toFixed(2);
+      }
+      setChangeTls(change2);
+      setLabelTls(label2);
+      setDataTls(data2);
+      if (json.rank !== undefined) {
+        setUserRank(json.rank)
+      }
+      else {
+        setUserRank(0)
+      }
     } catch (error) {
       console.log(error)
       return { success: false };
@@ -66,7 +299,7 @@ export default function Richlist(props) {
             <div className="card">
               <div className="card-body text-center card-text  align-middle">
                 <h2 className=" text-white fs-28">
-                  #13</h2>
+                  #{userRank}</h2>
                 <h2 className="text-white fs-18 mb-2 font-w600">Wealthiest Hound</h2>
               </div>
             </div>
@@ -77,7 +310,7 @@ export default function Richlist(props) {
               <div className="card-header border-0 pb-0 card-bx">
                 <div className="me-auto">
                   <h2 className="text-white mb-2 font-w600">Trustlines</h2>
-                  <p className="mb-1 fs-16">11,218 (+4% in 30 days)</p>
+                  <p className="mb-1 fs-16">{format(totalTls)} ({changeTls}% in 30 days)</p>
                 </div>
               </div>
               <div className="card-body p-0">
@@ -90,7 +323,7 @@ export default function Richlist(props) {
               <div className="card-header border-0 pb-0 card-bx">
                 <div className="me-auto">
                   <h2 className="text-white mb-2 font-w600">Holders</h2>
-                  <p className="mb-1 fs-16">11,218 (+4% in 30 days)</p>
+                  <p className="mb-1 fs-16">{format(totalHolders)} ({changeHolders}% in 30 days)</p>
                 </div>
               </div>
               <div className="card-body p-0">
@@ -103,6 +336,7 @@ export default function Richlist(props) {
           <div className="input-group search-area d-inline-flex">
             <input id="walletAddy" type="text" className="form-control" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
           </div>
+          <button className="btn btn-md btn-primary ml-auto"><i className="fa-solid fa-arrows-rotate" /></button>
         </div>
 
         <div className="row">
@@ -115,7 +349,7 @@ export default function Richlist(props) {
                       <th style={{ width: '10px' }}>Rank</th>
                       <th style={{ width: '300.812px' }}>Wallet Address</th>
                       <th className="sorting" tabIndex={0} aria-controls="example-5" rowSpan={1} colSpan={1} aria-label="Coin: activate to sort column ascending" style={{ width: '50px' }}>Greyhound Amount</th>
-                      <th className="sorting" tabIndex={0} aria-controls="example-5" rowSpan={1} colSpan={1} aria-label="Last Price: activate to sort column ascending" style={{ width: '10px' }}>Change (24h)</th>
+                      {/* <th className="sorting" tabIndex={0} aria-controls="example-5" rowSpan={1} colSpan={1} aria-label="Last Price: activate to sort column ascending" style={{ width: '10px' }}>Change (24h)</th> */}
                       <th className="sorting" tabIndex={0} aria-controls="example-5" rowSpan={1} colSpan={1} aria-label="Change (24h): activate to sort column ascending" style={{ width: '10px' }}>Percentage (%)</th>
                     </tr>
                   </thead>
@@ -132,11 +366,11 @@ export default function Richlist(props) {
                             </div>
                           </td>
                           <td>
-                            <span>{Math.round(item.balance)}</span>
+                            <span>{format(Math.round(item.balance))}</span>
                           </td>
-                          <td>
+                          {/* <td>
                             <span className="font-w500 text-success">-</span>
-                          </td>
+                          </td> */}
                           <td>
                             <span className="font-w500">{((Math.round(item.balance) / Math.round(sum)) * 100).toFixed(5)}%</span>
                           </td>

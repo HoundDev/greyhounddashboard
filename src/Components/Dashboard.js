@@ -14,17 +14,11 @@ import GreySupply from "./greyhoundSupply";
 import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
+import { dataSup } from './greyhoundSupply';
 
 require("dotenv").config();
 const xrpl = require("xrpl");
 
-// const format = (num, decimals) => {
-// 	  return num.toLocaleString(undefined, {
-// 		minimumFractionDigits: 0,
-// 		maximumFractionDigits: decimals,
-// 	  });
-// 	};
-//above method but with error handling
 const format = (num, decimals) => {
 	try {
 		return num.toLocaleString(undefined, {
@@ -36,23 +30,10 @@ const format = (num, decimals) => {
 	}
 };
 
-// make a function that converts big numbers to formats such as `k`, `m`
-// const formatNumber = (num) => {
-// 	  if (num >= 1000000000) {
-// 		return format(num / 1000000000, 3) + "B";
-// 	  } else if (num >= 1000000) {
-// 		return format(num / 1000000, 2) + "M";
-// 	  } else if (num >= 1000) {
-// 		return format(num / 1000, 1) + "K";
-// 	  } else {
-// 		return format(num, 0);
-// 	  }
-// 	};
-//above method but with error handling
 const formatNumber = (num) => {
 	try {
 		if (num >= 1000000000) {
-			return format(num / 1000000000, 3) + "B";
+			return format(num / 1000000000, 2) + "B";
 		} else if (num >= 1000000) {
 			return format(num / 1000000, 2) + "M";
 		} else if (num >= 1000) {
@@ -65,26 +46,6 @@ const formatNumber = (num) => {
 	}
 };
 
-//reverse the format function
-// const reverseFormat = (num) => {
-// 	  const len = num.length;
-// 	  if (len > 1) {
-// 		const lastChar = num.charAt(len - 1);
-// 		const value = parseFloat(num.substring(0, len - 1));
-// 		switch (lastChar) {
-// 			case "K":
-// 				return value * 1000;
-// 			case "M":
-// 				return value * 1000000;
-// 			case "B":
-// 				return value * 1000000000;
-// 			default:
-// 				return num;
-// 		}
-// 	  }
-// 	  return num;
-// 	};
-//above method but with error handling
 const reverseFormat = (num) => {
 	try {
 		const len = num.length;
@@ -126,6 +87,10 @@ function Dashboard(props) {
 	const [xrpPrice, setXrpPrice] = useState(0)
 	const [qrcodepng, setQrcodepng] = useState('')
 	const [popupTrade, setPopupTrade] = useState(false)
+	const [volumeTraded, setVolumeTraded] = useState(0)
+	const [balanceChanges, setBalanceChanges] = useState(0)
+	const [showChangePos, setShowChangePos] = useState(false)
+	const [showChangeNeg, setShowChangeNeg] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -138,6 +103,7 @@ function Dashboard(props) {
 			var VolumeDict = json.TokenVolume
 			var xrppricess = json.XRPPrices
 			var ghpricess = json.GHPrices
+			setBalanceChanges(json.Change)
 			var labelsArray = []
 			var dataArray = []
 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -151,6 +117,7 @@ function Dashboard(props) {
 			}
 			dataa.datasets[0].data = dataArray
 			dataa.labels = labelsArray
+			setVolumeTraded(dataArray[dataArray.length - 1])
 			var xrpPirces = []
 			var days = []
 			for (var key in xrppricess) {
@@ -210,6 +177,9 @@ function Dashboard(props) {
 	}
 	//detect button click and call function
 	document.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("swapButton").addEventListener("click", function () {
+			console.log("swap")
+		})
 		document.getElementById("myButton").addEventListener("click", function () {
 			let amountBase = document.getElementById("baseCur").value
 			let amountCounter = document.getElementById("counterCur").value
@@ -227,38 +197,21 @@ function Dashboard(props) {
 			else {
 				alert("Please enter an amount")
 			}
+
 		});
 		//check if something is written in basecur
-		document.getElementById("baseCur").addEventListener("input", function () {
+		document.getElementById("counterCur").addEventListener("input", function () {
 			//disable the countercur
-			document.getElementById("counterCur").disabled = true
-			let price = document.getElementById("houndPriceXRP").innerHTML
-			price = price.split(" ")[3]
+			document.getElementById("baseCur").disabled = true
+			let price = document.getElementById("gpricegraph").innerHTML
+			// price = price.split(" ")[3]
 			//convert from string to float
 			price = parseFloat(price)
 			price = price
-			document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price, 8)
-			document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price, 8)
+			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value/price)
+			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value/price)
 			//change the text
 			// document.getElementById("counterCur").placeholder = "Disabled"
-			if (document.getElementById("baseCur").value == "") {
-				document.getElementById("counterCur").disabled = false
-				document.getElementById("counterCur").placeholder = " "
-			}
-		});
-		//check if something is written in countercur
-		document.getElementById("counterCur").addEventListener("input", function () {
-			//disable the basecur
-			document.getElementById("baseCur").disabled = true
-			let price = document.getElementById("houndPriceXRP2").innerHTML
-			//split price to an array
-			price = price.split(" ")
-			let ghPrice = price[3]
-			//convert from string to float
-			ghPrice = parseFloat(ghPrice)
-			ghPrice = ghPrice * 1000
-			document.getElementById("baseCur").value = formatNumber(ghPrice * document.getElementById("counterCur").value)
-			document.getElementById("baseCur").placeholder = formatNumber(ghPrice * document.getElementById("counterCur").value)
 			if (document.getElementById("counterCur").value == "") {
 				document.getElementById("baseCur").disabled = false
 				document.getElementById("baseCur").placeholder = " "
@@ -274,6 +227,17 @@ function Dashboard(props) {
 	useEffect(async () => {
 		let mainData = await getMainData(props.xrpAddress)
 		setActive(false)
+		// setShowChange(true)
+		console.log(mainData.data.Change)
+		if (mainData.data.Change > 0) {
+			setShowChangePos(true)	
+			setShowChangeNeg(false)
+		}
+		else {
+			setShowChangeNeg(true)
+			setShowChangePos(false)
+		}
+
 		ParseDataUpdateState(mainData)
 	}, []);
 
@@ -317,11 +281,17 @@ function Dashboard(props) {
 			if (mainData.data.GreyHoundAmount[0].sum !== null) {
 				setGreyHoundSupply(Math.round(mainData.data.GreyHoundAmount[0].sum));
 				setGreyHoundAmountBurnt(parseFloat((1 - parseFloat(mainData.data.GreyHoundAmount[0].sum) / 1000000000000) * 100).toFixed(2))
+				dataSup.labels = ['Greyhound Supply', 'Greyhound Burnt'];
+				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
 			setGreyHoundPrice(mainData.data.CurrentGH)
 			//Get XRP Price
-			setXrpPrice(mainData.data.CurrentXRP)
+			let xrpprice = mainData.data.CurrentXRP
+			//parse to float and reduce to 2 decimals
+			xrpprice = parseFloat(xrpprice).toFixed(4)
+			console.log(xrpprice)
+			setXrpPrice(xrpprice)
 			//Set Transactions
 			let receivedTxns = []
 			let sentTxns = []
@@ -437,8 +407,12 @@ function Dashboard(props) {
 								<div className="card-body">
 									<div className="balance-info pb-4">
 										<div>
-											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{greyHoundBalance} HOUND</h2>
-											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(greyHoundPrice, 8) * greyHoundBalance} </h2><span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> 2.36%</span><br />
+											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{format(greyHoundBalance)} HOUND</h2>
+											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(format(greyHoundPrice, 8) * greyHoundBalance)} xrp</h2>
+											{/* <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}</span><br /> */}
+							 				{/* //only show this change when `showChange` is true */}
+											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}%</span>} 
+											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges,2)}%</span>}(30 day change)
 										</div>
 									</div>
 
@@ -552,40 +526,40 @@ function Dashboard(props) {
 										<div className="card-body">
 											<div className="row">
 												<div className="trade-wrapper">
-													<div className="flex-col trade-box">
-														<span className="text-white">Pay with</span>
+													<div className="flex-col trade-box" id="trade-box-counter">
+														<span className="text-white">Receive</span>
 														<form>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" />
+																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage'/>
 																	<div className="text-left ml-3">
-																		<span className="d-block fs-20 text-white">HOUND</span>
+																		<span className="d-block fs-20 text-white" id='baseField'>HOUND</span>
 																	</div>
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-																	<a className="dropdown-item" href="">1000 XRP</a>
-																	<a className="dropdown-item" href="">4 KODOKU</a>
+																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="50000000" id='baseCur' />
+															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur'/>
 														</form>
 														<div className='trade-value'>
-															<p className="fs-14" id='houndPriceXRP'>Balance: {greyHoundBalance}</p>
+															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
 															<p className="fs-14" id='houndPriceXRP'>0$</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
-														<button className="round-button"><i className="fi fi-rr-exchange"></i></button>
+														{/* <button className="round-button"><i className="fi fi-rr-exchange"></i></button> */}
+														<button className="round-button" id="swapButton"><i className="fi fi-rr-exchange"></i></button>
 													</div>
-													<div className="flex-col trade-box">
-														<span className="text-white">Receive</span>
+													<div className="flex-col trade-box" id='trade-box-base'>
+														<span className="text-white">Pay With</span>
 														<form>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img src="./images/tokens/xrp.png" height="30px" />
+																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage'/>
 																	<div className="text-left ml-3">
-																		<span className="d-block fs-20 text-white">XRP</span>
+																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
 																	</div>
 																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
 																</div>
@@ -593,7 +567,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder="50" id='counterCur' />
+															<input type="number" className="form-control fs-28" placeholder={format(greyHoundPrice,8)} id='counterCur' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: 0</p>
@@ -641,7 +615,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Greyhound Supply</h5>
-												<p className="mb-3 fs-14 font-w500">Total:{greyHoundSupply} Burnt:{greyHoundAmountBurnt}%</p>
+												<p className="mb-3 fs-14 font-w500">Total: {formatNumber(greyHoundSupply)}<p className="mb-3 fs-14 font-w500 text-red" style={{ paddingTop: '0px'}}> Burnt: {greyHoundAmountBurnt}%</p></p>
 											</div>
 										</div>
 										<div className="card-body p-0">
@@ -654,7 +628,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Volume</h5>
-												<p className="mb-3 fs-14 font-w500">2,000 XRP in the last day</p>
+												<p className="mb-3 fs-14 font-w500">{format(volumeTraded)} XRP in the last day</p>
 											</div>
 										</div>
 										<div className="card-body p-0">
@@ -766,14 +740,17 @@ function Dashboard(props) {
 
 												<Tab.Pane eventKey="all">
 													<p className="mb-0 fs-13 mr-3">Current HOUND price</p>
-													<h2 className="mb-0 text-black font-w600">
-														{greyHoundPrice}
+													<h2 className="mb-0 text-black font-w600" id='gpricegraph'>
+														{/* {greyHoundPrice} */}
+														{format(greyHoundPrice, 8)}
 													</h2>
 												</Tab.Pane>
 												<Tab.Pane eventKey="xrp">
 													<p className="mb-0 fs-13 mr-3">Current XRP price</p>
-													<h2 eventKey="xrp" className="mb-0 text-black font-w600">
-														{xrpPrice}
+													<h2 eventKey="xrp" className="mb-0 text-black font-w600" id='xrppricegraph'>
+														{/* {xrpPrice} */}
+														{/* change xrpPrice to 3 decimals */}
+														{format(xrpPrice, 3)}
 													</h2>
 												</Tab.Pane>
 											</div>
