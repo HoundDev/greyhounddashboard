@@ -886,6 +886,17 @@ button:active {
     .trade-wrapper{
         justify-content: center;
     }
+    [data-theme-version="dark"] .deznav .metismenu>li>a{
+        color: #a6b0cf;
+    }
+    .form-head{
+        display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+    }
+    .card-title {
+        text-align: left;
+    }
 }
 
 .nft-container .box {
