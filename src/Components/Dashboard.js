@@ -541,7 +541,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur'/>
+															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' disabled/>
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
@@ -590,7 +590,7 @@ function Dashboard(props) {
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
 													<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
 
-										<Modal show={popupTrade} className="xumm-tx" size='lg' isCentered>
+										<Modal show={popupTrade} className="xumm-tx" size='lg' iscentered>
 											<Modal.Header>
 												<Modal.Title>Scan QR Code</Modal.Title>
 											</Modal.Header>
