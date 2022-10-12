@@ -3,24 +3,12 @@ import { Line } from "react-chartjs-2";
 export var GHdata = {
    defaultFontFamily: "Poppins",
    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
    ],
 
    datasets: [
       {
          label: "My First dataset",
-         data: [50, 5, 34, 55, 25, 70, 50, 80, 60, 90, 45, 65],
+         data: [],
          borderColor: "#ffab2d",
          borderWidth: "4",
          barThickness: "flex",

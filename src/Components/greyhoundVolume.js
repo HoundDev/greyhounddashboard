@@ -16,7 +16,7 @@ export var dataa = {
 		borderWidth:2,
 		pointHoverBackgroundColor: '#CE5C6C',
 		pointHoverBorderColor: '#CE5C6C',
-		data: [4000, 3000, 7000, 10000, 20000, 10000, 7000, 2000]
+		data: []
 	}],
 };
 

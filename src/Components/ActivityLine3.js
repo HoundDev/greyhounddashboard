@@ -2,25 +2,12 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 export var data = {
    defaultFontFamily: "Poppins",
-   labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-   ],
+   labels: [],
 
    datasets: [
       {
          label: "My First dataset",
-         data: [20, 35, 70, 44, 40, 37, 30, 37, 10, 40, 60, 20],
+         data: [],
          borderColor: "#ffab2d",
          borderWidth: "4",
          barThickness: "flex",
