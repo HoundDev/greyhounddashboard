@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 
 const data = {
    defaultFontFamily: "Poppins",
-   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+   labels:  [ ],
    datasets: [{
 		label: "Issue Supply",
 		backgroundColor: '#CE5C6C',
@@ -13,7 +13,7 @@ const data = {
 		borderWidth:2,
 		pointHoverBackgroundColor: '#CE5C6C',
 		pointHoverBorderColor: '#CE5C6C',
-		data: [1000000000000, 1000000000000, 990000000000, 980000000000, 970000000000, 970000000000, 920000000000, 900000000000]
+		data: [ ]
 	}],
 };
 
