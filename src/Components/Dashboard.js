@@ -280,6 +280,7 @@ function Dashboard(props) {
 			for (let i = 0; i < mainData.data.Account_Lines.length; i++) {
 				if (mainData.data.Account_Lines[i].currency === '47726579686F756E640000000000000000000000') {
 					setGreyHoundBalance(Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
+					console.log("Greyhound Balance: " + Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
 				}
 			}
 
