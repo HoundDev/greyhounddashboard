@@ -91,6 +91,7 @@ function Dashboard(props) {
 	const [balanceChanges, setBalanceChanges] = useState(0)
 	const [showChangePos, setShowChangePos] = useState(false)
 	const [showChangeNeg, setShowChangeNeg] = useState(false)
+	const [showNoChange, setShowNoChange] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -232,6 +233,11 @@ function Dashboard(props) {
 		if (mainData.data.Change > 0) {
 			setShowChangePos(true)	
 			setShowChangeNeg(false)
+		}
+		else if (mainData.data.Change == 0) {
+			setShowChangePos(false)	
+			setShowChangeNeg(false)
+			setShowNoChange(true)
 		}
 		else {
 			setShowChangeNeg(true)
@@ -412,7 +418,8 @@ function Dashboard(props) {
 											{/* <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}</span><br /> */}
 							 				{/* //only show this change when `showChange` is true */}
 											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}%</span>} 
-											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges,2)}%</span>}(30 day change)
+											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges,2)}%</span>}
+											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}%</span>} (30 day change)
 										</div>
 									</div>
 
