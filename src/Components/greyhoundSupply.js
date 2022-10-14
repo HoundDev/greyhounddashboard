@@ -11,7 +11,7 @@ export var dataSup = {
 		pointBackgroundColor: '#CE5C6C',
 		pointBorderColor: '#CE5C6C',
 		borderWidth:2,
-		pointHoverBackgroundColor: '#CE5C6C',
+		pointHoverBackgroundColor: 'rgba(166, 176, 207, .05)',
 		pointHoverBorderColor: '#CE5C6C',
 		data: [1000000000000, 1000000000000, 990000000000, 980000000000, 970000000000, 970000000000, 920000000000, 900000000000]
 	}],

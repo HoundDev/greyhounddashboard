@@ -41,10 +41,10 @@ export default function NftHome() {
                     <div className="col-xl-4 col-xxl-4 col-lg-4">
                         <div className="card card-gradient">
                             <div className="card-header border-0 pb-0">
-                                <h5 className="card-title text-white">Current Balance</h5>
+                                <h5 className="card-title text-black">Current Balance</h5>
                             </div>
                             <div className="card-body">
-                                <h2 className="card-text text-white" id="greyhound-amount">5 NFTs</h2>
+                                <h2 className="card-text text-black" id="greyhound-amount">5 NFTs</h2>
                                 <p className="card-text">≈ $2,560,000</p>
                             </div>
 

@@ -550,11 +550,12 @@ button:active {
 }
 
 .card-gradient {
-    background: linear-gradient(-45deg, #ffe66d, #a6b0cf, #ce5c6d) !important;
+    background: #a6b0cf !important;
     background-size: 400% 400% !important;
     -webkit-animation: AnimationGradient 30s ease infinite !important;
     -moz-animation: AnimationGradient 30s ease infinite !important;
     animation: AnimationGradient 30s ease infinite !important;
+    color: #000 !important;
 }
 
 @-webkit-keyframes AnimationGradient {
