@@ -220,9 +220,11 @@ function Dashboard(props) {
 			//convert from string to float
 			price = parseFloat(price)
 			price = price
+			console.log('price', price)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value/price)
 			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value/price)
 			//change the text
+			console.log(document.getElementById("baseCur").value + " price of gh")
 			// document.getElementById("counterCur").placeholder = "Disabled"
 			if (document.getElementById("counterCur").value == "") {
 				document.getElementById("baseCur").disabled = false
