@@ -19,17 +19,28 @@ import { dataSup } from './greyhoundSupply';
 require("dotenv").config();
 const xrpl = require("xrpl");
 
-const format = (num, decimals) => {
-	try {
-		return num.toLocaleString(undefined, {
-			minimumFractionDigits: 0,
-			maximumFractionDigits: decimals,
-		});
-	} catch (e) {
-		return num;
+// const format = (num, decimals) => {
+// 	try {
+// 		return num.toLocaleString(undefined, {
+// 			minimumFractionDigits: 0,
+// 			maximumFractionDigits: decimals,
+// 		});
+// 	} catch (e) {
+// 		return num;
+// 	}
+// };
+function format(x, p) {
+	if (p === undefined) {
+		p = 0;
 	}
-};
+    let formated_number = Number.parseFloat(x).toFixed(p);
+    let tmp = String(formated_number).split('.');
 
+    // Add spaces for thousand sep
+    tmp[0] = tmp[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return tmp.join('.');
+}
 const formatNumber = (num) => {
 	try {
 		if (num >= 1000000000) {
