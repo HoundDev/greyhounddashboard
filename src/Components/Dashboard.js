@@ -33,13 +33,13 @@ function format(x, p) {
 	if (p === undefined) {
 		p = 0;
 	}
-    let formated_number = Number.parseFloat(x).toFixed(p);
-    let tmp = String(formated_number).split('.');
+	let formated_number = Number.parseFloat(x).toFixed(p);
+	let tmp = String(formated_number).split('.');
 
-    // Add spaces for thousand sep
-    tmp[0] = tmp[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	// Add spaces for thousand sep
+	tmp[0] = tmp[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-    return tmp.join('.');
+	return tmp.join('.');
 }
 const formatNumber = (num) => {
 	try {
@@ -221,8 +221,8 @@ function Dashboard(props) {
 			price = parseFloat(price)
 			price = price
 			console.log('price', price)
-			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value/price)
-			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value/price)
+			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
+			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value / price)
 			//change the text
 			console.log(document.getElementById("baseCur").value + " price of gh")
 			// document.getElementById("counterCur").placeholder = "Disabled"
@@ -244,11 +244,11 @@ function Dashboard(props) {
 		// setShowChange(true)
 		console.log(mainData.data.Change)
 		if (mainData.data.Change > 0) {
-			setShowChangePos(true)	
+			setShowChangePos(true)
 			setShowChangeNeg(false)
 		}
 		else if (mainData.data.Change == 0) {
-			setShowChangePos(false)	
+			setShowChangePos(false)
 			setShowChangeNeg(false)
 			setShowNoChange(true)
 		}
@@ -430,10 +430,10 @@ function Dashboard(props) {
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{format(greyHoundBalance)} HOUND</h2>
 											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(format(greyHoundPrice, 8) * greyHoundBalance)} XRP</h2>
 											{/* <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}</span><br /> */}
-							 				{/* //only show this change when `showChange` is true */}
-											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}% (30 day change)</span>} 
-											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges,2)}% (30 day change)</span>}
-											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}% (30 day change)</span>}
+											{/* //only show this change when `showChange` is true */}
+											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 										</div>
 									</div>
 
@@ -552,7 +552,7 @@ function Dashboard(props) {
 														<form>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage'/>
+																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage' />
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='baseField'>HOUND</span>
 																	</div>
@@ -562,7 +562,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' disabled/>
+															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' disabled />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
@@ -578,7 +578,7 @@ function Dashboard(props) {
 														<form>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage'/>
+																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
 																	</div>
@@ -588,7 +588,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder={format(greyHoundPrice,8)} id='counterCur' />
+															<input type="number" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: 0</p>
@@ -604,26 +604,44 @@ function Dashboard(props) {
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
 														<input type="checkbox" className="form-check-input" id="customCheckBox1" />
-															<label className="form-check-label " for="customCheckBox1">Include issuer fee (1.5%)</label>
+														<label className="form-check-label " for="customCheckBox1">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
 													<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
 
-										<Modal show={popupTrade} className="xumm-tx" size='lg' iscentered>
+										<Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
+											<img className="modal-above-image" src="./images/xumm.svg" />
 											<Modal.Header>
-												<Modal.Title>Scan QR Code</Modal.Title>
+												<Modal.Title>Confirm Swap</Modal.Title>
+												<button type="button" onClick={() => setPopupTrade(false)} className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
 											</Modal.Header>
 											<Modal.Body>
-												<div className="close=button">
-													<button className="btn btn-primary rounded-4 mb-2" onClick={() => setPopupTrade(false)} style={{ alignSelf: 'flex-end' }}>Close</button>
-												</div>
-												<div className="qr-code-img">
-													<center>
+												<div className="xumm-tx-container">
+													<div>
+														<div className='tx-info'>
+															<span>You Pay</span>
+															<p className='text-white'>500 XRP</p>
+														</div>
+														<div className='tx-info'>
+															<span>Receive</span>
+															<p className='text-white'>500 XRP</p>
+														</div>
+														<div className='tx-info'>
+															<span>Issuer Fee (1.5%)</span>
+															<p className='text-white'>0.000012 XRP</p>
+														</div>
+														<div className='tx-info'>
+															<span>XRP transaction fee</span>
+															<p className='text-white'>0.000012 XRP</p>
+														</div>
+													</div>
+													<div className="qr-code-img">
 														<img src={qrcodepng} alt="QR Code" />
-													</center>
+													</div>
 												</div>
+
 											</Modal.Body>
 										</Modal>
 
@@ -636,7 +654,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Greyhound Supply</h5>
-												<p className="mb-3 fs-14 font-w500">Total: {formatNumber(greyHoundSupply)}<p className="mb-3 fs-14 font-w500 text-red" style={{ paddingTop: '0px'}}> Burnt: {greyHoundAmountBurnt}%</p></p>
+												<p className="mb-3 fs-14 font-w500">Total: {formatNumber(greyHoundSupply)}<p className="mb-3 fs-14 font-w500 text-red" style={{ paddingTop: '0px' }}> Burnt: {greyHoundAmountBurnt}%</p></p>
 											</div>
 										</div>
 										<div className="card-body p-0">

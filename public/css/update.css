@@ -81,6 +81,32 @@
     justify-content: center;
 }
 
+[data-theme-version="dark"] .xumm-tx .modal-content{
+    background: #21212A !important;
+    box-shadow: rgb(0 0 0 / 0%) 0px 6px 12px !important;
+}
+
+.xumm-tx .modal-header{
+    padding: 1.875rem 1.875rem 1rem 1.875rem;
+}
+.xumm-tx .modal-header .close{
+    padding: 1.875rem 1.875rem 0px 1.875rem;
+}
+
+.xumm-tx-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.xumm-tx .modal-title{
+    color: #fff;
+    text-align: left;
+}
+
+.qr-code-img img{
+    border-radius: 0.5em;
+}
 
 .add-menu-sidebar {
     position: relative !important;
@@ -262,7 +288,6 @@ button:active {
 
 .modal-backdrop {
     backdrop-filter: blur(20px);
-    background: rgba(26, 25, 33, 0.5);
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     animation-fill-mode: both;
     animation-duration: 380ms;
