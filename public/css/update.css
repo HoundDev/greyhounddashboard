@@ -126,7 +126,7 @@
 .bg-login video {
     position: absolute;
     left: -303px;
-    bottom: 0;
+    top: 0;
     height: 100%;
     max-width: initial;
 }
