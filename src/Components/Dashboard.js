@@ -398,7 +398,7 @@ function Dashboard(props) {
 									<div className="card-header-right">
 
 									</div>
-									<div className="dropdown custom-dropdown mb-0 d-md-block d-none">
+									<div className="btn sharp btn-details dropdown custom-dropdown mb-0 d-md-block d-none">
 										<div data-toggle="dropdown">
 											<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
@@ -493,8 +493,7 @@ function Dashboard(props) {
 												<img className="layer0" draggable="false" src="./images/badges/airdropnft_layer0.png" />
 												<img className="layer1" draggable="false" src="./images/badges/airdropnft_layer1.png" />
 											</Tilt>
-											<p className="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-												incididunt ut labore et dolore magna aliqua. </p>
+											<p className="mt-5">You successfully held through the March 13th snapshot to earn an NFT from the Houndies collection.</p>
 										</Modal.Body>
 									</div>
 								</Modal>
@@ -519,8 +518,7 @@ function Dashboard(props) {
 												<img className="layer0" draggable="false" src="./images/badges/og_layer0.png" />
 												<img className="layer1" draggable="false" src="./images/badges/og_layer1.png" />
 											</Tilt>
-											<p className="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-												incididunt ut labore et dolore magna aliqua. </p>
+											<p className="mt-5">You've been here since the genesis of Greyhound. Thanks for being an early supporter and an OG.</p>
 										</Modal.Body>
 									</div>
 								</Modal>
@@ -603,8 +601,8 @@ function Dashboard(props) {
 											<div className="row align-items-center">
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
-														<input type="checkbox" className="form-check-input" id="customCheckBox1" />
-														<label className="form-check-label " for="customCheckBox1">Include issuer fee (1.5%)</label>
+														<input type="checkbox" className="form-check-input" id="issuer-fee" />
+														<label className="form-check-label " for="issuer-fee">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">

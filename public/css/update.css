@@ -121,7 +121,6 @@
     background-image: url(../images/bg-login.jpg);
     background-size: cover;
     background-position: center center;
-    overflow: hidden;
 }
 
 .bg-login video {
@@ -150,6 +149,8 @@
 
 .bg-login-split {
     background-color: #1A1921;
+    background: linear-gradient(93deg, rgba(26,25,33,0.33) 0%, rgba(26,25,33,1) 100%);
+    backdrop-filter: blur(30px);
 }
 
 .btn-login {
@@ -167,6 +168,17 @@
 
 .bg-login-split button>img {
     padding-right: 1rem;
+}
+
+.btn-details{
+    border-radius: 50% !important;
+    background: transparent;
+    cursor: pointer;
+    border: 0px solid transparent;
+    box-shadow: none !important;
+}
+.btn-details:hover, .btn-details:active, .btn-details:focus{
+    background: rgba(166, 176, 207, .05) !important;
 }
 
 [data-theme-version="dark"] .text-muted {
