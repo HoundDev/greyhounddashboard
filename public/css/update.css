@@ -149,15 +149,14 @@
 
 .bg-login-split {
     background-color: #1A1921;
-    background: linear-gradient(93deg, rgba(26,25,33,0.33) 0%, rgba(26,25,33,1) 100%);
+    background: linear-gradient(93deg, rgba(26,25,33,0.7) 0%, rgba(26,25,33,1) 65%, rgba(26,25,33,1) 100%);
     backdrop-filter: blur(30px);
 }
 
 .btn-login {
-    background: rgba(166, 176, 207, .05);;
+    background: #21212A;
     color: #fff;
     border: 1px solid transparent;
-    box-shadow: none !important;
 }
 
 .btn-login:hover,
@@ -189,6 +188,45 @@
     padding-top: 15px;
 }
 
+
+@media only screen and (max-width: 767px) {
+    .bg-login{
+        height: 70vh;
+        overflow: hidden;
+    }
+    .bg-login video {
+        left: -300px;
+    }
+    .bg-login-split .row2{
+        display: none;
+    }
+    .login > .container > .row >.login-section{
+        padding-bottom: 0;
+    }
+    .login-section{
+        text-align: center;
+    }
+    .login-section p{
+        font-size: 16px !important;
+    }
+    .btn-login{
+        margin-bottom: 15px;
+    }
+    .login-section .d-none{
+        display: unset !important;
+    }
+    .login {
+        min-height: 0vh !important;
+        height: 30vh;
+    }
+    .login .btn{
+        width: 100%;
+    }
+    [data-theme-version="dark"] .nav-header {
+        backdrop-filter: blur(0px);
+    }
+    
+}
 
 
 /* NEW */
@@ -335,11 +373,6 @@ button:active {
     backdrop-filter: blur(0px);
 }
 
-@media only screen and (max-width: 767px) {
-    [data-theme-version="dark"] .nav-header {
-        backdrop-filter: blur(15px);
-    }
-}
 
 .navbar-nav .dropdown-menu {
     border-radius: 1em;
@@ -908,6 +941,7 @@ button:active {
 
     [data-theme-version="dark"] .nav-header .logo-abbr {
         background: url(../images/svg/logo-icon.svg) no-repeat !important;
+        max-width: 70px;
     }
     [data-headerbg="color_1"] .nav-header .hamburger.is-active .line, [data-headerbg="color_1"] .nav-header .hamburger .line{
         color: #fff !important;

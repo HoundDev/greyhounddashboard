@@ -156,14 +156,14 @@ function Login(props) {
         </a>
       </div>
 
-      <div className="row no-gutter">
+      <div className="row no-gutter overflow-h">
 
-        <div className="col-md-6 d-none d-md-flex bg-login">
+        <div className="col-lg-6 col-sm-8 d-md-flex bg-login">
           <video poster="./videos/houndcity-thumbnail.jpeg" autoPlay muted loop>
             <source src="./videos/houndcity.mp4" type="video/mp4" />
           </video>
         </div>
-        <div className="col-md-5 bg-login-split">
+        <div className="col-lg-5 col-sm-4 bg-login-split">
           <div className="login d-flex align-items-center py-5">
             <div className="container">
               <div className="row">
@@ -180,7 +180,7 @@ function Login(props) {
                       {showSpinner ? <Spinner size='md' color={'white'} /> : <></>}
                       {signInClicked && isBrowser ? <TransactionXumm isOpen={onOpen} onClose={onClose} txnPng={qrMatrix} closeModal={closeModal} /> : <></>}
                       {signInClicked && isMobile ? <Text fontSize="18px" fontWeight="bold" color="#3182ce"><Link fontSize="1.4em" href={mobileTxnUrl} isExternal>Click to sign transaction with XUMM</Link></Text> : <></>}
-
+                      <p className="d-none" href="https://xumm.app/">Don't have a wallet?</p>
                     </div>
                   </form>
                 </div>
