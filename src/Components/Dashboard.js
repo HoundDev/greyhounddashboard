@@ -15,23 +15,14 @@ import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
 import { dataSup } from './greyhoundSupply';
+import checkValidSignature from './Login';
 
 require("dotenv").config();
 const xrpl = require("xrpl");
 
-// const format = (num, decimals) => {
-// 	try {
-// 		return num.toLocaleString(undefined, {
-// 			minimumFractionDigits: 0,
-// 			maximumFractionDigits: decimals,
-// 		});
-// 	} catch (e) {
-// 		return num;
-// 	}
-// };
 function format(x, p) {
 	if (p === undefined) {
-		p = 0;
+		p = 2;
 	}
 	let formated_number = Number.parseFloat(x).toFixed(p);
 	let tmp = String(formated_number).split('.');
@@ -103,6 +94,16 @@ function Dashboard(props) {
 	const [showChangePos, setShowChangePos] = useState(false)
 	const [showChangeNeg, setShowChangeNeg] = useState(false)
 	const [showNoChange, setShowNoChange] = useState(false)
+	const [baseAmount, setBaseAmount] = useState(0)
+	const [quoteAmount, setQuoteAmount] = useState(0)
+	const [issueCheck, setIssueCheck] = useState(false)
+	const [issueAmount, setIssueAmount] = useState(0)
+	const [xrpBalance, setXrpBalance] = useState(0)
+	const [showSpinnerSigned, setShowSpinnerSigned] = useState(false)
+	const [listenWs, setListenWs] = useState(false)
+	const ws = useRef(WebSocket);
+	const [xrpQT, setXrpQT] = useState(0)
+	const [greyHoundQT, setGreyHoundQT] = useState(0)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -116,6 +117,9 @@ function Dashboard(props) {
 			var xrppricess = json.XRPPrices
 			var ghpricess = json.GHPrices
 			setBalanceChanges(json.Change)
+			// setXrpBalance(json.XRPBalance)
+			let xrpBal = json.XRPBalance - (json.Account_Lines.length * 2) - 10
+			setXrpBalance(xrpBal)
 			var labelsArray = []
 			var dataArray = []
 			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -152,7 +156,6 @@ function Dashboard(props) {
 		}
 	}
 
-	//wrap above in async
 	async function createOffer(amountBase, amountCounter) {
 		//create offer
 		const xummPayload = {
@@ -186,6 +189,9 @@ function Dashboard(props) {
 		} else {
 			setQrcodepng(qrCode)
 		}
+		console.log(json)
+		ws.current = new WebSocket(json.refs.websocket_status)
+		setListenWs(true)
 	}
 	//detect button click and call function
 	document.addEventListener("DOMContentLoaded", function () {
@@ -193,8 +199,11 @@ function Dashboard(props) {
 			console.log("swap")
 		})
 		document.getElementById("myButton").addEventListener("click", function () {
+			setShowSpinnerSigned(true)
 			let amountBase = document.getElementById("baseCur").value
 			let amountCounter = document.getElementById("counterCur").value
+			setBaseAmount(amountBase)
+			setQuoteAmount(amountCounter)
 			amountBase = reverseFormat(amountBase)
 			//convert from drops to xrp
 			amountCounter = amountCounter * 1000000
@@ -216,15 +225,14 @@ function Dashboard(props) {
 			//disable the countercur
 			document.getElementById("baseCur").disabled = true
 			let price = document.getElementById("gpricegraph").innerHTML
-			// price = price.split(" ")[3]
-			//convert from string to float
+			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			console.log('price', price)
+			setXrpQT(xrpPr * document.getElementById("counterCur").value)
+			setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
 			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value / price)
 			//change the text
-			console.log(document.getElementById("baseCur").value + " price of gh")
 			// document.getElementById("counterCur").placeholder = "Disabled"
 			if (document.getElementById("counterCur").value == "") {
 				document.getElementById("baseCur").disabled = false
@@ -233,10 +241,33 @@ function Dashboard(props) {
 		});
 	});
 
-
 	const handleButtonClicked = useCallback(() => {
 		setActive(value => !value)
 	}, [])
+
+	const handleChangeIss = event => {
+		if (event.target.checked) {
+			setIssueCheck(true)
+		}
+		else {
+			setIssueCheck(false)
+		}
+
+	}
+
+	const getXummPayload = async (requestContent) => {
+		try {
+		  let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ "payloadID": requestContent })
+		  });
+		  let json = await response.json()
+		  return { success: true, data: json };
+		} catch (error) {
+		  return { success: false };
+		}
+	  }
 
 	useEffect(async () => {
 		let mainData = await getMainData(props.xrpAddress)
@@ -260,6 +291,29 @@ function Dashboard(props) {
 		ParseDataUpdateState(mainData)
 	}, []);
 
+	function closePopup() {
+		setPopupTrade(false)
+		setShowSpinnerSigned(false)
+		setListenWs(false)
+		ws.current.close()
+	}
+
+	useEffect(() => {
+		ws.current.onmessage = async (e) => {
+			if (!listenWs) return;
+			let responseObj = JSON.parse(e.data.toString())
+			if (responseObj.signed !== null) {
+				console.log(responseObj)
+				const payload = await getXummPayload(responseObj.payload_uuidv4)
+				console.log(payload)
+
+				if (payload.success) {
+					console.log('signed')
+					closePopup()
+				}
+		}
+		}
+	}, [listenWs])
 
 	function SendTierToParent(tier) {
 		props.updateTier(tier);
@@ -293,10 +347,8 @@ function Dashboard(props) {
 			for (let i = 0; i < mainData.data.Account_Lines.length; i++) {
 				if (mainData.data.Account_Lines[i].currency === '47726579686F756E640000000000000000000000') {
 					setGreyHoundBalance(Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
-					console.log("Greyhound Balance: " + Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
 				}
 			}
-
 			//Set Greyhound Supply
 			if (mainData.data.GreyHoundAmount[0].sum !== null) {
 				setGreyHoundSupply(Math.round(mainData.data.GreyHoundAmount[0].sum));
@@ -310,7 +362,6 @@ function Dashboard(props) {
 			let xrpprice = mainData.data.CurrentXRP
 			//parse to float and reduce to 2 decimals
 			xrpprice = parseFloat(xrpprice).toFixed(4)
-			console.log(xrpprice)
 			setXrpPrice(xrpprice)
 			//Set Transactions
 			let receivedTxns = []
@@ -325,9 +376,9 @@ function Dashboard(props) {
 							//token currency
 							if (mainData.data.Transactions[i].tx.Amount.currency.length === 3) {
 								//standard currency
-								receivedTxns.push({ currency: mainData.data.Transactions[i].tx.Amount.currency, amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
+								receivedTxns.push({ currency: mainData.data.Transactions[i].tx.Amount.currency, amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
 							} else {
-								receivedTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
+								receivedTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
 								//non-standard currency
 							}
 
@@ -341,10 +392,10 @@ function Dashboard(props) {
 							//token currency
 							if (mainData.data.Transactions[i].tx.Amount.currency.length === 3) {
 								//standard currency
-								sentTxns.push({ currency: mainData.data.Transactions[i].tx.Amount.currency, amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
+								sentTxns.push({ currency: mainData.data.Transactions[i].tx.Amount.currency, amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
 							} else {
 								//non-standard currency
-								sentTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
+								sentTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
 							}
 
 						} else {
@@ -372,7 +423,6 @@ function Dashboard(props) {
 
 		}
 	}
-
 
 	return (
 		<LoadingOverlay
@@ -547,7 +597,7 @@ function Dashboard(props) {
 												<div className="trade-wrapper">
 													<div className="flex-col trade-box" id="trade-box-counter">
 														<span className="text-white">Receive</span>
-														<form>
+														<form id='swapCount'>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
 																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage' />
@@ -564,7 +614,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>0$</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(greyHoundQT)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center">
@@ -573,7 +623,7 @@ function Dashboard(props) {
 													</div>
 													<div className="flex-col trade-box" id='trade-box-base'>
 														<span className="text-white">Pay With</span>
-														<form>
+														<form id='swapBase'>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
 																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />
@@ -589,8 +639,8 @@ function Dashboard(props) {
 															<input type="number" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
 														</form>
 														<div className='trade-value'>
-															<p className="fs-14" id='houndPriceXRP'>Balance: 0</p>
-															<p className="fs-14" id='houndPriceXRP'>0$</p>
+															<p className="fs-14" id='houndPriceXRP'>Balance: {xrpBalance}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT)}</p>
 														</div>
 													</div>
 												</div>
@@ -601,7 +651,12 @@ function Dashboard(props) {
 											<div className="row align-items-center">
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
-														<input type="checkbox" className="form-check-input" id="issuer-fee" />
+														<input 
+														type="checkbox" 
+														className="form-check-input" 
+														id="issuer-fee" 
+														value={setIssueCheck} 
+														onChange={handleChangeIss}/>
 														<label className="form-check-label " for="issuer-fee">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
@@ -613,29 +668,34 @@ function Dashboard(props) {
 											<img className="modal-above-image" src="./images/xumm.svg" />
 											<Modal.Header>
 												<Modal.Title>Confirm Swap</Modal.Title>
-												<button type="button" onClick={() => setPopupTrade(false)} className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
+												<button type="button" onClick={closePopup} className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
 											</Modal.Header>
 											<Modal.Body>
 												<div className="xumm-tx-container">
 													<div>
 														<div className='tx-info'>
 															<span>You Pay</span>
-															<p className='text-white'>500 XRP</p>
+															<p className='text-white'>{quoteAmount} XRP</p>
 														</div>
 														<div className='tx-info'>
 															<span>Receive</span>
-															<p className='text-white'>500 XRP</p>
+															<p className='text-white'>{baseAmount} HOUND</p>
 														</div>
-														<div className='tx-info'>
-															<span>Issuer Fee (1.5%)</span>
-															<p className='text-white'>0.000012 XRP</p>
-														</div>
+														{issueCheck && <div className='tx-info'>
+															<span>Issuer Fee</span>
+															<p className='text-white'>dummy XRP</p>
+														</div>}
+
 														<div className='tx-info'>
 															<span>XRP transaction fee</span>
 															<p className='text-white'>0.000012 XRP</p>
 														</div>
 													</div>
+
 													<div className="qr-code-img">
+													{showSpinnerSigned && <center><div className="spinner-grow" role="status">
+														{/* <span class="visually-hidden"></span> */}
+													</div><br></br></center>}
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
 												</div>
