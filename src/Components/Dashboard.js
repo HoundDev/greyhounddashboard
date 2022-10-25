@@ -271,14 +271,14 @@ function Dashboard(props) {
 					amountCounter = amountCounter/1000000
 					//1.5% fee
 					let fee = amountCounter * 0.015
-					console.log(`fee: ${fee}`)
 					setIssueAmount(fee)
 				} else {
 					createOffer(amountBase, amountCounter, 'buy')
 					setBaseAmount(amountBase)
-					setQuoteAmount(amountCounter)
+					setQuoteAmount(amountCounter/1000000)
 					setCurStringB("XRP")
 					setCurStringS("Hound")
+					setIssueAmount(0)
 				}
 				let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 				// setPopupTrade(true)
