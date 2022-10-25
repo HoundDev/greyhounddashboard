@@ -33,7 +33,7 @@ function App() {
   const [snapShotTier, setsnapShotTier] = React.useState('None')
 
   const [toggle, setToggle] = useState(false);
-
+  const [dashClicked, setDashClicked] = useState(false);
   const [checked, setChecked] = React.useState(false);
   const handleChange = () => {
     setChecked(!checked);
@@ -83,19 +83,31 @@ function App() {
       setActiveStyleDashboard('mm-active')
       setActiveStyleRichlist('')
       setActiveStyleSpringRescue('')
+      setDashClicked(true);
     } else if (str === 'richlistLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('mm-active')
       setActiveStyleSpringRescue('')
+      setDashClicked(false);
     } else if (str === 'SpringRescueLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
       setActiveStyleSpringRescue('mm-active')
+      setDashClicked(false);
     }
   }
 
   console.log(userAddress)
 
+  //wait for dom to be loaded
+  useEffect(() => {
+    //check if dashButton is clicked
+    if (dashClicked) {
+      //refresh the page
+      setDashClicked(false);
+      window.location.reload();
+    }
+  }, [dashClicked]);
   return (
     <>
       {userAddress === '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper" className={`show ${toggle ? "menu-toggle" : ""}`}>
@@ -229,7 +241,7 @@ function App() {
         <div className="deznav">
           <PerfectScrollbar className="deznav-scroll">
             <ul className="metismenu" id="menu">
-              <li id="dashboardLI" className={activeStyleDashboard}><Link onClick={() => setActive('dashboardLI')} to="/" className=" ai-icon" aria-expanded="false">
+              <li id="dashboardLI" className={activeStyleDashboard}><Link onClick={() => setActive('dashboardLI')} to="/" className=" ai-icon" aria-expanded="false" id='dashButton'>
                 <i className="fi fi-sr-apps"></i>
                 <span className="nav-text">Dashboard</span>
               </Link>
