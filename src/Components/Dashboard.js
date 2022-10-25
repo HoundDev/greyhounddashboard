@@ -114,10 +114,11 @@ function Dashboard(props) {
 	const [listenWs, setListenWs] = useState(false)
 	const ws = useRef(WebSocket);
 	const [xrpQT, setXrpQT] = useState(0)
-	const [greyHoundQT, setGreyHoundQT] = useState(0)
 	const [qtStatus, setQtStatus] = useState(false)
 	const [curStringB, setCurStringB] = useState('')
 	const [curStringS, setCurStringS] = useState('')
+	const [showSuccess, setShowSuccess] = useState(false)
+	const [showError, setShowError] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -300,7 +301,7 @@ function Dashboard(props) {
 			price = parseFloat(price)
 			price = price
 			setXrpQT(xrpPr * document.getElementById("counterCur").value)
-			setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
+			// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
 			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value / price)
 			//change the text
@@ -318,7 +319,7 @@ function Dashboard(props) {
 			price = parseFloat(price)
 			price = price
 			setXrpQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
-			setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
+			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
 			document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price,4)
 			document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price,4)
 			//change the text
@@ -401,9 +402,22 @@ function Dashboard(props) {
 
 				if (payload.success) {
 					console.log('signed')
+					// console.log(responseObj)
+					if (responseObj.signed === true) {
 					closePopup()
+					setShowSuccess(true)
+					setTimeout(() => {
+						setShowSuccess(false)
+					}, 6000);
+					} else {
+						closePopup()
+						setShowError(true)
+						setTimeout(() => {
+							setShowError(false)
+						}, 6000);
 				}
-		}
+				}
+			}
 		}
 	}, [listenWs])
 
@@ -681,6 +695,18 @@ function Dashboard(props) {
 
 
 									<div className="card overflow-hidden trade-card">
+									{/* <div class="alert alert-success">
+										<strong>Success!</strong> Indicates a successful or positive action.
+									</div> */}
+									{showSuccess && (
+										<div className="alert alert-success">
+											<strong>Success!</strong> The txn was signed!.
+											</div>)}
+
+									{showError && (
+										<div className="alert alert-danger">
+											<strong>Declined!</strong> The txn was declined!.
+											</div>)}
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
 											<h5 className="card-title text-white">Quick Swap</h5>
 										</div>
@@ -706,7 +732,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(greyHoundQT)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
@@ -731,8 +757,8 @@ function Dashboard(props) {
 															<input type="text" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
 														</form>
 														<div className='trade-value'>
-															<p className="fs-14" id='houndPriceXRP'>Balance: {xrpBalance}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT)}</p>
+															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
 														</div>
 													</div>
 												</div>

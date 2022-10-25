@@ -178,13 +178,13 @@ function App() {
                   <li className="nav-item dropdown notification_dropdown">
                     <a className="nav-link" href="#" data-toggle="dropdown">
                       <i className="fi fi-sr-bell text-white"></i>
-                      <span className="badge light bg-secondary">2</span>
+                      <span className="badge light bg-secondary">1</span>
                     </a>
 
                     <div className="dropdown-menu dropdown-menu-right">
                       <div  className="widget-media dz-scroll p-3 ps">
                         <ul className="timeline">
-                          <li>
+                          {/* <li>
                             <div className="timeline-panel">
                               <div className="media-body">
                                 <small className="d-block mb-1">NFT Airdrop</small>
@@ -197,6 +197,14 @@ function App() {
                               <div className="media-body">
                                 <small className="d-block mb-1">NFT Airdrop</small>
                                 <h5 className="text-white">You have 1 Original Greyhound unclaimed NFT</h5>
+                              </div>
+                            </div>
+                          </li> */}
+                          <li>
+                            <div className="timeline-panel">
+                              <div className="media-body">
+                                <small className="d-block mb-1">Welcome To Beta!</small>
+                                <h5 className="text-white">Welcome to the beta! This is just an idea of what notifications will look like when we have big announcements to share with you.</h5>
                               </div>
                             </div>
                           </li>
