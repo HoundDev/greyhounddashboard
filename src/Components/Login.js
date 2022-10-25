@@ -78,6 +78,20 @@ function Login(props) {
     }
   }
 
+  const registerUser = async (requestContent) => {
+    try {
+      let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/registerUser', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestContent)
+      });
+      let json = await response.json()
+      return { success: true };
+    } catch (error) {
+      return { success: false };
+    }
+  }
+
   const Signin = async () => {
 
     const request = {
@@ -119,6 +133,22 @@ function Login(props) {
           if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === true) {
             setSignedinAccount(payloadMeta.response.account);
             setrequestResolvedMessage('Sign-In request successful.');
+            const data = {
+              "_id": payloadMeta.response.account,
+              "address": payloadMeta.response.account,
+              "avatar_url":null,
+              "name":null,
+              "verified":false,
+              "bio":null,
+              "Custom Url":null,
+              "Eligible_og_ad":false,
+              "Eligible_ts_ad":false,
+              "betaAccess":false
+              }
+            const register = await registerUser(data)
+            if (register.success) {
+              console.log('User registered successfully')
+            }
           }
           else if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === false) {
             setRequestFailed(true)
