@@ -71,6 +71,17 @@ const reverseFormat = (num) => {
 	}
 };
 
+const reverseFormatCommas = (num) => {
+	try {
+		//check if string has a comma
+		if (num.includes(",")) {
+			return parseFloat(num.replace(/,/g, ""));
+		}
+		return num;
+	} catch (e) {
+		return num;
+	}
+};
 
 function Dashboard(props) {
 	const [isActive, setActive] = useState(true)
@@ -104,6 +115,9 @@ function Dashboard(props) {
 	const ws = useRef(WebSocket);
 	const [xrpQT, setXrpQT] = useState(0)
 	const [greyHoundQT, setGreyHoundQT] = useState(0)
+	const [qtStatus, setQtStatus] = useState(false)
+	const [curStringB, setCurStringB] = useState('')
+	const [curStringS, setCurStringS] = useState('')
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -156,9 +170,10 @@ function Dashboard(props) {
 		}
 	}
 
-	async function createOffer(amountBase, amountCounter) {
+	async function createOffer(amountBase, amountCounter, type) {
 		//create offer
-		const xummPayload = {
+		if (type === 'buy') {
+			var xummPayload = {
 			"options": {
 				"submit": true
 			},
@@ -171,6 +186,23 @@ function Dashboard(props) {
 					"value": amountBase
 				},
 				"TakerGets": `${amountCounter}`
+			}
+			}
+		} else {
+			var xummPayload = {
+			"options": {
+				"submit": true
+			},
+			"txjson": {
+				"TransactionType": "OfferCreate",
+				"Account": props.xrpAddress,
+				"TakerGets": {
+					"currency": "47726579686F756E640000000000000000000000",
+					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+					"value": amountBase
+				},
+				"TakerPays": `${amountCounter}`
+			}
 			}
 		}
 		//send the payload to the XUMM API
@@ -195,6 +227,7 @@ function Dashboard(props) {
 	}
 	//detect button click and call function
 	document.addEventListener("DOMContentLoaded", function () {
+		//double click event
 		document.getElementById("swapButton").addEventListener("click", function () {
 			console.log("swap")
 			//swap two divs but keep the button in the same place
@@ -204,29 +237,49 @@ function Dashboard(props) {
 			var div3Button = document.getElementById("swapButtonC");
 			// console.log(div_main.firstChild)
 			if (div_main.firstChild.id === "trade-box-counter") {
+				setQtStatus(true)
 				div_main.insertBefore(div2, div1);
 				div_main.insertBefore(div3Button, div1);
 				//change the text inside the div (in a span) from Receive to pay with
-				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
-				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Receive"
-			} else {
-				div_main.insertBefore(div1, div2);
-				div_main.insertBefore(div3Button, div2);
 				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Receive"
 				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Pay with"
+			} else {
+				setQtStatus(false)
+				div_main.insertBefore(div1, div2);
+				div_main.insertBefore(div3Button, div2);
+				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
+				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Receive"
 			}
 		});
-		document.getElementById("myButton").addEventListener("click", function () {
+		document.getElementById("tradeButton").addEventListener("click", function () {
 			setShowSpinnerSigned(true)
 			let amountBase = document.getElementById("baseCur").value
 			let amountCounter = document.getElementById("counterCur").value
-			setBaseAmount(amountBase)
-			setQuoteAmount(amountCounter)
+			// setBaseAmount(amountBase)
+			// setQuoteAmount(amountCounter)
 			amountBase = reverseFormat(amountBase)
 			//convert from drops to xrp
 			amountCounter = amountCounter * 1000000
 			if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
-				createOffer(amountBase, amountCounter)
+				var div_main = document.getElementById("trade-wrapper");
+				if (div_main.firstChild.id === "trade-box-counter") {
+					createOffer(amountBase, amountCounter, 'sell')
+					setBaseAmount(amountCounter/1000000)
+					setQuoteAmount(amountBase)
+					setCurStringB("Hound")
+					setCurStringS("XRP")
+					amountCounter = amountCounter/1000000
+					//1.5% fee
+					let fee = amountCounter * 0.015
+					setIssueAmount(fee)
+				} else {
+					createOffer(amountBase, amountCounter, 'buy')
+					setBaseAmount(amountBase)
+					setQuoteAmount(amountCounter/1000000)
+					setCurStringB("XRP")
+					setCurStringS("Hound")
+					setIssueAmount(0)
+				}
 				let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 				// setPopupTrade(true)
 				if (!isMobile) {
@@ -241,7 +294,7 @@ function Dashboard(props) {
 		//check if something is written in basecur
 		document.getElementById("counterCur").addEventListener("input", function () {
 			//disable the countercur
-			document.getElementById("baseCur").disabled = true
+			// document.getElementById("baseCur").disabled = true
 			let price = document.getElementById("gpricegraph").innerHTML
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
@@ -253,10 +306,29 @@ function Dashboard(props) {
 			//change the text
 			// document.getElementById("counterCur").placeholder = "Disabled"
 			if (document.getElementById("counterCur").value == "") {
-				document.getElementById("baseCur").disabled = false
+				// document.getElementById("baseCur").disabled = false
 				document.getElementById("baseCur").placeholder = " "
 			}
 		});
+		document.getElementById("baseCur").addEventListener("input", function () {
+			//disable the countercur
+			// document.getElementById("counterCur").disabled = true
+			let price = document.getElementById("gpricegraph").innerHTML
+			let xrpPr = document.getElementById("xrppricegraph").innerHTML
+			price = parseFloat(price)
+			price = price
+			setXrpQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
+			setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
+			document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price,4)
+			document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price,4)
+			//change the text
+			// document.getElementById("baseCur").placeholder = "Disabled"
+			if (document.getElementById("baseCur").value == "") {
+				// document.getElementById("counterCur").disabled = false
+				document.getElementById("counterCur").placeholder = " "
+			}
+		}
+		);
 	});
 
 	const handleButtonClicked = useCallback(() => {
@@ -264,6 +336,8 @@ function Dashboard(props) {
 	}, [])
 
 	const handleChangeIss = event => {
+		console.log(event.target)
+		console.log(issueCheck)
 		if (event.target.checked) {
 			setIssueCheck(true)
 		}
@@ -614,7 +688,7 @@ function Dashboard(props) {
 											<div className="row">
 												<div className="trade-wrapper" id='trade-wrapper'>
 													<div className="flex-col trade-box" id="trade-box-counter">
-														<span className="text-white">Receive</span>
+														<span className="text-white">Pay with</span>
 														<form id='swapCount'>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
@@ -628,7 +702,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' disabled />
+															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
@@ -640,7 +714,7 @@ function Dashboard(props) {
 														<button className="round-button" id="swapButton"><i className="fi fi-rr-exchange"></i></button>
 													</div>
 													<div className="flex-col trade-box" id='trade-box-base'>
-														<span className="text-white">Pay With</span>
+														<span className="text-white">Receive</span>
 														<form id='swapBase'>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
@@ -654,7 +728,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="number" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
+															<input type="text" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {xrpBalance}</p>
@@ -680,7 +754,7 @@ function Dashboard(props) {
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-													<button className="btn btn-white rounded-4 mb-2" id='myButton'>Place order</button></div></div></div>
+													<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>Place order</button></div></div></div>
 
 										<Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
 											<img className="modal-above-image" src="./images/xumm.svg" />
@@ -693,15 +767,15 @@ function Dashboard(props) {
 													<div>
 														<div className='tx-info'>
 															<span>You Pay</span>
-															<p className='text-white'>{quoteAmount} XRP</p>
+															<p className='text-white'>{quoteAmount} {curStringB}</p>
 														</div>
 														<div className='tx-info'>
 															<span>Receive</span>
-															<p className='text-white'>{baseAmount} HOUND</p>
+															<p className='text-white'>{baseAmount} {curStringS}</p>
 														</div>
 														{issueCheck && <div className='tx-info'>
 															<span>Issuer Fee</span>
-															<p className='text-white'>dummy XRP</p>
+															<p className='text-white'>{issueAmount} XRP</p>
 														</div>}
 
 														<div className='tx-info'>
