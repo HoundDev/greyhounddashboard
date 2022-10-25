@@ -551,9 +551,10 @@ button:active {
     background: rgba(166, 176, 207, .05) !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover{
     background: rgba(166, 176, 207, .05) !important;
 }
+
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.next {
     background: transparent !important;
 }
