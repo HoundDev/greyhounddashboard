@@ -545,6 +545,19 @@ button:active {
     border-radius: 0.5em;
 }
 
+/* RICHLIST */
+
+[data-theme-version="dark"] #richlist tbody tr:hover{
+    background: rgba(166, 176, 207, .05) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background: rgba(166, 176, 207, .05) !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+    background: transparent !important;
+}
+
 /* NFTS */
 
 .swiper-slide {
