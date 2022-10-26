@@ -175,35 +175,35 @@ function Dashboard(props) {
 		//create offer
 		if (type === 'buy') {
 			var xummPayload = {
-			"options": {
-				"submit": true
-			},
-			"txjson": {
-				"TransactionType": "OfferCreate",
-				"Account": props.xrpAddress,
-				"TakerPays": {
-					"currency": "47726579686F756E640000000000000000000000",
-					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-					"value": amountBase
+				"options": {
+					"submit": true
 				},
-				"TakerGets": `${amountCounter}`
-			}
+				"txjson": {
+					"TransactionType": "OfferCreate",
+					"Account": props.xrpAddress,
+					"TakerPays": {
+						"currency": "47726579686F756E640000000000000000000000",
+						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+						"value": amountBase
+					},
+					"TakerGets": `${amountCounter}`
+				}
 			}
 		} else {
 			var xummPayload = {
-			"options": {
-				"submit": true
-			},
-			"txjson": {
-				"TransactionType": "OfferCreate",
-				"Account": props.xrpAddress,
-				"TakerGets": {
-					"currency": "47726579686F756E640000000000000000000000",
-					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-					"value": amountBase
+				"options": {
+					"submit": true
 				},
-				"TakerPays": `${amountCounter}`
-			}
+				"txjson": {
+					"TransactionType": "OfferCreate",
+					"Account": props.xrpAddress,
+					"TakerGets": {
+						"currency": "47726579686F756E640000000000000000000000",
+						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+						"value": amountBase
+					},
+					"TakerPays": `${amountCounter}`
+				}
 			}
 		}
 		//send the payload to the XUMM API
@@ -265,18 +265,18 @@ function Dashboard(props) {
 				var div_main = document.getElementById("trade-wrapper");
 				if (div_main.firstChild.id === "trade-box-counter") {
 					createOffer(amountBase, amountCounter, 'sell')
-					setBaseAmount(amountCounter/1000000)
+					setBaseAmount(amountCounter / 1000000)
 					setQuoteAmount(amountBase)
 					setCurStringB("Hound")
 					setCurStringS("XRP")
-					amountCounter = amountCounter/1000000
+					amountCounter = amountCounter / 1000000
 					//1.5% fee
 					let fee = amountCounter * 0.015
 					setIssueAmount(fee)
 				} else {
 					createOffer(amountBase, amountCounter, 'buy')
 					setBaseAmount(amountBase)
-					setQuoteAmount(amountCounter/1000000)
+					setQuoteAmount(amountCounter / 1000000)
 					setCurStringB("XRP")
 					setCurStringS("Hound")
 					setIssueAmount(0)
@@ -350,17 +350,17 @@ function Dashboard(props) {
 
 	const getXummPayload = async (requestContent) => {
 		try {
-		  let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ "payloadID": requestContent })
-		  });
-		  let json = await response.json()
-		  return { success: true, data: json };
+			let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ "payloadID": requestContent })
+			});
+			let json = await response.json()
+			return { success: true, data: json };
 		} catch (error) {
-		  return { success: false };
+			return { success: false };
 		}
-	  }
+	}
 
 	useEffect(async () => {
 		let mainData = await getMainData(props.xrpAddress)
@@ -404,18 +404,18 @@ function Dashboard(props) {
 					console.log('signed')
 					// console.log(responseObj)
 					if (responseObj.signed === true) {
-					closePopup()
-					setShowSuccess(true)
-					setTimeout(() => {
-						setShowSuccess(false)
-					}, 6000);
+						closePopup()
+						setShowSuccess(true)
+						setTimeout(() => {
+							setShowSuccess(false)
+						}, 6000);
 					} else {
 						closePopup()
 						setShowError(true)
 						setTimeout(() => {
 							setShowError(false)
 						}, 6000);
-				}
+					}
 				}
 			}
 		}
@@ -463,7 +463,7 @@ function Dashboard(props) {
 				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
-			setGreyHoundPrice(format(mainData.data.CurrentGH,8))
+			setGreyHoundPrice(format(mainData.data.CurrentGH, 8))
 			//Get XRP Price
 			let xrpprice = mainData.data.CurrentXRP
 			//parse to float and reduce to 2 decimals
@@ -695,10 +695,6 @@ function Dashboard(props) {
 
 
 
-
-
-
-
 							</div>
 						</div>
 
@@ -708,17 +704,28 @@ function Dashboard(props) {
 
 
 									<div className="card overflow-hidden trade-card">
-									{/* <div class="alert alert-success">
+										{/* <div class="alert alert-success">
 										<strong>Success!</strong> Indicates a successful or positive action.
 									</div> */}
-									{showSuccess && (
-										<div className="alert alert-success">
-											<strong>Success!</strong> The txn was signed!.
-											</div>)}
+										{showSuccess && (
+											<div class="alert alert-success left-icon-big alert-dismissible fade show">
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i class="mdi mdi-btn-close"></i></span>
+												</button>
+												<div class="media">
+													<div class="alert-left-icon-big">
+														<span><i class="mdi mdi-check-circle-outline"></i></span>
+													</div>
+													<div class="media-body">
+														<h5 class="mt-1 mb-2">Transaction Sucessfull!</h5>
+														<p class="mb-0">0 HOUND added to your account.</p>
+													</div>
+												</div>
+											</div>
+										)}
 
-									{showError && (
-										<div className="alert alert-danger">
-											<strong>Declined!</strong> The txn was declined!.
+										{showError && (
+											<div className="alert alert-danger">
+												<strong>Declined!</strong> The txn was declined!.
 											</div>)}
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
 											<h5 className="card-title text-white">Quick Swap</h5>
@@ -745,7 +752,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT, 2)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
@@ -771,7 +778,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT, 2)}</p>
 														</div>
 													</div>
 												</div>
@@ -782,12 +789,12 @@ function Dashboard(props) {
 											<div className="row align-items-center">
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
-														<input 
-														type="checkbox" 
-														className="form-check-input" 
-														id="issuer-fee" 
-														value={setIssueCheck} 
-														onChange={handleChangeIss}/>
+														<input
+															type="checkbox"
+															className="form-check-input"
+															id="issuer-fee"
+															value={setIssueCheck}
+															onChange={handleChangeIss} />
 														<label className="form-check-label " for="issuer-fee">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
@@ -824,9 +831,9 @@ function Dashboard(props) {
 													</div>
 
 													<div className="qr-code-img">
-													{showSpinnerSigned && <center><div className="spinner-grow" role="status">
-														{/* <span class="visually-hidden"></span> */}
-													</div><br></br></center>}
+														{showSpinnerSigned && <center><div className="spinner-grow" role="status">
+															{/* <span class="visually-hidden"></span> */}
+														</div><br></br></center>}
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
 												</div>

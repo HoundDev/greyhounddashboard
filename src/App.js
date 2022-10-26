@@ -112,7 +112,7 @@ function App() {
     <>
       {userAddress === '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper" className={`show ${toggle ? "menu-toggle" : ""}`}>
         <div className="nav-header">
-          <a href="index.html" className="brand-logo">
+          <a className="brand-logo">
             <div className="logo-abbr" draggable="false" alt=""></div>
             <img className="logo-compact" src="./images/svg/logo-icon-light.svg" alt="" />
             <div className="brand-title" draggable="false" alt=""></div>
@@ -149,7 +149,7 @@ function App() {
 
 
 
-                  <li className="nav-item ">
+                  <li className="nav-item d-none">
                     <a className="nav-link pl-3">
                       <label className="theme-toggle " title="Toggle theme">
                         <input id="theme-toggle" type="checkbox" checked={checked} onChange={handleChange} />
@@ -204,7 +204,7 @@ function App() {
                             <div className="timeline-panel">
                               <div className="media-body">
                                 <small className="d-block mb-1">Welcome To Beta!</small>
-                                <h5 className="text-white">Welcome to the beta! This is just an idea of what notifications will look like when we have big announcements to share with you.</h5>
+                                <h5 className="text-white">This is just an idea of what notifications will look like when we have big announcements to share with you.</h5>
                               </div>
                             </div>
                           </li>

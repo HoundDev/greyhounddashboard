@@ -190,7 +190,7 @@ function Login(props) {
 
         <div className="col-lg-6 col-sm-8 d-md-flex bg-login">
           <video poster="./videos/houndcity-thumbnail.jpeg" autoPlay muted loop>
-            <source src="./videos/houndcity.mp4" type="video/mp4" />
+            <source src="./videos/houndcity.webm" type="video/webm" />
           </video>
         </div>
         <div className="col-lg-5 col-sm-4 bg-login-split">
