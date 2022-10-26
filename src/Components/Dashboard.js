@@ -318,7 +318,7 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			setXrpQT(xrpPr * document.getElementById("counterCur").value)
+			setXrpQT(xrpPr * document.getElementById("counterCur").value * 10)
 			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
 			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
 			document.getElementById("counterCur").placeholder = document.getElementById("baseCur").value * price
