@@ -318,10 +318,10 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			setXrpQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
+			setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
-			document.getElementById("counterCur").value = format(document.getElementById("baseCur").value * price,4)
-			document.getElementById("counterCur").placeholder = format(document.getElementById("baseCur").value * price,4)
+			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
+			document.getElementById("counterCur").placeholder = document.getElementById("baseCur").value * price
 			//change the text
 			// document.getElementById("baseCur").placeholder = "Disabled"
 			if (document.getElementById("baseCur").value == "") {
@@ -463,7 +463,7 @@ function Dashboard(props) {
 				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
-			setGreyHoundPrice(mainData.data.CurrentGH)
+			setGreyHoundPrice(format(mainData.data.CurrentGH,8))
 			//Get XRP Price
 			let xrpprice = mainData.data.CurrentXRP
 			//parse to float and reduce to 2 decimals
@@ -591,6 +591,7 @@ function Dashboard(props) {
 											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 										</div>
+										{snapShotTier !== 'None' && <div className="mt-4">snapShotTier: {snapShotTier}</div>}
 									</div>
 
 
@@ -610,18 +611,30 @@ function Dashboard(props) {
 												<i className="fa-solid fa-lock medal-lock"></i>
 											</a>
 										</li>
-										<li className="nav-item dropdown medal">
+										{/* <li className="nav-item dropdown medal">
 											<a className="nav-link" onClick={() => setBasicModal(true)}>
 												<img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
 													draggable="false" />
 											</a>
-										</li>
-										<li className="nav-item dropdown medal">
+										</li> */}
+										{snapShotTier !== 'None' && <li className="nav-item dropdown medal">
+											<a className="nav-link" onClick={() => setBasicModal(true)}>
+												<img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
+													draggable="false" />
+											</a>
+										</li>}
+										{/* <li className="nav-item dropdown medal">
 											<a className="nav-link" onClick={() => setOgModal(true)}>
 												<img src="./images/badges/og.png" title="Greyhound OG Member"
 													draggable="false" />
 											</a>
-										</li>
+										</li> */}
+										{snapShotTier !== 'None' && <li className="nav-item dropdown medal">
+											<a className="nav-link" onClick={() => setOgModal(true)}>
+												<img src="./images/badges/og.png" title="Greyhound OG Member"
+													draggable="false" />
+											</a>
+										</li>}
 									</div>
 								</div>
 
@@ -754,7 +767,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder={format(greyHoundPrice, 8)} id='counterCur' />
+															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
