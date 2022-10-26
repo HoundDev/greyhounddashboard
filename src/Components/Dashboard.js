@@ -709,20 +709,20 @@ function Dashboard(props) {
 
 
 									<div className="card overflow-hidden trade-card">
-										{/* <div class="alert alert-success">
+										{/* <div className="alert alert-success">
 										<strong>Success!</strong> Indicates a successful or positive action.
 									</div> */}
 										{showSuccess && (
-											<div class="alert alert-success left-icon-big alert-dismissible fade show">
-												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i class="mdi mdi-btn-close"></i></span>
+											<div className="alert alert-success left-icon-big alert-dismissible fade show">
+												<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i className="mdi mdi-btn-close"></i></span>
 												</button>
-												<div class="media">
-													<div class="alert-left-icon-big">
-														<span><i class="mdi mdi-check-circle-outline"></i></span>
+												<div className="media">
+													<div className="alert-left-icon-big">
+														<span><i className="mdi mdi-check-circle-outline"></i></span>
 													</div>
-													<div class="media-body">
-														<h5 class="mt-1 mb-2">Transaction Sucessfull!</h5>
-														<p class="mb-0">0 HOUND added to your account.</p>
+													<div className="media-body">
+														<h5 className="mt-1 mb-2">Transaction Sucessfull!</h5>
+														<p className="mb-0">0 HOUND added to your account.</p>
 													</div>
 												</div>
 											</div>
@@ -853,7 +853,7 @@ function Dashboard(props) {
 
 													<div className="qr-code-img">
 														{showSpinnerSigned && <center><div className="spinner-grow" role="status">
-															{/* <span class="visually-hidden"></span> */}
+															{/* <span className="visually-hidden"></span> */}
 														</div><br></br></center>}
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
