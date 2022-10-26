@@ -119,7 +119,6 @@ function Dashboard(props) {
 	const [curStringS, setCurStringS] = useState('')
 	const [showSuccess, setShowSuccess] = useState(false)
 	const [showError, setShowError] = useState(false)
-	const [hasTl, setHasTl] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -176,35 +175,35 @@ function Dashboard(props) {
 		//create offer
 		if (type === 'buy') {
 			var xummPayload = {
-				"options": {
-					"submit": true
+			"options": {
+				"submit": true
+			},
+			"txjson": {
+				"TransactionType": "OfferCreate",
+				"Account": props.xrpAddress,
+				"TakerPays": {
+					"currency": "47726579686F756E640000000000000000000000",
+					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+					"value": amountBase
 				},
-				"txjson": {
-					"TransactionType": "OfferCreate",
-					"Account": props.xrpAddress,
-					"TakerPays": {
-						"currency": "47726579686F756E640000000000000000000000",
-						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-						"value": amountBase
-					},
-					"TakerGets": `${amountCounter}`
-				}
+				"TakerGets": `${amountCounter}`
+			}
 			}
 		} else {
 			var xummPayload = {
-				"options": {
-					"submit": true
+			"options": {
+				"submit": true
+			},
+			"txjson": {
+				"TransactionType": "OfferCreate",
+				"Account": props.xrpAddress,
+				"TakerGets": {
+					"currency": "47726579686F756E640000000000000000000000",
+					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+					"value": amountBase
 				},
-				"txjson": {
-					"TransactionType": "OfferCreate",
-					"Account": props.xrpAddress,
-					"TakerGets": {
-						"currency": "47726579686F756E640000000000000000000000",
-						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-						"value": amountBase
-					},
-					"TakerPays": `${amountCounter}`
-				}
+				"TakerPays": `${amountCounter}`
+			}
 			}
 		}
 		//send the payload to the XUMM API
@@ -266,18 +265,18 @@ function Dashboard(props) {
 				var div_main = document.getElementById("trade-wrapper");
 				if (div_main.firstChild.id === "trade-box-counter") {
 					createOffer(amountBase, amountCounter, 'sell')
-					setBaseAmount(amountCounter / 1000000)
+					setBaseAmount(amountCounter/1000000)
 					setQuoteAmount(amountBase)
 					setCurStringB("Hound")
 					setCurStringS("XRP")
-					amountCounter = amountCounter / 1000000
+					amountCounter = amountCounter/1000000
 					//1.5% fee
 					let fee = amountCounter * 0.015
 					setIssueAmount(fee)
 				} else {
 					createOffer(amountBase, amountCounter, 'buy')
 					setBaseAmount(amountBase)
-					setQuoteAmount(amountCounter / 1000000)
+					setQuoteAmount(amountCounter/1000000)
 					setCurStringB("XRP")
 					setCurStringS("Hound")
 					setIssueAmount(0)
@@ -351,17 +350,17 @@ function Dashboard(props) {
 
 	const getXummPayload = async (requestContent) => {
 		try {
-			let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
-				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ "payloadID": requestContent })
-			});
-			let json = await response.json()
-			return { success: true, data: json };
+		  let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ "payloadID": requestContent })
+		  });
+		  let json = await response.json()
+		  return { success: true, data: json };
 		} catch (error) {
-			return { success: false };
+		  return { success: false };
 		}
-	}
+	  }
 
 	useEffect(async () => {
 		let mainData = await getMainData(props.xrpAddress)
@@ -405,18 +404,18 @@ function Dashboard(props) {
 					console.log('signed')
 					// console.log(responseObj)
 					if (responseObj.signed === true) {
-						closePopup()
-						setShowSuccess(true)
-						setTimeout(() => {
-							setShowSuccess(false)
-						}, 6000);
+					closePopup()
+					setShowSuccess(true)
+					setTimeout(() => {
+						setShowSuccess(false)
+					}, 6000);
 					} else {
 						closePopup()
 						setShowError(true)
 						setTimeout(() => {
 							setShowError(false)
 						}, 6000);
-					}
+				}
 				}
 			}
 		}
@@ -454,7 +453,6 @@ function Dashboard(props) {
 			for (let i = 0; i < mainData.data.Account_Lines.length; i++) {
 				if (mainData.data.Account_Lines[i].currency === '47726579686F756E640000000000000000000000') {
 					setGreyHoundBalance(Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
-					setHasTl(true)
 				}
 			}
 			//Set Greyhound Supply
@@ -465,7 +463,7 @@ function Dashboard(props) {
 				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
-			setGreyHoundPrice(format(mainData.data.CurrentGH, 8))
+			setGreyHoundPrice(format(mainData.data.CurrentGH,8))
 			//Get XRP Price
 			let xrpprice = mainData.data.CurrentXRP
 			//parse to float and reduce to 2 decimals
@@ -588,13 +586,10 @@ function Dashboard(props) {
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{format(greyHoundBalance)} HOUND</h2>
 											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(format(greyHoundPrice, 8) * greyHoundBalance)} XRP</h2>
 											{/* <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}</span><br /> */}
-											{/* //only show this change when `showChange` is true
+											{/* //only show this change when `showChange` is true */}
 											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
-											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>} */}
-											{balanceChanges > 0 && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
-											{balanceChanges < 0 && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
-											{balanceChanges == 0 && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 										</div>
 										{snapShotTier !== 'None' && <div className="mt-4">snapShotTier: {snapShotTier}</div>}
 									</div>
@@ -709,28 +704,18 @@ function Dashboard(props) {
 
 
 									<div className="card overflow-hidden trade-card">
-										{/* <div className="alert alert-success">
+									{/* <div class="alert alert-success">
 										<strong>Success!</strong> Indicates a successful or positive action.
 									</div> */}
-										{showSuccess && (
-											<div className="alert alert-success left-icon-big alert-dismissible fade show">
-												<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i className="mdi mdi-btn-close"></i></span>
-												</button>
-												<div className="media">
-													<div className="alert-left-icon-big">
-														<span><i className="mdi mdi-check-circle-outline"></i></span>
-													</div>
-													<div className="media-body">
-														<h5 className="mt-1 mb-2">Transaction Sucessfull!</h5>
-														<p className="mb-0">0 HOUND added to your account.</p>
-													</div>
-												</div>
+									{showSuccess && (
+										<div className="alert alert-success">
+											<strong>Success!</strong> The txn was signed!.
 											</div>
 										)}
 
-										{showError && (
-											<div className="alert alert-danger">
-												<strong>Declined!</strong> The txn was declined!.
+									{showError && (
+										<div className="alert alert-danger">
+											<strong>Declined!</strong> The txn was declined!.
 											</div>)}
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
 											<h5 className="card-title text-white">Quick Swap</h5>
@@ -757,7 +742,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT, 2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
@@ -783,7 +768,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT, 2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
 														</div>
 													</div>
 												</div>
@@ -794,34 +779,18 @@ function Dashboard(props) {
 											<div className="row align-items-center">
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
-														<input
-															type="checkbox"
-															className="form-check-input"
-															id="issuer-fee"
-															value={setIssueCheck}
-															onChange={handleChangeIss} />
+														<input 
+														type="checkbox" 
+														className="form-check-input" 
+														id="issuer-fee" 
+														value={setIssueCheck} 
+														onChange={handleChangeIss}/>
 														<label className="form-check-label " for="issuer-fee">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-													{/* <button className="btn btn-white rounded-4 mb-2" id='tradeButton'>
-														Place order
-													</button> */}
-													{hasTl && (
-														<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>
-															Place order
-															</button>
-															)}
-													{!hasTl && (
-														<button className="btn btn-white rounded-4 mb-2" id='tradeButton' disabled>
-															No trustline<br></br>
-															<a href="https://xrpl.services/?issuer=rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ&currency=Greyhound&limit=1000000000000" target="_blank">Create trustline</a>
-															</button>
-															)}
-												</div>
-											</div>
-										</div>
+													<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>Place order</button></div></div></div>
 
 										<Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
 											<img className="modal-above-image" src="./images/xumm.svg" />
@@ -852,9 +821,9 @@ function Dashboard(props) {
 													</div>
 
 													<div className="qr-code-img">
-														{showSpinnerSigned && <center><div className="spinner-grow" role="status">
-															{/* <span className="visually-hidden"></span> */}
-														</div><br></br></center>}
+													{showSpinnerSigned && <center><div className="spinner-grow" role="status">
+														{/* <span class="visually-hidden"></span> */}
+													</div><br></br></center>}
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
 												</div>
