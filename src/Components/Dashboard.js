@@ -119,6 +119,7 @@ function Dashboard(props) {
 	const [curStringS, setCurStringS] = useState('')
 	const [showSuccess, setShowSuccess] = useState(false)
 	const [showError, setShowError] = useState(false)
+	const [hasTl, setHasTl] = useState(false)
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -453,6 +454,7 @@ function Dashboard(props) {
 			for (let i = 0; i < mainData.data.Account_Lines.length; i++) {
 				if (mainData.data.Account_Lines[i].currency === '47726579686F756E640000000000000000000000') {
 					setGreyHoundBalance(Math.round(parseFloat(mainData.data.Account_Lines[i].balance)));
+					setHasTl(true)
 				}
 			}
 			//Set Greyhound Supply
@@ -586,10 +588,13 @@ function Dashboard(props) {
 											<h2 className="card-text text-white fs-28 greyhound-price" style={{ fontWeight: 700 }} id="greyhound-amount">{format(greyHoundBalance)} HOUND</h2>
 											<span>≈ </span><h2 className="card-text fs-14 dollar-price"> {format(format(greyHoundPrice, 8) * greyHoundBalance)} XRP</h2>
 											{/* <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges,2)}</span><br /> */}
-											{/* //only show this change when `showChange` is true */}
+											{/* //only show this change when `showChange` is true
 											{showChangePos && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
-											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>} */}
+											{balanceChanges > 0 && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{balanceChanges < 0 && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
+											{balanceChanges == 0 && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 										</div>
 										{snapShotTier !== 'None' && <div className="mt-4">snapShotTier: {snapShotTier}</div>}
 									</div>
@@ -793,7 +798,23 @@ function Dashboard(props) {
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-													<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>Place order</button></div></div></div>
+													{/* <button className="btn btn-white rounded-4 mb-2" id='tradeButton'>
+														Place order
+													</button> */}
+													{hasTl && (
+														<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>
+															Place order
+															</button>
+															)}
+													{!hasTl && (
+														<button className="btn btn-white rounded-4 mb-2" id='tradeButton' disabled>
+															No trustline<br></br>
+															<a href="https://xrpl.services/?issuer=rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ&currency=Greyhound&limit=1000000000000" target="_blank">Create trustline</a>
+															</button>
+															)}
+												</div>
+											</div>
+										</div>
 
 										<Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
 											<img className="modal-above-image" src="./images/xumm.svg" />
