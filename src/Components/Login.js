@@ -93,7 +93,14 @@ function Login(props) {
   }
 
   const Signin = async () => {
-
+    setrequestResolvedMessage('')
+    setQrMatrix("")
+    setMobileTxnUrl("")
+    setShowSpinner(false)
+    setlistenWs(false)
+    setRequestResolved(false)
+    setRequestFailed(false)
+    setSignInClicked(false)
     const request = {
       "txjson": {
         "TransactionType": "SignIn"
@@ -126,51 +133,69 @@ function Login(props) {
         console.log(responseObj)
         const payload = await getXummPayload(responseObj.payload_uuidv4)
         console.log(payload)
+        var accessAddys = ["rbKoFeFtQr2cRMK2jRwhgTa1US9KU6v4L","rKXkK5RRJD74anBpTeG23qc1gKggSHQHjB","rfFfo87G2a7R7Csr1f6yHm7gxVGvx8ypo3","rUfUmEfWP3KLvweKKq6SS5vdrJEPKy7tt8","rUfUmEfWP3KLvweKKq6SS5vdrJEPKy7tt8","rnRVttBw5kyPaq1wv2TrdPWdooYRwBvhmf","ruRb7BuU4hAXfvChhkGmK65oh6Ac4W7xK","rMao6sb6Gg1g1dZMS5uCSqkKg2vDrSmkSD"]
+        if (payload.success) {
+          console.log('signed')
+          if (responseObj.signed === true) {
+            var isValid = await checkValidSignature(payload.data.response.hex)
 
-        const isValid = await checkValidSignature(payload.data.response.hex)
-        if (payload.data !== null) {
-          let payloadMeta = payload.data
-          if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === true) {
-            setSignedinAccount(payloadMeta.response.account);
-            setrequestResolvedMessage('Sign-In request successful.');
-            const data = {
-              "_id": payloadMeta.response.account,
-              "address": payloadMeta.response.account,
-              "avatar_url":null,
-              "name":null,
-              "verified":false,
-              "bio":null,
-              "Custom Url":null,
-              "Eligible_og_ad":false,
-              "Eligible_ts_ad":false,
-              "betaAccess":false
+            console.log(isValid);
+          }
+          console.log()
+        // console.log(accessAddys.includes(payload.data.response.account))
+        if (accessAddys.includes(payload.data.response.account)) {
+          if (isValid.data.xrpAddress !== undefined && isValid.data.session !== undefined) {
+            props.setStateValues(isValid.data);
+          }
+          if (payload.data !== null) {
+            let payloadMeta = payload.data
+            if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === true) {
+              setSignedinAccount(payloadMeta.response.account);
+              setrequestResolvedMessage('Sign-In request successful.');
+              const data = {
+                "_id": payloadMeta.response.account,
+                "address": payloadMeta.response.account,
+                "avatar_url":null,
+                "name":null,
+                "verified":false,
+                "bio":null,
+                "Custom Url":null,
+                "Eligible_og_ad":false,
+                "Eligible_ts_ad":false,
+                "betaAccess":false
+                }
+              const register = await registerUser(data)
+              if (register.success) {
+                console.log('User registered successfully')
               }
-            const register = await registerUser(data)
-            if (register.success) {
-              console.log('User registered successfully')
             }
+            else if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === false) {
+              setRequestFailed(true)
+              setrequestResolvedMessage('Sign-In request has been rejected.');
+            }
+            else if (payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === true && payloadMeta.meta.expired === true) {
+              setRequestFailed(true)
+              setrequestResolvedMessage('Sign-In request has been cancelled.');
+            }
+            else if (payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === false && payloadMeta.meta.expired === true) {
+              setRequestFailed(true)
+              setrequestResolvedMessage('Sign-In request has expired.');
+            }
+            closeModal();
+            setShowSpinner(false);
+            setRequestResolved(true);
+            ws.current.close();
           }
-          else if (payloadMeta.meta.resolved === true && payloadMeta.meta.signed === false) {
-            setRequestFailed(true)
-            setrequestResolvedMessage('Sign-In request has been rejected.');
           }
-          else if (payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === true && payloadMeta.meta.expired === true) {
-            setRequestFailed(true)
-            setrequestResolvedMessage('Sign-In request has been cancelled.');
-          }
-          else if (payloadMeta.meta.resolved === false && payloadMeta.meta.signed === false && payloadMeta.meta.cancelled === false && payloadMeta.meta.expired === true) {
-            setRequestFailed(true)
-            setrequestResolvedMessage('Sign-In request has expired.');
-          }
+        else {
+          setRequestFailed(true)
+          setrequestResolvedMessage('Your account does not qualify for closed beta!.');
+          closeModal();
+          setShowSpinner(false);
+          setRequestResolved(true);
+          ws.current.close();
         }
-        closeModal();
-        setShowSpinner(false);
-        setRequestResolved(true);
-        ws.current.close();
-        console.log(isValid);
-        if (isValid.data.xrpAddress !== undefined && isValid.data.session !== undefined) {
-          props.setStateValues(isValid.data);
-        }
+      }
       }
     };
   }, [listenWs]);
