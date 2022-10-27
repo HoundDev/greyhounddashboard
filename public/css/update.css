@@ -80,7 +80,9 @@
 .fw-500{
     font-weight: 500;
 }
-
+[data-theme-version="dark"] .navbar-nav .dropdown-menu{
+    padding: 0px !important;
+}
 .quick-trade .btn {
     justify-content: center;
 }
