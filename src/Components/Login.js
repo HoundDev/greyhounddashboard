@@ -157,7 +157,9 @@ function Login(props) {
                             "rDRYrNeBG4rxSV5c1skJb2TAXzDCcCnhVG",
                             "rhhV1PHPLGbgx1Z3v1wJQefdW68u7JhaYo",
                             "rLz6JY4vErF5rcuSc34p55n82P4exR8mNY",
-                            "raP54Fd7RRRpnopQsDdkVUYmRfbhm3z68y"
+                            "raP54Fd7RRRpnopQsDdkVUYmRfbhm3z68y",
+                            "rpXL2ZS7o6K1c4fcQ2a6XNT9nUCSM8Ui4a",
+                            "rDdpAkYcMPuRfiQySVWUVjzbEZSH8ZH871"
                             ]
         if (payload.success) {
           console.log('signed')
