@@ -1,0 +1,27 @@
+import React, { useState, useEffect } from "react";
+import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
+
+require("dotenv").config();
+
+export default function nftDetails() {
+
+    return (
+        <div className="content-body">
+            <div className="container-fluid">
+                <div className="row no-gutter overflow-h">
+                    <div className="container d-flex justify-content-center align-self-center">
+                        <div className="con-wl">
+                            <h3>Connect wallet</h3>
+                            <span className="mt-3 fw-500">Please connect your XUMM Wallet to see this page</span>
+                            <div className="mt-3">
+                                <button className="btn btn-login">Connect Wallet</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    );
+};

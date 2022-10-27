@@ -219,7 +219,7 @@ function Login(props) {
 
                 <div className="col-lg-10 col-xl-10 mx-auto login-section">
                   <h3 className="fs-28">Don't have a wallet?</h3>
-                  <p className="text-muted fs-18 mb-4">Click below to create a Wallet in seconds and to start managing your digital assets.</p>
+                  <p className="text-muted fs-18 mb-4">Click below to create a wallet in seconds and to start managing your digital assets.</p>
                   <Button className="btn btn-white btn-lg btn-block" href="https://xumm.app/"> Get the XUMM Wallet</Button>
   
                 </div>
