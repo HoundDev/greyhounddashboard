@@ -557,8 +557,9 @@ function Dashboard(props) {
 			<div className="content-body">
 				<div className="container-fluid">
 					<div className="row">
-						<div className="col-xl-12 col-xxl-12 col-lg-12">
-							<div className="card card-highlight overflow-hidden">
+						
+						<div className="col-xl-9 col-xxl-9 col-lg-9">
+							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
 									<h5 className="card-title text-black">Balance</h5>
 									<div className="card-header-right">
@@ -601,7 +602,6 @@ function Dashboard(props) {
 											{showChangeNeg && <span className="fs-14 ml-3 font-w500 text-danger " href="#"><i className="fi fi-rr-arrow-small-down"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 											{showNoChange && <span className="fs-14 ml-3 font-w500 text-success " href="#"><i className="fi fi-rr-arrow-small-up"></i> {format(balanceChanges, 2)}% (30 day change)</span>}
 										</div>
-										{snapShotTier !== 'None' && <div className="mt-4">snapShotTier: {snapShotTier}</div>}
 									</div>
 
 
@@ -705,6 +705,44 @@ function Dashboard(props) {
 
 
 
+							</div>
+						</div>
+						<div className="col-xl-3 col-xxl-3 col-lg-3">
+						<div className="card card-highlight">
+								<div className="card-header border-0 pb-0">
+									<h5 className="card-title text-black">NFT Snapshot</h5>
+									<div className="card-header-right">
+
+									</div>
+									<div className="btn sharp btn-details dropdown custom-dropdown mb-0 d-md-block d-none">
+										<div data-toggle="dropdown">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+													stroke="#000" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+												<path
+													d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+													stroke="#000" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+												<path
+													d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+													stroke="#000" strokeWidth="2"
+													stroke-linecap="round" stroke-linejoin="round">
+												</path>
+											</svg>
+										</div>
+										<div className="dropdown-menu dropdown-menu-right">
+											<a className="dropdown-item" href={'https://nft.greyhoundcoin.net/'} target="_blank">View Details</a>
+										</div>
+									</div>
+								</div>
+								<div className="card-body">
+									{snapShotTier !== 'None' && <h2 style={{ fontWeight: 700 }} >{snapShotTier}</h2>}
+								</div>
 							</div>
 						</div>
 
@@ -831,9 +869,7 @@ function Dashboard(props) {
 													</div>
 
 													<div className="qr-code-img">
-													{showSpinnerSigned && <center><div className="spinner-grow" role="status">
-														{/* <span class="visually-hidden"></span> */}
-													</div><br></br></center>}
+													
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
 												</div>
