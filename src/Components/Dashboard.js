@@ -475,8 +475,10 @@ function Dashboard(props) {
 			let sellTxns = []
 			let buyTxns = []
 			for (let i = 0; i < mainData.data.Transactions.length; i++) {
+				console.log(mainData.data.Transactions[i], ' ', i)
 				if (mainData.data.Transactions[i].tx.TransactionType === 'Payment') {
 					if (mainData.data.Transactions[i].tx.Destination === props.xrpAddress) {
+						console.log(`received ${i}`)
 						//Received
 						if (typeof mainData.data.Transactions[i].tx.Amount === 'object') {
 							//token currency
@@ -498,6 +500,7 @@ function Dashboard(props) {
 							//standard XRP
 						}
 					} else {
+						console.log(`sent ${i}`)
 						//Sent
 						if (typeof mainData.data.Transactions[i].tx.Amount === 'object') {
 							//token currency

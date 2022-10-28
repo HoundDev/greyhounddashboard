@@ -29,6 +29,7 @@ function Login(props) {
   const [requestFailed, setRequestFailed] = React.useState(false)
   const [signedinAccount, setSignedinAccount] = React.useState("")
   const [signInClicked, setSignInClicked] = React.useState(false)
+  const [showErr, setShowErr] = React.useState(' ')
 
 
   function closeModal() {
@@ -231,7 +232,8 @@ function Login(props) {
         else {
           setRequestFailed(true)
           setrequestResolvedMessage('Your account does not qualify for closed beta!.');
-          closeModal();
+          // closeModal();
+          setShowErr('Your account does not qualify for closed beta!.');
           setShowSpinner(false);
           setRequestResolved(true);
           ws.current.close();
@@ -274,7 +276,7 @@ function Login(props) {
                         <Alert status="error" style={{ marginTop: '20px' }}><AlertIcon />{requestResolvedMessage}</Alert> : <></>}
 
                       {showSpinner ? <Spinner size='md' color={'white'} /> : <></>}
-                      {signInClicked && isBrowser ? <TransactionXumm isOpen={onOpen} onClose={onClose} txnPng={qrMatrix} closeModal={closeModal} /> : <></>}
+                      {signInClicked && isBrowser ? <TransactionXumm errorMessage={showErr} isOpen={onOpen} onClose={onClose} txnPng={qrMatrix} closeModal={closeModal} /> : <></>}
                       {signInClicked && isMobile ? <Text fontSize="18px" fontWeight="bold" color="#3182ce"><Link fontSize="1.4em" href={mobileTxnUrl} isExternal>Click to sign transaction with XUMM</Link></Text> : <></>}
                       <p className="d-none" href="https://xumm.app/">Don't have a wallet?</p>
                     </div>
