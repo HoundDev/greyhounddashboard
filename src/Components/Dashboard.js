@@ -152,7 +152,7 @@ function Dashboard(props) {
 			var xrpPirces = []
 			var days = []
 			for (var key in xrppricess) {
-				xrpPirces.push(xrppricess[key])
+				xrpPirces.push(format(xrppricess[key], 4))
 				days.push(key)
 			}
 			data.datasets[0].data = xrpPirces
@@ -160,7 +160,7 @@ function Dashboard(props) {
 			var ghPirces = []
 			var dayss = []
 			for (var key in ghpricess) {
-				ghPirces.push(ghpricess[key])
+				ghPirces.push(format(ghpricess[key],8))
 				dayss.push(key)
 			}
 			GHdata.datasets[0].data = ghPirces
@@ -899,7 +899,7 @@ function Dashboard(props) {
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
 												<h5 className="card-title text-white mb-2">Volume</h5>
-												<p className="mb-3 fs-14 font-w500">{format(volumeTraded)} XRP in the last day</p>
+												<p className="mb-3 fs-14 font-w500">{format(volumeTraded)} XRP in the last month</p>
 											</div>
 										</div>
 										<div className="card-body p-0">

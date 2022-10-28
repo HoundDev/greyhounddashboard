@@ -6,7 +6,7 @@ export var data = {
 
    datasets: [
       {
-         label: "My First dataset",
+         label: "XRP",
          data: [],
          borderColor: "#ffab2d",
          borderWidth: "4",
