@@ -7,7 +7,7 @@ export var GHdata = {
 
    datasets: [
       {
-         label: "My First dataset",
+         label: "HOUND",
          data: [],
          borderColor: "#ffab2d",
          borderWidth: "4",
