@@ -304,7 +304,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
-          <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
+          {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />
