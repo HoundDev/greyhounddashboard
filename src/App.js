@@ -261,8 +261,9 @@ function App() {
                 <span className="nav-text">Richlist</span>
               </Link>
               </li>
-
-              <li id="richlistLI" className={activeStyleSpringRescue}><Link onClick={() => setActive('SpringRescueLI')} to="/springrescue" className=" ai-icon" aria-expanded="false">
+               <li id="richlistLI" className={activeStyleSpringRescue}>
+                {/* <Link onClick={() => setActive('SpringRescueLI')} to="/springrescue" className=" ai-icon" aria-expanded="false"> */}
+                <Link onClick={null} to="/" className=" ai-icon" aria-expanded="false">
                 <i className="fi fi-sr-calendar"></i>
                 <span className="nav-text">Events <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
               </Link>
@@ -303,7 +304,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
-          <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
+          {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />

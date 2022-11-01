@@ -29,6 +29,7 @@ function Login(props) {
   const [requestFailed, setRequestFailed] = React.useState(false)
   const [signedinAccount, setSignedinAccount] = React.useState("")
   const [signInClicked, setSignInClicked] = React.useState(false)
+  const [showErr, setShowErr] = React.useState(' ')
 
 
   function closeModal() {
@@ -136,44 +137,9 @@ function Login(props) {
         var accessAddys = ["rbKoFeFtQr2cRMK2jRwhgTa1US9KU6v4L",
                             "rKXkK5RRJD74anBpTeG23qc1gKggSHQHjB",
                             "rfFfo87G2a7R7Csr1f6yHm7gxVGvx8ypo3",
-                            "rUfUmEfWP3KLvweKKq6SS5vdrJEPKy7tt8",
-                            "rnRVttBw5kyPaq1wv2TrdPWdooYRwBvhmf",
-                            "ruRb7BuU4hAXfvChhkGmK65oh6Ac4W7xK",
-                            "rMao6sb6Gg1g1dZMS5uCSqkKg2vDrSmkSD",
-                            "rJXgTVuJCBgobzwfxa84t3eH2DK2Bg6zLi",
-                            "rN9U7qcQzj1mVMdAtZUpSm6yz6so66BfZN",
-                            "r3FNESi6MehQj9NVyJGuihYYvkQK5hz7pY",
-                            "rUv4X1NEcqA6rtnd8DjiYycSCDYVrn1Tc8",
-                            "rQNUNDSxSQFXw53VSxsdTNnPcDMTqUWUFD",
-                            "rKvMcdeieRwKzZyv7ec1VmJzwmPLuoEAMR",
-                            "rNogbPtQNTP9EpkPyvfa6wxxvSGtVskL1h",
-                            "rHHyZ8YT7xoFqirWLvMpdriQL63x7XSb2x",
-                            "rapC1Zcg6eorkUAMiXyaEmQ287L71SwvoZ",
-                            "r4vrvMXZ4rJQL1uYeT4eP5cgb2pt8R4MzX",
-                            "rGjArcNUnT4Tu6r5czjgtRLbXqoPdHVEHZ",
-                            "rLF97RRKpkMqEBsjzhDf5mTKxwXSnrcSag",
-                            "rUDMAsGYaeHMke9XJY5n6ot2bQrMNLVG7j",
-                            "rhEKnHhYxpp229p78eSATALxN3A2dV8xbT",
-                            "rDRYrNeBG4rxSV5c1skJb2TAXzDCcCnhVG",
-                            "rhhV1PHPLGbgx1Z3v1wJQefdW68u7JhaYo",
-                            "rLz6JY4vErF5rcuSc34p55n82P4exR8mNY",
-                            "raP54Fd7RRRpnopQsDdkVUYmRfbhm3z68y",
-                            "rpXL2ZS7o6K1c4fcQ2a6XNT9nUCSM8Ui4a",
                             "rDdpAkYcMPuRfiQySVWUVjzbEZSH8ZH871",
-                            "r4JFTWht1oRyKi6bQnvymk9aat8ikocUd2",
                             "rLfP4UznJ65hYTKXjSj2UQQxWDmxmRdbLW",
-                            "rMzRyrhAT1V28VoadRVzZ4QnDpGv2zjiNK",
-                            "rfns68yXnyL5Qt7cyQGFFabkPTHKrxAJUz",
-                            "r65uw16CAmHcVbuQ5NLabpNzjxMuYWRTc",
-                            "rUT647VpJ85p6q7cUWQS4WQ6D22vW2r2dk",
-                            "rHEsWci2hJxabdWCghBSeYLAsKuFqT3abZ",
-                            "rwqigqsBKBuKwJc5EEJ8P4ippoUf4pMwgQ",
-                            "rKFgKpPqThJzgSj5NmihDQMNTkQXCZKwun",
-                            "rEbq6FaiLtAvo78FnWHvMdzPfNSpQPAHDD",
-                            "rJ2eYsdeUZmusSeD64R3gR4PSSm65y5Qe8 ",
-                            "r3bRiq2J8E4nhLHhvSAQK7ESw2B8UiMxw4",
-                            "r9sPndz6LoTcTvHKVVbjSJ7dvYMPJrbLxy",
-                            "rUDpyPJAeML18bNWuEtwCy2DS3CfFGuCKA"
+                            "rMzRyrhAT1V28VoadRVzZ4QnDpGv2zjiNK"
                           ]
         if (payload.success) {
           console.log('signed')
@@ -231,7 +197,8 @@ function Login(props) {
         else {
           setRequestFailed(true)
           setrequestResolvedMessage('Your account does not qualify for closed beta!.');
-          closeModal();
+          // closeModal();
+          setShowErr('Your account does not qualify for closed beta!.');
           setShowSpinner(false);
           setRequestResolved(true);
           ws.current.close();
@@ -274,7 +241,7 @@ function Login(props) {
                         <Alert status="error" style={{ marginTop: '20px' }}><AlertIcon />{requestResolvedMessage}</Alert> : <></>}
 
                       {showSpinner ? <Spinner size='md' color={'white'} /> : <></>}
-                      {signInClicked && isBrowser ? <TransactionXumm isOpen={onOpen} onClose={onClose} txnPng={qrMatrix} closeModal={closeModal} /> : <></>}
+                      {signInClicked && isBrowser ? <TransactionXumm errorMessage={showErr} isOpen={onOpen} onClose={onClose} txnPng={qrMatrix} closeModal={closeModal} /> : <></>}
                       {signInClicked && isMobile ? <Text fontSize="18px" fontWeight="bold" color="#3182ce"><Link fontSize="1.4em" href={mobileTxnUrl} isExternal>Click to sign transaction with XUMM</Link></Text> : <></>}
                       <p className="d-none" href="https://xumm.app/">Don't have a wallet?</p>
                     </div>

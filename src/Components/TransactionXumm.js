@@ -74,6 +74,8 @@ export default function TransactionXumm(props) {
                 <Image style={qrCode} src={props.txnPng} />
               </Stack>
               <Text style={smallText}>Scan the QR code with your XUMM App to proceed.</Text>
+                  {/* // show an error message if the variable is set */}
+              {props.errorMessage && <Text style={smallText}>{props.errorMessage}</Text>}
             </ModalBody>
           </ModalContent>
         </Modal>
