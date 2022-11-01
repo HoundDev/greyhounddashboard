@@ -264,7 +264,7 @@ function App() {
 
               <li id="richlistLI" className={activeStyleSpringRescue}><Link onClick={() => setActive('SpringRescueLI')} to="/springrescue" className=" ai-icon" aria-expanded="false">
                 <i className="fi fi-sr-calendar"></i>
-                <span className="nav-text">Events</span>
+                <span className="nav-text">Events <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
               </Link>
               </li>
 
