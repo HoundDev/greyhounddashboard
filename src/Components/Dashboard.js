@@ -300,6 +300,7 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
+			console.log(document.getElementById("counterCur").value)
 			setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
@@ -318,10 +319,12 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			setXrpQT(xrpPr * document.getElementById("counterCur").value)
+			console.log(document.getElementById("counterCur").value)
+			// setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
 			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
 			document.getElementById("counterCur").placeholder = document.getElementById("baseCur").value * price
+			setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			//change the text
 			// document.getElementById("baseCur").placeholder = "Disabled"
 			if (document.getElementById("baseCur").value == "") {
@@ -347,6 +350,8 @@ function Dashboard(props) {
 		}
 
 	}
+
+
 
 	const getXummPayload = async (requestContent) => {
 		try {
@@ -475,10 +480,8 @@ function Dashboard(props) {
 			let sellTxns = []
 			let buyTxns = []
 			for (let i = 0; i < mainData.data.Transactions.length; i++) {
-				console.log(mainData.data.Transactions[i], ' ', i)
 				if (mainData.data.Transactions[i].tx.TransactionType === 'Payment') {
 					if (mainData.data.Transactions[i].tx.Destination === props.xrpAddress) {
-						console.log(`received ${i}`)
 						//Received
 						if (typeof mainData.data.Transactions[i].tx.Amount === 'object') {
 							//token currency
@@ -500,7 +503,6 @@ function Dashboard(props) {
 							//standard XRP
 						}
 					} else {
-						console.log(`sent ${i}`)
 						//Sent
 						if (typeof mainData.data.Transactions[i].tx.Amount === 'object') {
 							//token currency
