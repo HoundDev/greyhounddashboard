@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 
+import NftCard from "./nfts/NftCard";
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css'
 
@@ -68,68 +70,11 @@ export default function NftHome() {
                             spaceBetween={30}
                             slidesPerView={"auto"}   
                         >
-                            <SwiperSlide>
-                                <div className="card nft-card mb-3">
-                                    <div className="card-media">
-                                        <img className="card-img-top img-fluid tlt" src="./images/test/nft.jpg" alt="NFT 1"/>
-                                        <button className="wishlist-button heart"><span className="number-like">13</span></button>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="card-title">
-                                            <h6 className="fs-18 text-white ml-1">Elite #3512</h6>
-                                            <span className="badge badge-pill badge-elite fs-12">333.4</span>
-                                        </div>
-                                        <div className="meta-info">
-                                            <div className="card-author">
-                                                <div className="avatar">
-                                                    <img src="./images/avatar/default-avatar.jpg" alt="Image"/>
-                                                </div>
-                                                <div className="info">
-                                                    <span className="fs-13">Owned by</span>
-                                                    <h6> <a className="fs-14 text-white">rNXhU52ybru7GyhU4duZSrxNGwD2vE7Z9H</a> </h6>
-                                                </div>
-                                            </div>
-                                            <div className="card-price">
-                                                <span className="fs-13">Current Price</span>
-                                                <h5 className="fs-14 text-white">589 XRP</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                            <div className="card nft-card mb-3">
-                                    <div className="card-media">
-                                        <img className="card-img-top img-fluid tlt" src="./images/test/nft2.jpg" alt="NFT 1"/>
-                                        <button className="wishlist-button heart"><span className="number-like">13</span></button>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="card-title">
-                                            <h6 className="fs-18 text-white ml-1">Standard #2391</h6>
-                                            <span className="badge badge-pill badge-elite fs-12">279.1</span>
-                                        </div>
-                                        <div className="meta-info">
-                                            <div className="card-author">
-                                                <div className="avatar">
-                                                    <img src="./images/avatar/default-avatar.jpg" alt="Image"/>
-                                                </div>
-                                                <div className="info">
-                                                    <span className="fs-13">Owned by</span>
-                                                    <h6> <a className="fs-14 text-white">rNXhU52ybru7GyhU4duZSrxNGwD2vE7Z9H</a> </h6>
-                                                </div>
-                                            </div>
-                                            <div className="card-price">
-                                                <span className="fs-13">Current Price</span>
-                                                <h5 className="fs-14 text-white">589 XRP</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                            </SwiperSlide>
-                            <SwiperSlide>NFT 3</SwiperSlide>
-                            <SwiperSlide>NFT 4</SwiperSlide>
-                            <SwiperSlide>NFT 5</SwiperSlide>
-                            <SwiperSlide>NFT 6</SwiperSlide>
+                            <SwiperSlide> <NftCard/> </SwiperSlide>
+                            <SwiperSlide> <NftCard/> </SwiperSlide>
+                            <SwiperSlide> <NftCard/> </SwiperSlide>
+                            <SwiperSlide> <NftCard/> </SwiperSlide>
+                            <SwiperSlide> <NftCard/> </SwiperSlide>
                         </Swiper>
                     </div>
                 </div>
