@@ -47,7 +47,7 @@ export default function Richlist(props) {
      pointHoverBorderColor: '#CE5C6C',
      data: dataHolder
    }],
- };
+  };
   const optionsholder = {
       title: {
       display: !1
@@ -126,7 +126,7 @@ export default function Richlist(props) {
      pointHoverBorderColor: '#CE5C6C',
      data: dataTls
    }],
- };
+  };
   const optionstls = {
       title: {
       display: !1
@@ -199,9 +199,12 @@ export default function Richlist(props) {
       let arryItems = [];
       if (rowsFound !== undefined) {
         arryItems.push(rowsFound);
+        setpageOfItems(arryItems);
       }
-      setpageOfItems(arryItems);
       //Filter the grid
+    }
+    if (event.target.value.length === 0) { 
+      getRichListData(pager.currentPage);
     }
   }
 
@@ -276,6 +279,13 @@ export default function Richlist(props) {
     }
   }
 
+  const handleNextPage = (event) => {
+    getRichListData(pager.currentPage + 1);
+  }
+
+  const handlePrevPage = (event) => {
+    getRichListData(pager.currentPage - 1);
+  }
 
   useEffect(async () => {
     const page = parseInt(searchParams.get('page')) || 1;
@@ -336,7 +346,7 @@ export default function Richlist(props) {
           <div className="input-group search-area d-inline-flex">
             <input id="walletAddy" type="text" className="form-control" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
           </div>
-          <button className="btn btn-md btn-primary ml-auto"><i className="fa-solid fa-arrows-rotate" /></button>
+          <button className="btn btn-md btn-primary ml-auto" hidden><i className="fa-solid fa-arrows-rotate" hidden></i></button>
         </div>
 
         <div className="row">
@@ -382,11 +392,11 @@ export default function Richlist(props) {
                   <><div className="dataTables_info" id="example-5_info" role="status" aria-live="polite">
                     Showing {pager.currentPage} of {pager.totalPages} Pages</div>
                     <div className="dataTables_paginate paging_simple_numbers" id="example-5_paginate">
-                      <button className="paginate_button previous disabled" aria-controls="example-5" data-dt-idx={0} tabIndex={0} id="example-5_previous"><i className="la la-angle-left"></i></button>
+                      <button className="paginate_button previous disabled" aria-controls="example-5" data-dt-idx={0} tabIndex={0} id="example-5_previous" onClick={handlePrevPage}><i className="la la-angle-left"></i></button>
                       {pager.pages.map(page =>
                         <span key={page}><Link to={`/richlist?page=${page}`} className={`paginate_button ${pager.currentPage === page ? 'current' : ''}`} aria-controls="example-5" data-dt-idx={1} tabIndex={0}>{page}</Link></span>
                       )}
-                      <button className="paginate_button next disabled" aria-controls="example-5" data-dt-idx={2} tabIndex={0} id="example-5_next"><i className="la la-angle-right"></i></button>
+                      <button className="paginate_button next disabled" aria-controls="example-5" data-dt-idx={2} tabIndex={0} id="example-5_next" onClick={handleNextPage}><i className="la la-angle-right"></i></button>
                     </div></> : <></>
                 }
               </div>

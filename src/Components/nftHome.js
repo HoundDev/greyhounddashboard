@@ -10,7 +10,19 @@ import 'swiper/swiper.min.css'
 
 require("dotenv").config();
 
-export default function NftHome() {
+export default function NftHome(props) {
+
+    async function getNfts() {
+        let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getnfts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({"xrpAddress": props.xrpAddress})
+          });
+        let data = await response.json();
+        console.log(data);
+    }
+
+    let nfts = getNfts();
 
     return (
         <div className="content-body">

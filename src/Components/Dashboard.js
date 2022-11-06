@@ -300,7 +300,6 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			console.log(document.getElementById("counterCur").value)
 			setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
@@ -319,7 +318,6 @@ function Dashboard(props) {
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
 			price = price
-			console.log(document.getElementById("counterCur").value)
 			// setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
 			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
@@ -464,7 +462,7 @@ function Dashboard(props) {
 			if (mainData.data.GreyHoundAmount[0].sum !== null) {
 				setGreyHoundSupply(Math.round(mainData.data.GreyHoundAmount[0].sum));
 				setGreyHoundAmountBurnt(parseFloat((1 - parseFloat(mainData.data.GreyHoundAmount[0].sum) / 1000000000000) * 100).toFixed(2))
-				dataSup.labels = ['Greyhound Supply', 'Greyhound Burnt'];
+				dataSup.labels = ['Hound Supply', 'Hound Burnt'];
 				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
@@ -791,7 +789,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' />
+															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' autoComplete='off' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
@@ -817,7 +815,7 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' />
+															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
@@ -890,7 +888,7 @@ function Dashboard(props) {
 									<div className="card overflow-hidden">
 										<div className="card-header border-0 pb-0">
 											<div className="me-auto">
-												<h5 className="card-title text-white mb-2">Greyhound Supply</h5>
+												<h5 className="card-title text-white mb-2">Hound Supply</h5>
 												<p className="mb-3 fs-14 font-w500">Total: {formatNumber(greyHoundSupply)}<p className="mb-3 fs-14 font-w500 text-red" style={{ paddingTop: '0px' }}> Burnt: {greyHoundAmountBurnt}%</p></p>
 											</div>
 										</div>
