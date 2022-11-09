@@ -19,9 +19,31 @@ export default function nftExplore() {
                             <div className="dropdown d-block">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
-                                        <span className="d-block fs-14 text-white">Trending</span>
+                                        <span className="d-block fs-15 text-white">All Marketplaces</span>
                                     </div>
-                                    <i className="fa fa-angle-down scale5 ml-3 text-white" />
+                                    <i className="fa fa-angle-down ml-3 text-white" />
+                                </div>
+                                <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
+                                    <div className="form-check dropdown-item">
+                                        <input className="form-check-input" type="checkbox" />
+                                        <label className="form-check-label">onXRP</label>
+                                    </div>
+                                    <div className="form-check dropdown-item">
+                                        <input className="form-check-input" type="checkbox" />
+                                        <label className="form-check-label">XRPLCoins</label>
+                                    </div>
+                                    <div className="form-check dropdown-item">
+                                        <input className="form-check-input" type="checkbox" />
+                                        <label className="form-check-label">XRPNFT</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="dropdown d-block">
+                                <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
+                                    <div className="text-left">
+                                        <span className="d-block fs-15 text-white">Trending</span>
+                                    </div>
+                                    <i className="fa fa-angle-down ml-3 text-white" />
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
                                     <a className="dropdown-item" href="">Recently listed</a>
@@ -36,11 +58,11 @@ export default function nftExplore() {
                 <div className="row">
                     <div className="col">
                         <div className="explore-container">
-                                 <NftCard/>
-                                 <NftCard/>
-                                 <NftCard/>
-                                 <NftCard/>
-                                 <NftCard/>
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
+                            <NftCard />
                         </div>
                     </div>
                 </div>

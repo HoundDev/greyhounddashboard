@@ -74,7 +74,6 @@
 
 .btn {
     border-radius: 0.5em !important;
-    box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px !important;
 }
 
 .fw-500{
@@ -701,7 +700,7 @@ button:active {
     }
 }
 
-/* NFT Explore */
+/* --------------------------- NFT Explore Start ---------------------------*/
 
 .explore-container {
     display: flex;
@@ -723,7 +722,7 @@ button:active {
 .nft-form {
     display: flex;
     flex-flow: row nowrap;
-    gap: 30px;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
@@ -745,6 +744,14 @@ button:active {
     margin-top: 15px;
 }
 
+.nft-form .dropdown{
+    cursor: pointer;
+}
+.nft-form .dropdown .btn{
+    align-items: center;
+    white-space: nowrap;
+}
+
 [data-theme-version="dark"] .nft-form .form-control {
     background-color: rgba(166, 176, 207, .05);
     border: 1px solid transparent;
@@ -758,7 +765,6 @@ button:active {
 [data-theme-version="dark"] .form-control:focus {
     border-color: rgba(255, 255, 255, 0.5);
 }
-
 
 @media only screen and (max-width: 767px) {
     .explore-container>.nft-card {
@@ -774,7 +780,11 @@ button:active {
     }
 }
 
-/* NFT Card */
+
+/* --------------------------- NFT Explore End ---------------------------*/
+
+
+/* --------------------------- NFT Card Start ---------------------------*/
 
 .nft-card {
     margin-bottom: 1.875rem;
