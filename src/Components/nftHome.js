@@ -109,7 +109,7 @@ export default function NftHome(props) {
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
 								<div className="d-flex  mt-4 ">
 									<div>
-										<h4 className="text-white fs-28 ">The Standard Collection</h4>
+										<h4 className="text-white fs-28 ">Houndies Collection</h4>
 									</div>
 
 								</div>

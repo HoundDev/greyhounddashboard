@@ -24,7 +24,7 @@ export default function nftExplore() {
                                     <i className="fa fa-angle-down ml-3 text-white" />
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-                                    <div className="form-check dropdown-item">
+                                    <div className="dropdown-item">
                                         <input className="form-check-input" type="checkbox" />
                                         <label className="form-check-label">onXRP</label>
                                     </div>

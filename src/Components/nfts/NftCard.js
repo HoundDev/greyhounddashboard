@@ -25,6 +25,7 @@ const NftCard = (props) => {
                         <h5 className="fs-14 text-white">589 XRP</h5>
                     </div>
                 </div>
+                <a href="#" className="stretched-link"></a>
             </div>
         </div>
     )
