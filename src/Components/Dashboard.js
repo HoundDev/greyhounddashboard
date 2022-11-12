@@ -793,7 +793,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT,2)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
@@ -819,7 +819,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT,2)}</p>
 														</div>
 													</div>
 												</div>
