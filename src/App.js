@@ -14,6 +14,7 @@ import SpringRescue from './Components/springRescue.js';
 import NftHome from './Components/nftHome.js';
 import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
+import NftCollection from './Components/nfts/NftCollection';
 import AccessDenied from './Components/accessDenied.js';
 import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
@@ -309,7 +310,8 @@ function App() {
           <Route path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
-		  <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
+		      <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
+          <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
         </Routes>
 
         <Footer />
