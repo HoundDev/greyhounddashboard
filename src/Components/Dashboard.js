@@ -561,7 +561,7 @@ function Dashboard(props) {
 				<div className="container-fluid">
 					<div className="row">
 						
-						<div className="col-xl-9 col-xxl-9 col-lg-9">
+						<div className="col-xl-7 col-xxl-7 col-lg-7">
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
 									<h5 className="card-title text-black">Balance</h5>
@@ -710,10 +710,10 @@ function Dashboard(props) {
 
 							</div>
 						</div>
-						<div className="col-xl-3 col-xxl-3 col-lg-3">
+						<div className="col-xl-5 col-xxl-5 col-lg-5">
 						<div className="card card-highlight">
 								<div className="card-header border-0 pb-0">
-									<h5 className="card-title text-black">NFT Snapshot</h5>
+									<h5 className="card-title text-black">NFTs Owned</h5>
 									<div className="card-header-right">
 
 									</div>
@@ -783,7 +783,7 @@ function Dashboard(props) {
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='baseField'>HOUND</span>
 																	</div>
-																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
+																	<i className="fa fa-angle-down scale3 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
 																	<a className="dropdown-item" href="">XRP</a>
@@ -809,7 +809,7 @@ function Dashboard(props) {
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
 																	</div>
-																	<i className="fa fa-angle-down scale5 ml-3 text-white" />
+																	<i className="fa fa-angle-down scale3 ml-3 text-white" />
 																</div>
 																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
 																	<a className="dropdown-item" href="">HOUND</a>
