@@ -31,7 +31,7 @@ export default function NftHome(props) {
           });
         let data = await response.json();
         console.log(data);
-        setNumberOfNfts(data.account_nfts.length - 1);
+        setNumberOfNfts(data.account_nfts.length);
         let nfts = data.account_nfts;
         let nftImages = [];
         let nftNames = [];
@@ -39,12 +39,17 @@ export default function NftHome(props) {
         for (let i = 0; i < nfts.length; i++) {
             let nft = nfts[i];
             let nftUri = nft.URI;
+            if (nftUri === "" || nftUri === undefined) {
+                console.log("uri is empty");
+                continue;
+            }
             //convert the uri from hex to ascii
             let nftUriAscii = convertHexToStr(nftUri);
             //if the uri does not start with `https://`, then it is not a valid uri
             if (!nftUriAscii.startsWith('https://')) {
                 continue;
             }
+            
             //fetch the url from the ascii uri
             let nftUriResponse = await fetch(nftUriAscii);
             //get the `image` from the response
@@ -109,7 +114,7 @@ export default function NftHome(props) {
                 <div className="col-xl-12 col-xxl-12 col-lg-12">
 								<div className="d-flex  mt-4 ">
 									<div>
-										<h4 className="text-white fs-28 ">Houndies Collection</h4>
+										<h4 className="text-white fs-28 ">The Standard Collection</h4>
 									</div>
 
 								</div>
