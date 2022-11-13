@@ -22,7 +22,7 @@ export default function nftDetails() {
 
                     <div className="row">
 
-                        <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12">
+                        <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
                             <div className="nft-container">
                                 <img className="img-fluid mb-5" src="./images/test/nft.jpg" />
                                 <div className="mb-5">
