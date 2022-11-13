@@ -2,18 +2,18 @@ const NftCard = (props) => {
     return (
         <div className="card nft-card mb-3">
             <div className="card-media">
-                <img className="card-img-top img-fluid tlt" src="./images/test/surfer.jpg" alt={props.name} />
+                <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" />
                 <button className="wishlist-button heart"><span className="number-like">13</span></button>
             </div>
             <div className="card-body">
                 <div className="card-title">
-                    <h6 className="fs-18 text-white ml-1">Houndie #2341</h6>
+                    <h6 className="fs-18 text-white ml-1">{props.name}</h6>
                     <span className="badge badge-pill badge-elite fs-12">279.1</span>
                 </div>
                 <div className="meta-info">
                     <div className="card-author">
                         <div className="avatar">
-                            <img src="./images/avatar/default-avatar.jpg" alt="author" />
+                            <img src={props.nft} alt="author" />
                         </div>
                         <div className="info">
                             <span className="fs-13">Owned by</span>
@@ -25,7 +25,6 @@ const NftCard = (props) => {
                         <h5 className="fs-14 text-white">589 XRP</h5>
                     </div>
                 </div>
-                <a href="#" className="stretched-link"></a>
             </div>
         </div>
     )
