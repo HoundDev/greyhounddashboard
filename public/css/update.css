@@ -4,6 +4,12 @@
 .form-check-input{
     cursor: pointer;
 }
+.gap-15{
+    gap: 15px;
+}
+.gap-30{
+    gap: 30px;
+}
 input[type="checkbox"]:after{
     content: '';
     display: block;
@@ -812,7 +818,7 @@ button:active {
 /* --------------------------- NFT Collection Start ---------------------------*/
 
 
-.collection-info-area .bg-area {
+.bg-area {
     border-radius: 1em;
     height: 300px;
     background-color: #21212A;
@@ -821,7 +827,7 @@ button:active {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.collection-info-area .bg-area .avatar-area{
+.bg-area .avatar-area{
     position: absolute;
     bottom: -30px;
     left: 24px;
@@ -839,12 +845,12 @@ button:active {
     -webkit-box-align: stretch;
     align-items: stretch;
 }
-.collection-info-area .bg-area .avatar-area img{
+.bg-area .avatar-area img{
     border-radius: 1em;
     border: 6px solid #1A1921;
 }
 
-.collection-info-area .info-area{
+.info-area{
     margin: 60px 0px 60px 0px;
     display: flex;
     flex-direction: row;
@@ -1235,3 +1241,52 @@ button:active {
     font-size: 16px;
     color: #fff;
 }
+
+/* --------------------------- User Profile Start ---------------------------*/
+
+
+.user-info-area .bg-area .avatar-area img{
+    border-radius: 50%;
+}
+
+.w-address{
+    cursor: pointer;
+    position: relative;
+    width: 133px;
+    gap: 5px;
+    align-items: baseline;
+}
+.w-address p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  
+  .w-address:after {
+    content: attr(data-filetype);
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+
+.w-address:hover {
+    opacity: 0.8;
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .bg-area{
+        height: 180px;
+    }
+    .info-area{
+        flex-direction: column;
+        
+    }
+    .right .info-box{
+        width: 100%;
+    }
+
+}
+
+/* --------------------------- User Profile End ---------------------------*/

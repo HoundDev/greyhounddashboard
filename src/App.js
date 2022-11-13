@@ -15,6 +15,7 @@ import NftHome from './Components/nftHome.js';
 import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
 import NftCollection from './Components/nfts/NftCollection';
+import UserProfile from './Components/users/UserProfile';
 import AccessDenied from './Components/accessDenied.js';
 import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
@@ -229,6 +230,10 @@ function App() {
                       <img src="./images/avatar/default-avatar.jpg" width="20" alt="" draggable="false" />
                     </a>
                     <div className="dropdown-menu dropdown-menu-right">
+                    <a className="dropdown-item">
+                       
+                        <span className="ml-2">My Profile </span>
+                      </a>
                       <a onClick={Logout} className="dropdown-item ai-icon">
                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" className="text-danger"
                           width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -312,6 +317,7 @@ function App() {
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
 		      <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
+          <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
         </Routes>
 
         <Footer />
