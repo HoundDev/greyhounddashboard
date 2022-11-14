@@ -1,8 +1,8 @@
 const NftCard = (props) => {
     return (
-        <div className="card nft-card mb-3">
+        <div className={'card nft-card ' + props.className}>
             <div className="card-media">
-                <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" />
+                <img className="card-img-top img-fluid tlt" src="/images/test/mushroom.jpg" alt="NFT 1" />
                 <button className="wishlist-button heart"><span className="number-like">13</span></button>
             </div>
             <div className="card-body">

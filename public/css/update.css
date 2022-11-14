@@ -4,6 +4,9 @@
 .form-check-input{
     cursor: pointer;
 }
+.text-black{
+    color: #000 !important;
+}
 .gap-15{
     gap: 15px;
 }
@@ -40,7 +43,7 @@ input[type="checkbox"]:checked:after{
 }
 
 [data-theme-version="dark"] .header .header-content {
-        background: rgba(26, 25, 33, 0.3);
+    background: rgba(26, 25, 33, 0.3);
 }
 
 [data-theme-version="dark"] .header .header-content{
@@ -48,7 +51,7 @@ input[type="checkbox"]:checked:after{
 }
 
 [data-theme-version="dark"] .card {
-    background: #21212A;
+    background: rgba(166, 176, 207, .05) !important;
     border-radius: 1em;
 }
 
@@ -103,9 +106,7 @@ input[type="checkbox"]:checked:after{
 .fw-500{
     font-weight: 500;
 }
-[data-theme-version="dark"] .navbar-nav .dropdown-menu{
-    padding: 0px !important;
-}
+
 .quick-trade .btn {
     justify-content: center;
 }
@@ -401,6 +402,14 @@ button:active {
 [data-theme-version="dark"] .header .header-content {
     backdrop-filter: blur(0px);
 }
+.badge{
+    font-weight: 600;
+}
+.badge-primary {
+    background-color: #a6b0cf;
+    color: #000;
+    
+}
 
 
 .navbar-nav .dropdown-menu {
@@ -410,7 +419,7 @@ button:active {
 
 [data-theme-version="dark"] .navbar-nav .dropdown-menu {
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px !important;
-    background-color: #21212A !important;
+    background-color: #272833 !important;
 }
 
 .header-right .notification_dropdown .nav-link .badge {
@@ -596,7 +605,7 @@ button:active {
 /* NFTS */
 
 .swiper-slide {
-    width: 18rem !important;
+    width: auto !important;
 }
 
 .swiper {
@@ -899,7 +908,7 @@ button:active {
 /* --------------------------- NFT Card Start ---------------------------*/
 
 .nft-card {
-    margin-bottom: 1.875rem;
+    margin-bottom: 0px;
     transition: all .5s ease-in-out;
     position: relative;
     border: 0px solid transparent;
@@ -994,13 +1003,28 @@ button:active {
     width: 100%;
 }
 
-@media only screen and (max-width: 767px) {
-
+.min{
+    width: 11rem !important;
 }
 
+.min .meta-info, .min button, .min .badge{
+    display: none !important;
+}
 
+.min h6{
+    font-size: 14px !important;
+}
 
-/* NFT Details */
+.min .card-body {
+    padding: 1rem;
+}
+.min .card-title{
+    margin-bottom: 0px;
+}
+
+/* --------------------------- NFT Card End ---------------------------*/
+
+/* --------------------------- NFT Details Start ---------------------------*/
 
 .single-nft img {
     border-radius: 1em;
@@ -1290,3 +1314,15 @@ button:active {
 }
 
 /* --------------------------- User Profile End ---------------------------*/
+
+.ntf-owned-card{
+height: 100%;
+align-items: center;
+}
+
+.ntf-owned-card .left{
+
+}
+.ntf-owned-card .right{
+    -webkit-mask-image: linear-gradient(to left, transparent, black 40px, black calc(100% - 40px), transparent);
+}

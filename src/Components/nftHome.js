@@ -68,7 +68,7 @@ export default function NftHome(props) {
     }, []);
     return (
         <div className="content-body">
-            <div className="container-fluid">
+            <div className="container-fluid nft-home">
 
                 <div className="row">
 

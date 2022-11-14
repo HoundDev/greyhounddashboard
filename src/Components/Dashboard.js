@@ -14,8 +14,12 @@ import GreySupply from "./greyhoundSupply";
 import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
+import NftCard from "./nfts/NftCard";
 import { dataSup } from './greyhoundSupply';
 import checkValidSignature from './Login';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.min.css'
 
 require("dotenv").config();
 const xrpl = require("xrpl");
@@ -160,7 +164,7 @@ function Dashboard(props) {
 			var ghPirces = []
 			var dayss = []
 			for (var key in ghpricess) {
-				ghPirces.push(format(ghpricess[key],8))
+				ghPirces.push(format(ghpricess[key], 8))
 				dayss.push(key)
 			}
 			GHdata.datasets[0].data = ghPirces
@@ -175,35 +179,35 @@ function Dashboard(props) {
 		//create offer
 		if (type === 'buy') {
 			var xummPayload = {
-			"options": {
-				"submit": true
-			},
-			"txjson": {
-				"TransactionType": "OfferCreate",
-				"Account": props.xrpAddress,
-				"TakerPays": {
-					"currency": "47726579686F756E640000000000000000000000",
-					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-					"value": amountBase
+				"options": {
+					"submit": true
 				},
-				"TakerGets": `${amountCounter}`
-			}
+				"txjson": {
+					"TransactionType": "OfferCreate",
+					"Account": props.xrpAddress,
+					"TakerPays": {
+						"currency": "47726579686F756E640000000000000000000000",
+						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+						"value": amountBase
+					},
+					"TakerGets": `${amountCounter}`
+				}
 			}
 		} else {
 			var xummPayload = {
-			"options": {
-				"submit": true
-			},
-			"txjson": {
-				"TransactionType": "OfferCreate",
-				"Account": props.xrpAddress,
-				"TakerGets": {
-					"currency": "47726579686F756E640000000000000000000000",
-					"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-					"value": amountBase
+				"options": {
+					"submit": true
 				},
-				"TakerPays": `${amountCounter}`
-			}
+				"txjson": {
+					"TransactionType": "OfferCreate",
+					"Account": props.xrpAddress,
+					"TakerGets": {
+						"currency": "47726579686F756E640000000000000000000000",
+						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
+						"value": amountBase
+					},
+					"TakerPays": `${amountCounter}`
+				}
 			}
 		}
 		//send the payload to the XUMM API
@@ -265,18 +269,18 @@ function Dashboard(props) {
 				var div_main = document.getElementById("trade-wrapper");
 				if (div_main.firstChild.id === "trade-box-counter") {
 					createOffer(amountBase, amountCounter, 'sell')
-					setBaseAmount(amountCounter/1000000)
+					setBaseAmount(amountCounter / 1000000)
 					setQuoteAmount(amountBase)
 					setCurStringB("Hound")
 					setCurStringS("XRP")
-					amountCounter = amountCounter/1000000
+					amountCounter = amountCounter / 1000000
 					//1.5% fee
 					let fee = amountCounter * 0.015
 					setIssueAmount(fee)
 				} else {
 					createOffer(amountBase, amountCounter, 'buy')
 					setBaseAmount(amountBase)
-					setQuoteAmount(amountCounter/1000000)
+					setQuoteAmount(amountCounter / 1000000)
 					setCurStringB("XRP")
 					setCurStringS("Hound")
 					setIssueAmount(0)
@@ -353,17 +357,17 @@ function Dashboard(props) {
 
 	const getXummPayload = async (requestContent) => {
 		try {
-		  let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ "payloadID": requestContent })
-		  });
-		  let json = await response.json()
-		  return { success: true, data: json };
+			let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ "payloadID": requestContent })
+			});
+			let json = await response.json()
+			return { success: true, data: json };
 		} catch (error) {
-		  return { success: false };
+			return { success: false };
 		}
-	  }
+	}
 
 	useEffect(async () => {
 		let mainData = await getMainData(props.xrpAddress)
@@ -407,18 +411,18 @@ function Dashboard(props) {
 					console.log('signed')
 					// console.log(responseObj)
 					if (responseObj.signed === true) {
-					closePopup()
-					setShowSuccess(true)
-					setTimeout(() => {
-						setShowSuccess(false)
-					}, 6000);
+						closePopup()
+						setShowSuccess(true)
+						setTimeout(() => {
+							setShowSuccess(false)
+						}, 6000);
 					} else {
 						closePopup()
 						setShowError(true)
 						setTimeout(() => {
 							setShowError(false)
 						}, 6000);
-				}
+					}
 				}
 			}
 		}
@@ -466,7 +470,7 @@ function Dashboard(props) {
 				dataSup.datasets[0].data = [1000000000000, mainData.data.GreyHoundAmount[0].sum];
 			}
 			//Get Greyhound Price
-			setGreyHoundPrice(format(mainData.data.CurrentGH,8))
+			setGreyHoundPrice(format(mainData.data.CurrentGH, 8))
 			//Get XRP Price
 			let xrpprice = mainData.data.CurrentXRP
 			//parse to float and reduce to 2 decimals
@@ -491,8 +495,8 @@ function Dashboard(props) {
 									//greyhound currency
 									receivedTxns.push({ currency: "HOUND", amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
 								} else {
-								receivedTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
-								//non-standard currency
+									receivedTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
+									//non-standard currency
 								}
 							}
 
@@ -510,10 +514,10 @@ function Dashboard(props) {
 							} else {
 								if (mainData.data.Transactions[i].tx.Amount.currency === '47726579686F756E640000000000000000000000') {
 									sentTxns.push({ currency: "HOUND", amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
-									
+
 								} else {
-								//non-standard currency
-								sentTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
+									//non-standard currency
+									sentTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
 								}
 							}
 
@@ -560,7 +564,7 @@ function Dashboard(props) {
 			<div className="content-body">
 				<div className="container-fluid">
 					<div className="row">
-						
+
 						<div className="col-xl-7 col-xxl-7 col-lg-7">
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
@@ -711,40 +715,30 @@ function Dashboard(props) {
 							</div>
 						</div>
 						<div className="col-xl-5 col-xxl-5 col-lg-5">
-						<div className="card card-highlight">
-								<div className="card-header border-0 pb-0">
-									<h5 className="card-title text-black">NFTs Owned</h5>
-									<div className="card-header-right">
-
-									</div>
-									<div className="btn sharp btn-details dropdown custom-dropdown mb-0 d-md-block d-none">
-										<div data-toggle="dropdown">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-												<path
-													d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-													stroke="#000" strokeWidth="2"
-													stroke-linecap="round" stroke-linejoin="round">
-												</path>
-												<path
-													d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-													stroke="#000" strokeWidth="2"
-													stroke-linecap="round" stroke-linejoin="round">
-												</path>
-												<path
-													d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-													stroke="#000" strokeWidth="2"
-													stroke-linecap="round" stroke-linejoin="round">
-												</path>
-											</svg>
-										</div>
-										<div className="dropdown-menu dropdown-menu-right">
-											<a className="dropdown-item" href={'https://nft.greyhoundcoin.net/'} target="_blank">View Details</a>
-										</div>
-									</div>
-								</div>
+							<div className="card ">
+								
 								<div className="card-body">
-									{snapShotTier !== 'None' && <h2 style={{ fontWeight: 700 }} >{snapShotTier}</h2>}
+									<div className='d-flex gap-30 ntf-owned-card'>
+										<div className='left'>
+											<h2>Your NFT collection is finally here </h2>
+											<button className="btn btn-white rounded-4 mt-3">My NFTs</button>
+										</div>
+										<div className='right'>
+											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #1234"/>
+													</SwiperSlide>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #1234"/>
+													</SwiperSlide>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #1234"/>
+													</SwiperSlide>
+
+
+											</Swiper>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -755,18 +749,18 @@ function Dashboard(props) {
 
 
 									<div className="card overflow-hidden trade-card">
-									{/* <div class="alert alert-success">
+										{/* <div class="alert alert-success">
 										<strong>Success!</strong> Indicates a successful or positive action.
 									</div> */}
-									{showSuccess && (
-										<div className="alert alert-success">
-											<strong>Success!</strong> The txn was signed!.
+										{showSuccess && (
+											<div className="alert alert-success">
+												<strong>Success!</strong> The txn was signed!.
 											</div>
 										)}
 
-									{showError && (
-										<div className="alert alert-danger">
-											<strong>Declined!</strong> The txn was declined!.
+										{showError && (
+											<div className="alert alert-danger">
+												<strong>Declined!</strong> The txn was declined!.
 											</div>)}
 										<div className="card-header border-0 pb-0 d-block d-md-flex">
 											<h5 className="card-title text-white">Quick Swap</h5>
@@ -793,7 +787,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT, 2)}</p>
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
@@ -819,7 +813,7 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT,2)}</p>
+															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT, 2)}</p>
 														</div>
 													</div>
 												</div>
@@ -830,12 +824,12 @@ function Dashboard(props) {
 											<div className="row align-items-center">
 												<div className="col-md-5 col-sm-12">
 													<div className="form-check custom-checkbox ">
-														<input 
-														type="checkbox" 
-														className="form-check-input" 
-														id="issuer-fee" 
-														value={setIssueCheck} 
-														onChange={handleChangeIss}/>
+														<input
+															type="checkbox"
+															className="form-check-input"
+															id="issuer-fee"
+															value={setIssueCheck}
+															onChange={handleChangeIss} />
 														<label className="form-check-label " for="issuer-fee">Include issuer fee (1.5%)</label>
 													</div>
 												</div>
@@ -872,7 +866,7 @@ function Dashboard(props) {
 													</div>
 
 													<div className="qr-code-img">
-													
+
 														<img src={qrcodepng} alt="QR Code" />
 													</div>
 												</div>
