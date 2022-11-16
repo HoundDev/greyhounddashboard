@@ -2,7 +2,7 @@ const NftCard = (props) => {
     return (
         <div className={'card nft-card ' + props.className}>
             <div className="card-media">
-                <img className="card-img-top img-fluid tlt" src="/images/test/mushroom.jpg" alt="NFT 1" />
+                <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" />
                 <button className="wishlist-button heart"><span className="number-like">13</span></button>
             </div>
             <div className="card-body">
@@ -17,7 +17,7 @@ const NftCard = (props) => {
                         </div>
                         <div className="info">
                             <span className="fs-13">Owned by</span>
-                            <h6> <a className="fs-14 text-white">rNXhU52ybru7GyhU4duZSrxNGwD2vE7Z9H</a> </h6>
+                            <h6> <a className="fs-14 text-white">{props.address}</a> </h6>
                         </div>
                     </div>
                     <div className="card-price">
