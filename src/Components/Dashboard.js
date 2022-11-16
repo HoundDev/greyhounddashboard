@@ -770,6 +770,33 @@ function Dashboard(props) {
 												<div className="trade-wrapper" id='trade-wrapper'>
 													<div className="flex-col trade-box" id="trade-box-counter">
 														<span className="text-white">Pay with</span>
+														<form id='swapBase'>
+															<div className="dropdow d-block mt-sm-0">
+																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
+																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />
+																	<div className="text-left ml-3">
+																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
+																	</div>
+																	<i className="fa fa-angle-down scale3 ml-3 text-white" />
+																</div>
+																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
+																	<a className="dropdown-item" href="">HOUND</a>
+																</div>
+															</div>
+															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' />
+														</form>
+
+														<div className='trade-value'>
+															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
+															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT, 2)}</p>
+														</div>
+													</div>
+													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
+														{/* <button className="round-button"><i className="fi fi-rr-exchange"></i></button> */}
+														<button className="round-button" id="swapButton"><i className="fi fi-rr-exchange"></i></button>
+													</div>
+													<div className="flex-col trade-box" id='trade-box-base'>
+														<span className="text-white">Receive</span>
 														<form id='swapCount'>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
@@ -787,32 +814,6 @@ function Dashboard(props) {
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
-															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT, 2)}</p>
-														</div>
-													</div>
-													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
-														{/* <button className="round-button"><i className="fi fi-rr-exchange"></i></button> */}
-														<button className="round-button" id="swapButton"><i className="fi fi-rr-exchange"></i></button>
-													</div>
-													<div className="flex-col trade-box" id='trade-box-base'>
-														<span className="text-white">Receive</span>
-														<form id='swapBase'>
-															<div className="dropdow d-block mt-sm-0">
-																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />
-																	<div className="text-left ml-3">
-																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
-																	</div>
-																	<i className="fa fa-angle-down scale3 ml-3 text-white" />
-																</div>
-																<div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-																	<a className="dropdown-item" href="">HOUND</a>
-																</div>
-															</div>
-															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' />
-														</form>
-														<div className='trade-value'>
-															<p className="fs-14" id='houndPriceXRP'>Balance: {format(xrpBalance)}</p>
 															<p className="fs-14" id='houndPriceXRP'>≈ ${format(xrpQT, 2)}</p>
 														</div>
 													</div>
