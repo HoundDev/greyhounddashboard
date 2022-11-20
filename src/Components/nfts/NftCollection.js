@@ -8,6 +8,79 @@ require("dotenv").config();
 
 export default function NftCollection() {
 
+    const API_ISSUER_URL = "https://api.xrpldata.com/api/v1/xls20-nfts/issuer/"
+
+    const [numberOfNfts, setNumberOfNfts] = useState(0);
+    const [nftImages, setNftImages] = useState([]);
+    const [nftNames, setNftNames] = useState([]);
+    const [owners, setOwners] = useState([]);
+    
+    function convertHexToStr(hex) {
+        var str = '';
+        for (var i = 0; i < hex.length; i += 2)
+            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+        return str;
+    }
+
+    async function getNftImage(id) {
+            console.log("on the dex api")
+            let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
+            let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
+            let response = await fetch(onTheDex);
+            let data = await response.json();
+            let name = data.name;
+            return {image: imageUrl, name: name};
+        }
+
+    async function getNftImages(batch){
+        //make requests in parallel
+        let promises = batch.map(async (id) => {
+            return await getNftImage(id);
+        });
+        let results = await Promise.all(promises);
+        return results;
+    }
+
+    async function getNfts(issuerId) {
+        let url = API_ISSUER_URL + issuerId;
+        let response = await fetch(url);
+        let data = await response.json();
+        // console.log(data);
+        data = data[issuerId];
+        let counter = 0;
+        let imgs = [];
+        let nms = [];
+        let owners = [];
+        let batch = [];
+        for (let i in data){
+            // console.log(data[i]);
+            let nftId = data[i].NFTokenID;
+            owners.push(data[i].Owner);
+            // let nftImage = await getNftImage(nftId);
+            batch.push(nftId);
+            //if the batch has 20 nfts, get the images
+            if (batch.length === 500){
+                let nftImages = await getNftImages(batch);
+                // console.log(nftImages);
+                for (let j in nftImages){
+                    imgs.push(nftImages[j].image);
+                    nms.push(nftImages[j].name);
+                }
+                batch = [];
+            }
+            // console.log(nftImage);
+            counter++;
+        }
+        setNumberOfNfts(counter);
+        setNftImages(imgs);
+        setNftNames(nms);
+        setOwners(owners);
+    }
+
+    useEffect(() => {
+        getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH")
+    }, []);
+
     return (
         <div className="content-body">
 
@@ -23,7 +96,7 @@ export default function NftCollection() {
                             </div>
                             <div className="info-area">
                                 <div className="left">
-                                    <h2 class="text-white">Houndies</h2>
+                                    <h2 class="text-white">Houndies</h2>-
                                     <span>Created by <a className="text-white">rpZidWw84xGD3dp7F81ajM36NZnJFLpSZW</a></span>
                                     <span>Houndies is a collection of 10,000 greyhound avatar NFTs living on the XRPL. Inspired by street art and contemporary design, the collection was crafted by one artist with a singular vision.. Each piece of original digital art has its own personality and a unique combination of attributes from a pool of over 200 traits. </span>
                                 </div>
@@ -43,7 +116,7 @@ export default function NftCollection() {
                                         </div>
                                         <div>
                                             <span>Items</span>
-                                            <span className="text-white">10K</span>
+                                            <span className="text-white">{numberOfNfts}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -78,14 +151,9 @@ export default function NftCollection() {
                 <div className="row">
                     <div className="col">
                         <div className="explore-container">
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
-                            <NftCard />
+                            {Array(numberOfNfts).fill().map((_, i) => (
+                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} />
+                            ))}
                         </div>
                     </div>
                 </div>

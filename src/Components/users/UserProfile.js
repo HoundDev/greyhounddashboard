@@ -80,6 +80,7 @@ export default function UserProfile(props) {
                 continue;
             }
             //fetch the url from the ascii uri
+            console.log(`nftUriAscii: ${nftUriAscii}`);
             let nftUriResponse = await fetch(nftUriAscii);
             //get the `image` from the response
             let nftUriData = await nftUriResponse.json();

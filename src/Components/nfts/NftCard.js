@@ -1,6 +1,29 @@
+//import useState
+import React, { useState } from 'react';
+
 const NftCard = (props) => {
+    
+    //check if the `card nft-card` is clicked
+    const [clicked, setClicked] = useState(false);
+    
+    //if clicked, show the nft image
+    if (clicked) {
+        console.log("clicked");
+    }
+            
+
+    function handleClick() {
+        if (clicked) {
+            setClicked(false);
+        }
+        else {
+            setClicked(true);
+        }
+    }
+
+
     return (
-        <div className={'card nft-card ' + props.className}>
+        <div className={'card nft-card ' + props.className} onClick={handleClick}>
             <div className="card-media">
                 <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" />
                 <button className="wishlist-button heart"><span className="number-like">13</span></button>

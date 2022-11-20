@@ -726,16 +726,14 @@ function Dashboard(props) {
 										<div className='right'>
 											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234"/>
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"}/>
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234"/>
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} />
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234"/>
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"}/>
 													</SwiperSlide>
-
-
 											</Swiper>
 										</div>
 									</div>
