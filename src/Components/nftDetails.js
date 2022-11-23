@@ -4,7 +4,51 @@ import { Link, useSearchParams, useLocation } from "react-router-dom";
 
 require("dotenv").config();
 
-export default function nftDetails() {
+export default function NftDetails(props) {
+
+    const [nftImage, setNftImage] = useState("");
+    const [nftName, setNftName] = useState("");
+    const [owner, setOwner] = useState("");
+    const [nftId, setNftId] = useState("");
+    const [nftAttrs, setNftAttrs] = useState([]);
+    const [setDesc, setSetDesc] = useState("");
+
+    const { search } = useLocation();
+    const match = search.match(/nftid=(.*)/);
+    const type = match?.[1];
+    // console.log(type);
+  
+    async function getOwner(id) {
+        let url = 'https://api.xrpldata.com/api/v1/xls20-nfts/nft/' + id;
+        let response = await fetch(url);
+        let data = await response.json();
+        // console.log(data);
+        return data.nft.Owner;
+    }
+
+    async function getNftImageAndMeta(id) {
+        console.log("on the dex api")
+        let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
+        let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
+        let response = await fetch(onTheDex);
+        let data = await response.json();
+        let name = data.name;
+        let attr = data.attributes;
+        let desc = data.collection.description;
+        let owner = await getOwner(id);
+        setOwner(owner);
+        setNftAttrs(attr);
+        setNftId(id);
+        setNftName(name);
+        setNftImage(imageUrl);     
+        setSetDesc(desc);   
+        return {image: imageUrl, name: name, attr: attr, owner: owner};
+    }
+
+    useEffect(() => {
+        getNftImageAndMeta(type);
+    }, []);
+
 
     return (
         <div className="content-body">
@@ -24,7 +68,7 @@ export default function nftDetails() {
 
                         <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
                             <div className="nft-container">
-                                <img className="img-fluid mb-5" src="./images/test/nft.jpg" />
+                                <img className="img-fluid mb-5" src= {nftImage} alt="NFT" />
                                 <div className="mb-5">
                                     <h3 class="mb-3">Owned by</h3>
                                     <div class="owner-nft">
@@ -38,19 +82,20 @@ export default function nftDetails() {
                                         </div>
                                         <div class="owner-info">
                                             <span class="username">RandomUser123</span>
-                                            <h6 class="address">rNXhU52ybru7GyhU4duZSrxNGwD2vE7Z9H</h6>
+                                            <h6 class="address"> {owner} </h6>
                                         </div>
                                     </div>
                                 </div>
                                 <h3 class="mb-3">Attributes</h3>
                                 <div className="box properties mb-3">
                                     <div className="properties-wrapper">
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
-                                        <div class="single-prop"><span>Dragon </span><p>Gold</p><span class="rarity">85% have this trait</span></div>
+                                        {/* <div class="single-prop"><span>Dragon </span><p>Gold</p></div> */}
+                                        {nftAttrs.map((attr, index) => {
+                                            return (
+                                                <div class="single-prop"><span>{attr.trait_type} </span><p>{attr.value}</p></div>
+                                            )
+                                        })}
+
                                     </div>
                                 </div>
                             </div>
@@ -66,11 +111,9 @@ export default function nftDetails() {
                                         </div>
                                     </div>
                                     <div class="nft-name">
-                                        <h2 className="mb-3 text-white">Elite #3512 </h2>
+                                        <h2 className="mb-3 text-white">{nftName}</h2>
                                     </div>
-                                    <p className="mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, unde.
-                                        Unde, doloremque ipsam? Nesciunt dolorem nisi quae nostrum veniam quasi illum,
-                                        iusto tempore nihil, natus perspiciatis? Sed</p>
+                                    <p className="mb-3">{setDesc}</p>
                                 </div>
 
                                 <div class="nft-price-wrapper">

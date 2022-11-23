@@ -9,6 +9,9 @@ const NftCard = (props) => {
     //if clicked, show the nft image
     if (clicked) {
         console.log("clicked");
+        let url = '/nftDetails?nftid=' + props.nftId;
+        //open the url in a new tab
+        window.open(url, '_blank')
     }
             
 

@@ -8,12 +8,17 @@ require("dotenv").config();
 
 export default function NftCollection() {
 
+    const { search } = useLocation();
+    const match = search.match(/collectionId=(.*)/);
+    const type = match?.[1];
+
     const API_ISSUER_URL = "https://api.xrpldata.com/api/v1/xls20-nfts/issuer/"
 
     const [numberOfNfts, setNumberOfNfts] = useState(0);
     const [nftImages, setNftImages] = useState([]);
     const [nftNames, setNftNames] = useState([]);
     const [owners, setOwners] = useState([]);
+    const [nftIds, setNftIds] = useState([]);
     
     function convertHexToStr(hex) {
         var str = '';
@@ -51,34 +56,41 @@ export default function NftCollection() {
         let imgs = [];
         let nms = [];
         let owners = [];
-        let batch = [];
+        // let batch = [];
+        let nftIds = [];
         for (let i in data){
             // console.log(data[i]);
             let nftId = data[i].NFTokenID;
             owners.push(data[i].Owner);
             // let nftImage = await getNftImage(nftId);
-            batch.push(nftId);
-            //if the batch has 20 nfts, get the images
-            if (batch.length === 500){
-                let nftImages = await getNftImages(batch);
-                // console.log(nftImages);
-                for (let j in nftImages){
-                    imgs.push(nftImages[j].image);
-                    nms.push(nftImages[j].name);
-                }
-                batch = [];
+            nftIds.push(nftId);
+            if (nftIds.length >= 500){
+                //break
+                break;
             }
-            // console.log(nftImage);
             counter++;
+        }
+        let nftImages = await getNftImages(nftIds);
+        for (let j in nftImages){
+            imgs.push(nftImages[j].image);
+            nms.push(nftImages[j].name);
         }
         setNumberOfNfts(counter);
         setNftImages(imgs);
         setNftNames(nms);
         setOwners(owners);
+        setNftIds(nftIds);
     }
 
     useEffect(() => {
-        getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH")
+        // getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH")
+        //if type is undefined, then it is the default collection
+        if (type === undefined){
+            getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH");
+        }
+        else{
+            getNfts(type);
+        }
     }, []);
 
     return (
@@ -152,7 +164,7 @@ export default function NftCollection() {
                     <div className="col">
                         <div className="explore-container">
                             {Array(numberOfNfts).fill().map((_, i) => (
-                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} />
+                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={nftIds[i]} />
                             ))}
                         </div>
                     </div>

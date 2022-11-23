@@ -721,7 +721,9 @@ function Dashboard(props) {
 									<div className='d-flex gap-30 ntf-owned-card'>
 										<div className='left'>
 											<h2>Your NFT collection is finally here </h2>
+											{/* <a href='/nftDetails?test=10'> */}
 											<button className="btn btn-white rounded-4 mt-3">My NFTs</button>
+											{/* </a> */}
 										</div>
 										<div className='right'>
 											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>

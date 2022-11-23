@@ -312,12 +312,13 @@ function App() {
           {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
-          <Route path="/nftDetails/:id" element={<NftDetails xrpAddress={userAddress} />} />
+          {/* <Route path="/nftDetails/:id" element={<NftDetails xrpAddress={userAddress} />} /> */}
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
 		      <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
-          <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
+          <Route path="/userprofile/test" element={<UserProfile xrpAddress={userAddress} /> } />
+          {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}
         </Routes>
 
         <Footer />
