@@ -19,6 +19,18 @@ export default function NftCollection() {
     const [nftNames, setNftNames] = useState([]);
     const [owners, setOwners] = useState([]);
     const [nftIds, setNftIds] = useState([]);
+    const [nftData, setNftData] = useState([]);
+    const [nftsOnPage, setNftsOnPage] = useState(0);
+    const [collectionBio, setCollectionBio] = useState("");
+    const [collectionBanner, setCollectionBanner] = useState("");
+    const [collectionName, setCollectionName] = useState("");
+    const [collectionPfp, setCollectionPfp] = useState("");
+    const [collectionIssuer, setCollectionIssuer] = useState("");
+    const [volumeTraded, setVolumeTraded] = useState(0);
+    const [floorPrice, setFloorPrice] = useState(0);
+    const [totalNfts, setTotalNfts] = useState(0);
+    const [totalOwners, setTotalOwners] = useState(0);
+    const [nftBids, setNftBids] = useState([]);
     
     function convertHexToStr(hex) {
         var str = '';
@@ -28,14 +40,51 @@ export default function NftCollection() {
     }
 
     async function getNftImage(id) {
-            console.log("on the dex api")
+            // console.log("on the dex api")
             let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
             let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
             let response = await fetch(onTheDex);
             let data = await response.json();
             let name = data.name;
+            setCollectionName(data.collection.name);
             return {image: imageUrl, name: name};
         }
+
+    async function getCollectionData(name) {
+        let url = `https://marketplace-api.onxrp.com/api/collections/${name}?include=user&refresh=true`
+        let response = await fetch(url);
+        let data = await response.json();
+        setCollectionIssuer(data.data.issuer_wallet);
+        setCollectionBio(data.data.bio);
+        setCollectionBanner(data.data.banner_picture_url);
+        setCollectionPfp(data.data.picture_url);
+        setVolumeTraded(data.data.total_volume);
+        setFloorPrice(data.data.floor_price);
+        setTotalNfts(data.data.launchpad.total_number_of_nfts_minted);
+        setTotalOwners(data.data.owners_count);
+    }
+
+    async function getBid(id) {
+        let url = `https://marketplace-api.onxrp.com/api/nfts/${id}?include=owner,createdBy,nftAttributes,collection,nftActivities,offers,launchpad`
+        let response = await fetch(url);
+        let data = await response.json();
+        // console.log(data.data.highest_bid_price);
+        // return data.data.highest_bid_price;
+        let highestPrice = data.data.highest_bid_price;
+        let fprice = data.data.fixed_price;
+        if (highestPrice === 0) {
+            return fprice;
+        } else {
+            return highestPrice;
+        }
+    }
+
+    async function getBids(ids) {
+        //make requests in parallel
+        let promises = ids.map(id => getBid(id));
+        let bids = await Promise.all(promises);
+        setNftBids(nftBids.concat(bids));
+    }
 
     async function getNftImages(batch){
         //make requests in parallel
@@ -53,33 +102,36 @@ export default function NftCollection() {
         // console.log(data);
         data = data[issuerId];
         let counter = 0;
-        let imgs = [];
-        let nms = [];
-        let owners = [];
-        // let batch = [];
-        let nftIds = [];
-        for (let i in data){
-            // console.log(data[i]);
-            let nftId = data[i].NFTokenID;
-            owners.push(data[i].Owner);
-            // let nftImage = await getNftImage(nftId);
-            nftIds.push(nftId);
-            if (nftIds.length >= 500){
-                //break
-                break;
-            }
+        for (let i in data) {
             counter++;
         }
-        let nftImages = await getNftImages(nftIds);
-        for (let j in nftImages){
-            imgs.push(nftImages[j].image);
-            nms.push(nftImages[j].name);
-        }
         setNumberOfNfts(counter);
-        setNftImages(imgs);
-        setNftNames(nms);
-        setOwners(owners);
-        setNftIds(nftIds);
+        setNftData(data);
+    }
+
+    async function loadNfts(toDisplay, data) {
+        let nftsNumOnPage = nftsOnPage;
+        let nftimages = [];
+        let nftnames = [];
+        let Owners = [];
+        let nftids = [];
+        let nftbids = [];
+        for (let i = nftsNumOnPage; i < nftsNumOnPage + toDisplay; i++) {
+            let nftId = data[i].NFTokenID;
+            Owners.push(data[i].Owner);
+            nftids.push(nftId);
+        }
+        await getBids(nftids);
+        let Images = await getNftImages(nftids);
+        for (let j in Images) {
+            nftnames.push(Images[j].name);
+            nftimages.push(Images[j].image);
+        }
+        setNftImages(nftImages.concat(nftimages));
+        setNftNames(nftNames.concat(nftnames));
+        setOwners(owners.concat(Owners));
+        setNftIds(nftIds.concat(nftids));
+        setNftsOnPage(nftsNumOnPage + toDisplay);
     }
 
     useEffect(() => {
@@ -93,6 +145,27 @@ export default function NftCollection() {
         }
     }, []);
 
+    //get collection data if the collectionName is not empty
+    useEffect(() => {
+        if (collectionName !== ""){
+            // getCollectionData(collectionName)
+            //convert the name to lowercase
+            let name = collectionName.toLowerCase();
+            //replace spaces with dashes
+            name = name.replace(/\s/g, "-");
+            
+            //get the collection data
+            getCollectionData(name);
+        }
+    }, [collectionName]);
+
+    useEffect(() => {
+        if (nftData.length > 0) {
+            loadNfts(10, nftData);
+        }
+    }, [nftData]);
+
+    
     return (
         <div className="content-body">
 
@@ -101,34 +174,35 @@ export default function NftCollection() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="collection-info-area">
-                            <div className="bg-area mb-3"  style={{ backgroundImage: `url(./images/test/banner.jpg)` }}>
+                            <div className="bg-area mb-3"  style={{ backgroundImage: `url(${collectionBanner})` }}>
                                 <div className="avatar-area">
-                                     <img src="./images/avatar/standard-collection.gif" alt="" className="avatar-img" />
+                                     <img src={collectionPfp} alt="" className="avatar-img" />
                                 </div>
                             </div>
                             <div className="info-area">
                                 <div className="left">
-                                    <h2 class="text-white">Houndies</h2>-
-                                    <span>Created by <a className="text-white">rpZidWw84xGD3dp7F81ajM36NZnJFLpSZW</a></span>
-                                    <span>Houndies is a collection of 10,000 greyhound avatar NFTs living on the XRPL. Inspired by street art and contemporary design, the collection was crafted by one artist with a singular vision.. Each piece of original digital art has its own personality and a unique combination of attributes from a pool of over 200 traits. </span>
+                                    <h2 class="text-white">{collectionName}</h2>-
+                                    <span>Created by <a className="text-white">{collectionIssuer}</a></span>
+                                    {/* <span>Houndies is a collection of 10,000 greyhound avatar NFTs living on the XRPL. Inspired by street art and contemporary design, the collection was crafted by one artist with a singular vision.. Each piece of original digital art has its own personality and a unique combination of attributes from a pool of over 200 traits. </span> */}
+                                    <span>{collectionBio}</span>
                                 </div>
                                 <div className="right">
                                     <div className="info-box">
                                         <div>
                                             <span>Price Floor</span>
-                                            <span className="text-white">0 XRP</span>
+                                            <span className="text-white">{floorPrice} XRP</span>
                                         </div>
                                         <div>
                                             <span>Volume</span>
-                                            <span className="text-white">0 XRP</span>
+                                            <span className="text-white">{volumeTraded} XRP</span>
                                         </div>
                                         <div>
                                             <span>Owners</span>
-                                            <span className="text-white">5</span>
+                                            <span className="text-white">{totalOwners}</span>
                                         </div>
                                         <div>
                                             <span>Items</span>
-                                            <span className="text-white">{numberOfNfts}</span>
+                                            <span className="text-white">{totalNfts}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -164,12 +238,19 @@ export default function NftCollection() {
                     <div className="col">
                         <div className="explore-container">
                             {Array(numberOfNfts).fill().map((_, i) => (
-                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={nftIds[i]} />
+                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={nftIds[i]} bid={nftBids[i]} />
                             ))}
                         </div>
                     </div>
                 </div>
-
+                {/* a button with name `load more` */}
+                <div className="row">
+                    <div className="col">
+                        <div className="load-more">
+                            <button className="btn btn-primary" onClick={() => loadNfts(10, nftData)}>Load More</button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
