@@ -743,7 +743,6 @@ button:active {
 }
 
 .explore-container>.nft-card {
-    margin-bottom: 3rem;
     flex: auto;
 }
 
@@ -856,7 +855,8 @@ button:active {
 }
 .bg-area .avatar-area img{
     border-radius: 1em;
-    border: 6px solid #1A1921;
+    background-color: #21212A;
+    border: 3px solid #1A1921;
 }
 
 .info-area{
@@ -1029,6 +1029,8 @@ button:active {
 .single-nft img {
     border-radius: 1em;
     width: 100%;
+    height: auto;
+    display: block;
 }
 
 .single-nft .avatar-img {

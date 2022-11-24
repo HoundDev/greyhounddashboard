@@ -4,6 +4,10 @@ import { Link, useSearchParams, useLocation } from "react-router-dom";
 
 import NftCard from "./NftCard";
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import CardSkeleton from "../skeletons/NftCardSkeleton";
+
 require("dotenv").config();
 
 export default function NftCollection() {
@@ -176,15 +180,14 @@ export default function NftCollection() {
                         <div className="collection-info-area">
                             <div className="bg-area mb-3"  style={{ backgroundImage: `url(${collectionBanner})` }}>
                                 <div className="avatar-area">
-                                     <img src={collectionPfp} alt="" className="avatar-img" />
+                                     <img src={collectionPfp } alt="" className="avatar-img" height={126} />
                                 </div>
                             </div>
                             <div className="info-area">
                                 <div className="left">
-                                    <h2 class="text-white">{collectionName}</h2>-
+                                    <h2 className="text-white">{collectionName || <Skeleton width={300} />}</h2>
                                     <span>Created by <a className="text-white">{collectionIssuer}</a></span>
-                                    {/* <span>Houndies is a collection of 10,000 greyhound avatar NFTs living on the XRPL. Inspired by street art and contemporary design, the collection was crafted by one artist with a singular vision.. Each piece of original digital art has its own personality and a unique combination of attributes from a pool of over 200 traits. </span> */}
-                                    <span>{collectionBio}</span>
+                                    <span>{collectionBio || <Skeleton count={3} width={700}/>}</span>
                                 </div>
                                 <div className="right">
                                     <div className="info-box">

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 require("dotenv").config();
 
 export default function NftDetails(props) {
@@ -85,7 +88,7 @@ export default function NftDetails(props) {
                                         </div>
                                         <div class="owner-info">
                                             <span class="username">RandomUser123</span>
-                                            <h6 class="address"> {owner} </h6>
+                                            <h6 class="address"> {owner || <Skeleton width={300}/>} </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -110,13 +113,13 @@ export default function NftDetails(props) {
                                     <div className="d-flex align-items-center mb-3">
                                         <img src="./images/avatar/standard-collection.gif" alt="" className="avatar-img" />
                                         <div className="flex-grow-1">
-                                            <h5 className="mb-0 text-white">{setCollection}</h5>
+                                            <h5 className="mb-0 text-white">{setCollection || <Skeleton width={100} />}</h5>
                                         </div>
                                     </div>
                                     <div class="nft-name">
-                                        <h2 className="mb-3 text-white">{nftName}</h2>
+                                        <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />} </h2>
                                     </div>
-                                    <p className="mb-3">{setDesc}</p>
+                                    <p className="mb-3">{setDesc || <Skeleton count={3} />}</p>
                                 </div>
 
                                 <div class="nft-price-wrapper">
