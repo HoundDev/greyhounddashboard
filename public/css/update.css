@@ -1028,6 +1028,7 @@ button:active {
 
 .single-nft img {
     border-radius: 1em;
+    width: 100%;
 }
 
 .single-nft .avatar-img {
@@ -1178,7 +1179,6 @@ button:active {
 
 .nft-container .properties .properties-wrapper .single-prop {
     width: calc(33% - 9px);
-    cursor: pointer;
     display: flex;
     padding: 15px 0;
     background: rgba(166, 176, 207, .05);
@@ -1201,7 +1201,7 @@ button:active {
     max-width: 95%;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #CE5C6D;
+    
     font-weight: 600;
 }
 

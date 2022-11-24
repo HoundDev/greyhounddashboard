@@ -12,6 +12,7 @@ export default function NftDetails(props) {
     const [nftId, setNftId] = useState("");
     const [nftAttrs, setNftAttrs] = useState([]);
     const [setDesc, setSetDesc] = useState("");
+    const [setCollection, setSetCollection] = useState("");
 
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
@@ -34,13 +35,15 @@ export default function NftDetails(props) {
         let data = await response.json();
         let name = data.name;
         let attr = data.attributes;
+        let collection = data.collection.name;
         let desc = data.collection.description;
         let owner = await getOwner(id);
         setOwner(owner);
         setNftAttrs(attr);
         setNftId(id);
         setNftName(name);
-        setNftImage(imageUrl);     
+        setNftImage(imageUrl); 
+        setSetCollection(collection);    
         setSetDesc(desc);   
         return {image: imageUrl, name: name, attr: attr, owner: owner};
     }
@@ -57,8 +60,8 @@ export default function NftDetails(props) {
                 <div className="page-titles">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="">NFTs</a></li>
-                        <li className="breadcrumb-item"><a href="">The Standard Collection</a></li>
-                        <li className="breadcrumb-item active"><a href="">The Standard #3512</a></li>
+                        <li className="breadcrumb-item"><a href="">{setCollection}</a></li>
+                        <li className="breadcrumb-item active"><a href="">{nftName}</a></li>
                     </ol>
                 </div>
 
@@ -107,7 +110,7 @@ export default function NftDetails(props) {
                                     <div className="d-flex align-items-center mb-3">
                                         <img src="./images/avatar/standard-collection.gif" alt="" className="avatar-img" />
                                         <div className="flex-grow-1">
-                                            <h5 className="mb-0 text-white">The Standard Collection</h5>
+                                            <h5 className="mb-0 text-white">{setCollection}</h5>
                                         </div>
                                     </div>
                                     <div class="nft-name">
