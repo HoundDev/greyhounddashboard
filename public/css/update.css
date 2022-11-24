@@ -1153,6 +1153,11 @@ button:active {
     }
 }
 
+@media only screen and (min-width: 1024px) {
+    .sticky-info{
+        position: sticky;
+    }
+}
 .nft-container .box {
     width: 100%;
     display: flex;

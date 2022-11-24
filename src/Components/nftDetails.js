@@ -105,7 +105,7 @@ export default function NftDetails(props) {
                         </div>
 
                         <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ml-auto ">
-                            <div className="">
+                            <div className="sticky-info">
                                 <div className="nft-info ">
                                     <div className="d-flex align-items-center mb-3">
                                         <img src="./images/avatar/standard-collection.gif" alt="" className="avatar-img" />
