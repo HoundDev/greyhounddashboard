@@ -28,12 +28,12 @@ const NftCard = (props) => {
     return (
         <div className={'card nft-card ' + props.className} onClick={handleClick}>
             <div className="card-media">
-                <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" />
+                <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" height={500}/>
                 <button className="wishlist-button heart"><span className="number-like">13</span></button>
             </div>
             <div className="card-body">
                 <div className="card-title">
-                    <h6 className="fs-18 text-white ml-1">{props.name}</h6>
+                    <h3 className="fs-18 text-white">{props.name}</h3>
                     <span className="badge badge-pill badge-elite fs-12">279.1</span>
                 </div>
                 <div className="meta-info">

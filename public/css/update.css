@@ -631,6 +631,16 @@ button:active {
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px;
 }
 
+.nft-card h3{
+    margin: 0;
+}
+
+.nft-card .card-img-top{
+    aspect-ratio : 1 / 1;
+    overflow: hidden;
+    line-height: 1;
+}
+
 .nft-intro-card {
     overflow: visible;
 }
@@ -956,6 +966,11 @@ button:active {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
+    line-height: 1;
+}
+
+.nft-card .card-price h5{
+    text-align: right;
 }
 
 .badge {
@@ -1113,6 +1128,13 @@ button:active {
 
 .nft-container {
     width: 90%;
+}
+
+.nft-container .img-wrapper{
+    aspect-ratio : 1 / 1;
+    width: 100%;
+    background-color: #21212A;
+    border-radius: 1em;
 }
 
 @media screen and (max-width: 991px){

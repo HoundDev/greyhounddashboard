@@ -12,6 +12,8 @@ require("dotenv").config();
 
 export default function NftCollection() {
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const { search } = useLocation();
     const match = search.match(/collectionId=(.*)/);
     const type = match?.[1];
@@ -35,7 +37,7 @@ export default function NftCollection() {
     const [totalNfts, setTotalNfts] = useState(0);
     const [totalOwners, setTotalOwners] = useState(0);
     const [nftBids, setNftBids] = useState([]);
-    
+
     function convertHexToStr(hex) {
         var str = '';
         for (var i = 0; i < hex.length; i += 2)
@@ -44,15 +46,15 @@ export default function NftCollection() {
     }
 
     async function getNftImage(id) {
-            // console.log("on the dex api")
-            let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
-            let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
-            let response = await fetch(onTheDex);
-            let data = await response.json();
-            let name = data.name;
-            setCollectionName(data.collection.name);
-            return {image: imageUrl, name: name};
-        }
+        // console.log("on the dex api")
+        let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
+        let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
+        let response = await fetch(onTheDex);
+        let data = await response.json();
+        let name = data.name;
+        setCollectionName(data.collection.name);
+        return { image: imageUrl, name: name };
+    }
 
     async function getCollectionData(name) {
         let url = `https://marketplace-api.onxrp.com/api/collections/${name}?include=user&refresh=true`
@@ -90,7 +92,7 @@ export default function NftCollection() {
         setNftBids(nftBids.concat(bids));
     }
 
-    async function getNftImages(batch){
+    async function getNftImages(batch) {
         //make requests in parallel
         let promises = batch.map(async (id) => {
             return await getNftImage(id);
@@ -136,28 +138,29 @@ export default function NftCollection() {
         setOwners(owners.concat(Owners));
         setNftIds(nftIds.concat(nftids));
         setNftsOnPage(nftsNumOnPage + toDisplay);
+        setIsLoading(false);
     }
 
     useEffect(() => {
         // getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH")
         //if type is undefined, then it is the default collection
-        if (type === undefined){
+        if (type === undefined) {
             getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH");
         }
-        else{
+        else {
             getNfts(type);
         }
     }, []);
 
     //get collection data if the collectionName is not empty
     useEffect(() => {
-        if (collectionName !== ""){
+        if (collectionName !== "") {
             // getCollectionData(collectionName)
             //convert the name to lowercase
             let name = collectionName.toLowerCase();
             //replace spaces with dashes
             name = name.replace(/\s/g, "-");
-            
+
             //get the collection data
             getCollectionData(name);
         }
@@ -169,7 +172,7 @@ export default function NftCollection() {
         }
     }, [nftData]);
 
-    
+
     return (
         <div className="content-body">
 
@@ -178,34 +181,34 @@ export default function NftCollection() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="collection-info-area">
-                            <div className="bg-area mb-3"  style={{ backgroundImage: `url(${collectionBanner})` }}>
+                            <div className="bg-area mb-3" style={{ backgroundImage: `url(${collectionBanner})` }}>
                                 <div className="avatar-area">
-                                     <img src={collectionPfp } alt="" className="avatar-img" height={126} />
+                                    <img src={collectionPfp} alt="" className="avatar-img" height={126} />
                                 </div>
                             </div>
                             <div className="info-area">
                                 <div className="left">
                                     <h2 className="text-white">{collectionName || <Skeleton width={300} />}</h2>
                                     <span>Created by <a className="text-white">{collectionIssuer}</a></span>
-                                    <span>{collectionBio || <Skeleton count={3} width={700}/>}</span>
+                                    <span>{collectionBio || <Skeleton count={3} width={700} />}</span>
                                 </div>
                                 <div className="right">
                                     <div className="info-box">
                                         <div>
                                             <span>Price Floor</span>
-                                            <span className="text-white">{floorPrice} XRP</span>
+                                            <span className="text-white">{floorPrice || <Skeleton width={50} />} XRP</span>
                                         </div>
                                         <div>
                                             <span>Volume</span>
-                                            <span className="text-white">{volumeTraded} XRP</span>
+                                            <span className="text-white">{volumeTraded || <Skeleton width={50} />} XRP</span>
                                         </div>
                                         <div>
                                             <span>Owners</span>
-                                            <span className="text-white">{totalOwners}</span>
+                                            <span className="text-white">{totalOwners || <Skeleton width={50} />}</span>
                                         </div>
                                         <div>
                                             <span>Items</span>
-                                            <span className="text-white">{totalNfts}</span>
+                                            <span className="text-white">{totalNfts || <Skeleton width={50} />}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -219,7 +222,7 @@ export default function NftCollection() {
                     <div className="col-lg-12">
                         <form className="nft-form">
                             <input type="text" className="form-control search" placeholder="Search NFT's" />
-                            
+
                             <div className="dropdown d-block">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
@@ -240,6 +243,7 @@ export default function NftCollection() {
                 <div className="row">
                     <div className="col">
                         <div className="explore-container">
+                            {isLoading && <CardSkeleton cards={8}/> }
                             {Array(numberOfNfts).fill().map((_, i) => (
                                 nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={nftIds[i]} bid={nftBids[i]} />
                             ))}

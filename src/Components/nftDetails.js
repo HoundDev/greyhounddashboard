@@ -74,7 +74,9 @@ export default function NftDetails(props) {
 
                         <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
                             <div className="nft-container">
-                                <img className="img-fluid mb-5" src= {nftImage} alt="NFT" />
+                                <div className="img-wrapper  mb-5">
+                                    <img className="img-fluid" src= {nftImage} />
+                                </div>
                                 <div className="mb-5">
                                     <h3 class="mb-3">Owned by</h3>
                                     <div class="owner-nft">
