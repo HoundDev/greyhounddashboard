@@ -28,7 +28,7 @@ export default function NftDetails(props) {
         let response = await fetch(url);
         let data = await response.json();
         // console.log(data);
-        setCollectionId("/nftEcplore?collectionId=" + data.nft.Issuer)
+        setCollectionId("/nftExplore?collectionId=" + data.nft.Issuer)
         return data.nft.Owner;
     }
 
