@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 const NftCard = (props) => {
-    
+    // console.log(props);
     //check if the `card nft-card` is clicked
     const [clicked, setClicked] = useState(false);
     

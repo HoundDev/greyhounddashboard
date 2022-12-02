@@ -35,7 +35,7 @@ export default function NftCollection() {
     const [volumeTraded, setVolumeTraded] = useState(0);
     const [floorPrice, setFloorPrice] = useState(0);
     const [totalNfts, setTotalNfts] = useState(0);
-    const [totalOwners, setTotalOwners] = useState(0);
+    const [totalOwners, setTotalOwners] = useState(null);
     const [nftBids, setNftBids] = useState([]);
 
     function convertHexToStr(hex) {

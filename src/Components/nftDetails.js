@@ -16,6 +16,7 @@ export default function NftDetails(props) {
     const [nftAttrs, setNftAttrs] = useState([]);
     const [setDesc, setSetDesc] = useState("");
     const [setCollection, setSetCollection] = useState("");
+    const [collectionId, setCollectionId] = useState("");
 
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
@@ -27,6 +28,7 @@ export default function NftDetails(props) {
         let response = await fetch(url);
         let data = await response.json();
         // console.log(data);
+        setCollectionId("/nftEcplore?collectionId=" + data.nft.Issuer)
         return data.nft.Owner;
     }
 
@@ -62,8 +64,8 @@ export default function NftDetails(props) {
 
                 <div className="page-titles">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="">NFTs</a></li>
-                        <li className="breadcrumb-item"><a href="">{setCollection}</a></li>
+                        <li className="breadcrumb-item"><a href="/nftExplore">NFTs</a></li>
+                        <li className="breadcrumb-item"><a href={collectionId}>{setCollection}</a></li>
                         <li className="breadcrumb-item active"><a href="">{nftName}</a></li>
                     </ol>
                 </div>
