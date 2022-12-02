@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import NftCard from "./nfts/NftCard";
+import CardSkeleton from "./skeletons/NftCardSkeleton";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css'
+
 require("dotenv").config();
 
 export default function NftExplore(props) {
 
+    const [isLoading, setIsLoading] = useState(true);
     const [numberOfNfts, setNumberOfNfts] = useState(0);
     const [nftImages, setNftImages] = useState([]);
     const [nftNames, setNftNames] = useState([]);
@@ -98,6 +101,7 @@ export default function NftExplore(props) {
         setOwners(owners.concat(owns));
         setTokIds(tokIds.concat(tokids));
         setNumberOfNfts(numberOfNfts + nfts.length);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -155,7 +159,7 @@ export default function NftExplore(props) {
                 <div className="row">
                     <div className="col">
                         <div className="explore-container">
-                            {/* <NftCard /> */}
+                             {isLoading && <CardSkeleton cards={12}/> }
                             {Array(numberOfNfts).fill().map((_, i) => (
                                 nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={tokIds[i]} bid={0} />
                             ))}
