@@ -116,11 +116,11 @@ export default function NftExplore(props) {
                 <div className="row">
                     <div className="col-lg-12">
                         <form className="nft-form">
-                            <input type="text" className="form-control search" placeholder="Search NFTs" />
-                            <div className="dropdown d-block">
+                            <input type="search" className="form-control search" placeholder="Search NFTs" />
+                            <div className="dropdown">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
-                                        <span className="d-block fs-15 text-white">All Marketplaces</span>
+                                        <span className="fs-15 text-white">All Marketplaces</span>
                                     </div>
                                     <i className="fa fa-angle-down ml-3 text-white" />
                                 </div>
@@ -139,10 +139,10 @@ export default function NftExplore(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="dropdown d-block">
+                            <div className="dropdown">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
-                                        <span className="d-block fs-15 text-white">Recently listed</span>
+                                        <span className="fs-15 text-white">Recently listed</span>
                                     </div>
                                     <i className="fa fa-angle-down ml-3 text-white" />
                                 </div>
