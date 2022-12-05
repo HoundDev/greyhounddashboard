@@ -48,7 +48,7 @@ const NftCard = (props) => {
                     </div>
                     <div className="card-price">
                         <span className="fs-13">Current Price</span>
-                        <h5 className="fs-14 text-white">{props.bid} XRP</h5>
+                        <h5 className="fs-14 text-white">{props.bid || 0} XRP</h5>
                     </div>
                 </div>
             </div>

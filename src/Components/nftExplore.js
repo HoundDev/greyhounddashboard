@@ -4,6 +4,8 @@ import { Link, useSearchParams, useLocation } from "react-router-dom";
 import NftCard from "./nfts/NftCard";
 import CardSkeleton from "./skeletons/NftCardSkeleton";
 import { Swiper, SwiperSlide } from 'swiper/react';
+//import dropwdown
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'swiper/swiper.min.css'
 
 require("dotenv").config();
@@ -17,6 +19,18 @@ export default function NftExplore(props) {
     const [curPage, setCurPage] = useState(1);
     const [owners, setOwners] = useState([]);
     const [tokIds, setTokIds] = useState([]);
+    const [Bids, setBids] = useState([]);
+    //url of the page, 
+    //http://localhost:3000/nftExplore#/action=1
+    //http://localhost:3000/nftExplore#/action=2
+    //http://localhost:3000/nftExplore#/action=3
+    //3 possible actions
+    const { search } = useLocation();
+    const match = search.match(/action=(.*)/);
+    const type = match?.[1];
+    console.log(type);
+
+
 
     function convertHexToStr(hex) {
         var str = '';
@@ -80,6 +94,7 @@ export default function NftExplore(props) {
         let nftimages = [];
         let nfnames = [];
         let owns = [];
+        let bids = [];
         let tokids = [];
         for (let i = 0; i < nfts.length; i++) {
             let nft = nfts[i];
@@ -93,6 +108,7 @@ export default function NftExplore(props) {
             tokids.push(nft.token_id);
             console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
+            bids.push(nft.bids_count);
             // owns.push(nft.owner);
         }
         console.log('Done getting trending nfts');
@@ -101,13 +117,115 @@ export default function NftExplore(props) {
         setOwners(owners.concat(owns));
         setTokIds(tokIds.concat(tokids));
         setNumberOfNfts(numberOfNfts + nfts.length);
+        setBids(Bids.concat(bids));
         setIsLoading(false);
     }
 
+    async function getlowToHighNfts(page) {
+        console.log("getting low to high nfts");
+        let URL = `https://marketplace-api.onxrp.com/api/nfts?page=${page}&per_page=12&sort=fixed_price&order=asc&filters[marketplace_status]=active&include=collection,owner&refresh=true`
+        let response = await fetch(URL);
+        let data = await response.json();
+        let nfts = data.data;
+        console.log(nfts);
+        let nftimages = [];
+        let nfnames = [];
+        let owns = [];
+        let tokids = [];
+        let bids = [];
+        for (let i = 0; i < nfts.length; i++) {
+            let nft = nfts[i];
+            let tokenid = nft.token_id;
+            // let nftImage = `https://marketplace-api.onxrp.com/api/image/${nft.token_id}`
+            let imageData = await getNftImage(tokenid);
+            let nftImage = imageData.image;
+            let nftName = nft.name;
+            nftimages.push(nftImage);
+            nfnames.push(nftName);
+            tokids.push(nft.token_id);
+            console.log(nft.token_id)
+            owns.push(nft.owner.wallet_id);
+            bids.push(nft.fixed_price);
+
+            // owns.push(nft.owner);
+        }
+        console.log('Done getting low to high nfts');
+        setNftImages(nftImages.concat(nftimages));
+        setNftNames(nftNames.concat(nfnames));
+        setOwners(owners.concat(owns));
+        setTokIds(tokIds.concat(tokids));
+        setNumberOfNfts(numberOfNfts + nfts.length);
+        setIsLoading(false);
+        setBids(Bids.concat(bids));
+    }
+
+    async function gethighToLowNfts(page) {
+        console.log("getting high to low nfts");
+        let URL = `https://marketplace-api.onxrp.com/api/nfts?page=${page}&per_page=12&sort=fixed_price&order=desc&filters[marketplace_status]=active&include=collection,owner&refresh=true`
+        let response = await fetch(URL);
+        let data = await response.json();
+        let nfts = data.data;
+        let nftimages = [];
+        let nfnames = [];
+        let owns = [];
+        let tokids = [];
+        let bids = [];
+        for (let i = 0; i < nfts.length; i++) {
+            let nft = nfts[i];
+            let tokenid = nft.token_id;
+            // let nftImage = `https://marketplace-api.onxrp.com/api/image/${nft.token_id}`
+            let imageData = await getNftImage(tokenid);
+            let nftImage = imageData.image;
+            let nftName = nft.name;
+            nftimages.push(nftImage);
+            nfnames.push(nftName);
+            tokids.push(nft.token_id);
+            console.log(nft.token_id)
+            owns.push(nft.owner.wallet_id);
+            bids.push(nft.fixed_price);
+            // owns.push(nft.owner);
+        }
+        console.log('Done getting high to low nfts');
+        setNftImages(nftImages.concat(nftimages));
+        setNftNames(nftNames.concat(nfnames));
+        setOwners(owners.concat(owns));
+        setTokIds(tokIds.concat(tokids));
+        setNumberOfNfts(numberOfNfts + nfts.length);
+        setIsLoading(false);
+        setBids(Bids.concat(bids));
+    }
+
+
+
+    //listen to sortType
     useEffect(() => {
-        // getNfts();
-        getTrendingNfts(curPage);
-    }, []);
+        console.log(type);
+        if (type == 1) {
+            setNftImages([]);
+            setNftNames([]);
+            setOwners([]);
+            setTokIds([]);
+            setNumberOfNfts(0);
+            setCurPage(1)
+            getTrendingNfts(curPage);
+        } else if (type == 2) {
+            setNftImages([]);
+            setNftNames([]);
+            setOwners([]);
+            setTokIds([]);
+            setNumberOfNfts(0);
+            setCurPage(1)
+            getlowToHighNfts(curPage);
+        } else if (type == 3) {
+            setNftImages([]);
+            setNftNames([]);
+            setOwners([]);
+            setTokIds([]);
+            setNumberOfNfts(0);
+            setCurPage(1)
+            gethighToLowNfts(curPage);
+        }
+    }, [type])
 
     return (
         <div className="content-body">
@@ -139,19 +257,30 @@ export default function NftExplore(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="dropdown">
-                                <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
+                            {/* <div className="dropdown"> */}
+                                {/* <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
                                         <span className="fs-15 text-white">Recently listed</span>
                                     </div>
                                     <i className="fa fa-angle-down ml-3 text-white" />
-                                </div>
-                                <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
+                                </div> */}
+                                {/* <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
                                     <a className="dropdown-item" href="">Trending</a>
                                     <a className="dropdown-item" href="">Price: low to high</a>
                                     <a className="dropdown-item" href="">Price: high to low</a>
-                                </div>
-                            </div>
+                                </div> */}
+                                {/* use dropdown */}
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="dropdown-menu dropdown-menu-right" id="dropdown-basic" >
+                                        Select Mode
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="/nftExplore?action=1">Recently Listed</Dropdown.Item>
+                                        <Dropdown.Item href="/nftExplore?action=2">Price: low to high</Dropdown.Item>
+                                        <Dropdown.Item href="/nftExplore?action=3">Price: high to low</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            {/* </div> */}
                         </form>
                     </div>
                 </div>
@@ -161,7 +290,7 @@ export default function NftExplore(props) {
                         <div className="explore-container">
                              {isLoading && <CardSkeleton cards={12}/> }
                             {Array(numberOfNfts).fill().map((_, i) => (
-                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={tokIds[i]} bid={0} />
+                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={tokIds[i]} bid={Bids[i]} />
                             ))}
                         </div>
                     </div>
@@ -173,7 +302,16 @@ export default function NftExplore(props) {
                             <div className="load-more">
                                 <button className="btn btn-primary" onClick={() => {
                                     setCurPage(curPage + 1);
-                                    getTrendingNfts(curPage + 1);
+                                    // getTrendingNfts(curPage + 1);
+                                    if (type == 1) {
+                                        getTrendingNfts(curPage + 1);
+                                    }
+                                    else if (type == 2) {
+                                        getlowToHighNfts(curPage + 1);
+                                    }
+                                    else if (type == 3) {
+                                        gethighToLowNfts(curPage + 1);
+                                    }
                                 }}>Load More</button>
                                 </div>
                             </div>
