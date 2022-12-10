@@ -37,6 +37,7 @@ export default function NftCollection() {
     const [totalNfts, setTotalNfts] = useState(0);
     const [totalOwners, setTotalOwners] = useState(null);
     const [nftBids, setNftBids] = useState([]);
+    const [nftsOnPageData, setNftsOnPageData] = useState([]);
 
     function convertHexToStr(hex) {
         var str = '';
@@ -65,6 +66,10 @@ export default function NftCollection() {
         setCollectionBanner(data.data.banner_picture_url);
         setCollectionPfp(data.data.picture_url);
         setVolumeTraded(data.data.total_volume);
+        console.log(data.data.total_volume);
+        if (data.data.total_volume === 0) {
+            setVolumeTraded(1);
+        }
         setFloorPrice(data.data.floor_price);
         setTotalNfts(data.data.launchpad.total_number_of_nfts_minted);
         setTotalOwners(data.data.owners_count);
@@ -105,8 +110,7 @@ export default function NftCollection() {
         let url = API_ISSUER_URL + issuerId;
         let response = await fetch(url);
         let data = await response.json();
-        // console.log(data);
-        data = data[issuerId];
+        data = data.data.nfts;
         let counter = 0;
         for (let i in data) {
             counter++;
@@ -116,16 +120,23 @@ export default function NftCollection() {
     }
 
     async function loadNfts(toDisplay, data) {
+        console.log(data)
         let nftsNumOnPage = nftsOnPage;
         let nftimages = [];
         let nftnames = [];
         let Owners = [];
         let nftids = [];
         let nftbids = [];
-        for (let i = nftsNumOnPage; i < nftsNumOnPage + toDisplay; i++) {
-            let nftId = data[i].NFTokenID;
-            Owners.push(data[i].Owner);
-            nftids.push(nftId);
+        try {
+	        for (let i = nftsNumOnPage; i < nftsNumOnPage + toDisplay; i++) {
+	            // console.log(data[i]);
+	            let nftId = data[i].NFTokenID;
+	            // console.log(nftId);
+	            Owners.push(data[i].Owner);
+	            nftids.push(nftId);
+	        }
+        } catch (error) {   
+            console.log(error);
         }
         await getBids(nftids);
         let Images = await getNftImages(nftids);
@@ -139,6 +150,11 @@ export default function NftCollection() {
         setNftIds(nftIds.concat(nftids));
         setNftsOnPage(nftsNumOnPage + toDisplay);
         setIsLoading(false);
+        let searchData = [];
+        for (let i in nftids) {
+            searchData.push({ id: nftids[i], name: nftnames[i], owner: Owners[i], image: nftimages[i], bid: nftbids[i] });
+        }
+        setNftsOnPageData(nftsOnPageData.concat(searchData));
     }
 
     useEffect(() => {
@@ -167,7 +183,7 @@ export default function NftCollection() {
     }, [collectionName]);
 
     useEffect(() => {
-        if (nftData.length > 0) {
+        if (nftData !== null) {
             loadNfts(10, nftData);
         }
     }, [nftData]);

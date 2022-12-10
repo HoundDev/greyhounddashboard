@@ -20,15 +20,18 @@ export default function NftExplore(props) {
     const [owners, setOwners] = useState([]);
     const [tokIds, setTokIds] = useState([]);
     const [Bids, setBids] = useState([]);
-    //url of the page, 
-    //http://localhost:3000/nftExplore#/action=1
-    //http://localhost:3000/nftExplore#/action=2
-    //http://localhost:3000/nftExplore#/action=3
-    //3 possible actions
+    const [nftsOnPageData, setNftsOnPageData] = useState([]);
+    const [query, setQuery] = useState("");
+    const [filtered, setFiltered] = useState([]);
+
     const { search } = useLocation();
     const match = search.match(/action=(.*)/);
-    const type = match?.[1];
+    let type = match?.[1];
     console.log(type);
+    //if type is undefined, set it to "1"
+    if (type === undefined) {
+        type = "1";
+    }
 
 
 
@@ -96,6 +99,7 @@ export default function NftExplore(props) {
         let owns = [];
         let bids = [];
         let tokids = [];
+        let dataDictList = [];
         for (let i = 0; i < nfts.length; i++) {
             let nft = nfts[i];
             let tokenid = nft.token_id;
@@ -109,6 +113,13 @@ export default function NftExplore(props) {
             console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.bids_count);
+            dataDictList.push({
+                image: nftImage,
+                name: nftName,
+                owner: nft.owner.wallet_id,
+                tokenid: nft.token_id,
+                bid: nft.fixed_price
+            });
             // owns.push(nft.owner);
         }
         console.log('Done getting trending nfts');
@@ -119,6 +130,7 @@ export default function NftExplore(props) {
         setNumberOfNfts(numberOfNfts + nfts.length);
         setBids(Bids.concat(bids));
         setIsLoading(false);
+        setNftsOnPageData(nftsOnPageData.concat(dataDictList));
     }
 
     async function getlowToHighNfts(page) {
@@ -133,6 +145,7 @@ export default function NftExplore(props) {
         let owns = [];
         let tokids = [];
         let bids = [];
+        let dataDictList = [];
         for (let i = 0; i < nfts.length; i++) {
             let nft = nfts[i];
             let tokenid = nft.token_id;
@@ -146,8 +159,13 @@ export default function NftExplore(props) {
             console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.fixed_price);
-
-            // owns.push(nft.owner);
+            dataDictList.push({
+                image: nftImage,
+                name: nftName,
+                owner: nft.owner.wallet_id,
+                tokenid: nft.token_id,
+                bid: nft.fixed_price
+            });
         }
         console.log('Done getting low to high nfts');
         setNftImages(nftImages.concat(nftimages));
@@ -157,6 +175,9 @@ export default function NftExplore(props) {
         setNumberOfNfts(numberOfNfts + nfts.length);
         setIsLoading(false);
         setBids(Bids.concat(bids));
+        setNftsOnPageData(nftsOnPageData.concat(dataDictList));
+        // console.log(nftsOnPageData);
+        // console.log(dataDictList)
     }
 
     async function gethighToLowNfts(page) {
@@ -170,6 +191,7 @@ export default function NftExplore(props) {
         let owns = [];
         let tokids = [];
         let bids = [];
+        let dataDictList = [];
         for (let i = 0; i < nfts.length; i++) {
             let nft = nfts[i];
             let tokenid = nft.token_id;
@@ -183,6 +205,13 @@ export default function NftExplore(props) {
             console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.fixed_price);
+            dataDictList.push({
+                image: nftImage,
+                name: nftName,
+                owner: nft.owner.wallet_id,
+                tokenid: nft.token_id,
+                bid: nft.fixed_price
+            });
             // owns.push(nft.owner);
         }
         console.log('Done getting high to low nfts');
@@ -193,9 +222,32 @@ export default function NftExplore(props) {
         setNumberOfNfts(numberOfNfts + nfts.length);
         setIsLoading(false);
         setBids(Bids.concat(bids));
+        setNftsOnPageData(nftsOnPageData.concat(dataDictList));
     }
 
+    //once nftsonpagedata is updated, check if the search term is in the name of the nft
+    useEffect(() => {
+            let filteredNfts = nftsOnPageData.filter(nft => {
+                if (query === '') {
+                    return nft;
+                } else if (nft.name.toLowerCase().includes(query.toLowerCase())) {
+                    console.log(nft.name);
+                    return nft;
+                }
+            })
+            setFiltered(filteredNfts);
+    }, [query, nftsOnPageData])
 
+    //once filtered is updated, update the nftsonpage data
+    useEffect(() => {
+        console.log(filtered.length);
+        // get the `explore-container` and empty it
+        if (filtered.length !== 0) {
+            let container = document.getElementById('explore-container-main');
+            // container.innerHTML = ' hi ';
+        }
+        
+    }, [filtered])
 
     //listen to sortType
     useEffect(() => {
@@ -207,6 +259,7 @@ export default function NftExplore(props) {
             setTokIds([]);
             setNumberOfNfts(0);
             setCurPage(1)
+            setNftsOnPageData([]);
             getTrendingNfts(curPage);
         } else if (type == 2) {
             setNftImages([]);
@@ -215,6 +268,7 @@ export default function NftExplore(props) {
             setTokIds([]);
             setNumberOfNfts(0);
             setCurPage(1)
+            setNftsOnPageData([]);
             getlowToHighNfts(curPage);
         } else if (type == 3) {
             setNftImages([]);
@@ -223,9 +277,14 @@ export default function NftExplore(props) {
             setTokIds([]);
             setNumberOfNfts(0);
             setCurPage(1)
+            setNftsOnPageData([]);
             gethighToLowNfts(curPage);
         }
     }, [type])
+
+    useEffect(() => {
+        console.log(nftsOnPageData);
+    }, [nftsOnPageData])
 
     return (
         <div className="content-body">
@@ -234,7 +293,7 @@ export default function NftExplore(props) {
                 <div className="row">
                     <div className="col-lg-12">
                         <form className="nft-form">
-                            <input type="search" className="form-control search" placeholder="Search NFTs" />
+                            <input type="search" className="form-control search" placeholder="Search NFTs" onChange={event => setQuery(event.target.value)} />
                             <div className="dropdown">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
@@ -287,10 +346,10 @@ export default function NftExplore(props) {
 
                 <div className="row">
                     <div className="col">
-                        <div className="explore-container">
+                        <div className="explore-container" id="explore-container-main">
                              {isLoading && <CardSkeleton cards={12}/> }
-                            {Array(numberOfNfts).fill().map((_, i) => (
-                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={owners[i]} nftId={tokIds[i]} bid={Bids[i]} />
+                            {nftsOnPageData.map((nft, i) => (
+                                <NftCard key={i} nft={nft.image} name={nft.name} owner={nft.owner} nftId={nft.tokenid} bid={nft.bid} />
                             ))}
                         </div>
                     </div>

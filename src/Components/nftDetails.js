@@ -17,6 +17,7 @@ export default function NftDetails(props) {
     const [setDesc, setSetDesc] = useState("");
     const [setCollection, setSetCollection] = useState("");
     const [collectionId, setCollectionId] = useState("");
+    const [nftPrice, setNftPrice] = useState(0);
 
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
@@ -28,8 +29,26 @@ export default function NftDetails(props) {
         let response = await fetch(url);
         let data = await response.json();
         // console.log(data);
-        setCollectionId("/nftCollection?collectionId=" + data.nft.Issuer)
-        return data.nft.Owner;
+        setCollectionId("/nftCollection?collectionId=" + data.data.nft.Issuer)
+        return data.data.nft.Owner;
+    }
+
+    async function getBid(id) {
+        let url = `https://marketplace-api.onxrp.com/api/nfts/${id}?include=owner,createdBy,nftAttributes,collection,nftActivities,offers,launchpad`
+        let response = await fetch(url);
+        let data = await response.json();
+        let highestPrice = data.data.highest_bid_price;
+        let fprice = data.data.fixed_price;
+        let desc = data.data.collection.description;
+        if (desc === null || desc === undefined) {
+            desc = data.data.collection.bio;
+        }
+        setSetDesc(desc);
+        if (highestPrice === 0) {
+            return fprice;
+        } else {
+            return highestPrice;
+        }
     }
 
     async function getNftImageAndMeta(id) {
@@ -41,16 +60,16 @@ export default function NftDetails(props) {
         let name = data.name;
         let attr = data.attributes;
         let collection = data.collection.name;
-        let desc = data.collection.description;
         let owner = await getOwner(id);
+        let price = await getBid(id);
         setOwner(owner);
         setNftAttrs(attr);
         setNftId(id);
         setNftName(name);
         setNftImage(imageUrl); 
         setSetCollection(collection);    
-        setSetDesc(desc);   
-        return {image: imageUrl, name: name, attr: attr, owner: owner};
+        setNftPrice(price);
+        return {image: imageUrl, name: name, attr: attr, owner: owner, price: price};
     }
 
     useEffect(() => {
@@ -130,7 +149,7 @@ export default function NftDetails(props) {
                                     <div>
                                         <div className="box-info">
                                             <p className="fs-14 mb-0">Price</p>
-                                            <div className="nft-item-price"><span>589 XRP</span>≈ 500,000,000 HOUND</div>
+                                            <div className="nft-item-price"><span>{nftPrice} XRP</span>≈ 500,000,000 HOUND</div>
                                         </div>
                                         <div className="box-info">
                                             <p className="fs-14 mb-0">Rarity Score</p>
