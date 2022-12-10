@@ -306,8 +306,9 @@ export default function Richlist(props) {
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-2 col-xxl-2 col-lg-2 col-sm-2">
-            <div className="card">
+            <div className="card logo-bg">
               <div className="card-body text-center card-text  align-middle">
+                <img className="bg-img" src="./images/svg/logo-icon-white.svg" />
                 <h2 className=" text-white fs-28">
                   #{userRank}</h2>
                 <h2 className="text-white fs-18 mb-2 font-w600">Wealthiest Hound</h2>

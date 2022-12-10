@@ -67,6 +67,19 @@ input[type="checkbox"]:checked:after{
     }
 }
 
+.card .logo-bg{
+background: #a7b0cf !important;
+}
+
+.logo-bg .bg-img {
+    position: absolute;
+    width: 162px;
+    bottom: -50px;
+    left: 50px;
+    z-index: 0;
+    opacity: 0.06;
+    filter: invert(1);
+}
 
 #pins {
     justify-content: left;
@@ -787,6 +800,7 @@ button:active {
 .nft-form .dropdown {
     background-color: rgba(166, 176, 207, .05);
     border-radius: 1em;
+    display: flex;
 }
 
 .nft-form .dropdown-menu {
