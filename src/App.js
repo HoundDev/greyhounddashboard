@@ -317,7 +317,7 @@ function App() {
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
 		      <Route path="/viii" element={<Viii xrpAddress={userAddress} />} />
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
-          <Route path="/userprofile/test" element={<UserProfile xrpAddress={userAddress} /> } />
+          <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
           {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}
         </Routes>
 
