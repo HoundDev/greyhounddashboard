@@ -1381,3 +1381,21 @@ align-items: center;
 .ntf-owned-card .right{
     -webkit-mask-image: linear-gradient(to left, transparent, black 40px, black calc(100% - 40px), transparent);
 }
+
+.claim-nft{}
+
+.claim-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.claim-img{
+    position: relative;
+}
+
+.claim-nft img{
+    border-radius: 0.5em;
+    filter: blur(20px);
+    display: block;
+}

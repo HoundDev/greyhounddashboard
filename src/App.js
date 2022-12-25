@@ -14,6 +14,7 @@ import NftHome from './Components/nftHome.js';
 import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
 import NftCollection from './Components/nfts/NftCollection';
+import NftClaim from "./Components/nfts/NftClaim";
 import UserProfile from './Components/users/UserProfile';
 import AccessDenied from './Components/accessDenied.js';
 import Viii from './Components/viii.js';
@@ -311,6 +312,7 @@ function App() {
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
           {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
+          <Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           {/* <Route path="/nftDetails/:id" element={<NftDetails xrpAddress={userAddress} />} /> */}
           <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} />
