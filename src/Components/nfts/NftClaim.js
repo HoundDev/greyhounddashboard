@@ -35,11 +35,9 @@ export default function NftClaim(props) {
 
                 </div>
 
-               
-               
-    
-
             </div>
         </div>
+
+        import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
     );
 };
