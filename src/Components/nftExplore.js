@@ -23,11 +23,11 @@ export default function NftExplore(props) {
     const [nftsOnPageData, setNftsOnPageData] = useState([]);
     const [query, setQuery] = useState("");
     const [filtered, setFiltered] = useState([]);
+    const [isFiltering, setIsFiltering] = useState(false);
 
     const { search } = useLocation();
     const match = search.match(/action=(.*)/);
     let type = match?.[1];
-    console.log(type);
     //if type is undefined, set it to "1"
     if (type === undefined) {
         type = "1";
@@ -47,53 +47,13 @@ export default function NftExplore(props) {
         let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
         return { image: imageUrl };
     }
-
-    // async function getNfts() {
-    //     let response = await fetch();
-    //     let data = await response.json();
-    //     console.log(data);
-    //     setNumberOfNfts(data.account_nfts.length);
-    //     let nfts = data.account_nfts;
-    //     let nftImages = [];
-    //     let nftNames = [];
-    //     //get the `uri` from the nft
-    //     for (let i = 0; i < nfts.length; i++) {
-    //         let nft = nfts[i];
-    //         let nftUri = nft.URI;
-    //         if (nftUri === "" || nftUri === undefined) {
-    //             console.log("uri is empty");
-    //             // continue;
-    //             let image = await getNftImage(nft.NFTokenID);
-    //             nftImages.push(image.image);
-    //             nftNames.push(image.name);
-    //             console.log(`image: ${image.image}\nname: ${image.name}`);
-    //             continue;
-    //         }
-    //         //convert the uri from hex to ascii
-    //         let nftUriAscii = convertHexToStr(nftUri);
-    //         //if the uri does not start with `https://`, then it is not a valid uri
-    //         if (!nftUriAscii.startsWith('https://')) {
-    //             continue;
-    //         }
-    //         //fetch the url from the ascii uri
-    //         let nftUriResponse = await fetch(nftUriAscii);
-    //         //get the `image` from the response
-    //         let nftUriData = await nftUriResponse.json();
-    //         let nftImage = nftUriData.image;
-    //         let nftName = nftUriData.name;
-    //         nftImages.push(nftImage);
-    //         nftNames.push(nftName);
-    //     }
-    //     setNftImages(nftImages);
-    //     setNftNames(nftNames);
-    // }
     async function getTrendingNfts(page) {
         console.log("getting trending nfts");
         let URL = `https://marketplace-api.onxrp.com/api/nfts?page=${page}&per_page=12&sort=recently_listed&order=desc&filters[marketplace_status]=active&include=collection,owner&refresh=true`;
         let response = await fetch(URL);
         let data = await response.json();
         let nfts = data.data;
-        console.log(nfts);
+        // console.log(nfts);
         let nftimages = [];
         let nfnames = [];
         let owns = [];
@@ -110,7 +70,7 @@ export default function NftExplore(props) {
             nftimages.push(nftImage);
             nfnames.push(nftName);
             tokids.push(nft.token_id);
-            console.log(nft.token_id)
+            // console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.bids_count);
             dataDictList.push({
@@ -132,14 +92,14 @@ export default function NftExplore(props) {
         setIsLoading(false);
         setNftsOnPageData(nftsOnPageData.concat(dataDictList));
     }
-
+    
     async function getlowToHighNfts(page) {
         console.log("getting low to high nfts");
         let URL = `https://marketplace-api.onxrp.com/api/nfts?page=${page}&per_page=12&sort=fixed_price&order=asc&filters[marketplace_status]=active&include=collection,owner&refresh=true`
         let response = await fetch(URL);
         let data = await response.json();
         let nfts = data.data;
-        console.log(nfts);
+        // console.log(nfts);
         let nftimages = [];
         let nfnames = [];
         let owns = [];
@@ -156,7 +116,7 @@ export default function NftExplore(props) {
             nftimages.push(nftImage);
             nfnames.push(nftName);
             tokids.push(nft.token_id);
-            console.log(nft.token_id)
+            // console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.fixed_price);
             dataDictList.push({
@@ -202,7 +162,7 @@ export default function NftExplore(props) {
             nftimages.push(nftImage);
             nfnames.push(nftName);
             tokids.push(nft.token_id);
-            console.log(nft.token_id)
+            // console.log(nft.token_id)
             owns.push(nft.owner.wallet_id);
             bids.push(nft.fixed_price);
             dataDictList.push({
@@ -225,33 +185,30 @@ export default function NftExplore(props) {
         setNftsOnPageData(nftsOnPageData.concat(dataDictList));
     }
 
-    //once nftsonpagedata is updated, check if the search term is in the name of the nft
-    useEffect(() => {
-            let filteredNfts = nftsOnPageData.filter(nft => {
-                if (query === '') {
-                    return nft;
-                } else if (nft.name.toLowerCase().includes(query.toLowerCase())) {
-                    console.log(nft.name);
-                    return nft;
-                }
-            })
-            setFiltered(filteredNfts);
-    }, [query, nftsOnPageData])
-
-    //once filtered is updated, update the nftsonpage data
-    useEffect(() => {
-        console.log(filtered.length);
-        // get the `explore-container` and empty it
-        if (filtered.length !== 0) {
-            let container = document.getElementById('explore-container-main');
-            // container.innerHTML = ' hi ';
+    async function handleFilter() {
+        console.log('filtering');
+        console.log(query)
+        let nftsFiltered = [];
+        let filteredNfts = nftsOnPageData.filter(nft => {
+            if (query === '') {
+                return nft;
+            } else if (nft.name.toLowerCase().includes(query.toLowerCase())) {
+                nftsFiltered.push(nft);
+                return nft;
+            }
+        })
+        console.log(nftsFiltered.length);
+        if (nftsFiltered.length != 0) {
+            console.log(nftsFiltered.length)
+            console.log(nftsFiltered);
+            console.log('setting nfts on page data');
+            setIsFiltering(true);
+            setFiltered(nftsFiltered);
         }
-        
-    }, [filtered])
+    }
 
     //listen to sortType
     useEffect(() => {
-        console.log(type);
         if (type == 1) {
             setNftImages([]);
             setNftNames([]);
@@ -282,6 +239,7 @@ export default function NftExplore(props) {
         }
     }, [type])
 
+
     useEffect(() => {
         console.log(nftsOnPageData);
     }, [nftsOnPageData])
@@ -292,8 +250,11 @@ export default function NftExplore(props) {
 
                 <div className="row">
                     <div className="col-lg-12">
-                        <form className="nft-form">
+                        <div className="search-bar">
                             <input type="search" className="form-control search" placeholder="Search NFTs" onChange={event => setQuery(event.target.value)} />
+                            <button type="submit" className="btn btn-primary search-btn" onClick={handleFilter}><i className="fa fa-search" /></button>
+                        </div>
+                            <form className="nft-form">
                             <div className="dropdown">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
@@ -348,9 +309,13 @@ export default function NftExplore(props) {
                     <div className="col">
                         <div className="explore-container" id="explore-container-main">
                              {isLoading && <CardSkeleton cards={12}/> }
-                            {nftsOnPageData.map((nft, i) => (
+                            {!isFiltering && nftsOnPageData.map((nft, i) => (
                                 <NftCard key={i} nft={nft.image} name={nft.name} owner={nft.owner} nftId={nft.tokenid} bid={nft.bid} />
                             ))}
+                            {isFiltering && filtered.map((nft, i) => (
+                                <NftCard key={i} nft={nft.image} name={nft.name} owner={nft.owner} nftId={nft.tokenid} bid={nft.bid} />
+                            ))}
+
                         </div>
                     </div>
                 </div>
@@ -374,7 +339,7 @@ export default function NftExplore(props) {
                                 }}>Load More</button>
                                 </div>
                             </div>
-                        </div>
+                    </div>
             </div>
         </div>
     );
