@@ -9,6 +9,8 @@ import 'swiper/swiper.min.css'
 require("dotenv").config();
 
 export default function NftClaim(props) {
+    const [popupTrade, setPopupTrade] = useState(false);
+
 
     return (
         <div className="content-body">
@@ -28,12 +30,17 @@ export default function NftClaim(props) {
                                 </div>
                             </div>
                             <div className="card-footer border-0 pt-0 justify-content-center d-flex">
-                              <button className="btn btn-white rounded-4 mb-2 text-center">Claim NFT</button>
+                              <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => setPopupTrade(true)}
+                              >Claim NFT</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+               
+               
+    
 
             </div>
         </div>
