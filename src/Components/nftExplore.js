@@ -92,7 +92,7 @@ export default function NftExplore(props) {
         setIsLoading(false);
         setNftsOnPageData(nftsOnPageData.concat(dataDictList));
     }
-    
+
     async function getlowToHighNfts(page) {
         console.log("getting low to high nfts");
         let URL = `https://marketplace-api.onxrp.com/api/nfts?page=${page}&per_page=12&sort=fixed_price&order=asc&filters[marketplace_status]=active&include=collection,owner&refresh=true`
@@ -250,11 +250,11 @@ export default function NftExplore(props) {
 
                 <div className="row">
                     <div className="col-lg-12">
-                        <div className="search-bar">
-                            <input type="search" className="form-control search" placeholder="Search NFTs" onChange={event => setQuery(event.target.value)} />
-                            <button type="submit" className="btn btn-primary search-btn" onClick={handleFilter}><i className="fa fa-search" /></button>
-                        </div>
-                            <form className="nft-form">
+                       
+                        <form className="nft-form">
+                    
+                            <input type="search" className="form-control search" placeholder="Search NFTs" onChange={event => setQuery(event.target.value)} /> 
+                       
                             <div className="dropdown">
                                 <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
@@ -264,7 +264,7 @@ export default function NftExplore(props) {
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
                                     <div className="dropdown-item">
-                                        <input className="form-check-input" type="checkbox" defaultChecked/>
+                                        <input className="form-check-input" type="checkbox" defaultChecked />
                                         <label className="form-check-label">onXRP</label>
                                     </div>
                                     <div className="form-check dropdown-item">
@@ -278,28 +278,28 @@ export default function NftExplore(props) {
                                 </div>
                             </div>
                             {/* <div className="dropdown"> */}
-                                {/* <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
+                            {/* <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                                     <div className="text-left">
                                         <span className="fs-15 text-white">Recently listed</span>
                                     </div>
                                     <i className="fa fa-angle-down ml-3 text-white" />
                                 </div> */}
-                                {/* <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
+                            {/* <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
                                     <a className="dropdown-item" href="">Trending</a>
                                     <a className="dropdown-item" href="">Price: low to high</a>
                                     <a className="dropdown-item" href="">Price: high to low</a>
                                 </div> */}
-                                {/* use dropdown */}
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="dropdown-menu dropdown-menu-right" id="dropdown-basic" >
-                                        Select Mode
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item href="/nftExplore?action=1">Recently Listed</Dropdown.Item>
-                                        <Dropdown.Item href="/nftExplore?action=2">Price: low to high</Dropdown.Item>
-                                        <Dropdown.Item href="/nftExplore?action=3">Price: high to low</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                            {/* use dropdown */}
+                            <Dropdown>
+                                <Dropdown.Toggle variant="dropdown-menu dropdown-menu-right" id="dropdown-basic" >
+                                    Select Mode
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="/nftExplore?action=1">Recently Listed</Dropdown.Item>
+                                    <Dropdown.Item href="/nftExplore?action=2">Price: low to high</Dropdown.Item>
+                                    <Dropdown.Item href="/nftExplore?action=3">Price: high to low</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                             {/* </div> */}
                         </form>
                     </div>
@@ -308,7 +308,7 @@ export default function NftExplore(props) {
                 <div className="row">
                     <div className="col">
                         <div className="explore-container" id="explore-container-main">
-                             {isLoading && <CardSkeleton cards={12}/> }
+                            {isLoading && <CardSkeleton cards={12} />}
                             {!isFiltering && nftsOnPageData.map((nft, i) => (
                                 <NftCard key={i} nft={nft.image} name={nft.name} owner={nft.owner} nftId={nft.tokenid} bid={nft.bid} />
                             ))}
@@ -320,26 +320,26 @@ export default function NftExplore(props) {
                     </div>
                 </div>
 
-                    {/* a button to load more */}
-                    <div className="row">
-                        <div className="col">
-                            <div className="load-more">
-                                <button className="btn btn-primary" onClick={() => {
-                                    setCurPage(curPage + 1);
-                                    // getTrendingNfts(curPage + 1);
-                                    if (type == 1) {
-                                        getTrendingNfts(curPage + 1);
-                                    }
-                                    else if (type == 2) {
-                                        getlowToHighNfts(curPage + 1);
-                                    }
-                                    else if (type == 3) {
-                                        gethighToLowNfts(curPage + 1);
-                                    }
-                                }}>Load More</button>
-                                </div>
-                            </div>
+                {/* a button to load more */}
+                <div className="row">
+                    <div className="col">
+                        <div className="load-more">
+                            <button className="btn btn-primary" onClick={() => {
+                                setCurPage(curPage + 1);
+                                // getTrendingNfts(curPage + 1);
+                                if (type == 1) {
+                                    getTrendingNfts(curPage + 1);
+                                }
+                                else if (type == 2) {
+                                    getlowToHighNfts(curPage + 1);
+                                }
+                                else if (type == 3) {
+                                    gethighToLowNfts(curPage + 1);
+                                }
+                            }}>Load More</button>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     );
