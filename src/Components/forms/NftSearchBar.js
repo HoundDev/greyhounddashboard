@@ -12,7 +12,7 @@ export default function NftSearchBar(props) {
         <div className="row">
             <div className="col-lg-12">
                 <form className="nft-form">
-                    <input type="search" className="form-control search" placeholder="Search NFTs" onChange={event => setQuery(event.target.value)} />
+                    <input type="search" className="form-control search" placeholder="Search NFTs"  />
                     <div className="dropdown">
                         <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
                             <div className="text-left">
