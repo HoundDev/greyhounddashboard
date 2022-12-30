@@ -1384,7 +1384,6 @@ align-items: center;
     -webkit-mask-image: linear-gradient(to left, transparent, black 40px, black calc(100% - 40px), transparent);
 }
 
-.claim-nft{}
 
 .claim-container{
     display: flex;
@@ -1398,6 +1397,16 @@ align-items: center;
 
 .claim-nft img{
     border-radius: 0.5em;
-    filter: blur(20px);
+
     display: block;
+}
+
+.blur{
+    filter: blur(20px) !important;
+    transition: 2s -webkit-filter linear;
+    -webkit-user-drag: none;
+-khtml-user-drag: none;
+-moz-user-drag: none;
+-o-user-drag: none;
+user-drag: none;
 }

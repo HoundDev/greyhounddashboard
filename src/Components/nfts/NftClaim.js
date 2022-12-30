@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 
+import { confetti } from 'dom-confetti';
+import Confetti from 'react-dom-confetti';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css'
+import 'swiper/swiper.min.css';
+
+
+
 
 
 require("dotenv").config();
@@ -12,8 +18,26 @@ export default function NftClaim(props) {
     const [popupTrade, setPopupTrade] = useState(false);
 
     function handlePopupTrade() {
+        const nft = document.querySelector('#nft');
+        const config = {
+            angle: "90",
+            spread: "62",
+            startVelocity: 40,
+            elementCount: "76",
+            dragFriction: 0.12,
+            duration: "10000",
+            stagger: 3,
+            width: "7px",
+            height: "7px",
+            perspective: "1000px",
+            colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+          };
         setPopupTrade(true);
-        setTimeout(() => setPopupTrade(false), 5000);
+        setTimeout(() => 
+            setPopupTrade(false), 5000,
+            nft.classList.remove("blur"),
+            <Confetti config={ config }/>
+        );
     }
 
     return (
@@ -29,7 +53,7 @@ export default function NftClaim(props) {
                                     <h3>Claim your NFT</h3>
                                     <span>You have X NFTs left to claim.</span>
                                     <div className="claim-img">
-                                        <img className="mt-5 mb-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM2axwwnCdgRheFY6ooHtgiJ0sCfraOhfO5HC2a8bvjw&s" height={250} />
+                                        <img className="mt-5 mb-5 blur" id="nft" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM2axwwnCdgRheFY6ooHtgiJ0sCfraOhfO5HC2a8bvjw&s" height={250} />
                                     </div>
                                 </div>
                             </div>
