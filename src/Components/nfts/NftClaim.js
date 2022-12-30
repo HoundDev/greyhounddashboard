@@ -11,6 +11,10 @@ require("dotenv").config();
 export default function NftClaim(props) {
     const [popupTrade, setPopupTrade] = useState(false);
 
+    function handlePopupTrade() {
+        setPopupTrade(true);
+        setTimeout(() => setPopupTrade(false), 5000);
+    }
 
     return (
         <div className="content-body">
@@ -30,7 +34,9 @@ export default function NftClaim(props) {
                                 </div>
                             </div>
                             <div className="card-footer border-0 pt-0 justify-content-center d-flex">
-                              <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => setPopupTrade(true)}
+                              {/* <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => setPopupTrade(true)} */}
+                              {/*Activate the popuptrade for 5 seconds, then set it to false*/}
+                            <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => handlePopupTrade()}
                               >Claim NFT</button>
                             </div>
                         </div>
