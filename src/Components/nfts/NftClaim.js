@@ -36,7 +36,7 @@ export default function NftClaim(props) {
         setTimeout(() => 
             setPopupTrade(false), 5000,
             nft.classList.remove("blur"),
-            <Confetti config={ config }/>
+            <Confetti active={ true} config={ config }/>
         );
     }
 
