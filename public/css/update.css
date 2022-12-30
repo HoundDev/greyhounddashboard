@@ -815,10 +815,12 @@ button:active {
     white-space: nowrap;
 }
 
-[data-theme-version="dark"] .nft-form .form-control {
+[data-theme-version="dark"] .form-control {
     border: 1px solid transparent;
     color: #fff;
+    border-radius: 1em !important;
 }
+
 
 [data-theme-version="dark"] .form-control:hover {
     border-color: rgba(255, 255, 255, 0.2);

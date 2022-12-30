@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
+import NftSearchBar from "../forms/NftSearchBar";
 import NftCard from "./../nfts/NftCard"
 
 require("dotenv").config();
@@ -48,7 +49,7 @@ export default function UserProfile(props) {
                         <div className="user-info-area">
                             <div className="bg-area mb-3"  style={{  }}>
                                 <div className="avatar-area">
-                                     <img src="./images/placeholder/user-avatar.jpg" alt="" className="avatar-img" />
+                                     <img src="./images/placeholder/user-avatar.jpg" alt="" className="avatar-img" height={126}/>
                                 </div>
                             </div>
                             <div className="info-area">
@@ -95,6 +96,8 @@ export default function UserProfile(props) {
                         </div>
                     </div>
                 </div>
+
+                <NftSearchBar />
 
                 <div className="row">
                     <div className="col">

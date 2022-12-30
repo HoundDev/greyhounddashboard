@@ -44,53 +44,12 @@ export default function NftClaim(props) {
 
                 </div>
 
-                <Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
-											<img className="modal-above-image" src="./images/xumm.svg" />
-											<Modal.Header>
-												<Modal.Title>Confirm NFT Swap</Modal.Title>
-												<button type="button" onClick={() => setPopupTrade(false)}
-                                                className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
-											</Modal.Header>
-											<Modal.Body>
-												<div className="xumm-tx-container">
-													<div>
-														<div className='tx-info'>
-															<span>You Pay</span>
-															<p className='text-white'> 10b hound </p>
-                                                                {/* {quoteAmount} {curStringB}</p> */}
-														</div>
-														<div className='tx-info'>
-															<span>Receive</span>
-															<p className='text-white'> 1 nft </p>
-                                                                {/* {baseAmount} {curStringS}</p> */}
-														</div>
-														{/* {issueCheck &&  */}
-                                                        <div className='tx-info'>
-															<span>Issuer Fee</span>
-															<p className='text-white'> 150m hound</p>
-                                                                {/* {issueAmount} hound</p> */}
-														</div>
-                                                        {/* } */}
-
-														<div className='tx-info'>
-															<span>XRP transaction fee</span>
-															<p className='text-white'>0.000012 XRP</p>
-														</div>
-													</div>
-
-													<div className="qr-code-img">
-														{/* <img src={qrcodepng} alt="QR Code" /> */}
-                                                        <img src='https://www.google.com/imges?imgurl=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1280832346611167236%2F1sQA2Dn9_400x400.jpg&imgrefurl=https%3A%2F%2Fmobile.twitter.com%2Fxummsupport&tbnid=CrAgLswtx0Ug9M&vet=12ahUKEwiZ4fGtk5b8AhUMidgFHRXjDRIQMygHegUIARC2AQ..i&docid=uUvpKid0XKYqsM&w=400&h=400&q=xumm&ved=2ahUKEwiZ4fGtk5b8AhUMidgFHRXjDRIQMygHegUIARC2AQ' alt="QR Code" />
-													</div>
-												</div>
-
-											</Modal.Body>
-										</Modal>
                
                
     
 
             </div>
         </div>
+
     );
 };
