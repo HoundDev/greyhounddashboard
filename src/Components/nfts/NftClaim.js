@@ -16,30 +16,51 @@ require("dotenv").config();
 
 export default function NftClaim(props) {
     const [popupTrade, setPopupTrade] = useState(false);
+    const [numNfts, setNumNfts] = useState(0);
 
     function handlePopupTrade() {
+        
         const nft = document.querySelector('#nft');
-        const config = {
-            angle: "90",
-            spread: "62",
-            startVelocity: 40,
-            elementCount: "76",
-            dragFriction: 0.12,
-            duration: "10000",
-            stagger: 3,
-            width: "7px",
-            height: "7px",
-            perspective: "1000px",
-            colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
-          };
         setPopupTrade(true);
         setTimeout(() => 
             setPopupTrade(false), 5000,
             nft.classList.remove("blur"),
-            <Confetti config={ config }/>
+            confetti(
+                nft
+                ,{
+                angle: 90,
+                spread: 45,
+                startVelocity: 45,
+                elementCount: 50,
+                dragFriction: 0.12,
+                duration: 3000,
+                stagger: 3,
+                width: "10px",
+                height: "10px",
+                perspective: "500px",
+                colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+            })
         );
     }
 
+    async function getNFTs() {
+        const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getNft', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                address: props.xrpAddress,
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+        setNumNfts(data.len);
+    }
+
+    useEffect(() => {
+        getNFTs();
+    }, []);
     return (
         <div className="content-body">
             <div className="container-fluid nft-home">
@@ -51,7 +72,7 @@ export default function NftClaim(props) {
                             <div className="card-body">
                                 <div className="claim-container text-center">
                                     <h3>Claim your NFT</h3>
-                                    <span>You have X NFTs left to claim.</span>
+                                    <span>You have {numNfts} NFTs left to claim.</span>
                                     <div className="claim-img">
                                         <img className="mt-5 mb-5 blur" id="nft" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM2axwwnCdgRheFY6ooHtgiJ0sCfraOhfO5HC2a8bvjw&s" height={250} />
                                     </div>
