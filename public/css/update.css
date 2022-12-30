@@ -1410,3 +1410,8 @@ align-items: center;
 -o-user-drag: none;
 user-drag: none;
 }
+
+.confetti-container{
+    position: absolute;
+    top: 50%;
+}
