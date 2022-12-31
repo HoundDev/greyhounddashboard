@@ -114,11 +114,9 @@ function Dashboard(props) {
 	const [issueCheck, setIssueCheck] = useState(false)
 	const [issueAmount, setIssueAmount] = useState(0)
 	const [xrpBalance, setXrpBalance] = useState(0)
-	const [showSpinnerSigned, setShowSpinnerSigned] = useState(false)
 	const [listenWs, setListenWs] = useState(false)
 	const ws = useRef(WebSocket);
 	const [xrpQT, setXrpQT] = useState(0)
-	const [qtStatus, setQtStatus] = useState(false)
 	const [curStringB, setCurStringB] = useState('')
 	const [curStringS, setCurStringS] = useState('')
 	const [showSuccess, setShowSuccess] = useState(false)
@@ -242,14 +240,12 @@ function Dashboard(props) {
 			var div3Button = document.getElementById("swapButtonC");
 			// console.log(div_main.firstChild)
 			if (div_main.firstChild.id === "trade-box-counter") {
-				setQtStatus(true)
 				div_main.insertBefore(div2, div1);
 				div_main.insertBefore(div3Button, div1);
 				//change the text inside the div (in a span) from Receive to pay with
 				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Receive"
 				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Pay with"
 			} else {
-				setQtStatus(false)
 				div_main.insertBefore(div1, div2);
 				div_main.insertBefore(div3Button, div2);
 				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
@@ -257,7 +253,6 @@ function Dashboard(props) {
 			}
 		});
 		document.getElementById("tradeButton").addEventListener("click", function () {
-			setShowSpinnerSigned(true)
 			let amountBase = document.getElementById("baseCur").value
 			let amountCounter = document.getElementById("counterCur").value
 			// setBaseAmount(amountBase)
@@ -393,7 +388,6 @@ function Dashboard(props) {
 
 	function closePopup() {
 		setPopupTrade(false)
-		setShowSpinnerSigned(false)
 		setListenWs(false)
 		ws.current.close()
 	}

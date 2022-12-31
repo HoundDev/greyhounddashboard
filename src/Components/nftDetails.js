@@ -43,7 +43,7 @@ export default function NftDetails(props) {
         if (desc === null || desc === undefined) {
             desc = data.data.collection.bio;
         }
-        setSetDesc(desc);
+        // setSetDesc(desc);
         if (highestPrice === 0) {
             return fprice;
         } else {
@@ -52,24 +52,43 @@ export default function NftDetails(props) {
     }
 
     async function getNftImageAndMeta(id) {
-        console.log("on the dex api")
-        let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
-        let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
-        let response = await fetch(onTheDex);
+        let url = process.env.REACT_APP_PROXY_ENDPOINT + "api/getnftsData"
+        let response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: id, address: props.xrpAddress})
+        });
         let data = await response.json();
         let name = data.name;
         let attr = data.attributes;
         let collection = data.collection.name;
-        let owner = await getOwner(id);
-        let price = await getBid(id);
+        let collectionDesc = data.collection.description;
+        let owner = data.owner;
+        let imageUrl = data.image;
+
+        imageUrl = imageUrl.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
+
+        // console.log("on the dex api")
+        // let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
+        // let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
+        // let response = await fetch(onTheDex);
+        // let data = await response.json();
+        // let name = data.name;
+        // let attr = data.attributes;
+        // let collection = data.collection.name;
+        // let owner = await getOwner(id);
+        // let price = await getBid(id);
         setOwner(owner);
         setNftAttrs(attr);
         setNftId(id);
         setNftName(name);
         setNftImage(imageUrl); 
         setSetCollection(collection);    
-        setNftPrice(price);
-        return {image: imageUrl, name: name, attr: attr, owner: owner, price: price};
+        setSetDesc(collectionDesc);
+        // setNftPrice(price);
+        return {image: imageUrl, name: name, attr: attr, owner: owner};
     }
 
     useEffect(() => {
