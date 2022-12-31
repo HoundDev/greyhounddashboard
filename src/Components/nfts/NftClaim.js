@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { confetti } from 'dom-confetti';
@@ -8,9 +8,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 
 import axios from 'axios';
-
-
-
 
 
 require("dotenv").config();
@@ -25,6 +22,11 @@ export default function NftClaim(props) {
     const [curNftIndex, setCurNftIndex] = useState(0);
     const [nftidCur, setNftidCur] = useState(0);
     const [claimed, setClaimed] = useState(false);
+    const ws = useRef(WebSocket);
+    const [listenWs, setListenWs] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [qrLink, setQrLink] = useState("");
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     function convertHexToString(hex)
     {
@@ -62,6 +64,16 @@ export default function NftClaim(props) {
         nft.classList.remove('blur');
         setConf(true)
         setClaimed(true);
+        setListenWs(false);
+    }
+
+    function closePopupTradeErr() {
+        setPopupTrade(false);
+        //set showError to true for 5 seconds
+        setShowError(true);
+        setTimeout(() => {
+            setShowError(false);
+        }, 5000);
     }
     
     async function getNFTs() {
@@ -130,7 +142,20 @@ export default function NftClaim(props) {
         });
         let data = await response.json();
         console.log(data);
-        setQrString(data.refs.qr_png);
+        if (isMobile) {
+            //open the link in a new tab
+            window.open(data.next.always, '_blank');
+            setQrString(data.refs.qr_png);
+            setQrLink(data.next.always);
+            ws.current = new WebSocket(data.refs.websocket_status);
+            setListenWs(true);
+        }
+        else {        
+            setQrString(data.refs.qr_png);
+            setQrLink(data.next.always);
+            ws.current = new WebSocket(data.refs.websocket_status);
+            setListenWs(true);
+        }
         }
 
     function handleMore() {
@@ -138,10 +163,51 @@ export default function NftClaim(props) {
         //reload the page
         window.location.reload();
     }
+    
+	const getXummPayload = async (requestContent) => {
+		try {
+			let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ "payloadID": requestContent })
+			});
+			let json = await response.json()
+			return { success: true, data: json };
+		} catch (error) {
+			return { success: false };
+		}
+    }
 
     useEffect(() => {
         getNFTs();
     }, []);
+
+    useEffect(() => {
+        ws.current.onmessage = async (e) => {
+            if (!listenWs) return;  
+            let responseObj = JSON.parse(e.data.toString());
+            if (responseObj.signed !== null) {
+                console.log(responseObj);
+                const payload = await getXummPayload(responseObj.payload_uuidv4);
+                console.log(payload);
+
+                if (payload.success) {
+                    console.log('signed');
+                    if (responseObj.signed === true) {
+                        console.log('signed');
+                        setClaimed(true);
+                        closePopupTrade();
+                        setListenWs(false);
+                    } else {
+                        console.log('not signed');
+                        setClaimed(false);
+                        closePopupTradeErr();
+                        setListenWs(false);
+                    }
+                }
+            }
+        }
+    }, [listenWs]);
 
     return (
         <div className="content-body">
@@ -150,6 +216,11 @@ export default function NftClaim(props) {
                 <div className="row justify-content-center">
 
                     <div className="col-xl-5 col-xxl-5 col-lg-6">
+                    {showError && (
+                        <div className="alert alert-danger">
+                            <strong>Declined!</strong> The txn was declined!.
+                        </div>
+                        )}
                         <div className="card claim-nft">
                             <div className="card-body">
                                 <div className="claim-container text-center">
@@ -188,7 +259,7 @@ export default function NftClaim(props) {
                                     <button className="btn btn-white rounded-4 mb-2 text-center"
                                     onClick={() => handleMore()}
                                     >Claim More!</button> &nbsp;
-                                    <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => window.location.href = `/nftDetails?nftId=${nftidCur}`}
+                                    <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => window.location.href = `/nftDetails?nftid=${nftidCur}`}
                                     >View NFT</button>
                                     </div>
                                     :
@@ -201,7 +272,6 @@ export default function NftClaim(props) {
 
                     </div>
                     <div className="confetti-container">
-                            {/* add confetti here */}
                             <Confetti 
                             active={conf} 
                             config={confettiConfig} 
@@ -216,7 +286,7 @@ export default function NftClaim(props) {
                     <img className="modal-above-image" src="./images/xumm.svg" />
                     <Modal.Header>
                         <Modal.Title>Confirm NFT Swap</Modal.Title>
-                        <button type="button" onClick={() => closePopupTrade()}
+                        <button type="button" onClick={() => closePopupTradeErr()}
                             className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
                     </Modal.Header>
                     <Modal.Body>
@@ -224,21 +294,18 @@ export default function NftClaim(props) {
                             <div>
                                 <div className='tx-info'>
                                     <span>You Pay</span>
-                                    <p className='text-white'> 10b hound </p>
-                                    {/* {quoteAmount} {curStringB}</p> */}
+                                    <p className='text-white'> FREE! </p>
                                 </div>
                                 <div className='tx-info'>
                                     <span>Receive</span>
                                     <p className='text-white'> 1 nft </p>
-                                    {/* {baseAmount} {curStringS}</p> */}
                                 </div>
                                 {/* {issueCheck &&  */}
-                                <div className='tx-info'>
+                                {/* <div className='tx-info'>
                                     <span>Issuer Fee</span>
-                                    <p className='text-white'> 150m hound</p>
-                                    {/* {issueAmount} hound</p> */}
-                                </div>
-                                {/* } */}
+                                    <p className='text-white'> FREE! </p>
+                                    {issueAmount} hound</p>
+                                </div> */}
 
                                 <div className='tx-info'>
                                     <span>XRP transaction fee</span>
@@ -247,7 +314,16 @@ export default function NftClaim(props) {
                             </div>
 
                             <div className="qr-code-img">
-                                {/* <img src={qrcodepng} alt="QR Code" /> */}
+                                {/* <a href={qrLink} target="_blank" rel="noreferrer">
+                                    Click here to open in XUMM
+                                </a> */}
+                                {/* <img src={qrString} alt="QR Code" /> */}
+                                {/* With ref to above, have the text on top and qr code below the text */}
+                                <a href={qrLink
+                                } target="_blank" rel="noreferrer">
+                                        Click here to open in XUMM
+                                </a>
+                                <br />
                                 <img src={qrString} alt="QR Code" />
                             </div>
                         </div>

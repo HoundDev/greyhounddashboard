@@ -22,7 +22,7 @@ export default function NftDetails(props) {
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
     const type = match?.[1];
-    // console.log(type);
+    console.log(type);
   
     async function getOwner(id) {
         let url = 'https://api.xrpldata.com/api/v1/xls20-nfts/nft/' + id;
@@ -92,8 +92,11 @@ export default function NftDetails(props) {
     }
 
     useEffect(() => {
-        getNftImageAndMeta(type);
-    }, []);
+        // getNftImageAndMeta(type);
+        if (type !== undefined) {
+            getNftImageAndMeta(type);
+        }
+    }, [type]);
 
 
     return (
@@ -103,7 +106,7 @@ export default function NftDetails(props) {
                 <div className="page-titles">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="/nftExplore">NFTs</a></li>
-                        <li className="breadcrumb-item"><a href={collectionId}>{setCollection}</a></li>
+                        <li className="breadcrumb-item">{setCollection}</li>
                         <li className="breadcrumb-item active"><a href="">{nftName}</a></li>
                     </ol>
                 </div>
@@ -137,13 +140,11 @@ export default function NftDetails(props) {
                                 <h3 class="mb-3">Attributes</h3>
                                 <div className="box properties mb-3">
                                     <div className="properties-wrapper">
-                                        {/* <div class="single-prop"><span>Dragon </span><p>Gold</p></div> */}
                                         {nftAttrs.map((attr, index) => {
                                             return (
                                                 <div class="single-prop"><span>{attr.trait_type} </span><p>{attr.value}</p></div>
                                             )
                                         })}
-
                                     </div>
                                 </div>
                             </div>
@@ -163,8 +164,7 @@ export default function NftDetails(props) {
                                     </div>
                                     <p className="mb-3">{setDesc || <Skeleton count={3} />}</p>
                                 </div>
-
-                                <div class="nft-price-wrapper">
+                                {/* <div class="nft-price-wrapper">
                                     <div>
                                         <div className="box-info">
                                             <p className="fs-14 mb-0">Price</p>
@@ -180,7 +180,7 @@ export default function NftDetails(props) {
                                             <button class="btn save-nft"><i class="fa-solid fa-heart"></i></button>
                                         </div>
                                     
-                                </div>
+                                </div> */}
                             </div>
 
                        
