@@ -90,12 +90,12 @@ export default function NftClaim(props) {
         console.log(data);
         setNumNfts(data.len);
         setNftData(data.nfts);
-        //get the first NFT in the array and display it
         let keys = Object.keys(data.nfts);
         let firstNft = data.nfts[keys[0]];
         setNftidCur(keys[0]);
         console.log(firstNft);
-        setCurNftIndex(firstNft.index);
+        if (data.len > 0) {
+            setCurNftIndex(firstNft.index);
         let uri = firstNft.uri;
         uri = convertHexToString(uri);
         uri = uri.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
@@ -104,6 +104,7 @@ export default function NftClaim(props) {
         let image = nftDataCur.data.image;
         image = image.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
         setCurNft(image);
+        }
     }
 
     function convertStringToHex(str) {
@@ -126,7 +127,7 @@ export default function NftClaim(props) {
                 "Memos": [
                     {
                         "Memo": {
-                            "MemoData": convertStringToHex("Claim NFT FROM GREYHOUND!")
+                            "MemoData": convertStringToHex("Redeemed through the Greyhound Dashboard!")
                         }
                     }
                 ]
@@ -239,8 +240,7 @@ export default function NftClaim(props) {
                                         <div className="claim-img">
                                             <img className="mt-5 mb-5 blur"
                                                 id="nft"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM2axww
-                                                nCdgRheFY6ooHtgiJ0sCfraOhfO5HC2a8bvjw&s"
+                                                src="/images/test/mushroom.jpg"
                                                 height={250} />
                                         </div>
                                     }

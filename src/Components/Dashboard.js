@@ -541,6 +541,14 @@ function Dashboard(props) {
 		}
 	}
 
+	function handleNft() {
+		window.location.href = '/userprofile'
+	}
+
+	function handleNft1() {
+		window.location.href = '/claimNFT'
+	}
+
 	return (
 		<LoadingOverlay
 			active={isActive}
@@ -716,19 +724,20 @@ function Dashboard(props) {
 										<div className='left'>
 											<h2>Your NFT collection is finally here </h2>
 											{/* <a href='/nftDetails?test=10'> */}
-											<button className="btn btn-white rounded-4 mt-3">My NFTs</button>
+											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft}>My NFTs</button>
+											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft1}>Claim Nfts!</button>
 											{/* </a> */}
 										</div>
 										<div className='right'>
 											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"}/>
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false} />
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} />
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false}/>
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"}/>
+														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false}/>
 													</SwiperSlide>
 											</Swiper>
 										</div>

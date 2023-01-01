@@ -11,6 +11,7 @@ export default function UserProfile(props) {
     const [numberOfNfts, setNumberOfNfts] = useState(0);
     const [nftImages, setNftImages] = useState([]);
     const [nftNames, setNftNames] = useState([]);
+    const [nftIds, setNftIds] = useState([]);
 
     async function getNfts() {
         try {
@@ -31,6 +32,7 @@ export default function UserProfile(props) {
 	        setNumberOfNfts(keys.length);
 	        setNftImages(images);
 	        setNftNames(names);
+            setNftIds(keys);
         } catch (error) {
             console.log(error);
         }
@@ -97,7 +99,7 @@ export default function UserProfile(props) {
                     </div>
                 </div>
 
-                <NftSearchBar />
+                {/* <NftSearchBar /> */}
 
                 <div className="row">
                     <div className="col">
@@ -107,7 +109,7 @@ export default function UserProfile(props) {
                             {Array(numberOfNfts).fill().map((_, i) => (
                                 // <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={props.xrpAddress} />
                                 //skip if the nft image is empty
-                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={props.xrpAddress} />
+                                nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={props.xrpAddress} nftId={nftIds[i]} showPrice={false} />
                             ))}
                         </div>
                     </div>

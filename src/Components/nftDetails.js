@@ -137,7 +137,7 @@ export default function NftDetails(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <h3 class="mb-3">Attributes</h3>
+                                {/* <h3 class="mb-3">Attributes</h3>
                                 <div className="box properties mb-3">
                                     <div className="properties-wrapper">
                                         {nftAttrs.map((attr, index) => {
@@ -146,7 +146,7 @@ export default function NftDetails(props) {
                                             )
                                         })}
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
@@ -163,7 +163,19 @@ export default function NftDetails(props) {
                                         <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />} </h2>
                                     </div>
                                     <p className="mb-3">{setDesc || <Skeleton count={3} />}</p>
-                                </div>
+                                    <div className="nft-container">
+                                        <center><h3 class="mb-3">Attributes</h3></center>
+                                            <div className="box properties mb-3">
+                                                <div className="properties-wrapper">
+                                                {nftAttrs.map((attr, index) => {
+                                                    return (
+                                                        <div class="single-prop"><span>{attr.trait_type} </span><p>{attr.value}</p></div>
+                                                    )
+                                                })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {/* <div class="nft-price-wrapper">
                                     <div>
                                         <div className="box-info">

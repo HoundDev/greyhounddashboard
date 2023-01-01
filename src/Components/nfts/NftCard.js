@@ -16,6 +16,9 @@ const NftCard = (props) => {
             
 
     function handleClick() {
+        if (props.clickable === false) {
+            return;
+        }
         if (clicked) {
             setClicked(false);
         }
@@ -34,7 +37,7 @@ const NftCard = (props) => {
             <div className="card-body">
                 <div className="card-title">
                     <h3 className="fs-18 text-white">{props.name}</h3>
-                    <span className="badge badge-pill badge-elite fs-12">279.1</span>
+                    {/* <span className="badge badge-pill badge-elite fs-12">279.1</span> */}
                 </div>
                 <div className="meta-info">
                     <div className="card-author">
@@ -46,10 +49,12 @@ const NftCard = (props) => {
                             <h6> <a className="fs-14 text-white">{props.address}</a> </h6>
                         </div>
                     </div>
-                    <div className="card-price">
+                    {props.showPrice === false ? <><></></> :
+                        <div className="card-price">
                         <span className="fs-13">Current Price</span>
                         <h5 className="fs-14 text-white">{props.bid || 0} XRP</h5>
                     </div>
+                    }
                 </div>
             </div>
         </div>

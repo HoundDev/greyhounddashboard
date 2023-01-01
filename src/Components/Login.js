@@ -93,6 +93,25 @@ function Login(props) {
     }
   }
 
+  const checkEligibility = async (address) => {
+    try {
+      let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/eligible?address=' + address, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      console.log(response.status);
+      if (response.status === 200) {
+        return { success: true };
+      }
+      else {
+        return { success: false };
+      }
+
+    } catch (error) {
+      return { success: false };
+    }
+  }
+
   const Signin = async () => {
     setrequestResolvedMessage('')
     setQrMatrix("")
@@ -134,7 +153,7 @@ function Login(props) {
         console.log(responseObj)
         const payload = await getXummPayload(responseObj.payload_uuidv4)
         console.log(payload)
-        var accessAddys = ["rbKoFeFtQr2cRMK2jRwhgTa1US9KU6v4L",
+        var accessAddys = [
                             "rKXkK5RRJD74anBpTeG23qc1gKggSHQHjB",
                             "rfFfo87G2a7R7Csr1f6yHm7gxVGvx8ypo3",
                             "rDdpAkYcMPuRfiQySVWUVjzbEZSH8ZH871",
@@ -150,8 +169,9 @@ function Login(props) {
             console.log(isValid);
           }
           console.log()
-        // console.log(accessAddys.includes(payload.data.response.account))
-        if (accessAddys.includes(payload.data.response.account)) {
+        let check = await checkEligibility(payload.data.response.account)
+        console.log(check);
+        if (check.success === true) {
           if (isValid.data.xrpAddress !== undefined && isValid.data.session !== undefined) {
             props.setStateValues(isValid.data);
           }
