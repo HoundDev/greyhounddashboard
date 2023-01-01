@@ -258,7 +258,7 @@ export default function NftClaim(props) {
                                     <div>
                                     <button className="btn btn-white rounded-4 mb-2 text-center"
                                     onClick={() => handleMore()}
-                                    >1 NFT Left To Claim</button> &nbsp;
+                                    >Claim More!</button> &nbsp;
                                     <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => window.location.href = `/nftDetails?nftid=${nftidCur}`}
                                     >View Details</button>
                                     </div>
