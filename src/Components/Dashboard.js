@@ -722,10 +722,10 @@ function Dashboard(props) {
 								<div className="card-body">
 									<div className='d-flex gap-30 ntf-owned-card'>
 										<div className='left'>
-											<h2>Your NFT collection is finally here </h2>
+											<h2>The Houndies Collection is finally here! </h2>
 											{/* <a href='/nftDetails?test=10'> */}
 											{/* <button className="btn btn-white rounded-4 mt-3" onClick={handleNft}>My NFTs</button> */}
-											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft1}>Claim Nft!</button>
+											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft1}>Claim NFT</button>
 											{/* </a> */}
 										</div>
 										<div className='right'>

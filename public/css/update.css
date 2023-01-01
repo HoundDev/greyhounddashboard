@@ -301,6 +301,18 @@ button:active {
     border-color: #fff;
     color: #000 !important;
 }
+.btn-blur {
+    color: #fff;
+    background-color: rgba(166, 176, 207, .05);
+    border: 1px solid transparent;
+    backdrop-filter: blur(30px);
+}
+
+.btn-blur:hover {
+    background-color: rgba(166, 176, 207, .06);
+    border: 1px solid transparent;
+    color: #fff !important;
+}
 
 [data-theme-version="dark"] .dropdown-menu {
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px !important;
@@ -525,7 +537,6 @@ button:active {
     cursor: pointer;
     position: absolute;
     z-index: 1;
-    box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px;
     transform: rotate(90deg);
 
 }
@@ -1414,4 +1425,11 @@ user-drag: none;
 .confetti-container{
     position: absolute;
     top: 50%;
+}
+
+.claim-img > div{
+    background: rgba(166, 176, 207, .05);
+    border-radius: 0.5em;
+    height: 250px;
+    width: 250px;
 }

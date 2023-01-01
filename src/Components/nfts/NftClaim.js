@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { confetti } from 'dom-confetti';
@@ -28,11 +28,9 @@ export default function NftClaim(props) {
     const [qrLink, setQrLink] = useState("");
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    function convertHexToString(hex)
-    {
+    function convertHexToString(hex) {
         var string = '';
-        for (var i = 0; i < hex.length; i += 2)
-        {
+        for (var i = 0; i < hex.length; i += 2) {
             string += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
         }
         return string;
@@ -75,7 +73,7 @@ export default function NftClaim(props) {
             setShowError(false);
         }, 5000);
     }
-    
+
     async function getNFTs() {
         const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getNft', {
             method: 'POST',
@@ -96,14 +94,14 @@ export default function NftClaim(props) {
         console.log(firstNft);
         if (data.len > 0) {
             setCurNftIndex(firstNft.index);
-        let uri = firstNft.uri;
-        uri = convertHexToString(uri);
-        uri = uri.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
-        const nftDataCur = await axios.get(uri);
-        console.log(nftDataCur);
-        let image = nftDataCur.data.image;
-        image = image.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
-        setCurNft(image);
+            let uri = firstNft.uri;
+            uri = convertHexToString(uri);
+            uri = uri.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
+            const nftDataCur = await axios.get(uri);
+            console.log(nftDataCur);
+            let image = nftDataCur.data.image;
+            image = image.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
+            setCurNft(image);
         }
     }
 
@@ -133,7 +131,7 @@ export default function NftClaim(props) {
                 ]
             }
         };
-        
+
         let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
             method: 'POST',
             headers: {
@@ -151,32 +149,32 @@ export default function NftClaim(props) {
             ws.current = new WebSocket(data.refs.websocket_status);
             setListenWs(true);
         }
-        else {        
+        else {
             setQrString(data.refs.qr_png);
             setQrLink(data.next.always);
             ws.current = new WebSocket(data.refs.websocket_status);
             setListenWs(true);
         }
-        }
+    }
 
     function handleMore() {
         console.log("Clicked more");
         //reload the page
         window.location.reload();
     }
-    
-	const getXummPayload = async (requestContent) => {
-		try {
-			let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
-				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ "payloadID": requestContent })
-			});
-			let json = await response.json()
-			return { success: true, data: json };
-		} catch (error) {
-			return { success: false };
-		}
+
+    const getXummPayload = async (requestContent) => {
+        try {
+            let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "payloadID": requestContent })
+            });
+            let json = await response.json()
+            return { success: true, data: json };
+        } catch (error) {
+            return { success: false };
+        }
     }
 
     useEffect(() => {
@@ -185,7 +183,7 @@ export default function NftClaim(props) {
 
     useEffect(() => {
         ws.current.onmessage = async (e) => {
-            if (!listenWs) return;  
+            if (!listenWs) return;
             let responseObj = JSON.parse(e.data.toString());
             if (responseObj.signed !== null) {
                 console.log(responseObj);
@@ -217,10 +215,10 @@ export default function NftClaim(props) {
                 <div className="row justify-content-center">
 
                     <div className="col-xl-5 col-xxl-5 col-lg-6">
-                    {showError && (
-                        <div className="alert alert-danger">
-                            <strong>Declined!</strong> The txn was declined!.
-                        </div>
+                        {showError && (
+                            <div className="alert alert-danger">
+                                <strong>Error</strong> The txn was declined.
+                            </div>
                         )}
                         <div className="card claim-nft">
                             <div className="card-body">
@@ -237,11 +235,9 @@ export default function NftClaim(props) {
                                                 height={250} />
                                         </div>
                                         :
-                                        <div className="claim-img">
-                                            <img className="mt-5 mb-5 blur"
-                                                id="nft"
-                                                src="/images/test/mushroom.jpg"
-                                                height={250} />
+                                        <div className="claim-img mt-5 mb-5 ">
+                                            <div >
+                                            </div>
                                         </div>
                                     }
 
@@ -253,18 +249,18 @@ export default function NftClaim(props) {
                                 {/*Have the button disabled if there are no NFTs left to claim, and change the text to "No NFTs left to claim" */}
                                 {numNfts > 0 ?
                                     !claimed ?
-                                    <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => handlePopupTrade()}
-                                    >Claim NFT</button> :
-                                    <div>
-                                    <button className="btn btn-white rounded-4 mb-2 text-center"
-                                    onClick={() => handleMore()}
-                                    >Claim More!</button> &nbsp;
-                                    <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => window.location.href = `/nftDetails?nftid=${nftidCur}`}
-                                    >View Details</button>
-                                    </div>
+                                        <button className="btn btn-white rounded-4 mb-2 text-center" onClick={() => handlePopupTrade()}
+                                        >Claim NFT</button> :
+                                        <div>
+                                            <button className="btn btn-white rounded-4 mb-2 text-center"
+                                                onClick={() => handleMore()}
+                                            >Claim More</button> &nbsp;
+                                            <button className="btn btn-blur rounded-4 mb-2 text-center" onClick={() => window.location.href = `/nftDetails?nftid=${nftidCur}`}
+                                            >View Details</button>
+                                        </div>
                                     :
-                                    <button className="btn btn-white rounded-4 mb-2 text-center" disabled
-                                    >No NFTs</button>
+                                    <button className="btn btn-blur rounded-4 mb-2 text-center" disabled
+                                    >Claim NFT</button>
                                 }
 
                             </div>
@@ -272,10 +268,10 @@ export default function NftClaim(props) {
 
                     </div>
                     <div className="confetti-container">
-                            <Confetti 
-                            active={conf} 
-                            config={confettiConfig} 
-                            />
+                        <Confetti
+                            active={conf}
+                            config={confettiConfig}
+                        />
                     </div>
 
 
@@ -294,11 +290,11 @@ export default function NftClaim(props) {
                             <div>
                                 <div className='tx-info'>
                                     <span>You Pay</span>
-                                    <p className='text-white'> FREE! </p>
+                                    <p className='text-white'>0 XRP</p>
                                 </div>
                                 <div className='tx-info'>
                                     <span>Receive</span>
-                                    <p className='text-white'> 1 nft </p>
+                                    <p className='text-white'> 1 NFT</p>
                                 </div>
                                 {/* {issueCheck &&  */}
                                 {/* <div className='tx-info'>
@@ -321,7 +317,7 @@ export default function NftClaim(props) {
                                 {/* With ref to above, have the text on top and qr code below the text */}
                                 <a href={qrLink
                                 } target="_blank" rel="noreferrer">
-                                        Click here to open in XUMM
+                                    Click here to open in XUMM
                                 </a>
                                 <br />
                                 <img src={qrString} alt="QR Code" />

@@ -303,7 +303,7 @@ function App() {
 
             <div className="add-menu-sidebar ">
               <img src="./images/staking-bitrue.png" draggable="false" />
-              <a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-primary rounded-4" target="blank">Stake On Bitrue</a>
+              <a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-white rounded-4" target="blank">Stake On Bitrue</a>
             </div>
           </PerfectScrollbar>
         </div>
