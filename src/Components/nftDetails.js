@@ -125,7 +125,7 @@ export default function NftDetails(props) {
                             <div className="nft-container">
                                 <div className="img-wrapper  mb-5">
                                     {/* <img className="img-fluid" src= {nftImage} /> */}
-                                    { animFlag ? <video className="vid-fluid" src={nftImage} autoPlay loop muted /> : <img className="img-fluid" src={nftImage} /> }
+                                    <img className="img-fluid" src={nftImage} /> 
                                 </div>
                                 <div className="mb-5">
                                     <h3 class="mb-3">Owned by</h3>
@@ -167,27 +167,29 @@ export default function NftDetails(props) {
                                         </div>
                                     </div>
                                     <div class="nft-name">
-                                        <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />} </h2>
+                                        {/* <h5>{rarity || <Skeleton width={100} />}</h5>
+                                        <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />}&nbsp;
+                                            {/* <span class="tier">{tier || <Skeleton width={100} />}</span> 
+                                        </h2> */}
+                                        {/* Have the nft name and have the nft tier displayed on the far right side*/}
+                                        <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />}&nbsp;
+                                        </h2>
                                     </div>
                                     <p className="mb-5">{setDesc || <Skeleton count={3} />}</p>
+                                    <p className="mb-4 text-white">Rarity: {rarity}<br/>Tier: {tier}</p>
                                     <div className="nft-container">
                                         <h3>Attributes</h3>
                                             <div className="box properties mb-3">
                                                 <div className="properties-wrapper">
                                                 {nftAttrs.map((attr, index) => {
                                                     return (
-                                                        <div class="single-prop"><span>{attr.trait_type}<br/>{attr.trait_tier}</span><p>{attr.value}<br/>{attr.per}%</p></div>
-                                                    )
+                                                        // <div class="single-prop"><span className="display-1"><b>{attr.trait_type}</b></span><span>{attr.trait_tier}</span><p>{attr.value}<br/>{attr.per}%</p></div>
+                                                        <div class="single-prop"><span className="display-1"><b>{attr.trait_type}</b></span><p>{attr.value}<br/>{attr.per}%</p><span>({attr.trait_tier})</span></div>
+                                                        )
                                                 })}
                                                 {/* add rarity and tier */}
                                                 {/* <div class="single-prop"><span>Rarity </span><p>{rarity || <Skeleton width={100} />}</p></div>
                                                 <div class="single-prop"><span>Tier </span><p>{tier || <Skeleton width={100} />}</p></div> */}
-                                                {rarity !== "" 
-                                                                ? <div class="single-prop"><span>Rarity </span><p>{rarity}</p></div>
-                                                                : <><></></>}
-                                                {tier !== ""
-                                                                ? <div class="single-prop"><span>Tier </span><p>{tier}</p></div>
-                                                                : <><></></>}
                                                 </div>
                                             </div>
                                         </div>
