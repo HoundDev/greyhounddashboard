@@ -126,7 +126,25 @@ function Login(props) {
         "TransactionType": "SignIn"
       }
     }
-    let responseXum = await postXummPayload(request)
+    const requestMobile = {
+      "options": {
+        "submit": true,
+        "return_url": {
+          "app": process.env.REACT_APP_PROXY_ENDPOINT,
+          "web": process.env.REACT_APP_PROXY_ENDPOINT
+        }
+      },
+      "txjson": {
+        "TransactionType": "SignIn"
+      }
+    }
+    // let responseXum = await postXummPayload(request)
+    if (isMobile) {
+      var responseXum = await postXummPayload(requestMobile)
+    } 
+    else {
+      var responseXum = await postXummPayload(request)
+    }
     console.log(responseXum);
     if (responseXum.data?.refs.qr_matrix) {
       setwsConnection(responseXum.data?.refs.websocket_status)

@@ -722,7 +722,7 @@ function Dashboard(props) {
 								<div className="card-body">
 									<div className='d-flex gap-30 ntf-owned-card'>
 										<div className='left'>
-											<h2>The Houndies Collection is finally here! </h2>
+											<h2>The Houndies Airdrop is finally here! </h2>
 											{/* <a href='/nftDetails?test=10'> */}
 											{/* <button className="btn btn-white rounded-4 mt-3" onClick={handleNft}>My NFTs</button> */}
 											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft1}>Claim NFT</button>
@@ -734,10 +734,10 @@ function Dashboard(props) {
 														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false} />
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false}/>
+														<NftCard className="min" name="Houndie #1235" nft={"/images/test/nft.jpg"} clickable={false}/>
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false}/>
+														<NftCard className="min" name="Houndie #1236" nft={"/images/test/nft2.jpg"} clickable={false}/>
 													</SwiperSlide>
 											</Swiper>
 										</div>

@@ -18,6 +18,8 @@ export default function NftDetails(props) {
     const [setCollection, setSetCollection] = useState("");
     const [collectionId, setCollectionId] = useState("");
     const [nftPrice, setNftPrice] = useState(0);
+    const [tier, setTier] = useState("");
+    const [rarity, setRarity] = useState("");
 
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
@@ -87,8 +89,10 @@ export default function NftDetails(props) {
         setNftImage(imageUrl); 
         setSetCollection(collection);    
         setSetDesc(collectionDesc);
+        setTier(data.tier);
+        setRarity(data.rarity);
         // setNftPrice(price);
-        return {image: imageUrl, name: name, attr: attr, owner: owner};
+        return {image: imageUrl, name: name, attr: attr, owner: owner, rarity: data.rarity, tier: data.tier};
     }
 
     useEffect(() => {
@@ -125,14 +129,14 @@ export default function NftDetails(props) {
                                     <div class="owner-nft">
                                         <div class="owner-avatar">
                                             <a href="#">
-                                                <img src="/images/avatar/default-avatar.jpg" alt="Profile Image"/>
+                                                <img src={nftImage}alt="Profile Image"/>
                                             </a>
-                                            <div class="profile-verification verified">
+                                            {/* <div class="profile-verification verified">
                                                 <i class="fas fa-check"></i>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div class="owner-info">
-                                            <span class="username">Hound</span>
+                                            {/* <span class="username">Hound</span> */}
                                             <h6 class="address"> {owner || <Skeleton width={300}/>} </h6>
                                         </div>
                                     </div>
@@ -169,9 +173,18 @@ export default function NftDetails(props) {
                                                 <div className="properties-wrapper">
                                                 {nftAttrs.map((attr, index) => {
                                                     return (
-                                                        <div class="single-prop"><span>{attr.trait_type} </span><p>{attr.value}</p></div>
+                                                        <div class="single-prop"><span>{attr.trait_type}<br/>{attr.trait_tier}</span><p>{attr.value}<br/>{attr.per}%</p></div>
                                                     )
                                                 })}
+                                                {/* add rarity and tier */}
+                                                {/* <div class="single-prop"><span>Rarity </span><p>{rarity || <Skeleton width={100} />}</p></div>
+                                                <div class="single-prop"><span>Tier </span><p>{tier || <Skeleton width={100} />}</p></div> */}
+                                                {rarity !== "" 
+                                                                ? <div class="single-prop"><span>Rarity </span><p>{rarity}</p></div>
+                                                                : <><></></>}
+                                                {tier !== ""
+                                                                ? <div class="single-prop"><span>Tier </span><p>{tier}</p></div>
+                                                                : <><></></>}
                                                 </div>
                                             </div>
                                         </div>
