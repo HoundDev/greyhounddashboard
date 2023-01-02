@@ -32,7 +32,7 @@ const NftCard = (props) => {
         <div className={'card nft-card ' + props.className} onClick={handleClick}>
             <div className="card-media">
                 <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" height={500}/>
-                <button className="wishlist-button heart"><span className="number-like">13</span></button>
+                {/* <button className="wishlist-button heart"><span className="number-like">13</span></button> */}
             </div>
             <div className="card-body">
                 <div className="card-title">
