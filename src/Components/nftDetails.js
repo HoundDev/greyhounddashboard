@@ -20,6 +20,7 @@ export default function NftDetails(props) {
     const [nftPrice, setNftPrice] = useState(0);
     const [tier, setTier] = useState("");
     const [rarity, setRarity] = useState("");
+    const [animFlag, setAnimFlag] = useState(false)
 
     const { search } = useLocation();
     const match = search.match(/nftid=(.*)/);
@@ -91,8 +92,9 @@ export default function NftDetails(props) {
         setSetDesc(collectionDesc);
         setTier(data.tier);
         setRarity(data.rarity);
+        setAnimFlag(data.anim)
         // setNftPrice(price);
-        return {image: imageUrl, name: name, attr: attr, owner: owner, rarity: data.rarity, tier: data.tier};
+        return {image: imageUrl, name: name, attr: attr, owner: owner, rarity: data.rarity, tier: data.tier,anim: data.anim}
     }
 
     useEffect(() => {
@@ -122,7 +124,8 @@ export default function NftDetails(props) {
                         <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
                             <div className="nft-container">
                                 <div className="img-wrapper  mb-5">
-                                    <img className="img-fluid" src= {nftImage} />
+                                    {/* <img className="img-fluid" src= {nftImage} /> */}
+                                    { animFlag ? <video className="vid-fluid" src={nftImage} autoPlay loop muted /> : <img className="img-fluid" src={nftImage} /> }
                                 </div>
                                 <div className="mb-5">
                                     <h3 class="mb-3">Owned by</h3>

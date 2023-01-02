@@ -25,14 +25,25 @@ export default function UserProfile(props) {
 	        let names = [];
 	        let images = [];
 	        let keys = Object.keys(data);
+            let keys2 = []
 	        for (let i = 0; i < keys.length; i++) {
+                let name = data[keys[i]].name;
+                if (name === undefined) {
+                    continue;
+                }
+                console.log(name);
+                name = name.split(" ")[0];
+                if (name !== "Houndies") {
+                    continue;
+                }
 	            names.push(data[keys[i]].name);
 	            images.push(data[keys[i]].image);
+                keys2.push(keys[i]);
 	        }
-	        setNumberOfNfts(keys.length);
+	        setNumberOfNfts(names.length);
 	        setNftImages(images);
 	        setNftNames(names);
-            setNftIds(keys);
+            setNftIds(keys2);
         } catch (error) {
             console.log(error);
         }
@@ -107,8 +118,6 @@ export default function UserProfile(props) {
                         {/* <NftCard name={'test'} />
                         <NftCard name={'test2'} /> */}
                             {Array(numberOfNfts).fill().map((_, i) => (
-                                // <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={props.xrpAddress} />
-                                //skip if the nft image is empty
                                 nftImages[i] === "" || nftImages[i] === undefined ? null : <NftCard key={i} nft={nftImages[i]} name={nftNames[i]} address={props.xrpAddress} nftId={nftIds[i]} showPrice={false} />
                             ))}
                         </div>
