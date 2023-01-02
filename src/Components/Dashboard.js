@@ -731,13 +731,22 @@ function Dashboard(props) {
 										<div className='right'>
 											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1234" nft={"/images/test/mushroom.jpg"} clickable={false} />
+														<NftCard className="min" name="Houndie #4334" nft={"/images/placeholder/4334.png"} clickable={false} />
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1235" nft={"/images/test/nft.jpg"} clickable={false}/>
+														<NftCard className="min" name="Houndie #7698" nft={"/images/placeholder/7698.png"} clickable={false} />
 													</SwiperSlide>
 													<SwiperSlide>
-														<NftCard className="min" name="Houndie #1236" nft={"/images/test/nft2.jpg"} clickable={false}/>
+														<NftCard className="min" name="Houndie #4812" nft={"/images/placeholder/4812.png"} clickable={false}/>
+													</SwiperSlide>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #6141" nft={"/images/placeholder/6141.png"} clickable={false}/>
+													</SwiperSlide>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #8572" nft={"/images/placeholder/8572.gif"} clickable={false}/>
+													</SwiperSlide>
+													<SwiperSlide>
+														<NftCard className="min" name="Houndie #6551" nft={"/images/placeholder/6551.png"} clickable={false}/>
 													</SwiperSlide>
 											</Swiper>
 										</div>
