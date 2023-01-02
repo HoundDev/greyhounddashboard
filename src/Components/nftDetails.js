@@ -162,9 +162,9 @@ export default function NftDetails(props) {
                                     <div class="nft-name">
                                         <h2 className="mb-3 text-white">{nftName || <Skeleton width={300} />} </h2>
                                     </div>
-                                    <p className="mb-3">{setDesc || <Skeleton count={3} />}</p>
+                                    <p className="mb-5">{setDesc || <Skeleton count={3} />}</p>
                                     <div className="nft-container">
-                                        <h3 class="mb-3">Attributes</h3>
+                                        <h3>Attributes</h3>
                                             <div className="box properties mb-3">
                                                 <div className="properties-wrapper">
                                                 {nftAttrs.map((attr, index) => {
