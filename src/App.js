@@ -280,7 +280,7 @@ function App() {
                 <span className="nav-text">NFTs <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
               </a>
               </li> */}
-              <li><a className="ai-icon" href="/claimNFT" aria-expanded="false">
+              <li><a className="ai-icon" href="/userprofile" aria-expanded="false">
                 <i className="fi fi-sr-gallery"></i>
                 <span className="nav-text">NFTs </span>
               </a>
