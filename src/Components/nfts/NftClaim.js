@@ -130,14 +130,52 @@ export default function NftClaim(props) {
                 ]
             }
         };
-
-        let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        let xummPayloadMobile = {
+            "options": {
+                "submit": true,
+                "return_url": {
+                    "app": process.env.REACT_APP_PROXY_ENDPOINT + "/userprofile",
+                    "web": process.env.REACT_APP_PROXY_ENDPOINT + "/userprofile"
+                  }
             },
-            body: JSON.stringify(xummPayload),
-        });
+            "txjson": {
+                "TransactionType": "NFTokenAcceptOffer",
+                "Account": props.xrpAddress,
+                "NFTokenSellOffer": sellOfferSequence,
+                "Memos": [
+                    {
+                        "Memo": {
+                            "MemoData": convertStringToHex("Redeemed through the Greyhound Dashboard!")
+                        }
+                    }
+                ]
+            }
+        };
+
+        // let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(xummPayload),
+        // });
+        if (isMobile) {
+            var response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(xummPayloadMobile),
+            });
+        } else {
+            var response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(xummPayload),
+            });
+        }
         let data = await response.json();
         console.log(data);
         if (isMobile) {
