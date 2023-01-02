@@ -283,7 +283,7 @@ export default function NftClaim(props) {
                     <img className="modal-above-image" src="./images/xumm.svg" />
                     <Modal.Header>
                         <Modal.Title>Confirm NFT Swap</Modal.Title>
-                        <button type="button" onClick={() => closePopupTrade()}
+                        <button type="button" onClick={() => closePopupTradeErr()}
                             className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
                     </Modal.Header>
                     <Modal.Body>
