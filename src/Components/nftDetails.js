@@ -140,7 +140,7 @@ export default function NftDetails(props) {
                                         </div>
                                         <div class="owner-info">
                                             {/* <span class="username">Hound</span> */}
-                                            <h6 class="address"> {owner || <Skeleton width={300}/>} </h6>
+                                            <h6 class="address text-white"> {owner || <Skeleton width={300}/>} </h6>
                                         </div>
                                     </div>
                                 </div>
