@@ -1026,7 +1026,7 @@ button:active {
 
 .meta-info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
@@ -1432,4 +1432,8 @@ user-drag: none;
     border-radius: 0.5em;
     height: 250px;
     width: 250px;
+}
+
+.nft-card{
+    max-width: 400px;
 }
