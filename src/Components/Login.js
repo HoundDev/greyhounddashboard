@@ -130,8 +130,8 @@ function Login(props) {
       "options": {
         "submit": true,
         "return_url": {
-          "app": process.env.REACT_APP_PROXY_ENDPOINT,
-          "web": process.env.REACT_APP_PROXY_ENDPOINT
+          "app": process.env.REACT_APP_URL,
+          "web": process.env.REACT_APP_URL
         }
       },
       "txjson": {

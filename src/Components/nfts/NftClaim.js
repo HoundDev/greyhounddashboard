@@ -134,8 +134,8 @@ export default function NftClaim(props) {
             "options": {
                 "submit": true,
                 "return_url": {
-                    "app": process.env.REACT_APP_URL + "/userprofile",
-                    "web": process.env.REACT_APP_URL + "/userprofile"
+                    "app": process.env.REACT_APP_URL + "userprofile",
+                    "web": process.env.REACT_APP_URL + "userprofile"
                   }
             },
             "txjson": {
