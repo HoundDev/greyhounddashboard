@@ -5,14 +5,14 @@ import { Link, useSearchParams, useLocation } from "react-router-dom";
 // import GreyTrustlines from "./greyhoundTrustlines";
 
 const format = (num, decimals) => {
-	try {
-		return num.toLocaleString(undefined, {
-			minimumFractionDigits: 0,
-			maximumFractionDigits: decimals,
-		});
-	} catch (e) {
-		return num;
-	}
+  try {
+    return num.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    });
+  } catch (e) {
+    return num;
+  }
 };
 require("dotenv").config();
 
@@ -37,19 +37,19 @@ export default function Richlist(props) {
     defaultFontFamily: "Poppins",
     labels: labelsHolder,
     datasets: [{
-     label: "Issue Supply",
-     backgroundColor: '#CE5C6C',
-     borderColor: '#CE5C6C',
-     pointBackgroundColor: '#CE5C6C',
-     pointBorderColor: '#CE5C6C',
-     borderWidth:2,
-     pointHoverBackgroundColor: '#CE5C6C',
-     pointHoverBorderColor: '#CE5C6C',
-     data: dataHolder
-   }],
+      label: "Issue Supply",
+      backgroundColor: '#CE5C6C',
+      borderColor: '#CE5C6C',
+      pointBackgroundColor: '#CE5C6C',
+      pointBorderColor: '#CE5C6C',
+      borderWidth: 2,
+      pointHoverBackgroundColor: '#CE5C6C',
+      pointHoverBorderColor: '#CE5C6C',
+      data: dataHolder
+    }],
   };
   const optionsholder = {
-      title: {
+    title: {
       display: !1
     },
     tooltips: {
@@ -67,7 +67,7 @@ export default function Richlist(props) {
     hover: {
       mode: "index"
     },
-      scales: {
+    scales: {
       xAxes: [{
         display: !1,
         gridLines: !1,
@@ -105,30 +105,30 @@ export default function Richlist(props) {
         bottom: 0
       }
     }
-    
+
   };
   class GreyHolders extends Component {
-      render() {
-        return <Line data={dataholder} options={optionsholder} height={50} id="chartHolder" />;
-      }
+    render() {
+      return <Line data={dataholder} options={optionsholder} height={50} id="chartHolder" />;
+    }
   }
   const datatls = {
     defaultFontFamily: "Poppins",
     labels: labelTls,
     datasets: [{
-     label: "Issue Supply",
-     backgroundColor: '#CE5C6C',
-     borderColor: '#CE5C6C',
-     pointBackgroundColor: '#CE5C6C',
-     pointBorderColor: '#CE5C6C',
-     borderWidth:2,
-     pointHoverBackgroundColor: '#CE5C6C',
-     pointHoverBorderColor: '#CE5C6C',
-     data: dataTls
-   }],
+      label: "Issue Supply",
+      backgroundColor: '#CE5C6C',
+      borderColor: '#CE5C6C',
+      pointBackgroundColor: '#CE5C6C',
+      pointBorderColor: '#CE5C6C',
+      borderWidth: 2,
+      pointHoverBackgroundColor: '#CE5C6C',
+      pointHoverBorderColor: '#CE5C6C',
+      data: dataTls
+    }],
   };
   const optionstls = {
-      title: {
+    title: {
       display: !1
     },
     tooltips: {
@@ -146,7 +146,7 @@ export default function Richlist(props) {
     hover: {
       mode: "index"
     },
-      scales: {
+    scales: {
       xAxes: [{
         display: !1,
         gridLines: !1,
@@ -184,12 +184,12 @@ export default function Richlist(props) {
         bottom: 0
       }
     }
-    
+
   };
   class GreyTrustlines extends Component {
-      render() {
-        return <Line data={datatls} options={optionstls} height={50} />;
-      }
+    render() {
+      return <Line data={datatls} options={optionstls} height={50} />;
+    }
   }
 
   function handleAddressSearchChange(event) {
@@ -203,7 +203,7 @@ export default function Richlist(props) {
       }
       //Filter the grid
     }
-    if (event.target.value.length === 0) { 
+    if (event.target.value.length === 0) {
       getRichListData(pager.currentPage);
     }
   }
@@ -213,7 +213,7 @@ export default function Richlist(props) {
       let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/richlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "page": page,"address": props.xrpAddress})
+        body: JSON.stringify({ "page": page, "address": props.xrpAddress })
       });
       let json = await response.json()
       console.log(json.sum[0].sum)
@@ -344,8 +344,9 @@ export default function Richlist(props) {
           </div>
         </div>
         <div className="form-head d-flex mb-4 mb-md-3 align-items-start">
-          <div className="input-group search-area d-inline-flex">
-            <input id="walletAddy" type="text" className="form-control" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange} />
+          <div className="input-group mb-3">
+            <span className="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input id="walletAddy" type="text" class="form-control pl-0" placeholder="Enter a wallet address" value={xrpAddressInputVal} onChange={handleAddressSearchChange}/>
           </div>
           <button className="btn btn-md btn-primary ml-auto" hidden><i className="fa-solid fa-arrows-rotate" hidden></i></button>
         </div>
@@ -369,7 +370,7 @@ export default function Richlist(props) {
                       {pageOfItems.map(item =>
                         <tr key={item.id} role="row" className="odd">
                           <td className="width sorting_1">
-                            <span className="text-white"><b>#{item.id}</b></span>
+                            <span className="text-white">#{item.id}</span>
                           </td>
                           <td>
                             <div className="d-flex align-items-center">

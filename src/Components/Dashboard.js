@@ -782,7 +782,7 @@ function Dashboard(props) {
 												<div className="trade-wrapper" id='trade-wrapper'>
 													<div className="flex-col trade-box" id="trade-box-counter">
 														<span className="text-white">Pay with</span>
-														<form id='swapBase'>
+														<form id='swapBase' className='swap-form'>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
 																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />

@@ -557,7 +557,8 @@ button:active {
 
 .trade-card .form-control, .trade-card .form-control:hover, .trade-card .form-control:active, .trade-card .form-control:focus{
     text-align: right;
-    background: transparent;
+    background: transparent !important;
+    border: 0px solid !important ;
 }
 
 .dropdown-menu .dropdown-item {
@@ -778,6 +779,18 @@ button:active {
     }
 }
 
+/* --------------------------- Richlist Start ---------------------------*/
+[data-theme-version="dark"] .table thead th {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+table.dataTable thead th{
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+[data-theme-version="dark"] #richlist tbody tr, [data-theme-version="dark"] #richlist tbody td{
+    transition: all 0.15s ease-in-out;
+}
+/* --------------------------- Richlist End ---------------------------*/
+
 /* --------------------------- NFT Explore Start ---------------------------*/
 
 .explore-container {
@@ -866,6 +879,7 @@ button:active {
     background: transparent !important;
     color: #fff !important;
 }
+
 
 
 
