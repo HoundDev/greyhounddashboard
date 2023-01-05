@@ -13,9 +13,13 @@ input[type="search"] {
 .text-black{
     color: #000 !important;
 }
-.gap-15{
-    gap: 15px;
+.fd-col{
+    flex-direction: column !important;
 }
+.gap-15{
+    gap: 15px !important;
+}
+
 .gap-30{
     gap: 30px;
 }
@@ -827,11 +831,11 @@ button:active {
 }
 
 [data-theme-version="dark"] .form-control {
+    background: rgba(166, 176, 207, .05);
     border: 1px solid transparent;
     color: #fff;
     border-radius: 1em !important;
 }
-
 
 [data-theme-version="dark"] .form-control:hover {
     border-color: rgba(255, 255, 255, 0.2);
@@ -840,6 +844,30 @@ button:active {
 [data-theme-version="dark"] .form-control:focus {
     border-color: rgba(255, 255, 255, 0.5);
 }
+
+.input-group{
+    background: rgba(166, 176, 207, .05);
+    border: 1px solid transparent;
+    color: #fff;
+    border-radius: 1em !important;
+}.input-group:hover{
+    border-color: rgba(255, 255, 255, 0.2);
+}.input-group:focus{
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.input-group > .form-control{
+    background: transparent !important;
+    padding-left: 0;
+}[data-theme-version="dark"] .input-group > .form-control:hover, [data-theme-version="dark"] .input-group > .form-control:focus{
+    border: 1px solid transparent !important;
+    
+}
+.input-group > span{
+    background: transparent !important;
+    color: #fff !important;
+}
+
+
 
 @media only screen and (max-width: 767px) {
     .explore-container>.nft-card {
@@ -873,14 +901,31 @@ button:active {
     height: 300px;
     background-color: #21212A;
     position: relative;
+    background-image: url(https://pbs.twimg.com/profile_banners/1429750485070790659/1671800610/1500x500);
     background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
+.bg-area .socials-area{
+    position: absolute;
+    top: 1.875rem;
+    right: 1.875rem;
+    background-color: rgba(26, 25, 33, 0.5);
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 0.938rem 1.5rem;
+    backdrop-filter: blur(7px);
+    border: solid 1px rgba(255, 255, 255, 0.1);
+}.bg-area .socials-area > span{
+    font-size: 16px;
+    color: #fff;
+}
 .bg-area .avatar-area{
     position: absolute;
     bottom: -30px;
-    left: 24px;
+    left: 1.875rem;
     width: 126px;
     height: 126px;
     z-index: 0;
@@ -908,6 +953,7 @@ button:active {
     justify-content: space-between;
     gap: 30px;
 }
+
 .info-area .left, .info-area .right{
     display: flex;
     gap: 15px;

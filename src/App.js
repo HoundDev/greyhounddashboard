@@ -16,6 +16,7 @@ import NftDetails from './Components/nftDetails.js';
 import NftCollection from './Components/nfts/NftCollection';
 import NftClaim from "./Components/nfts/NftClaim";
 import UserProfile from './Components/users/UserProfile';
+import EditProfile from "./Components/users/EditProfile";
 import AccessDenied from './Components/accessDenied.js';
 import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
@@ -322,6 +323,7 @@ function App() {
 		      {/* <Route path="/viii" element={<Viii xrpAddress={userAddress} />} /> */}
           {/* <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} /> */}
           <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
+          <Route path="/editprofile" element={<EditProfile xrpAddress={userAddress} /> } />
           {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}
         </Routes>
 
