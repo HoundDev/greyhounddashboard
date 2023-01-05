@@ -625,6 +625,10 @@ button:active {
 
 /* RICHLIST */
 
+[data-theme-version="dark"] #richlist tbody tr{
+   border-radius: 0.5em;
+}
+
 [data-theme-version="dark"] #richlist tbody tr:hover{
     background: rgba(166, 176, 207, .05) !important;
 }
