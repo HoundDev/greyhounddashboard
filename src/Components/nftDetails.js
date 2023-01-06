@@ -197,8 +197,6 @@ export default function NftDetails(props) {
         setPopupTrade(false);
         setClaimed(true);
         setListenWs(false);
-        //redirect to `/userprofile`
-        window.location.href(process.env.REACT_APP_URL + "userprofile")
     }
 
     function openPopupTrade() {
@@ -221,6 +219,7 @@ export default function NftDetails(props) {
                         setClaimed(true);
                         closePopupTrade();
                         setListenWs(false);
+                        window.location.replace(process.env.REACT_APP_URL + "userprofile");
                     } else {
                         console.log('not signed');
                         setClaimed(false);
