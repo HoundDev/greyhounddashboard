@@ -341,7 +341,7 @@ export default function NftDetails(props) {
                 <Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
                     <img className="modal-above-image" src="./images/xumm.svg" />
                     <Modal.Header>
-                        <Modal.Title>Confirm NFT Burn.</Modal.Title>
+                        <Modal.Title>Confirm NFT Burn</Modal.Title>
                         <button type="button" onClick={() => closePopupTradeErr()}
                             className="close"><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
                     </Modal.Header>
@@ -354,7 +354,7 @@ export default function NftDetails(props) {
                                 </div>
                                 <div className='tx-info'>
                                     <span>Receive</span>
-                                    <p className='text-white'> An nft with fixed taxon in future!</p>
+                                    <p className='text-white'>1 Updated NFT</p>
                                 </div>
                                 <div className='tx-info'>
                                     <span>XRP transaction fee</span>
