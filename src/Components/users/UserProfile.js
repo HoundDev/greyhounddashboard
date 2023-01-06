@@ -64,17 +64,17 @@ export default function UserProfile(props) {
                                 <div className="avatar-area">
                                      <img src="./images/placeholder/user-avatar.jpg" alt="" className="avatar-img" height={126}/>
                                 </div>
-                                <div className="socials-area">
+                                { /*<div className="socials-area">
                                     <span><i class="fa-brands fa-twitter"></i></span> 
                                     <span><i class="fa-brands fa-discord"></i></span> 
                                     <span><i class="fa-brands fa-telegram"></i></span> 
-                                </div>
+                                </div>*/}
                             </div>
                             <div className="info-area">
                                 <div className="left">
                                     <div className="d-flex gap-15 align-items-center">
-                                        <h2 className="text-white mb-0">Hound123</h2>
-                                        <button className="btn btn-blur rounded-4 fs-13 text-center">Edit Profile</button>
+                                        <h2 className="text-white mb-0">Hound</h2>
+                                        { /*<button className="btn btn-blur rounded-4 fs-13 text-center">Edit Profile</button> */}
                                     </div>
                                     
                                     <div className="d-flex gap-15">
@@ -84,7 +84,7 @@ export default function UserProfile(props) {
                                         </div>
                                         <span>Joined November 2022</span>
                                     </div>
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+                                    { /*<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>*/}
                                 </div>
                                 <div className="right">
                                     <div className="info-box">
