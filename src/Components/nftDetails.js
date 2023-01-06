@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 
@@ -105,7 +105,7 @@ export default function NftDetails(props) {
         // setNftPrice(price);
         if (data.taxon !== 1) {
             setTaxon(true);
-        }  else {
+        } else {
             setTaxon(false);
         }
         return { image: imageUrl, name: name, attr: attr, owner: owner, rarity: data.rarity, tier: data.tier, anim: data.anim }
@@ -125,10 +125,10 @@ export default function NftDetails(props) {
                 "submit": true
             },
             "txjson": {
-                    "TransactionType": "NFTokenBurn",
-                    "Account": props.xrpAddress,
-                    "Owner": props.xrpAddress,
-                    "NFTokenID": nftId
+                "TransactionType": "NFTokenBurn",
+                "Account": props.xrpAddress,
+                "Owner": props.xrpAddress,
+                "NFTokenID": nftId
             }
         };
         let xummPayloadMobile = {
@@ -137,16 +137,16 @@ export default function NftDetails(props) {
                 "return_url": {
                     "app": process.env.REACT_APP_URL + "userprofile",
                     "web": process.env.REACT_APP_URL + "userprofile"
-                  }
+                }
             },
             "txjson": {
-                    "TransactionType": "NFTokenBurn",
-                    "Account": props.xrpAddress,
-                    "Owner": props.xrpAddress,
-                    "NFTokenID": nftId
+                "TransactionType": "NFTokenBurn",
+                "Account": props.xrpAddress,
+                "Owner": props.xrpAddress,
+                "NFTokenID": nftId
             }
         };
-        if (isMobile){
+        if (isMobile) {
             var response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + "xumm/createpayload", {
                 method: 'POST',
                 headers: {
@@ -243,6 +243,7 @@ export default function NftDetails(props) {
         <div className="content-body">
             <div className="container-fluid">
 
+                {/* 
                 <div className="page-titles">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="/nftExplore">NFTs</a></li>
@@ -250,6 +251,13 @@ export default function NftDetails(props) {
                         <li className="breadcrumb-item active"><a href="">{nftName}</a></li>
                     </ol>
                 </div>
+                */}
+
+                {taxon && <div class="alert solid mb-5">
+                    <a className="text-white"><strong>Warning - </strong> Your NFT Taxon is currently outdated. Please burn this NFT by clicking on the following button.</a>
+                    <button class="btn btn-blur rounded-4 fs-13 btn-close" onClick={() => openPopupTrade()}>Update Taxon</button>
+                </div>
+                }
 
                 <div className="single-nft">
 
@@ -280,19 +288,19 @@ export default function NftDetails(props) {
                                 </div>
                                 <h3 class="mb-3">Attributes</h3>
                                 <div className="box properties mb-3">
-                                            <div className="properties-wrapper">
-                                                {nftAttrs.map((attr, index) => {
-                                                    return (
-                                                        // <div class="single-prop"><span className="display-1"><b>{attr.trait_type}</b></span><span>{attr.trait_tier}</span><p>{attr.value}<br/>{attr.per}%</p></div>
-                                                        <div class="single-prop"><span className="display-1">{attr.trait_type}</span><p>{attr.value}<br />{attr.per}%</p><span>({attr.trait_tier})</span></div>
-                                                    )
-                                                })}
-                                            </div>
-                                        </div>
+                                    <div className="properties-wrapper">
+                                        {nftAttrs.map((attr, index) => {
+                                            return (
+                                                // <div class="single-prop"><span className="display-1"><b>{attr.trait_type}</b></span><span>{attr.trait_tier}</span><p>{attr.value}<br/>{attr.per}%</p></div>
+                                                <div class="single-prop"><span className="display-1">{attr.trait_type}</span><p>{attr.value}<br />{attr.per}%</p><span>({attr.trait_tier})</span></div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ml-auto sticky-top">
+                        <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ml-auto">
                             <div className="sticky-info">
                                 <div className="nft-info ">
                                     <div className="d-flex align-items-center mb-3">
@@ -306,17 +314,10 @@ export default function NftDetails(props) {
                                         </h2>
                                     </div>
                                     <p className="mb-5">{setDesc || <Skeleton count={3} />}</p>
-                                    {taxon && <div className="box-info">
-                                            <p className="fs-20 fw-bold mb-0">WARNING</p>
-                                            <div className="nft-item-price"><span>Your nft taxon is outdated! Please burn the nft!</span></div>
-                                            <button class="btn btn-primary btn-lg"
-                                             onClick={() => openPopupTrade()}><i class="fa-solid fa-fire"></i> BURN NFT</button>
-                                        </div>
-
-                                        }
+                                    
                                     <div class="nft-price-wrapper">
                                         <div>
-                                            <div className="box-info" style={{"width" : "100%"}}>
+                                            <div className="box-info" style={{ "width": "100%" }}>
                                                 <p className="fs-14 mb-0">Rarity</p>
                                                 <div className="nft-item-price"><span>{tier || <Skeleton width={200} />}</span>{rarity || <Skeleton width={50} />}</div>
                                             </div>
@@ -326,7 +327,7 @@ export default function NftDetails(props) {
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
 
                             </div>
@@ -359,6 +360,11 @@ export default function NftDetails(props) {
                                     <span>XRP transaction fee</span>
                                     <p className='text-white'>0.000012 XRP</p>
                                 </div>
+                                <div className='tx-info'>
+                                    <a className="text-white" href={qrLink} target="_blank" rel="noreferrer">
+                                        Click here to open in XUMM
+                                    </a>
+                                </div>
                             </div>
 
                             <div className="qr-code-img">
@@ -367,10 +373,7 @@ export default function NftDetails(props) {
                                 </a> */}
                                 {/* <img src={qrString} alt="QR Code" /> */}
                                 {/* With ref to above, have the text on top and qr code below the text */}
-                                <a href={qrLink
-                                } target="_blank" rel="noreferrer">
-                                    Click here to open in XUMM
-                                </a>
+                                
                                 <br />
                                 <img src={qrString} alt="QR Code" />
                             </div>

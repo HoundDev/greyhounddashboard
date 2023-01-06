@@ -23,6 +23,25 @@ input[type="search"] {
 .gap-30{
     gap: 30px;
 }
+
+.alert{
+    border-radius: 1em;
+    background: rgba(166, 176, 207, .05);
+    box-shadow: rgb(0 0 0 / 13%) 0 34px 58px -3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 767px) {
+    .alert{
+        align-items: center;
+        justify-content: space-between;
+         gap: 15px;
+
+    }
+}
 input[type="checkbox"]:after{
     content: '';
     display: block;
