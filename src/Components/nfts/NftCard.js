@@ -1,5 +1,6 @@
 //import useState
 import React, { useState } from 'react';
+import Tilt from 'react-parallax-tilt';
 
 const NftCard = (props) => {
     // console.log(props);
@@ -26,9 +27,11 @@ const NftCard = (props) => {
             setClicked(true);
         }
     }
-
+	
 
     return (
+	
+	<Tilt className="tilter" perspective={400} glareEnable={true} glareMaxOpacity={0.35} scale={1.04} transitionSpeed={2500} tiltMaxAngleX={7}tiltMaxAngleY={7} gyroscope={true} glarePosition="all" glareColor="lightblue">
         <div className={'card nft-card ' + props.className} onClick={handleClick}>
             <div className="card-media">
                 <img className="card-img-top img-fluid tlt" src={props.nft} alt="NFT 1" height={500}/>
@@ -58,6 +61,7 @@ const NftCard = (props) => {
                 </div>
             </div>
         </div>
+	</Tilt>
     )
 }
 

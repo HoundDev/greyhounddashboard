@@ -32,6 +32,7 @@
     "react-icons": "^4.6.0",
     "react-loading-overlay-ts": "~1.0.4",
     "react-loading-skeleton": "^3.1.0",
+    "react-parallax-tilt": "^1.7.83",
     "react-perfect-scrollbar": "~1.5.8",
     "react-router-dom": "~6.2.2",
     "react-scripts": "4.0.3",

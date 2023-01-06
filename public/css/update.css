@@ -674,7 +674,7 @@ button:active {
     width: 18rem;
 }
 
-.nft-card:hover {
+/*.nft-card:hover {
     -webkit-transform: translateY(-10px);
     -ms-transform: translateY(-10px);
     -o-transform: translateY(-10px);
@@ -687,6 +687,13 @@ button:active {
     transition: all 0.4s ease;
     z-index: 2;
     box-shadow: rgb(0 0 0 / 10%) 0px 6px 12px;
+}*/
+
+.tilter {
+	height: 100%;
+}
+.glare-wrapper {
+	    border-radius: 1em!important;
 }
 
 .nft-card h3{
