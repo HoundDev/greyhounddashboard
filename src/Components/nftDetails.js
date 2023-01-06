@@ -253,7 +253,7 @@ export default function NftDetails(props) {
                 </div>
                 */}
 
-                {taxon && <div class="alert solid mb-5">
+                {taxon && <div class="alert alert-primary solid mb-5">
                     <a className="text-white"><strong>Warning - </strong> Your NFT Taxon is currently outdated. Please burn this NFT by clicking on the following button.</a>
                     <button class="btn btn-white rounded-4 fs-13 btn-close" onClick={() => openPopupTrade()}>Update Taxon</button>
                 </div>
