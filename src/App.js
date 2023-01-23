@@ -15,6 +15,8 @@ import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
 import NftCollection from './Components/nfts/NftCollection';
 import NftClaim from "./Components/nfts/NftClaim";
+import NftMint from "./Components/nftMint";
+import NftSteps from "./Components/nftSteps";
 import UserProfile from './Components/users/UserProfile';
 import EditProfile from "./Components/users/EditProfile";
 import AccessDenied from './Components/accessDenied.js';
@@ -314,14 +316,16 @@ function App() {
           <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
           {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
-          {/* <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} /> */}
+          <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           {/* <Route path="/nftDetails/:id" element={<NftDetails xrpAddress={userAddress} />} /> */}
           {/* <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} /> */}
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
 		      {/* <Route path="/viii" element={<Viii xrpAddress={userAddress} />} /> */}
-          {/* <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} /> */}
+          <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
+		  <Route path="/NftSteps" element={<NftSteps xrpAddress={userAddress} />} />
+		  <Route path="/nftMint" element={<NftMint xrpAddress={userAddress} />} />
           <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
           <Route path="/editprofile" element={<EditProfile xrpAddress={userAddress} /> } />
           {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}
