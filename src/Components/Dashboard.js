@@ -298,7 +298,6 @@ function Dashboard(props) {
 			let price = document.getElementById("gpricegraph").innerHTML
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
-			price = price
 			setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
 			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
@@ -316,7 +315,6 @@ function Dashboard(props) {
 			let price = document.getElementById("gpricegraph").innerHTML
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
-			price = price
 			// setXrpQT(xrpPr * document.getElementById("counterCur").value)
 			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
 			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
@@ -332,9 +330,9 @@ function Dashboard(props) {
 		);
 	});
 
-	const handleButtonClicked = useCallback(() => {
-		setActive(value => !value)
-	}, [])
+	// const handleButtonClicked = useCallback(() => {
+	// 	setActive(value => !value)
+	// }, [])
 
 	const handleChangeIss = event => {
 		console.log(event.target)
@@ -364,27 +362,31 @@ function Dashboard(props) {
 		}
 	}
 
-	useEffect(async () => {
-		let mainData = await getMainData(props.xrpAddress)
-		setActive(false)
-		// setShowChange(true)
-		console.log(mainData.data.Change)
-		if (mainData.data.Change > 0) {
-			setShowChangePos(true)
-			setShowChangeNeg(false)
-		}
-		else if (mainData.data.Change == 0) {
-			setShowChangePos(false)
-			setShowChangeNeg(false)
-			setShowNoChange(true)
-		}
-		else {
-			setShowChangeNeg(true)
-			setShowChangePos(false)
-		}
+	useEffect(() => {
+		async function getMainDataa() {
+			console.log("getMainData")
+			let mainData = await getMainData(props.xrpAddress)
+			setActive(false)
+			// setShowChange(true)
+			if (mainData.data.Change > 0) {
+				setShowChangePos(true)
+				setShowChangeNeg(false)
+			}
+			else if (mainData.data.Change == 0) {
+				setShowChangePos(false)
+				setShowChangeNeg(false)
+				setShowNoChange(true)
+			}
+			else {
+				setShowChangeNeg(true)
+				setShowChangePos(false)
+			}
 
-		ParseDataUpdateState(mainData)
-	}, []);
+			ParseDataUpdateState(mainData)
+	}
+	getMainDataa()
+	/*only run once*/
+	}, [])
 
 	function closePopup() {
 		setPopupTrade(false)
@@ -723,10 +725,7 @@ function Dashboard(props) {
 									<div className='d-flex gap-30 ntf-owned-card'>
 										<div className='left'>
 											<h2>The Houndies Airdrop is finally here! </h2>
-											{/* <a href='/nftDetails?test=10'> */}
-											{/* <button className="btn btn-white rounded-4 mt-3" onClick={handleNft}>My NFTs</button> */}
 											<button className="btn btn-white rounded-4 mt-3" onClick={handleNft1}>Claim NFT</button>
-											{/* </a> */}
 										</div>
 										<div className='right'>
 											<Swiper spaceBetween={15} slidesPerView={""} scrollbar={{ draggable: true }}>

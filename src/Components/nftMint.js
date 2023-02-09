@@ -12,60 +12,60 @@ require("dotenv").config();
 
 export default function NftHome(props) {
 
-    const [numberOfNfts, setNumberOfNfts] = useState(0);
-    const [nftImages, setNftImages] = useState([]);
-    const [nftNames, setNftNames] = useState([]);
+    // const [numberOfNfts, setNumberOfNfts] = useState(0);
+    // const [nftImages, setNftImages] = useState([]);
+    // const [nftNames, setNftNames] = useState([]);
 
-    function convertHexToStr(hex) {
-        var str = '';
-        for (var i = 0; i < hex.length; i += 2)
-            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-        return str;
-    }
+    // function convertHexToStr(hex) {
+    //     var str = '';
+    //     for (var i = 0; i < hex.length; i += 2)
+    //         str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    //     return str;
+    // }
 
-    async function getNfts() {
-        let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getnfts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({"xrpAddress": props.xrpAddress})
-          });
-        let data = await response.json();
-        console.log(data);
-        setNumberOfNfts(data.account_nfts.length);
-        let nfts = data.account_nfts;
-        let nftImages = [];
-        let nftNames = [];
-        //get the `uri` from the nft
-        for (let i = 0; i < nfts.length; i++) {
-            let nft = nfts[i];
-            let nftUri = nft.URI;
-            if (nftUri === "" || nftUri === undefined) {
-                console.log("uri is empty");
-                continue;
-            }
-            //convert the uri from hex to ascii
-            let nftUriAscii = convertHexToStr(nftUri);
-            //if the uri does not start with `https://`, then it is not a valid uri
-            if (!nftUriAscii.startsWith('https://')) {
-                continue;
-            }
+    // async function getNfts() {
+    //     let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getnfts', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({"xrpAddress": props.xrpAddress})
+    //       });
+    //     let data = await response.json();
+    //     console.log(data);
+    //     setNumberOfNfts(data.account_nfts.length);
+    //     let nfts = data.account_nfts;
+    //     let nftImages = [];
+    //     let nftNames = [];
+    //     //get the `uri` from the nft
+    //     for (let i = 0; i < nfts.length; i++) {
+    //         let nft = nfts[i];
+    //         let nftUri = nft.URI;
+    //         if (nftUri === "" || nftUri === undefined) {
+    //             console.log("uri is empty");
+    //             continue;
+    //         }
+    //         //convert the uri from hex to ascii
+    //         let nftUriAscii = convertHexToStr(nftUri);
+    //         //if the uri does not start with `https://`, then it is not a valid uri
+    //         if (!nftUriAscii.startsWith('https://')) {
+    //             continue;
+    //         }
             
-            //fetch the url from the ascii uri
-            let nftUriResponse = await fetch(nftUriAscii);
-            //get the `image` from the response
-            let nftUriData = await nftUriResponse.json();
-            let nftImage = nftUriData.image;
-            let nftName = nftUriData.name;
-            nftImages.push(nftImage);
-            nftNames.push(nftName);
-        }
-        setNftImages(nftImages);
-        setNftNames(nftNames);
-    }
+    //         //fetch the url from the ascii uri
+    //         let nftUriResponse = await fetch(nftUriAscii);
+    //         //get the `image` from the response
+    //         let nftUriData = await nftUriResponse.json();
+    //         let nftImage = nftUriData.image;
+    //         let nftName = nftUriData.name;
+    //         nftImages.push(nftImage);
+    //         nftNames.push(nftName);
+    //     }
+    //     setNftImages(nftImages);
+    //     setNftNames(nftNames);
+    // }
 
-    useEffect(() => {
-        getNfts();
-    }, []);
+    // useEffect(() => {
+    //     getNfts();
+    // }, []);
     return (
     
     

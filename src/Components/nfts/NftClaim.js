@@ -152,13 +152,6 @@ export default function NftClaim(props) {
             }
         };
 
-        // let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(xummPayload),
-        // });
         if (isMobile) {
             var response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
                 method: 'POST',

@@ -1,4 +1,4 @@
-const cube = document.querySelector("#cube");
+const cube = document.getElementById("cube");
 const cback = document.querySelector(".back");
 const ctop = document.querySelector(".topcrate");
 const cleft = document.querySelector(".leftcrate");
