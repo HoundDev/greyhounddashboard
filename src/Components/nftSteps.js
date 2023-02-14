@@ -66,10 +66,6 @@ export default function GreyStepper(props) {
 
   const handleMint = async () => {
       let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
-      // setTimeout(() => {
-      //   setMinting(false);
-      // }
-      // , 5000);
       setMinting(true);
       setMintClicked(true);
       let response = await axios.post(url, { "address": props.xrpAddress });
@@ -78,6 +74,7 @@ export default function GreyStepper(props) {
       setNftName("Houndies #" + response.num)
       setNftImage(response.nft_image)
       setMinting(false);
+      setOfferhash(response.offer)
   }
 
   function convertStringToHex(str) {
