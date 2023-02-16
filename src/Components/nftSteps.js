@@ -4,6 +4,8 @@ import { Button, Modal } from "react-bootstrap";
 // import NftCard from "./nfts/NftCard";
 // import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
+import LoadingOverlay from 'react-loading-overlay-ts';
+
 
 
 // import Box from '@mui/material/Box';
@@ -48,6 +50,7 @@ export default function GreyStepper(props) {
   const [nftImage, setNftImage] = useState("");
   const [offerAccepted, setOfferAccepted] = useState(false);
   const [crate, setCrate] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   
@@ -275,6 +278,7 @@ export default function GreyStepper(props) {
       setActiveStep(1);
       setClaimed(true);
       setMintClicked(false);
+      setPageLoading(false);
     } else if (data.stage === 'offered') {
       setActiveStep(2);
       setClaimed(true);
@@ -282,6 +286,7 @@ export default function GreyStepper(props) {
       setOfferhash(data.offer);
       setNftName("Houndies #" + data.nft_name);
       setNftImage(data.nft_image);
+      setPageLoading(false);
     }
   }
 
@@ -374,7 +379,7 @@ export default function GreyStepper(props) {
             <div className="card-body">	
             <p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>
     
-            <div id="cube" className="h-40 w-40 relative flex justify-center items-center cursor-pointer">
+            {/* <div id="cube" className="h-40 w-40 relative flex justify-center items-center cursor-pointer">
                 <div className="hexagon absolute" id="glow"></div>
                 <div className="cube back h-40 w-40 absolute top-0 left-0" id="cback"></div>
                 <div className="cube topcrate h-40 w-40 absolute top-0 left-0" id="ctop"></div>
@@ -382,11 +387,23 @@ export default function GreyStepper(props) {
                 <div className="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
                 <div className="powerup absolute" id="powerup"></div>
               </div>
-              {/* <div className="nft-name text-white" id="nft-name">{nftName}</div> */}
-              {/*make the div invisible until the crate is opened*/}
               <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>{nftName}</div>
-            </div>
-        
+            </div> */}
+
+            {crate === true ? (
+              <div id="cube" className="h-40 w-40 relative flex justify-center items-center cursor-pointer">
+                <div className="hexagon absolute" id="glow"></div>
+                <div className="cube back h-40 w-40 absolute top-0 left-0" id="cback"></div>
+                <div className="cube topcrate h-40 w-40 absolute top-0 left-0" id="ctop"></div>
+                <div className="cube leftcrate h-40 w-40 absolute top-0 left-0" id="cleft"></div>
+                <div className="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
+                <div className="powerup absolute" id="powerup"></div>
+              </div>
+            ) : (
+                <></>
+            )}
+            <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>{nftName}</div>
+            </div>              
           </div>	
         </div>
           );
@@ -476,8 +493,23 @@ export default function GreyStepper(props) {
     }
   }, [crate]);
 
+
   return (
-  
+    <LoadingOverlay
+    active={pageLoading}
+    styles={{
+      content: {
+        width: '100%',
+        height: '100%',
+        marginTop: '400px',
+        verticalAlign: 'top',
+      }
+    }}
+    spinner
+    text='Loading...'
+  >
+
+
 <div className="content-body">
 <div className="container-fluid">
 
@@ -607,6 +639,7 @@ export default function GreyStepper(props) {
 </div>
 </div>
     
+</LoadingOverlay>
   );
 
 }
