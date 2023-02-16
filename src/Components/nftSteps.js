@@ -274,6 +274,7 @@ export default function GreyStepper(props) {
     console.log(data);
     setPid(data.request_id);
     setStage(data.stage);
+    setPageLoading(false);
     if (data.stage === 'burnt') {
       setActiveStep(1);
       setClaimed(true);
