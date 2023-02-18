@@ -6,6 +6,7 @@ import { Button, Modal } from "react-bootstrap";
 import 'swiper/swiper.min.css';
 import LoadingOverlay from 'react-loading-overlay-ts';
 
+import Cookies from 'universal-cookie';
 
 
 // import Box from '@mui/material/Box';
@@ -51,6 +52,7 @@ export default function GreyStepper(props) {
   const [offerAccepted, setOfferAccepted] = useState(false);
   const [crate, setCrate] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
+  const [loadingText, setLoadingText] = useState("Loading...");
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   
@@ -71,7 +73,8 @@ export default function GreyStepper(props) {
       let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
       setMinting(true);
       setMintClicked(true);
-      let response = await axios.post(url, { "address": props.xrpAddress, "pid": localStorage.getItem("pid") });
+      const cookies = new Cookies();
+      let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
       response = response.data;
       console.log(response);
       setNftName("Houndies #" + response.num)
@@ -205,12 +208,13 @@ export default function GreyStepper(props) {
           closePopupTradeErr();
           setListenWs(false);
           let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
+          const cookies = new Cookies();
           let response = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": localStorage.getItem('pid') })
+            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": cookies.get('pid') })
           });
           let data = await response.json();
           console.log(data);
@@ -236,19 +240,21 @@ export default function GreyStepper(props) {
           closePopupTradeErr();
           setListenWs2(false);
           let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn';
+          const cookies = new Cookies();
           let response = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid, "pid": localStorage.getItem('pid') })
+            body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid, "pid": cookies.get('pid') })
           });
           let data = await response.json();
           console.log(data);
+          cookies.remove('pid', { path: '/nftSteps' });
           setOfferAccepted(true);
           setCrate(true);
-          //clear local storage
-          localStorage.removeItem('pid');
+          //clear the pid from cookies
+          
     } else {
           console.log('not signed');
           closePopupTradeErr();
@@ -273,20 +279,27 @@ export default function GreyStepper(props) {
     let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/pending?address=' + props.xrpAddress;
     let response = await fetch(url);
     let data = await response.json();
+    var flag = false;
     console.log(data);
-    // setPid(data.request_id);
-    //store request id in local storage
-    // localStorage.setItem('pid', data.request_id);
-    //check if it exists in local storage, if it does, replace the pid with the one in local storage
-    if (localStorage.getItem('pid') !== null && localStorage.getItem('pid') !== undefined && localStorage.getItem('pid') !== '' && localStorage.getItem('pid') !== 'undefined') {
-      console.log('pid exists');
-      console.log(localStorage.getItem('pid'));
+
+    const cookies = new Cookies();
+    if (!cookies.get('pid') || cookies.get('pid') === 'undefined' || cookies.get('pid') === undefined || cookies.get('pid') === null) {
+      cookies.set('pid', data.request_id, { path: '/nftSteps' });
+      console.log(`pid set\nPID: ${cookies.get('pid')}\nPID2: ${data.request_id}`);
     } else {
-      localStorage.setItem('pid', data.request_id);
+      console.log('pid already set');
+      if (cookies.get('pid') !== data.request_id) {
+        console.log('pid changed');
+        flag = true;
+      }
     }
+
     setStage(data.stage);
-    setPageLoading(false);
-    if (data.stage === 'burnt') {
+    // setPageLoading(false);
+    if (data.stage === 'pending') {
+      setPageLoading(false);
+      setActiveStep(0);
+    } else if (data.stage === 'burnt') {
       setActiveStep(1);
       setClaimed(true);
       setMintClicked(false);
@@ -299,6 +312,20 @@ export default function GreyStepper(props) {
       setNftName("Houndies #" + data.nft_name);
       setNftImage(data.nft_image);
       setPageLoading(false);
+    } else if (data.status === 'minting') {
+      console.log('minting');
+      //change the loading text to minting and refresh the page after 5 seconds
+      setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 10 seconds');
+      setTimeout(() => {
+        window.location.reload();
+      }, 10000);
+      flag = false;
+    }
+
+    if (flag) {
+      console.log('pid changed');
+      setLoadingText('ATTENTION: REQUEST ID IS NOT THE SAME AS THE ONE IN THE COOKIES');
+      setPageLoading(true);
     }
   }
 
@@ -518,7 +545,7 @@ export default function GreyStepper(props) {
       }
     }}
     spinner
-    text='Loading...'
+    text= {loadingText}
   >
 
 
