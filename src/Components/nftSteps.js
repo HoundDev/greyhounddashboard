@@ -44,7 +44,7 @@ export default function GreyStepper(props) {
   const [mintClicked, setMintClicked] = useState(false);
   const [minting, setMinting] = useState(false);
   const [stage, setStage] = useState(0);
-  const [pid, setPid] = useState(0);
+  // const [pid, setPid] = useState(0);
   const [offerhash, setOfferhash] = useState("");
   const [nftName, setNftName] = useState("");
   const [nftImage, setNftImage] = useState("");
@@ -71,7 +71,7 @@ export default function GreyStepper(props) {
       let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
       setMinting(true);
       setMintClicked(true);
-      let response = await axios.post(url, { "address": props.xrpAddress });
+      let response = await axios.post(url, { "address": props.xrpAddress, "pid": localStorage.getItem("pid") });
       response = response.data;
       console.log(response);
       setNftName("Houndies #" + response.num)
@@ -210,7 +210,7 @@ export default function GreyStepper(props) {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid})
+            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": localStorage.getItem('pid') })
           });
           let data = await response.json();
           console.log(data);
@@ -241,12 +241,14 @@ export default function GreyStepper(props) {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid})
+            body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid, "pid": localStorage.getItem('pid') })
           });
           let data = await response.json();
           console.log(data);
           setOfferAccepted(true);
           setCrate(true);
+          //clear local storage
+          localStorage.removeItem('pid');
     } else {
           console.log('not signed');
           closePopupTradeErr();
@@ -272,7 +274,16 @@ export default function GreyStepper(props) {
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
-    setPid(data.request_id);
+    // setPid(data.request_id);
+    //store request id in local storage
+    // localStorage.setItem('pid', data.request_id);
+    //check if it exists in local storage, if it does, replace the pid with the one in local storage
+    if (localStorage.getItem('pid') !== null && localStorage.getItem('pid') !== undefined && localStorage.getItem('pid') !== '' && localStorage.getItem('pid') !== 'undefined') {
+      console.log('pid exists');
+      console.log(localStorage.getItem('pid'));
+    } else {
+      localStorage.setItem('pid', data.request_id);
+    }
     setStage(data.stage);
     setPageLoading(false);
     if (data.stage === 'burnt') {

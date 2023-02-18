@@ -1,8 +1,6 @@
-import { Route, Switch, Redirect, NavLink } from "react-router-dom";
 import { isMobile, isBrowser } from 'react-device-detect';
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import TransactionXumm from "./TransactionXumm";
-import { verifySignature } from 'verify-xrpl-signature'
 import {
   Spinner,
   Alert,
@@ -19,7 +17,6 @@ function Login(props) {
   const ws = useRef(WebSocket);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wsConnection, setwsConnection] = React.useState("")
-  const [userAddress, setUserAddress] = React.useState('')
   const [qrMatrix, setQrMatrix] = React.useState("")
   const [mobileTxnUrl, setMobileTxnUrl] = React.useState("")
   const [showSpinner, setShowSpinner] = React.useState(false)
