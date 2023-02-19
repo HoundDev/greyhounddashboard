@@ -70,21 +70,25 @@ export default function GreyStepper(props) {
   };
 
   const handleMint = async () => {
-      let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
-      setMinting(true);
-      setMintClicked(true);
-      const cookies = new Cookies();
-      let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
-      response = response.data;
-      console.log(response);
-      //if response is 500, then there was an error, refresh the page
-      if (response.status === 500) {
-          window.location.reload();
-      }
-      setNftName("Houndies #" + response.num)
-      setNftImage(response.nft_image)
-      setMinting(false);
-      setOfferhash(response.offer)
+    try {
+        let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
+        setMinting(true);
+        setMintClicked(true);
+        const cookies = new Cookies();
+        // let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
+        //handle timeout error as well
+        let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
+        response = response.data;
+        console.log(response);
+        setNftName("Houndies #" + response.num)
+        setNftImage(response.nft_image)
+        setMinting(false);
+        setOfferhash(response.offer)
+    } catch (error) {
+        console.log(error)
+        //refresh the page
+        window.location.reload();
+    }
   }
 
   function convertStringToHex(str) {
