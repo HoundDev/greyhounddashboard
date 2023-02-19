@@ -319,10 +319,10 @@ export default function GreyStepper(props) {
     } else if (data.status === 'minting') {
       console.log('minting');
       //change the loading text to minting and refresh the page after 5 seconds
-      setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 10 seconds');
+      setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 15 seconds');
       setTimeout(() => {
         window.location.reload();
-      }, 10000);
+      }, 15000);
       flag = false;
     }
 
