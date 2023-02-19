@@ -77,6 +77,10 @@ export default function GreyStepper(props) {
       let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
       response = response.data;
       console.log(response);
+      //if response is 500, then there was an error, refresh the page
+      if (response.status === 500) {
+          window.location.reload();
+      }
       setNftName("Houndies #" + response.num)
       setNftImage(response.nft_image)
       setMinting(false);
