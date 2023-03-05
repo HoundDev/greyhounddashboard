@@ -53,6 +53,7 @@ export default function GreyStepper(props) {
   const [crate, setCrate] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("Loading...");
+  const [balance, setBalance] = useState(0);
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   
@@ -84,6 +85,7 @@ export default function GreyStepper(props) {
         setNftImage(response.nft_image)
         setMinting(false);
         setOfferhash(response.offer)
+        handleNext();
     } catch (error) {
         console.log(error)
         //refresh the page
@@ -212,9 +214,11 @@ export default function GreyStepper(props) {
         console.log('signed');
         if (responseObj.signed === true) {
           console.log('signed');
+          handleNext();
           setClaimed(true);
           closePopupTradeErr();
           setListenWs(false);
+          handleMint();
           let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
           const cookies = new Cookies();
           let response = await fetch(url, {
@@ -337,8 +341,21 @@ export default function GreyStepper(props) {
     }
   }
 
+  async function getBalance() {
+    let url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/greyhoundBalance?address=' + props.xrpAddress;
+    let response = await fetch(url);
+    let mainData = await response.json();
+    console.log(mainData);
+    for (let i = 0; i < mainData.length; i++) {
+      if (mainData[i].currency === '47726579686F756E640000000000000000000000') {
+        setBalance(Math.round(parseFloat(mainData[i].balance)));
+      }
+    }
+  }
+
   useEffect(() => {
     checkAddress();
+    getBalance();
   }, []);
 
   useEffect(() => {
@@ -375,7 +392,7 @@ export default function GreyStepper(props) {
                   <div className="mintbox">
                     <span className="text-white">Balance</span>
                     <div className="d-block">
-                      <span className="fs-22 text-white" id="baseField">0123456789</span>
+                      <span className="fs-22 text-white" id="baseField">{balance}</span>
                     </div>
                     <a href="/">Buy More</a>
                   </div>	
