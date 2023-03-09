@@ -29,7 +29,7 @@ function getSteps() {
 
 export default function GreyStepper(props) {
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(2);
   const [popupTrade, setPopupTrade] = useState(false);
   const [popupTrade2, setPopupTrade2] = useState(false);
   const [qrString, setQrString] = useState("");
@@ -44,14 +44,13 @@ export default function GreyStepper(props) {
   const [issueAmount, setIssueAmount] = useState(0);
   const [mintClicked, setMintClicked] = useState(false);
   const [minting, setMinting] = useState(false);
-  const [stage, setStage] = useState(0);
   // const [pid, setPid] = useState(0);
   const [offerhash, setOfferhash] = useState("");
-  const [nftName, setNftName] = useState("");
-  const [nftImage, setNftImage] = useState("");
-  const [offerAccepted, setOfferAccepted] = useState(false);
-  const [crate, setCrate] = useState(false);
-  const [pageLoading, setPageLoading] = useState(true);
+  const [nftName, setNftName] = useState("Houndies #0");
+  const [nftImage, setNftImage] = useState("https://houndsden.app.greyhoundcoin.net/images/houndies/0.png");
+  const [offerAccepted, setOfferAccepted] = useState(true);
+  const [crate, setCrate] = useState(true);
+  const [pageLoading, setPageLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -77,12 +76,12 @@ export default function GreyStepper(props) {
         setMintClicked(true);
         const cookies = new Cookies();
         // let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
-        //handle timeout error as well
         let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
         response = response.data;
         console.log(response);
         setNftName("Houndies #" + response.num)
-        setNftImage(response.nft_image)
+        // setNftImage(response.nft_image)
+        setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + response.num + ".png")
         setMinting(false);
         setOfferhash(response.offer)
         handleNext();
@@ -306,7 +305,6 @@ export default function GreyStepper(props) {
       }
     }
 
-    setStage(data.stage);
     // setPageLoading(false);
     if (data.stage === 'pending') {
       setPageLoading(false);
@@ -322,16 +320,25 @@ export default function GreyStepper(props) {
       setMintClicked(true);
       setOfferhash(data.offer);
       setNftName("Houndies #" + data.nft_name);
-      setNftImage(data.nft_image);
+      // setNftImage(data.nft_image);
+      setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + data.nft_name + ".png")
       setPageLoading(false);
     } else if (data.status === 'minting') {
-      console.log('minting');
-      //change the loading text to minting and refresh the page after 5 seconds
-      setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 15 seconds');
+      // console.log('minting');
+      // //change the loading text to minting and refresh the page after 5 seconds
+      // setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 15 seconds');
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 15000);
+      // flag = false;
+      setActiveStep(1);
+      setMinting(true);
+      setMintClicked(true);
+      //refresh the page after 20 seconds
       setTimeout(() => {
         window.location.reload();
-      }, 15000);
-      flag = false;
+      }, 20000);
+
     }
 
     if (flag) {
@@ -354,8 +361,8 @@ export default function GreyStepper(props) {
   }
 
   useEffect(() => {
-    checkAddress();
-    getBalance();
+    // checkAddress();
+    // getBalance();
   }, []);
 
   useEffect(() => {
@@ -442,27 +449,16 @@ export default function GreyStepper(props) {
         
             <div className="card-body">	
             <p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>
-    
-            {/* <div id="cube" className="h-40 w-40 relative flex justify-center items-center cursor-pointer">
-                <div className="hexagon absolute" id="glow"></div>
-                <div className="cube back h-40 w-40 absolute top-0 left-0" id="cback"></div>
-                <div className="cube topcrate h-40 w-40 absolute top-0 left-0" id="ctop"></div>
-                <div className="cube leftcrate h-40 w-40 absolute top-0 left-0" id="cleft"></div>
-                <div className="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
-                <div className="powerup absolute" id="powerup"></div>
-              </div>
-              <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>{nftName}</div>
-            </div> */}
 
             {crate === true ? (
-              <div id="cube" className="h-40 w-40 relative flex justify-center items-center cursor-pointer">
-                <div className="hexagon absolute" id="glow"></div>
-                <div className="cube back h-40 w-40 absolute top-0 left-0" id="cback"></div>
-                <div className="cube topcrate h-40 w-40 absolute top-0 left-0" id="ctop"></div>
-                <div className="cube leftcrate h-40 w-40 absolute top-0 left-0" id="cleft"></div>
-                <div className="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
-                <div className="powerup absolute" id="powerup"></div>
-              </div>
+                <div id="cube" class="h-40 w-40 relative flex justify-center items-center cursor-pointer">
+                  <div class="hexagon absolute" id="glow"></div>
+                  <div class="cube back h-40 w-40 absolute top-0 left-0" id="cback"></div>
+                  <div class="cube topcrate h-40 w-40 absolute top-0 left-0" id="ctop"></div>
+                  <div class="cube leftcrate h-40 w-40 absolute top-0 left-0" id="cleft"></div>
+                  <div class="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
+                  <div class="powerup absolute" id="powerup"></div>
+                </div>
             ) : (
                 <></>
             )}
@@ -488,6 +484,9 @@ export default function GreyStepper(props) {
       const nftName = document.getElementById("nft-name");
       const transitionTime = "750ms";
 
+      powerup.style.backgroundImage = `url(${nftImage})`;
+      // var c = 0;
+      
       ctop.style.transition = `all ${transitionTime}`;
       cleft.style.transition = `all ${transitionTime}`;
       cright.style.transition = `all ${transitionTime}`;
@@ -495,15 +494,14 @@ export default function GreyStepper(props) {
       powerup.style.transition = `all ${transitionTime}`;
       glow.style.transition = `all ${transitionTime}`;
       cback.style.transition = `all ${transitionTime}`;
-
+      
       var isOpen = false;
 
       function changeVar(glow) {
         document.documentElement.style.setProperty("--glow", glow);
       }
-
+      
       function award() {
-          powerup.style.backgroundImage = `url(${nftImage})`
           changeVar("rgba(192, 99, 111, 0.5)");
       }
 
@@ -513,22 +511,24 @@ export default function GreyStepper(props) {
             award();
             ctop.style.transform = "translateY(-3rem)";
             cleft.style.transform = "translateX(-3rem)";
+            cback.style.transform = "translateX(-3rem)";
             cright.style.transform = "translateX(3rem)";
             ctop.style.opacity = 0.2;
-            cleft.style.opacity = 0.2;
+            cleft.style.opacity = 0.1;
             cright.style.opacity = 0.2;
-            cback.style.opacity = 0.2;
+            cback.style.opacity = 0.1;
             glow.style.opacity = 0.5;
             powerup.style.opacity = 1;
             isOpen = true;
             cube.style.animationPlayState = "paused";
             powerup.style.zIndex = 10;
-            powerup.style.height = "240px";
-            powerup.style.width = "240px";
+            powerup.style.height = "300px";
+            powerup.style.width = "300px";
             nftName.style.visibility = "visible";
           } else {
             ctop.style.transform = "translateY(0)";
             cleft.style.transform = "translateX(0)";
+            cback.style.transform = "translateX(0)";
             cright.style.transform = "translateX(0)";
             cube.style.opacity = 1;
             isOpen = false;
@@ -537,11 +537,11 @@ export default function GreyStepper(props) {
             cright.style.opacity = 1;
             cback.style.opacity = 1;
             glow.style.opacity = 1;
-            powerup.style.opacity = 0;
+            powerup.style.opacity = 1;
             powerup.style.zIndex = 0;
             cube.style.animationPlayState = "running";
-            powerup.style.height = "48px";
-            powerup.style.width = "48px";
+            powerup.style.height = "160px";
+            powerup.style.width = "160px";
             changeVar("rgba(192, 99, 111, 0.5)");
             nftName.style.visibility = "hidden";
           }
@@ -551,8 +551,6 @@ export default function GreyStepper(props) {
       cube.addEventListener("click", () => {
         new openCube();
       });
-
-
 
     }
   }, [crate]);
@@ -585,6 +583,9 @@ export default function GreyStepper(props) {
             <StepContent>
               <Typography>{getStepContent(index)}</Typography>
               <div className="text-center btn-bar">
+              {/* <div id="preloader">
+                <div id="loader"></div>
+              </div> */}
                   <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button>
                   {claimed && index === 0 &&
 				  <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
@@ -592,6 +593,13 @@ export default function GreyStepper(props) {
 					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
                   {mintClicked === false && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint}>Mint</Button>}
+                  {minting === true && index === 1 &&
+                  //enable the preloader here
+                  <div id="preloaderr">
+                    <div id="loaderr"></div>
+                    <br></br>
+                  </div>
+                  }
                   {minting === true && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
                   {mintClicked === true && index === 1 && minting === false &&
