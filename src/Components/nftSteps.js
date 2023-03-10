@@ -29,7 +29,7 @@ function getSteps() {
 
 export default function GreyStepper(props) {
 
-  const [activeStep, setActiveStep] = React.useState(2);
+  const [activeStep, setActiveStep] = React.useState(1);
   const [popupTrade, setPopupTrade] = useState(false);
   const [popupTrade2, setPopupTrade2] = useState(false);
   const [qrString, setQrString] = useState("");
@@ -43,13 +43,13 @@ export default function GreyStepper(props) {
   const [qrLink2, setQrLink2] = useState("");
   const [issueAmount, setIssueAmount] = useState(0);
   const [mintClicked, setMintClicked] = useState(false);
-  const [minting, setMinting] = useState(false);
+  const [minting, setMinting] = useState(true);
   // const [pid, setPid] = useState(0);
   const [offerhash, setOfferhash] = useState("");
-  const [nftName, setNftName] = useState("Houndies #0");
-  const [nftImage, setNftImage] = useState("https://houndsden.app.greyhoundcoin.net/images/houndies/0.png");
-  const [offerAccepted, setOfferAccepted] = useState(true);
-  const [crate, setCrate] = useState(true);
+  const [nftName, setNftName] = useState("");
+  const [nftImage, setNftImage] = useState("");
+  const [offerAccepted, setOfferAccepted] = useState(false);
+  const [crate, setCrate] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
@@ -384,15 +384,19 @@ export default function GreyStepper(props) {
         case 0:
           return (
         
-            <div className="col-xl-8 col-xxl-8 col-lg-8 offset-lg-2 text-center" id="mintbox-1">
+          <div className="col-xl-8 col-xxl-8 col-lg-8 offset-lg-2 text-center" id="mintbox-1">
           <div className="card overflow-hidden">
             <div className="card-header border-0 pb-0">
               <div className="stepperTitle text-white mb-2 font-w600">Burn Hound</div>
             </div>
+            {/* <div class="loaderr">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div> */}
             <div className="card-body">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
-        
-              
         <div className="container text-center">
         <div className="row">
               <div className="col-md-6">
@@ -435,6 +439,12 @@ export default function GreyStepper(props) {
             <div className="card-body">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
               {/* {(nftImage === "") ? " " : <img src={nftImage} className="img-fluid" alt="nft" />} */}
+              <div class="loaderr">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
           </div>	
         </div>
@@ -586,20 +596,13 @@ export default function GreyStepper(props) {
               {/* <div id="preloader">
                 <div id="loader"></div>
               </div> */}
-                  <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button>
+          <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button>
                   {claimed && index === 0 &&
 				  <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
                   { !claimed && 
 					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
                   {mintClicked === false && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint}>Mint</Button>}
-                  {minting === true && index === 1 &&
-                  //enable the preloader here
-                  <div id="preloaderr">
-                    <div id="loaderr"></div>
-                    <br></br>
-                  </div>
-                  }
                   {minting === true && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
                   {mintClicked === true && index === 1 && minting === false &&
