@@ -354,7 +354,7 @@ function Dashboard(props) {
 		let amountBase = data.amount_gh
 		let amountCounter = quoteAmount * 1000000
 		setBaseAmount(amountBase)
-		setQuoteAmount(amountCounter)
+		setQuoteAmount(quoteAmount)
 		createOffer(amountBase, amountCounter, 'buy')
 		setCurStringS("XRP")
 		setCurStringB("Hound")
