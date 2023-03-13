@@ -352,7 +352,7 @@ function Dashboard(props) {
 		let data = await response.json()
 		console.log(data)
 		let amountBase = data.amount_gh
-		let amountCounter = quoteAmount
+		let amountCounter = quoteAmount * 1000000
 		setBaseAmount(amountBase)
 		setQuoteAmount(amountCounter)
 		createOffer(amountBase, amountCounter, 'buy')
