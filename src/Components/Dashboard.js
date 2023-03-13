@@ -344,7 +344,7 @@ function Dashboard(props) {
 		console.log(`Base: ${baseAmount} Quote: ${quoteAmount}`)
 		//disable the button
 		document.getElementById("tradeButton").disabled = true
-		let url = "http://84.54.23.217:8000/get_amount_gh/?amount_xrp=" + quoteAmount
+		let url = "https://gh-api-gray.vercel.app/book_offers?xrpAmount=" + quoteAmount;
 		// let response = await fetch(url) no cors
 		let response = await fetch(url)
 		let data = await response.json()
