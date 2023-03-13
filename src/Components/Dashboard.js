@@ -236,6 +236,8 @@ function Dashboard(props) {
 		ws.current = new WebSocket(json.refs.websocket_status)
 		setListenWs(true)
 	}
+	
+	
 	//detect button click and call function
 	// document.addEventListener("DOMContentLoaded", function () {
 	// 	//double click event
@@ -354,6 +356,14 @@ function Dashboard(props) {
 		setBaseAmount(amountBase)
 		setQuoteAmount(amountCounter)
 		createOffer(amountBase, amountCounter, 'buy')
+		setCurStringS("XRP")
+		setCurStringB("Hound")
+		setIssueAmount(0)
+		let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		// setPopupTrade(true)
+		if (!isMobile) {
+			setPopupTrade(true)
+		} 
 	}
 
 	async function handleCounterCur(value) {
