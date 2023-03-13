@@ -29,7 +29,7 @@ function getSteps() {
 
 export default function GreyStepper(props) {
 
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(0);
   const [popupTrade, setPopupTrade] = useState(false);
   const [popupTrade2, setPopupTrade2] = useState(false);
   const [qrString, setQrString] = useState("");
@@ -361,8 +361,8 @@ export default function GreyStepper(props) {
   }
 
   useEffect(() => {
-    // checkAddress();
-    // getBalance();
+    checkAddress();
+    getBalance();
   }, []);
 
   useEffect(() => {
@@ -437,8 +437,6 @@ export default function GreyStepper(props) {
               <div className="stepperTitle text-white mb-2 font-w600">Mint Houndie</div>
             </div>
             <div className="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
-              {/* {(nftImage === "") ? " " : <img src={nftImage} className="img-fluid" alt="nft" />} */}
               <div class="loaderr">
                 <span></span>
                 <span></span>

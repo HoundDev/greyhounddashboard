@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import LoadingOverlay from 'react-loading-overlay-ts';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
@@ -121,6 +122,7 @@ function Dashboard(props) {
 	const [curStringS, setCurStringS] = useState('')
 	const [showSuccess, setShowSuccess] = useState(false)
 	const [showError, setShowError] = useState(false)
+	const [tradeMode, setTradeMode] = useState(0) // 0 = buy, 1 = sell 
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -175,7 +177,7 @@ function Dashboard(props) {
 
 	async function createOffer(amountBase, amountCounter, type) {
 		//create offer
-		if (type === 'buy') {
+		if (type === 'sell') {
 			var xummPayload = {
 				"options": {
 					"submit": true
@@ -192,6 +194,11 @@ function Dashboard(props) {
 				}
 			}
 		} else {
+			// let apiLinkTemp = "http://84.54.23.217:8000/get_amount_gh/?amount_xrp=" + amountCounter;
+			// let response = await fetch(apiLinkTemp);
+			// let json = await response.json();
+			// amountBase = json.amount_gh;
+
 			var xummPayload = {
 				"options": {
 					"submit": true
@@ -202,9 +209,10 @@ function Dashboard(props) {
 					"TakerGets": {
 						"currency": "47726579686F756E640000000000000000000000",
 						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
-						"value": amountBase
+						"value": `${amountBase}`
 					},
-					"TakerPays": `${amountCounter}`
+					"TakerPays": `${amountCounter}`,
+					"Flags": 131072
 				}
 			}
 		}
@@ -229,110 +237,192 @@ function Dashboard(props) {
 		setListenWs(true)
 	}
 	//detect button click and call function
-	document.addEventListener("DOMContentLoaded", function () {
-		//double click event
-		document.getElementById("swapButton").addEventListener("click", function () {
-			console.log("swap")
-			//swap two divs but keep the button in the same place
-			var div_main = document.getElementById("trade-wrapper");
-			var div1 = document.getElementById("trade-box-counter");
-			var div2 = document.getElementById("trade-box-base");
-			var div3Button = document.getElementById("swapButtonC");
-			// console.log(div_main.firstChild)
-			if (div_main.firstChild.id === "trade-box-counter") {
-				div_main.insertBefore(div2, div1);
-				div_main.insertBefore(div3Button, div1);
-				//change the text inside the div (in a span) from Receive to pay with
-				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Receive"
-				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Pay with"
-			} else {
-				div_main.insertBefore(div1, div2);
-				div_main.insertBefore(div3Button, div2);
-				document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
-				document.getElementById("trade-box-base").querySelector("span").innerHTML = "Receive"
-			}
-		});
-		document.getElementById("tradeButton").addEventListener("click", function () {
-			let amountBase = document.getElementById("baseCur").value
-			let amountCounter = document.getElementById("counterCur").value
-			// setBaseAmount(amountBase)
-			// setQuoteAmount(amountCounter)
-			amountBase = reverseFormat(amountBase)
-			//convert from drops to xrp
-			amountCounter = amountCounter * 1000000
-			if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
-				var div_main = document.getElementById("trade-wrapper");
-				if (div_main.firstChild.id === "trade-box-counter") {
-					createOffer(amountBase, amountCounter, 'sell')
-					setBaseAmount(amountCounter / 1000000)
-					setQuoteAmount(amountBase)
-					setCurStringB("Hound")
-					setCurStringS("XRP")
-					amountCounter = amountCounter / 1000000
-					//1.5% fee
-					let fee = amountCounter * 0.015
-					setIssueAmount(fee)
-				} else {
-					createOffer(amountBase, amountCounter, 'buy')
-					setBaseAmount(amountBase)
-					setQuoteAmount(amountCounter / 1000000)
-					setCurStringB("XRP")
-					setCurStringS("Hound")
-					setIssueAmount(0)
-				}
-				let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-				// setPopupTrade(true)
-				if (!isMobile) {
-					setPopupTrade(true)
-				}
-			}
-			else {
-				alert("Please enter an amount")
-			}
+	// document.addEventListener("DOMContentLoaded", function () {
+	// 	//double click event
+	// 	document.getElementById("swapButton").addEventListener("click", function () {
+	// 		console.log("swap")
+	// 		//swap two divs but keep the button in the same place
+	// 		var div_main = document.getElementById("trade-wrapper");
+	// 		var div1 = document.getElementById("trade-box-counter");
+	// 		var div2 = document.getElementById("trade-box-base");
+	// 		var div3Button = document.getElementById("swapButtonC");
+	// 		// console.log(div_main.firstChild)
+	// 		if (div_main.firstChild.id === "trade-box-counter") {
+	// 			div_main.insertBefore(div2, div1);
+	// 			div_main.insertBefore(div3Button, div1);
+	// 			//change the text inside the div (in a span) from Receive to pay with
+	// 			document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Receive"
+	// 			document.getElementById("trade-box-base").querySelector("span").innerHTML = "Pay with"
+	// 		} else {
+	// 			div_main.insertBefore(div1, div2);
+	// 			div_main.insertBefore(div3Button, div2);
+	// 			document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
+	// 			document.getElementById("trade-box-base").querySelector("span").innerHTML = "Receive"
+	// 		}
+	// 	});
+	// 	document.getElementById("tradeButton").addEventListener("click", function () {
+	// 		//disable the button
+	// 		document.getElementById("tradeButton").disabled = true
+	// 		let amountBase = document.getElementById("baseCur").value
+	// 		let amountCounter = document.getElementById("counterCur").value
+	// 		// setBaseAmount(amountBase)
+	// 		// setQuoteAmount(amountCounter)
+	// 		amountBase = reverseFormat(amountBase)
+	// 		//convert from drops to xrp
+	// 		amountCounter = amountCounter * 1000000
+	// 		if (amountBase != "" && amountCounter != "" && amountBase != 0 && amountCounter != 0) {
+	// 			var div_main = document.getElementById("trade-wrapper");
+	// 			if (div_main.firstChild.id === "trade-box-counter") {
+	// 				createOffer(amountBase, amountCounter, 'sell')
+	// 				setBaseAmount(amountCounter / 1000000)
+	// 				setQuoteAmount(amountBase)
+	// 				setCurStringB("Hound")
+	// 				setCurStringS("XRP")
+	// 				amountCounter = amountCounter / 1000000
+	// 				//1.5% fee
+	// 				let fee = amountCounter * 0.015
+	// 				setIssueAmount(fee)
+	// 			} else {
+	// 				createOffer(amountBase, amountCounter, 'buy')
+	// 				setBaseAmount(amountBase)
+	// 				setQuoteAmount(amountCounter / 1000000)
+	// 				setCurStringB("XRP")
+	// 				setCurStringS("Hound")
+	// 				setIssueAmount(0)
+	// 			}
+	// 			let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+	// 			// setPopupTrade(true)
+	// 			if (!isMobile) {
+	// 				setPopupTrade(true)
+	// 			}
+	// 		}
+	// 		else {
+	// 			alert("Please enter an amount")
+	// 		}
 
-		});
-		//check if something is written in basecur
-		document.getElementById("counterCur").addEventListener("input", function () {
-			//disable the countercur
-			// document.getElementById("baseCur").disabled = true
+	// 	});
+	// 	//check if something is written in basecur
+	// 	document.getElementById("counterCur").addEventListener("input", function () {
+	// 		//disable the countercur
+	// 		// document.getElementById("baseCur").disabled = true
+	// 		let price = document.getElementById("gpricegraph").innerHTML
+	// 		let xrpPr = document.getElementById("xrppricegraph").innerHTML
+	// 		price = parseFloat(price)
+	// 		setXrpQT(xrpPr * document.getElementById("counterCur").value)
+	// 		// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
+	// 		document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
+	// 		document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value / price)
+	// 		//change the text
+	// 		// document.getElementById("counterCur").placeholder = "Disabled"
+	// 		if (document.getElementById("counterCur").value == "") {
+	// 			// document.getElementById("baseCur").disabled = false
+	// 			document.getElementById("baseCur").placeholder = " "
+	// 		}
+	// 	});
+	// 	document.getElementById("baseCur").addEventListener("input", function () {
+	// 		//disable the countercur
+	// 		// document.getElementById("counterCur").disabled = true
+	// 		let price = document.getElementById("gpricegraph").innerHTML
+	// 		let xrpPr = document.getElementById("xrppricegraph").innerHTML
+	// 		price = parseFloat(price)
+	// 		// setXrpQT(xrpPr * document.getElementById("counterCur").value)
+	// 		// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
+	// 		document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
+	// 		document.getElementById("counterCur").placeholder = document.getElementById("baseCur").value * price
+	// 		setXrpQT(xrpPr * document.getElementById("counterCur").value)
+	// 		//change the text
+	// 		// document.getElementById("baseCur").placeholder = "Disabled"
+	// 		if (document.getElementById("baseCur").value == "") {
+	// 			// document.getElementById("counterCur").disabled = false
+	// 			document.getElementById("counterCur").placeholder = " "
+	// 		}
+	// 	}
+	// 	);
+	// });
+
+	async function handleTrade() {
+		console.log(`Base: ${baseAmount} Quote: ${quoteAmount}`)
+		//disable the button
+		document.getElementById("tradeButton").disabled = true
+		let url = "http://84.54.23.217:8000/get_amount_gh/?amount_xrp=" + quoteAmount
+		// let response = await fetch(url) no cors
+		let response = await fetch(url)
+		let data = await response.json()
+		console.log(data)
+		let amountBase = data.amount_gh
+		let amountCounter = quoteAmount
+		setBaseAmount(amountBase)
+		setQuoteAmount(amountCounter)
+		createOffer(amountBase, amountCounter, 'buy')
+	}
+
+	async function handleCounterCur(value) {
+		setQuoteAmount(value)
+		//change BaseCur
+		if (tradeMode === 0) {
 			let price = document.getElementById("gpricegraph").innerHTML
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
-			setXrpQT(xrpPr * document.getElementById("counterCur").value)
-			// setGreyHoundQT(xrpPr * document.getElementById("counterCur").value)
-			document.getElementById("baseCur").value = formatNumber(document.getElementById("counterCur").value / price)
-			document.getElementById("baseCur").placeholder = formatNumber(document.getElementById("counterCur").value / price)
-			//change the text
-			// document.getElementById("counterCur").placeholder = "Disabled"
-			if (document.getElementById("counterCur").value == "") {
-				// document.getElementById("baseCur").disabled = false
-				document.getElementById("baseCur").placeholder = " "
-			}
-		});
-		document.getElementById("baseCur").addEventListener("input", function () {
-			//disable the countercur
-			// document.getElementById("counterCur").disabled = true
+
+			setXrpQT(xrpPr * value)
+
+			document.getElementById("baseCur").value = formatNumber(value / price)
+			document.getElementById("baseCur").placeholder = formatNumber(value / price)
+
+			setBaseAmount(value / price)
+
+			//1.5% fee
+			let fee = value * 0.015
+			setIssueAmount(fee)
+		} else {
 			let price = document.getElementById("gpricegraph").innerHTML
 			let xrpPr = document.getElementById("xrppricegraph").innerHTML
 			price = parseFloat(price)
-			// setXrpQT(xrpPr * document.getElementById("counterCur").value)
-			// setGreyHoundQT(xrpPr * reverseFormatCommas(document.getElementById("counterCur").value))
-			document.getElementById("counterCur").value = document.getElementById("baseCur").value * price
-			document.getElementById("counterCur").placeholder = document.getElementById("baseCur").value * price
-			setXrpQT(xrpPr * document.getElementById("counterCur").value)
-			//change the text
-			// document.getElementById("baseCur").placeholder = "Disabled"
-			if (document.getElementById("baseCur").value == "") {
-				// document.getElementById("counterCur").disabled = false
-				document.getElementById("counterCur").placeholder = " "
-			}
+
+			setXrpQT(xrpPr * value)
+
+			document.getElementById("baseCur").value = formatNumber(value * price)
+			document.getElementById("baseCur").placeholder = formatNumber(value * price)
+
+			setBaseAmount(value * price)
+			setIssueAmount(0)
 		}
-		);
-	});
+	}
 
-	// const handleButtonClicked = useCallback(() => {
-	// 	setActive(value => !value)
-	// }, [])
+	async function handleBaseCur(value) {
+		setBaseAmount(value)
+	}
+
+	async function handleSwap() {
+		// if (tradeMode === 0) {
+		// 	console.log("Swap")
+		// 	setTradeMode(1)
+		// 	setCurStringB("Hound")
+		// 	setCurStringS("XRP")
+		// } else {
+		// 	setTradeMode(0)
+		// 	setCurStringB("XRP")
+		// 	setCurStringS("Hound")
+		// }
+		// var div_main = document.getElementById("trade-wrapper");
+		// var div1 = document.getElementById("trade-box-counter");
+		// var div2 = document.getElementById("trade-box-base");
+		// var div3Button = document.getElementById("swapButtonC");
+		// var baseInput = document.getElementById("baseCur");
+		// var counterInput = document.getElementById("counterCur");
+		// if (div_main.firstChild.id === "trade-box-counter") {
+		// 	div_main.insertBefore(div2, div1);
+		// 	div_main.insertBefore(div3Button, div1);
+		// 	document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Receive"
+		// 	document.getElementById("trade-box-base").querySelector("span").innerHTML = "Pay with"
+	
+		// } else {
+		// 	div_main.insertBefore(div1, div2);
+		// 	div_main.insertBefore(div3Button, div2);
+		// 	document.getElementById("trade-box-counter").querySelector("span").innerHTML = "Pay with"
+		// 	document.getElementById("trade-box-base").querySelector("span").innerHTML = "Receive"
+		// }
+	}
 
 	const handleChangeIss = event => {
 		console.log(event.target)
@@ -345,8 +435,6 @@ function Dashboard(props) {
 		}
 
 	}
-
-
 
 	const getXummPayload = async (requestContent) => {
 		try {
@@ -383,15 +471,17 @@ function Dashboard(props) {
 			}
 
 			ParseDataUpdateState(mainData)
-	}
+		}
+
 	getMainDataa()
-	/*only run once*/
 	}, [])
 
 	function closePopup() {
+		document.getElementById("tradeButton").disabled = false
 		setPopupTrade(false)
 		setListenWs(false)
 		ws.current.close()
+		//enable the button
 	}
 
 	useEffect(() => {
@@ -550,6 +640,8 @@ function Dashboard(props) {
 	function handleNft1() {
 		window.location.href = '/claimNFT'
 	}
+
+
 
 	return (
 		<LoadingOverlay
@@ -784,7 +876,7 @@ function Dashboard(props) {
 														<form id='swapBase' className='swap-form'>
 															<div className="dropdow d-block mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' />
+																	<img src="./images/tokens/xrp.png" height="30px" id='counterImage' alt="xrp" />
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='counterField'>XRP</span>
 																	</div>
@@ -794,7 +886,9 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">HOUND</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' />
+																<input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' onChange= { (e) => handleCounterCur(e.target.value) } />
+																{/* <input type="text" className="form-control fs-28" placeholder={greyHoundPrice} id='counterCur' autoComplete='off' onChange= { (e) => handleCounterCur(e.target.value) } disabled /> */}
+															
 														</form>
 
 														<div className='trade-value'>
@@ -803,15 +897,17 @@ function Dashboard(props) {
 														</div>
 													</div>
 													<div className="flex-col justify-content-center align-self-center" id='swapButtonC'>
-														{/* <button className="round-button"><i className="fi fi-rr-exchange"></i></button> */}
-														<button className="round-button" id="swapButton"><i className="fi fi-rr-exchange"></i></button>
+														{/* <button className="round-button" id="swapButton" onClick = { () => setTradeMode(tradeMode === 'buy' ? 'sell' : 'buy') }> */}
+														<button className="round-button" id="swapButton" onClick = { () => handleSwap() } disabled={true}>
+															<i className="fi fi-rr-exchange"></i>
+														</button>
 													</div>
 													<div className="flex-col trade-box" id='trade-box-base'>
 														<span className="text-white">Receive</span>
 														<form id='swapCount'>
 															<div className="dropdown d-block  mt-sm-0">
 																<div className="btn d-flex align-items-center rounded-4 svg-btn btn-md" data-toggle="dropdown" aria-expanded="false">
-																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage' />
+																	<img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id='baseImage' alt="hound" />
 																	<div className="text-left ml-3">
 																		<span className="d-block fs-20 text-white" id='baseField'>HOUND</span>
 																	</div>
@@ -821,7 +917,9 @@ function Dashboard(props) {
 																	<a className="dropdown-item" href="">XRP</a>
 																</div>
 															</div>
-															<input type="text" className="form-control fs-28" placeholder="1"/*format(1/greyHoundPrice)*/ id='baseCur' autoComplete='off' />
+															{/* <input type="text" className="form-control fs-28" placeholder="1" id='baseCur' autoComplete='off' onChange= change baseAmount /> */}
+															{/* <input type="text" className="form-control fs-28" placeholder="1" id='baseCur' autoComplete='off' onChange={ (e) => handleBaseCur(e.target.value) } /> */}
+																<input type="text" className="form-control fs-28" placeholder="1" id='baseCur' autoComplete='off' onChange={ (e) => handleBaseCur(e.target.value) } disabled />
 														</form>
 														<div className='trade-value'>
 															<p className="fs-14" id='houndPriceXRP'>Balance: {format(greyHoundBalance)}</p>
@@ -847,7 +945,9 @@ function Dashboard(props) {
 												</div>
 												<div className="col-md-7 text-left mt-3 mt-sm-0 text-sm-right">
 													{/* <a href="" className="btn btn-primary rounded-4 mb-2">Trade</a></div></div></div> */}
-													<button className="btn btn-white rounded-4 mb-2" id='tradeButton'>Place order</button></div></div></div>
+													<button className="btn btn-white rounded-4 mb-2" id='tradeButton'
+													 onClick={handleTrade}>
+													 Place order</button></div></div></div>
 
 										<Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
 											<img className="modal-above-image" src="./images/xumm.svg" />
