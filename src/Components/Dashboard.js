@@ -211,7 +211,7 @@ function Dashboard(props) {
 						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
 						"value": `${amountBase}`
 					},
-					"TakerPays": `${amountCounter}`,
+					"TakerPays": `${amountCounter * 1000000}`,
 					"Flags": 131072
 				}
 			}
@@ -352,7 +352,7 @@ function Dashboard(props) {
 		let data = await response.json()
 		console.log(data)
 		let amountBase = data.amount_gh
-		let amountCounter = quoteAmount * 1000000
+		let amountCounter = quoteAmount
 		setBaseAmount(amountBase)
 		setQuoteAmount(quoteAmount)
 		createOffer(amountBase, amountCounter, 'buy')
