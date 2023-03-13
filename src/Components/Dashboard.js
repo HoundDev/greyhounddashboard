@@ -194,10 +194,10 @@ function Dashboard(props) {
 				}
 			}
 		} else {
-			// let apiLinkTemp = "http://84.54.23.217:8000/get_amount_gh/?amount_xrp=" + amountCounter;
-			// let response = await fetch(apiLinkTemp);
-			// let json = await response.json();
-			// amountBase = json.amount_gh;
+			let apiLinkTemp = "https://gh-api-gray.vercel.app/book_offers?xrpAmount=" + amountCounter;
+			let response = await fetch(apiLinkTemp);
+			let json = await response.json();
+			amountBase = json.amount_gh;
 
 			var xummPayload = {
 				"options": {
