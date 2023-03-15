@@ -396,7 +396,7 @@ export default function GreyStepper(props) {
               <span></span>
             </div> */}
             <div className="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
+              <p>Time has come to mint your Houndies! To start, burn the required amount of hound below and you will be issued a NFT to mint</p>
         <div className="container text-center">
         <div className="row">
               <div className="col-md-6">
@@ -619,7 +619,7 @@ export default function GreyStepper(props) {
     
 </div>
 
-    <Modal className="xumm-tx" size='lg' animation={false} show={popupTrade} centered>
+    <Modal className="xumm-tx" animation={false} show={popupTrade} centered>
                       <img className="modal-above-image" src="./images/xumm.svg" alt="xumm" />
                       <Modal.Header>
                           <Modal.Title>Confirm Hound Burn?</Modal.Title>
@@ -628,6 +628,20 @@ export default function GreyStepper(props) {
                       </Modal.Header>
                       <Modal.Body>
                           <div className="xumm-tx-container">
+                              
+
+                              <div className="qr-code-img">
+                                  {/* <a href={qrLink} target="_blank" rel="noreferrer">
+                                      Click here to open in XUMM
+                                  </a> */}
+                                  {/* <img src={qrString} alt="QR Code" /> */}
+                                  {/* With ref to above, have the text on top and qr code below the text */}
+                                  <a href={qrLink} target="_blank" rel="noreferrer">
+                                      Click here to open in XUMM
+                                  </a>
+                                  <br />
+                                  <img src={qrString} alt="QR Code" />
+                              </div>
                               <div>
                                   <div className='tx-info'>
                                       <span>You Pay</span>
@@ -649,25 +663,12 @@ export default function GreyStepper(props) {
                                       <p className='text-white'>0.000012 XRP</p>
                                   </div>
                               </div>
-
-                              <div className="qr-code-img">
-                                  {/* <a href={qrLink} target="_blank" rel="noreferrer">
-                                      Click here to open in XUMM
-                                  </a> */}
-                                  {/* <img src={qrString} alt="QR Code" /> */}
-                                  {/* With ref to above, have the text on top and qr code below the text */}
-                                  <a href={qrLink} target="_blank" rel="noreferrer">
-                                      Click here to open in XUMM
-                                  </a>
-                                  <br />
-                                  <img src={qrString} alt="QR Code" />
-                              </div>
                           </div>
 
                       </Modal.Body>
     </Modal>
 
-    <Modal className="xumm-tx" size='lg' animation={false} show={popupTrade2} centered>
+    <Modal className="xumm-tx" animation={false} show={popupTrade2} centered>
                     <img className="modal-above-image" src="./images/xumm.svg" alt="xumm" />
                     <Modal.Header>
                         <Modal.Title>Claim NFT</Modal.Title>
@@ -676,6 +677,19 @@ export default function GreyStepper(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <div className="xumm-tx-container">
+
+                            <div className="qr-code-img">
+                                {/* <a href={qrLink} target="_blank" rel="noreferrer">
+                                    Click here to open in XUMM
+                                </a> */}
+                                {/* <img src={qrString} alt="QR Code" /> */}
+                                {/* With ref to above, have the text on top and qr code below the text */}
+                                <a href={qrLink2} target="_blank" rel="noreferrer">
+                                    Click here to open in XUMM
+                                </a>
+                                <br />
+                                <img src={qrString2} alt="QR Code" />
+                            </div>
                             <div>
                                 <div className='tx-info'>
                                     <span>You Pay</span>
@@ -690,19 +704,6 @@ export default function GreyStepper(props) {
                                     <span>XRP transaction fee</span>
                                     <p className='text-white'>0.000012 XRP</p>
                                 </div>
-                            </div>
-
-                            <div className="qr-code-img">
-                                {/* <a href={qrLink} target="_blank" rel="noreferrer">
-                                    Click here to open in XUMM
-                                </a> */}
-                                {/* <img src={qrString} alt="QR Code" /> */}
-                                {/* With ref to above, have the text on top and qr code below the text */}
-                                <a href={qrLink2} target="_blank" rel="noreferrer">
-                                    Click here to open in XUMM
-                                </a>
-                                <br />
-                                <img src={qrString2} alt="QR Code" />
                             </div>
                         </div>
 
