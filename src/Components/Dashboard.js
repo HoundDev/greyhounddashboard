@@ -223,7 +223,7 @@ function Dashboard(props) {
 			body: JSON.stringify(xummPayload)
 		});
 		let json = await response.json()
-		console.log(json)
+		//console.log(json)
 		let qrCode = json.refs.qr_png
 		//check if the user is on mobile
 		let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -232,7 +232,7 @@ function Dashboard(props) {
 		} else {
 			setQrcodepng(qrCode)
 		}
-		console.log(json)
+		////console.log(json)
 		ws.current = new WebSocket(json.refs.websocket_status)
 		setListenWs(true)
 	}
@@ -242,13 +242,13 @@ function Dashboard(props) {
 	// document.addEventListener("DOMContentLoaded", function () {
 	// 	//double click event
 	// 	document.getElementById("swapButton").addEventListener("click", function () {
-	// 		console.log("swap")
+	// 		//console.log("swap")
 	// 		//swap two divs but keep the button in the same place
 	// 		var div_main = document.getElementById("trade-wrapper");
 	// 		var div1 = document.getElementById("trade-box-counter");
 	// 		var div2 = document.getElementById("trade-box-base");
 	// 		var div3Button = document.getElementById("swapButtonC");
-	// 		// console.log(div_main.firstChild)
+	// 		// //console.log(div_main.firstChild)
 	// 		if (div_main.firstChild.id === "trade-box-counter") {
 	// 			div_main.insertBefore(div2, div1);
 	// 			div_main.insertBefore(div3Button, div1);
@@ -343,14 +343,14 @@ function Dashboard(props) {
 	// });
 
 	async function handleTrade() {
-		console.log(`Base: ${baseAmount} Quote: ${quoteAmount}`)
+		//console.log(`Base: ${baseAmount} Quote: ${quoteAmount}`)
 		//disable the button
 		document.getElementById("tradeButton").disabled = true
 		let url = "https://gh-api-gray.vercel.app/book_offers?xrpAmount=" + quoteAmount;
 		// let response = await fetch(url) no cors
 		let response = await fetch(url)
 		let data = await response.json()
-		console.log(data)
+		//console.log(data)
 		let amountBase = data.amount_gh
 		let amountCounter = quoteAmount
 		setBaseAmount(amountBase)
@@ -435,8 +435,8 @@ function Dashboard(props) {
 	}
 
 	const handleChangeIss = event => {
-		console.log(event.target)
-		console.log(issueCheck)
+		//console.log(event.target)
+		//////console.log(issueCheck)
 		if (event.target.checked) {
 			setIssueCheck(true)
 		}
@@ -462,7 +462,7 @@ function Dashboard(props) {
 
 	useEffect(() => {
 		async function getMainDataa() {
-			console.log("getMainData")
+			////console.log("getMainData")
 			let mainData = await getMainData(props.xrpAddress)
 			setActive(false)
 			// setShowChange(true)
@@ -499,12 +499,12 @@ function Dashboard(props) {
 			if (!listenWs) return;
 			let responseObj = JSON.parse(e.data.toString())
 			if (responseObj.signed !== null) {
-				console.log(responseObj)
+				//console.log(responseObj)
 				const payload = await getXummPayload(responseObj.payload_uuidv4)
-				console.log(payload)
+				//console.log(payload)
 
 				if (payload.success) {
-					console.log('signed')
+					//console.log('signed')
 					// console.log(responseObj)
 					if (responseObj.signed === true) {
 						closePopup()
@@ -632,7 +632,7 @@ function Dashboard(props) {
 				sellTxns.push({ amount: mainData.data.TokenSell[i].amount, amountXrp: mainData.data.TokenSell[i].priceXrp, exchangeRate: mainData.data.TokenSell[i].price, address: mainData.data.TokenSell[i].seller })
 			}
 
-			console.log(sentTxns, receivedTxns)
+			//console.log(sentTxns, receivedTxns)
 			setLastTransactionsSent(sentTxns);
 			setLastTransactionsReceived(receivedTxns);
 			setLastTransactionsSell(sellTxns);

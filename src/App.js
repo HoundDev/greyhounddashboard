@@ -103,7 +103,7 @@ function App() {
     }
   }
 
-  console.log(userAddress)
+  //console.log(userAddress)
 
   //wait for dom to be loaded
   useEffect(() => {
