@@ -190,7 +190,6 @@ background: #a7b0cf !important;
 }
 
 .bg-login {
-    background-image: url(../images/bg-login.jpg);
     background-size: cover;
     background-position: center center;
 }
