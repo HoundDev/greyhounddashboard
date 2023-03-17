@@ -35,10 +35,11 @@ function Login(props) {
   }
 
   const postXummPayload = async (requestContent) => {
+    console.log(requestContent)
     try {
       let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(requestContent)
       });
       let json = await response.json()
@@ -118,12 +119,12 @@ function Login(props) {
     setRequestResolved(false)
     setRequestFailed(false)
     setSignInClicked(false)
-    const request = {
+    let request = {
       "txjson": {
         "TransactionType": "SignIn"
       }
     }
-    const requestMobile = {
+    let requestMobile = {
       "options": {
         "submit": true,
         "return_url": {
@@ -135,7 +136,6 @@ function Login(props) {
         "TransactionType": "SignIn"
       }
     }
-    // let responseXum = await postXummPayload(request)
     if (isMobile) {
       var responseXum = await postXummPayload(requestMobile)
     } 

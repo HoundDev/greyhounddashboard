@@ -55,15 +55,12 @@ export default function GreyStepper(props) {
   const [balance, setBalance] = useState(0);
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
-  
+  const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
   
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
   const closePopupTradeErr = () => {
     setPopupTrade(false);
     setPopupTrade2(false);
@@ -114,6 +111,10 @@ export default function GreyStepper(props) {
     }
   }
 
+  function handleRefresh() {
+    window.location.reload();
+  }
+
   async function createBurnOffer(){
     let xummPayload = {
       "txjson": {
@@ -122,7 +123,7 @@ export default function GreyStepper(props) {
         "Amount": {
           "currency": "47726579686F756E640000000000000000000000",
           "issuer": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
-          "value": "1"
+          "value": `${burnAmount}`
         },
         "Memos": [
           {
@@ -225,7 +226,7 @@ export default function GreyStepper(props) {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": cookies.get('pid') })
+            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": cookies.get('pid'), "burnt": burnAmount })
           });
           let data = await response.json();
           console.log(data);
@@ -594,13 +595,11 @@ export default function GreyStepper(props) {
               {/* <div id="preloader">
                 <div id="loader"></div>
               </div> */}
-          <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button>
+          {/* <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button> */}
                   {claimed && index === 0 &&
 				  <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
                   { !claimed && 
 					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
-                  {mintClicked === false && index === 1 &&
-          <Button className="btn-primary" variant="contained" onClick={handleMint}>Mint</Button>}
                   {minting === true && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
                   {mintClicked === true && index === 1 && minting === false &&
@@ -608,7 +607,8 @@ export default function GreyStepper(props) {
                   {mintClicked === true && index === 2 && offerAccepted === false &&
           <Button className="btn-primary" variant="contained" onClick={handleClaim} id="claim">Claim</Button>}
                   {offerAccepted === true && index === 2 &&
-          <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Claimed!</Button>}
+          // <Button className="btn-primary" variant="contained" onClick={window.location.reload(false)}>Mint Another</Button>}
+             <Button className="btn-primary" variant="contained" onClick={handleRefresh()}>Mint Another</Button>}
                </div>
             </StepContent>
           </Step>
