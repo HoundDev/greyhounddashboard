@@ -32,7 +32,7 @@ export default function GreyStepper(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [popupTrade, setPopupTrade] = useState(false);
   const [popupTrade2, setPopupTrade2] = useState(false);
-  const [qrString, setQrString] = useState("");
+  const [qrString, setQrString] = useState("/images/xumm.png");
   const [qrString2, setQrString2] = useState("");
   const [claimed, setClaimed] = useState(false);
   const ws = useRef(WebSocket);
@@ -53,9 +53,10 @@ export default function GreyStepper(props) {
   const [pageLoading, setPageLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
+  const [burnAmount, setBurnAmount] = useState(0);
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
-  const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
+  // const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -111,42 +112,35 @@ export default function GreyStepper(props) {
     }
   }
 
-  function handleRefresh() {
-    window.location.reload();
-  }
-
   async function createBurnOffer(){
-    let xummPayload = {
-      "txjson": {
-        "TransactionType": "Payment",
-        "Destination": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
-        "Amount": {
-          "currency": "47726579686F756E640000000000000000000000",
-          "issuer": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
-          "value": `${burnAmount}`
-        },
-        "Memos": [
-          {
-              "Memo": {
-                  "MemoData": convertStringToHex("Redeemed through the Greyhound Dashboard!")
-              }
-          }
-      ]
-    },
-    "options": {
-        "submit": true
-      }
-    }
+    // let xummPayload = {
+    //   "txjson": {
+    //     "TransactionType": "Payment",
+    //     "Destination": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
+    //     "Amount": {
+    //       "currency": "47726579686F756E640000000000000000000000",
+    //       "issuer": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
+    //       "value": `${burnAmount}`
+    //     },
+    //     "Memos": [
+    //       {
+    //           "Memo": {
+    //               "MemoData": convertStringToHex("Redeemed through the Greyhound Dashboard!")
+    //           }
+    //       }
+    //   ]
+    // },
+    // "options": {
+    //     "submit": true
+    //   }
+    // }
+    const cookies = new Cookies();
 
-    let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(xummPayload)
-    });
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid'));
     let data = await response.json();
-    setQrString(data);
+    console.log(data);
+    setBurnAmount(data.burn_amount);
+    data = data.payload;
     if (isMobile) {
       //open the link in a new tab
       window.open(data.next.always, '_blank');
@@ -164,30 +158,11 @@ export default function GreyStepper(props) {
   }
 
   async function createMintOffer(){
-    let xummPayload = {
-      "txjson": {
-        "TransactionType": "NFTokenAcceptOffer",
-        "Account": props.xrpAddress,
-        "NFTokenSellOffer": offerhash,
-        "Memos": [
-          {
-              "Memo": {
-                  "MemoData": convertStringToHex("Minted through the Greyhound Dashboard!")
-                  }
-          }
-        ]
-      }
-    }
-
-    let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/createpayload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(xummPayload)
-    });
+    const cookies = new Cookies();
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash);
     let data = await response.json();
-    setQrString(data);
+    data = data.payload;
+    
     if (isMobile) {
       //open the link in a new tab
       window.open(data.next.always, '_blank');
@@ -390,12 +365,6 @@ export default function GreyStepper(props) {
             <div className="card-header border-0 pb-0">
               <div className="stepperTitle text-white mb-2 font-w600">Burn Hound</div>
             </div>
-            {/* <div class="loaderr">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div> */}
             <div className="card-body">
               <p>Time has come to mint your Houndies! To start, burn the required amount of hound below and you will be issued a NFT to mint</p>
         <div className="container text-center">
@@ -608,7 +577,14 @@ export default function GreyStepper(props) {
           <Button className="btn-primary" variant="contained" onClick={handleClaim} id="claim">Claim</Button>}
                   {offerAccepted === true && index === 2 &&
           // <Button className="btn-primary" variant="contained" onClick={window.location.reload(false)}>Mint Another</Button>}
-             <Button className="btn-primary" variant="contained" onClick={handleRefresh()}>Mint Another</Button>}
+             <Button
+              className="btn-primary"
+               variant="contained"
+                onClick={() => {
+                  window.location.reload(false);
+                }}
+              >
+                  Mint Another</Button>}
                </div>
             </StepContent>
           </Step>

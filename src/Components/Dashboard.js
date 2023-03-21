@@ -98,7 +98,6 @@ function Dashboard(props) {
 	const [lastTransactionsSell, setLastTransactionsSell] = useState([])
 	const [lastTransactionsBuy, setLastTransactionsBuy] = useState([])
 	const [snapShotTier, setSnapShotTier] = useState('None')
-	const [snapShotTierBalance, setSnapShotTierBalance] = useState(0)
 	const [basicModal, setBasicModal] = useState(false);
 	const [ogModal, setOgModal] = useState(false);
 	const [greyHoundPrice, setGreyHoundPrice] = useState(0)
