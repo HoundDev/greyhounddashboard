@@ -71,8 +71,11 @@ function App() {
 
   function setStateValues(obj) {
     const cookies = new Cookies();
-    cookies.set('userAddress', obj.xrpAddress, { path: '/' });
-    cookies.set('userSession', obj.session, { path: '/' });
+    const currentDate = new Date();
+    const futureDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
+       
+    cookies.set('userAddress', obj.xrpAddress, { path: '/', expires: futureDate });
+    cookies.set('userSession', obj.session, { path: '/', expires: futureDate });
     window.location = "/";
   }
 
