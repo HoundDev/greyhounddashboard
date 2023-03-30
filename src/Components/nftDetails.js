@@ -103,7 +103,7 @@ export default function NftDetails(props) {
         setRarity(data.rarity);
         setAnimFlag(data.anim)
         // setNftPrice(price);
-        if (data.taxon !== 1) {
+        if (data.taxon !== 1 && data.taxon !== 2) {
             setTaxon(true);
         } else {
             setTaxon(false);
