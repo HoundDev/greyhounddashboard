@@ -50,7 +50,7 @@ export default function GreyStepper(props) {
   const [nftImage, setNftImage] = useState("");
   const [offerAccepted, setOfferAccepted] = useState(false);
   const [crate, setCrate] = useState(false);
-  const [pageLoading, setPageLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
   const [burnAmount, setBurnAmount] = useState(0);
@@ -157,10 +157,11 @@ export default function GreyStepper(props) {
     }
   }
 
-  async function createMintOffer(){
+  async function createClaimOffer(){
     const cookies = new Cookies();
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash);
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash);
     let data = await response.json();
+    console.log(data);
     data = data.payload;
     
     if (isMobile) {
@@ -183,28 +184,37 @@ export default function GreyStepper(props) {
     if (responseObj.signed !== null) {
       // console.log(responseObj);
       const payload = await getXummPayload(responseObj.payload_uuidv4);
-      // console.log(payload);
+      console.log(payload);
 
       if (payload.success) {
         console.log('signed');
         if (responseObj.signed === true) {
-          console.log('signed');
-          handleNext();
-          setClaimed(true);
-          closePopupTradeErr();
-          setListenWs(false);
-          handleMint();
-          let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
-          const cookies = new Cookies();
-          let response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": cookies.get('pid'), "burnt": burnAmount })
-          });
-          let data = await response.json();
-          console.log(data);
+          if (payload.data.response.signer === props.xrpAddress) {
+            console.log('signed');
+            handleNext();
+            setClaimed(true);
+            closePopupTradeErr();
+            setListenWs(false);
+            handleMint();
+            let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
+            const cookies = new Cookies();
+            let response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ "address": props.xrpAddress, "txnHash": payload.data.response.txid, "pid": cookies.get('pid'), "burnt": burnAmount })
+            });
+            let data = await response.json();
+            console.log(data);
+          } else {
+            console.log('not signed');
+            setClaimed(false);
+            closePopupTradeErr();
+            setListenWs(false);
+            //refresh the page
+            window.location.reload();
+          }
         } else {
           console.log('not signed');
           setClaimed(false);
@@ -223,25 +233,29 @@ export default function GreyStepper(props) {
       if (payloadd.success) {
         console.log('signed');
         if (responseObj.signed === true) {
-          console.log('signed');
-          closePopupTradeErr();
-          setListenWs2(false);
-          let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn';
-          const cookies = new Cookies();
-          let response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid, "pid": cookies.get('pid') })
-          });
-          let data = await response.json();
-          console.log(data);
-          cookies.remove('pid', { path: '/nftSteps' });
-          setOfferAccepted(true);
-          setCrate(true);
-          //clear the pid from cookies
-          
+          if (payloadd.data.response.signer === props.xrpAddress) {
+            console.log('signed');
+            closePopupTradeErr();
+            setListenWs2(false);
+            let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn';
+            const cookies = new Cookies();
+            let response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ "address": props.xrpAddress, "hash": payloadd.data.response.txid, "pid": cookies.get('pid') })
+            });
+            let data = await response.json();
+            console.log(data);
+            cookies.remove('pid', { path: '/nftSteps' });
+            setOfferAccepted(true);
+            setCrate(true);
+          } else {
+            console.log('not signed');
+            closePopupTradeErr();
+            setListenWs2(false);
+          }            
     } else {
           console.log('not signed');
           closePopupTradeErr();
@@ -258,7 +272,7 @@ export default function GreyStepper(props) {
 
   const handleClaim = async () => {
     setPopupTrade2(true);
-    createMintOffer();
+    createClaimOffer();
     // setCrate(true);
   };
     
