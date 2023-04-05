@@ -949,6 +949,22 @@ table.dataTable thead th{
   background-repeat: no-repeat;
   background-size: cover;
 }
+.bg-area-nft {
+    border-radius: 1em;
+    height: 300px;
+    background-color: #21212A;
+    position: relative;
+    background-image: url(../images/houndies-banner.jpg);
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.bg-area-nft .avatar-area img {
+   padding: 5px;
+}
+
 .bg-area .socials-area{
     position: absolute;
     top: 1.875rem;

@@ -670,7 +670,7 @@ function Dashboard(props) {
 				<div className="container-fluid">
 					<div className="row">
 
-						<div className="col-xl-7 col-xxl-7 col-lg-7">
+						<div className="col-xl-6 col-xxl-6 col-lg-6">
 							<div className="card overflow-hidden">
 								<div className="card-header border-0 pb-0">
 									<h5 className="card-title text-black">Balance</h5>
@@ -819,7 +819,37 @@ function Dashboard(props) {
 
 							</div>
 						</div>
-						<div className="col-xl-5 col-xxl-5 col-lg-5">
+						
+						<div className="col-xl-6 col-xxl-6 col-lg-6">
+                        <div className="card nft-intro-card">
+	                            <div className="row">
+	
+	                                <div className="col-md-8 justify-content-center align-self-center">
+	                                    <div className="card-body">
+	                                        <h2 className="card-text text-white">Discover, Collect Mint Houndies NFTs</h2>
+	                                        <p>Time has come to mint your houndies!</p>
+	                                        <a href="/nftCollection" className="btn btn-white rounded-4 mb-2">
+	                                            Explore
+	                                        </a>
+	                                         
+	                                        <a href="/nftMint" className="btn btn-white rounded-4 mb-2 ml-2">
+	                                            Mint NFT
+	                                        </a>
+	                                    </div>
+	                                </div>
+	
+	                                <div className="col-md-4">
+	                                    <img draggable="false" src="./images/hound-3d.png" alt="NFT 1" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+						
+						
+						
+						
+						
+						{/*<div className="col-xl-5 col-xxl-5 col-lg-5">
 							<div className="card ">
 								
 								<div className="card-body">
@@ -853,7 +883,7 @@ function Dashboard(props) {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>*/}
 
 						<div className="col-xl-8 col-xxl-8 col-lg-8">
 							<div className="row">

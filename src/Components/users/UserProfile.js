@@ -60,9 +60,9 @@ export default function UserProfile(props) {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="user-info-area">
-                            <div className="bg-area mb-3"  style={{  }}>
+                            <div className="bg-area bg-area-nft mb-3"  style={{  }}>
                                 <div className="avatar-area">
-                                     <img src="./images/placeholder/user-avatar.jpg" alt="" className="avatar-img" height={126}/>
+                                     <img src="./images/houndies-profile.png" alt="" className="avatar-img" height={126}/>
                                 </div>
                                 { /*<div className="socials-area">
                                     <span><i class="fa-brands fa-twitter"></i></span> 

@@ -122,8 +122,8 @@ export default function NftHome(props) {
                             <div className="form-row align-items-center">
     							<div className="col-auto">
   
-  								<a href="#" className="btn btn-primary rounded-4 mb-2 mt-2 btn-lg mr-3">Mint Now</a>
-  								<a href="#" className="btn btn-border-white rounded-4 mb-2 mt-2 btn-lg mr-3">Explore Collection</a>
+  								<a href="/nftSteps" className="btn btn-primary rounded-4 mb-2 mt-2 btn-lg mr-3">Mint Now</a>
+  								<a href="/nftCollection" className="btn btn-border-white rounded-4 mb-2 mt-2 btn-lg mr-3">Explore Collection</a>
   									
   								</div>
    

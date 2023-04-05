@@ -34,6 +34,7 @@ function App() {
   const [userSession, setUserSession] = React.useState('')
   const [activeStyleDashboard, setActiveStyleDashboard] = React.useState('mm-active')
   const [activeStyleRichList, setActiveStyleRichlist] = React.useState('')
+  const [activeStyleNftMint, setActiveStyleNftMint] = React.useState('')
 
   const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
   const [snapShotTier, setsnapShotTier] = React.useState('None')
@@ -91,17 +92,26 @@ function App() {
     if (str === 'dashboardLI') {
       setActiveStyleDashboard('mm-active')
       setActiveStyleRichlist('')
+	  setActiveStyleNftMint('')
       setActiveStyleSpringRescue('')
       setDashClicked(true);
     } else if (str === 'richlistLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('mm-active')
-      setActiveStyleSpringRescue('')
+      setActiveStyleNftMint('')
+	  setActiveStyleSpringRescue('')
       setDashClicked(false);
     } else if (str === 'SpringRescueLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
+	  setActiveStyleNftMint('')
       setActiveStyleSpringRescue('mm-active')
+      setDashClicked(false);
+    } else if (str === 'nftMintLI') {
+      setActiveStyleDashboard('')
+      setActiveStyleRichlist('')
+	  setActiveStyleNftMint('mm-active')
+      setActiveStyleSpringRescue('')
       setDashClicked(false);
     }
   }
@@ -286,11 +296,31 @@ function App() {
                 <span className="nav-text">NFTs <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
               </a>
               </li> */}
-              <li><a className="ai-icon" href="/userprofile" aria-expanded="false">
+              {/*<li><a className="ai-icon" href="/userprofile" aria-expanded="false">
                 <i className="fi fi-sr-gallery"></i>
                 <span className="nav-text">NFTs </span>
               </a>
+              </li>*/}
+			  
+			  
+			  <li id="nftMintLI" className={activeStyleNftMint}>
+				 
+				 <Link onClick={() => setActive('nftMintLI')} to="/nftMint" className="has-arrow ai-icon" aria-expanded="false">
+	                <i className="fi fi-sr-gallery"></i>
+	                <span className="nav-text">NFTs</span>
+	              </Link>
+				  
+				  <ul aria-expanded="false" className="left mm-collapse mm-collapse">
+							<li><a href="events/spring-rescue-2022">Your NFTS</a></li>
+	  						<li><a href="events/spring-rescue-2022">Claim NFTs</a></li>
+				  </ul>
+				  
               </li>
+			 
+			  
+			  
+			  
+			  
               <li><a className="ai-icon" href="#" aria-expanded="false">
                 <i className="fi fi-sr-gamepad"></i>
                 <span className="nav-text">Games <span className="badge badge-primary badge-rounded badge-xs">coming soon</span></span>
