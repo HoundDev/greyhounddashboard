@@ -100,10 +100,10 @@ export default function NftHome(props) {
         
         
         	
-        		<div className="single-nft mt-5 mb-3">
+        		<div className="single-nft">
         			<div className="row">
-
-        				<div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
+						
+        				<div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 mb-5">
         					<div className="nft-container">
         						<h1 className="banner-title mt-5">Mint Houndie NFTs Now!</h1>
         						
@@ -145,7 +145,7 @@ export default function NftHome(props) {
         				</div>
         				<div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 mint">
         					<div className="nft-container">
-        						<div className="img-wrapper  mb-5">
+        						<div className="img-wrapper">
         							<img className="img-fluid" src="/images/hero_img_1.png"/>
         						</div>
         					</div>

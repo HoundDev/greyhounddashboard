@@ -161,7 +161,8 @@ export default function NftCollection() {
         // getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH")
         //if type is undefined, then it is the default collection
         if (type === undefined) {
-            getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH");
+            //getNfts("rNPEjBY4wcHyccfWjDpuAgpxk8S2itLNiH");
+			getNfts("rpZidWw84xGD3dp7F81ajM36NZnJFLpSZW");
         }
         else {
             getNfts(type);

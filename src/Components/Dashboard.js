@@ -809,7 +809,7 @@ function Dashboard(props) {
 												<img className="layer0" draggable="false" src="./images/badges/og_layer0.png" />
 												<img className="layer1" draggable="false" src="./images/badges/og_layer1.png" />
 											</Tilt>
-											<p className="mt-5">You've been here since the genesis of Greyhound. Thanks for being an early supporter and an OG.</p>
+											<p className="mt-5">You have been here since the genesis of Greyhound. Thanks for being an early supporter and an OG.</p>
 										</Modal.Body>
 									</div>
 								</Modal>
@@ -821,7 +821,7 @@ function Dashboard(props) {
 						</div>
 						
 						<div className="col-xl-6 col-xxl-6 col-lg-6">
-                        <div className="card nft-intro-card">
+                        	<div className="card nft-intro-card">
 	                            <div className="row">
 	
 	                                <div className="col-md-8 justify-content-center align-self-center">

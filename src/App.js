@@ -17,6 +17,7 @@ import NftCollection from './Components/nfts/NftCollection';
 import NftClaim from "./Components/nfts/NftClaim";
 import NftMint from "./Components/nftMint";
 import NftSteps from "./Components/nftSteps";
+import NftTraits from "./Components/nftTraits";
 import UserProfile from './Components/users/UserProfile';
 import EditProfile from "./Components/users/EditProfile";
 import AccessDenied from './Components/accessDenied.js';
@@ -35,7 +36,7 @@ function App() {
   const [activeStyleDashboard, setActiveStyleDashboard] = React.useState('mm-active')
   const [activeStyleRichList, setActiveStyleRichlist] = React.useState('')
   const [activeStyleNftMint, setActiveStyleNftMint] = React.useState('')
-
+  const [activeStyleDropdown, setActiveStyleDropdown] = React.useState('mm-collapse')
   const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
   const [snapShotTier, setsnapShotTier] = React.useState('None')
 
@@ -94,23 +95,27 @@ function App() {
       setActiveStyleRichlist('')
 	  setActiveStyleNftMint('')
       setActiveStyleSpringRescue('')
+	  setActiveStyleDropdown('mm-collapse')
       setDashClicked(true);
     } else if (str === 'richlistLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('mm-active')
       setActiveStyleNftMint('')
+	  setActiveStyleDropdown('mm-collapse')
 	  setActiveStyleSpringRescue('')
       setDashClicked(false);
     } else if (str === 'SpringRescueLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
 	  setActiveStyleNftMint('')
+	  setActiveStyleDropdown('mm-collapse')
       setActiveStyleSpringRescue('mm-active')
       setDashClicked(false);
     } else if (str === 'nftMintLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
 	  setActiveStyleNftMint('mm-active')
+	  setActiveStyleDropdown('mm-show')
       setActiveStyleSpringRescue('')
       setDashClicked(false);
     }
@@ -305,14 +310,26 @@ function App() {
 			  
 			  <li id="nftMintLI" className={activeStyleNftMint}>
 				 
-				 <Link onClick={() => setActive('nftMintLI')} to="/nftMint" className="has-arrow ai-icon" aria-expanded="false">
+				  <Link onClick={() => setActive('nftMintLI')} to="/nftMint" className="has-arrow ai-icon" aria-expanded="false">
 	                <i className="fi fi-sr-gallery"></i>
 	                <span className="nav-text">NFTs</span>
 	              </Link>
 				  
-				  <ul aria-expanded="false" className="left mm-collapse mm-collapse">
-							<li><a href="events/spring-rescue-2022">Your NFTS</a></li>
-	  						<li><a href="events/spring-rescue-2022">Claim NFTs</a></li>
+				  <ul aria-expanded="false" className={activeStyleDropdown}>
+	  						<Link onClick={() => setActive('nftMintLI')} to="/nftCollection" aria-expanded="false">
+				                Houndies Collection
+				            </Link>
+							<Link onClick={() => setActive('nftMintLI')} to="/userprofile" aria-expanded="false">
+				                Your Hounds
+				            </Link>
+	  						<Link onClick={() => setActive('nftMintLI')} to="/claimNFT" aria-expanded="false">
+				                Claim NFTs
+				            </Link>
+							<Link onClick={() => setActive('nftMintLI')} to="/nftTraits" aria-expanded="false">
+				                View Traits
+				            </Link>
+	  						<a href="https://nftsurfer.xrplstatus.com/hounds/" target="blank">NFT Surfer</a>
+							
 				  </ul>
 				  
               </li>
@@ -359,6 +376,7 @@ function App() {
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
           <Route path="/NftSteps" element={<NftSteps xrpAddress={userAddress} />} />
           <Route path="/nftMint" element={<NftMint xrpAddress={userAddress} />} />
+		  <Route path="/nftTraits" element={<NftTraits xrpAddress={userAddress} />} />
           <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
           <Route path="/editprofile" element={<EditProfile xrpAddress={userAddress} /> } />
           {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}
