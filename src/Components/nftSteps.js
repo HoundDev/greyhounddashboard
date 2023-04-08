@@ -331,6 +331,7 @@ export default function GreyStepper(props) {
       setClaimed(true);
       setMintClicked(false);
       setPageLoading(false);
+      HandleMint();
     } else if (data.stage === 'offered') {
       setActiveStep(2);
       setClaimed(true);
