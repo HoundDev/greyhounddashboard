@@ -17,7 +17,6 @@ import StepContent from '@mui/material/StepContent';
 // import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-import { useInterval } from "@chakra-ui/react";
 
 
 
@@ -55,9 +54,6 @@ export default function GreyStepper(props) {
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
   const [burnAmount, setBurnAmount] = useState(0);
-  const [queuePos, setQueuePos] = useState(0);
-  const [queueLength, setQueueLength] = useState(0);
-  const [mintingMessage, setMintingMessage] = useState("Minting...");
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   // const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
@@ -71,7 +67,7 @@ export default function GreyStepper(props) {
     setPopupTrade2(false);
   };
 
-  const HandleMint = async () => {
+  const handleMint = async () => {
     try {
         let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
         setMinting(true);
@@ -81,35 +77,12 @@ export default function GreyStepper(props) {
         let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
         response = response.data;
         console.log(response);
-        const pos = response.pos;
-        const lenQr = response.queue;
-        setQueuePos(pos);
-        setQueueLength(lenQr);
-
-        setInterval(() => {
-          // check queue at `/mint/queue_position`
-          const cookies = new Cookies();
-          axios.get(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/queue_position', { params: { "pid": cookies.get('pid'), "address": props.xrpAddress } })
-            .then((response) => {
-              console.log(response.data);
-              if (response.data.status === "minting") {
-                setMintingMessage("Minting...");
-                //refresh the page after 10 seconds
-                setTimeout(() => {
-                  window.location.reload();
-                }, 10000);
-              } else if (response.data.status === "in queue") {
-                setMintingMessage("You are in Queue. Your position is " + response.data.pos + " out of " + response.data.queue);
-              } else if (response.data.status === "not in queue") {
-                setMintingMessage("You are not in Queue. Please try again.");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }, 10000);
-
-
+        setNftName("Houndies #" + response.num)
+        // setNftImage(response.nft_image)
+        setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + response.num + ".png")
+        setMinting(false);
+        setOfferhash(response.offer)
+        handleNext();
     } catch (error) {
         console.log(error)
         //refresh the page
@@ -222,7 +195,7 @@ export default function GreyStepper(props) {
             setClaimed(true);
             closePopupTradeErr();
             setListenWs(false);
-            HandleMint();
+            handleMint();
             let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
             const cookies = new Cookies();
             let response = await fetch(url, {
@@ -331,7 +304,6 @@ export default function GreyStepper(props) {
       setClaimed(true);
       setMintClicked(false);
       setPageLoading(false);
-      HandleMint();
     } else if (data.stage === 'offered') {
       setActiveStep(2);
       setClaimed(true);
@@ -455,9 +427,6 @@ export default function GreyStepper(props) {
                 <span></span>
                 <span></span>
               </div>
-              <p className="text-white">
-                {mintingMessage}
-              </p>
             </div>
           </div>	
         </div>
@@ -615,7 +584,7 @@ export default function GreyStepper(props) {
                   { !claimed && 
 					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
                   {minting === true && index === 1 &&
-          <Button className="btn-primary" variant="contained" onClick={HandleMint} disabled>Minting....</Button>}
+          <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
                   {mintClicked === true && index === 1 && minting === false &&
           <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
                   {mintClicked === true && index === 2 && offerAccepted === false &&
