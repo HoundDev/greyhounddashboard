@@ -1,71 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-
-import NftCard from "./nfts/NftCard";
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css'
-
-
-require("dotenv").config();
 
 export default function NftHome(props) {
 
-    // const [numberOfNfts, setNumberOfNfts] = useState(0);
-    // const [nftImages, setNftImages] = useState([]);
-    // const [nftNames, setNftNames] = useState([]);
+	const [numMinted, setNumMinted] = useState(0);
+	const [holders, setHolders] = useState(0);
+	const [floor, setFloor] = useState(0);
+	const [listed, setListed] = useState(0);
+	const [mintedPercentage, setMintedPercentage] = useState(0);
 
-    // function convertHexToStr(hex) {
-    //     var str = '';
-    //     for (var i = 0; i < hex.length; i += 2)
-    //         str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    //     return str;
-    // }
-
-    // async function getNfts() {
-    //     let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getnfts', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({"xrpAddress": props.xrpAddress})
-    //       });
-    //     let data = await response.json();
-    //     console.log(data);
-    //     setNumberOfNfts(data.account_nfts.length);
-    //     let nfts = data.account_nfts;
-    //     let nftImages = [];
-    //     let nftNames = [];
-    //     //get the `uri` from the nft
-    //     for (let i = 0; i < nfts.length; i++) {
-    //         let nft = nfts[i];
-    //         let nftUri = nft.URI;
-    //         if (nftUri === "" || nftUri === undefined) {
-    //             console.log("uri is empty");
-    //             continue;
-    //         }
-    //         //convert the uri from hex to ascii
-    //         let nftUriAscii = convertHexToStr(nftUri);
-    //         //if the uri does not start with `https://`, then it is not a valid uri
-    //         if (!nftUriAscii.startsWith('https://')) {
-    //             continue;
-    //         }
-            
-    //         //fetch the url from the ascii uri
-    //         let nftUriResponse = await fetch(nftUriAscii);
-    //         //get the `image` from the response
-    //         let nftUriData = await nftUriResponse.json();
-    //         let nftImage = nftUriData.image;
-    //         let nftName = nftUriData.name;
-    //         nftImages.push(nftImage);
-    //         nftNames.push(nftName);
-    //     }
-    //     setNftImages(nftImages);
-    //     setNftNames(nftNames);
-    // }
-
-    // useEffect(() => {
-    //     getNfts();
-    // }, []);
+	useEffect(() => {
+		const getNumMinted = async () => {
+			const url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/getcollection';
+			const response = await fetch(url);
+			const data = await response.json();
+			setNumMinted(data.totalsupply);
+			setHolders(data.unique_owners);
+			setFloor(data.floor);
+			setListed(data.listedPercentage);
+			//calculate minted percentage
+			const minted = Math.round((data.totalsupply / 10000) * 100);
+			setMintedPercentage(minted);
+			console.log('minted: ', minted, '%')
+		}
+		getNumMinted();
+	}, []);
     return (
     
     
@@ -109,9 +67,9 @@ export default function NftHome(props) {
         						
         						
         						<div className="progress mb-2">
-									<div className="progress-bar progress-animated bg-primary"></div>
+									<div className="progress-bar progress-animated bg-primary" role="progressbar" style={{width: `${mintedPercentage}%`}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
-        						<p className="text-white banner-minted">465 / 100000 MINTED</p>
+        						<p className="text-white banner-minted">{numMinted} / 100000 MINTED</p>
                             
                             
                             
@@ -158,7 +116,7 @@ export default function NftHome(props) {
         			<div className="col-xl-3 col-xxl-3 col-lg-3 col-sm-3">
         				<div className="card logo-bg">
         					<div className="card-body text-center card-text  align-middle">
-        						<h2 className=" text-white fs-28">127</h2>
+        						<h2 className=" text-white fs-28">{holders}</h2>
         						<h2 className="text-white fs-18 mb-2 font-w600">Holders</h2>
         					</div>
         				</div>
@@ -166,7 +124,7 @@ export default function NftHome(props) {
         			<div className="col-xl-3 col-xxl-3 col-lg-3 col-sm-3">
         				<div className="card logo-bg">
         					<div className="card-body text-center card-text  align-middle">
-        						<h2 className=" text-white fs-28">4.5%</h2>
+        						<h2 className=" text-white fs-28">{listed}%</h2>
         						<h2 className="text-white fs-18 mb-2 font-w600">Listed</h2>
         					</div>
         				</div>
@@ -174,7 +132,7 @@ export default function NftHome(props) {
         			<div className="col-xl-3 col-xxl-3 col-lg-3 col-sm-3">
         				<div className="card logo-bg">
         					<div className="card-body text-center card-text  align-middle">
-        						<h2 className=" text-white fs-28">30 XRP</h2>
+        						<h2 className=" text-white fs-28">{floor} XRP</h2>
         						<h2 className="text-white fs-18 mb-2 font-w600">Floor</h2>
         					</div>
         				</div>

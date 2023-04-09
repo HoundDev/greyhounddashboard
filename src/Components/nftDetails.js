@@ -15,7 +15,6 @@ export default function NftDetails(props) {
     const [nftId, setNftId] = useState("");
     const [nftAttrs, setNftAttrs] = useState([]);
     const [setDesc, setSetDesc] = useState("");
-    const [setCollection, setSetCollection] = useState("");
     const [collectionId, setCollectionId] = useState("");
     const [nftPrice, setNftPrice] = useState(0);
     const [tier, setTier] = useState("");
@@ -41,7 +40,6 @@ export default function NftDetails(props) {
         let response = await fetch(url);
         let data = await response.json();
         // console.log(data);
-        setCollectionId("/nftCollection?collectionId=" + data.data.nft.Issuer)
         return data.data.nft.Owner;
     }
 
@@ -79,25 +77,12 @@ export default function NftDetails(props) {
         let collectionDesc = data.collection.description;
         let owner = data.owner;
         let imageUrl = data.image;
-
-        imageUrl = imageUrl.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
-
-        // console.log("on the dex api")
-        // let onTheDex = `https://marketplace-api.onxrp.com/api/metadata/${id}`;
-        // let imageUrl = `https://marketplace-api.onxrp.com/api/image/${id}`;
-        // let response = await fetch(onTheDex);
-        // let data = await response.json();
-        // let name = data.name;
-        // let attr = data.attributes;
-        // let collection = data.collection.name;
-        // let owner = await getOwner(id);
-        // let price = await getBid(id);
+        // imageUrl = imageUrl.replace("ipfs://", "https://cloudflare-ipfs.com/ipfs/");
         setOwner(owner);
         setNftAttrs(attr);
         setNftId(id);
         setNftName(name);
         setNftImage(imageUrl);
-        setSetCollection(collection);
         setSetDesc(collectionDesc);
         setTier(data.tier);
         setRarity(data.rarity);
@@ -247,7 +232,6 @@ export default function NftDetails(props) {
                 <div className="page-titles">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="/nftExplore">NFTs</a></li>
-                        <li className="breadcrumb-item">{setCollection}</li>
                         <li className="breadcrumb-item active"><a href="">{nftName}</a></li>
                     </ol>
                 </div>
@@ -266,8 +250,10 @@ export default function NftDetails(props) {
                         <div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 ">
                             <div className="nft-container">
                                 <div className="img-wrapper  mb-5">
-                                    {/* <img className="img-fluid" src= {nftImage} /> */}
-                                    <img className="img-fluid" src={nftImage} />
+                                    <img className="img-fluid" src={nftImage} alt="nft" />
+                                    {/* {animFlag===true ? <video className="img-fluid" autoPlay loop muted playsInline>
+                                        <source src={nftImage} type="video/mp4" />
+                                    </video> : <img className="img-fluid" src={nftImage} />} */}
                                 </div>
                                 <div className="mb-5">
                                     <h3 class="mb-3">Owned by</h3>
@@ -306,7 +292,9 @@ export default function NftDetails(props) {
                                     <div className="d-flex align-items-center mb-3">
                                         <img src="./images/avatar/standard-collection.gif" alt="" className="avatar-img" />
                                         <div className="flex-grow-1">
-                                            <h5 className="mb-0 text-white">{setCollection || <Skeleton width={100} />}</h5>
+                                            <a href="/nftCollection" className="text-white">
+                                                <h5 className="mb-0 text-white">Houndies</h5>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="nft-name">
