@@ -1,30 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Modal } from "react-bootstrap";
-// import { Link, useSearchParams, useLocation } from "react-router-dom";
-// import NftCard from "./nfts/NftCard";
-// import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import LoadingOverlay from 'react-loading-overlay-ts';
-
 import Cookies from 'universal-cookie';
-
-
-// import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
-// import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-
-
+import Skeleton from 'react-loading-skeleton'
 
 require("dotenv").config();
 
 function getSteps() {
   return ['Burn', 'Mint', 'Claim'];
-  
 }
 
 export default function GreyStepper(props) {
@@ -54,6 +44,9 @@ export default function GreyStepper(props) {
   const [loadingText, setLoadingText] = useState("Loading...");
   const [balance, setBalance] = useState(0);
   const [burnAmount, setBurnAmount] = useState(0);
+  const [rarity, setRarity] = useState("");
+  const [tier, setTier] = useState("");
+  const [nftId, setNftId] = useState("0");
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   // const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
@@ -66,6 +59,19 @@ export default function GreyStepper(props) {
     setPopupTrade(false);
     setPopupTrade2(false);
   };
+
+  const getRarity = (num) => {
+    try {
+      const url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/getRarity?nftNum=' + num;
+      axios.get(url).then((response) => {
+        console.log(response.data);
+        setRarity(response.data.rarity);
+        setTier(response.data.tier);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleMint = async () => {
     try {
@@ -80,22 +86,16 @@ export default function GreyStepper(props) {
         setNftName("Houndies #" + response.num)
         // setNftImage(response.nft_image)
         setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + response.num + ".png")
+        // setNftNum(response.num);
         setMinting(false);
         setOfferhash(response.offer)
         handleNext();
+        getRarity(response.num);
     } catch (error) {
         console.log(error)
         //refresh the page
         window.location.reload();
     }
-  }
-
-  function convertStringToHex(str) {
-    var hex = '';
-    for (var i = 0; i < str.length; i++) {
-        hex += '' + str.charCodeAt(i).toString(16);
-    }
-    return hex;
   }
 
   const getXummPayload = async (requestContent) => {
@@ -113,30 +113,9 @@ export default function GreyStepper(props) {
   }
 
   async function createBurnOffer(){
-    // let xummPayload = {
-    //   "txjson": {
-    //     "TransactionType": "Payment",
-    //     "Destination": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
-    //     "Amount": {
-    //       "currency": "47726579686F756E640000000000000000000000",
-    //       "issuer": "rUC1ZC97XgUUbqNM51gJfbGhhXZPiLdp2i",
-    //       "value": `${burnAmount}`
-    //     },
-    //     "Memos": [
-    //       {
-    //           "Memo": {
-    //               "MemoData": convertStringToHex("Redeemed through the Greyhound Dashboard!")
-    //           }
-    //       }
-    //   ]
-    // },
-    // "options": {
-    //     "submit": true
-    //   }
-    // }
     const cookies = new Cookies();
 
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid'));
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps');
     let data = await response.json();
     console.log(data);
     setBurnAmount(data.burn_amount);
@@ -159,7 +138,7 @@ export default function GreyStepper(props) {
 
   async function createClaimOffer(){
     const cookies = new Cookies();
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash);
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps');
     let data = await response.json();
     console.log(data);
     data = data.payload;
@@ -286,9 +265,9 @@ export default function GreyStepper(props) {
     const cookies = new Cookies();
     if (!cookies.get('pid') || cookies.get('pid') === 'undefined' || cookies.get('pid') === undefined || cookies.get('pid') === null) {
       cookies.set('pid', data.request_id, { path: '/nftSteps' });
-      console.log(`pid set\nPID: ${cookies.get('pid')}\nPID2: ${data.request_id}`);
+      // console.log(`pid set\nPID: ${cookies.get('pid')}\nPID2: ${data.request_id}`);
     } else {
-      console.log('pid already set');
+      // console.log('pid already set');
       if (cookies.get('pid') !== data.request_id) {
         console.log('pid changed');
         flag = true;
@@ -310,17 +289,12 @@ export default function GreyStepper(props) {
       setMintClicked(true);
       setOfferhash(data.offer);
       setNftName("Houndies #" + data.nft_name);
+      // setNftNum(data.nft_name);
       // setNftImage(data.nft_image);
       setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + data.nft_name + ".png")
       setPageLoading(false);
+      getRarity(data.nft_name);
     } else if (data.status === 'minting') {
-      // console.log('minting');
-      // //change the loading text to minting and refresh the page after 5 seconds
-      // setLoadingText('Minting your nft, please come back in a few seconds... refreshing in 15 seconds');
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 15000);
-      // flag = false;
       setActiveStep(1);
       setMinting(true);
       setMintClicked(true);
@@ -402,11 +376,16 @@ export default function GreyStepper(props) {
                     <span className="text-white">Per NFT</span>
                   </div>	
               </div>
+              {/* <div className="col-md-6">
+                  <div className="mintbox">
+                    <span className="text-white">Rarity</span>
+                    <div className="d-block">
+                      <span className="fs-22 text-white" id="baseField">Tier</span>
+                    </div>
+                  </div>	
+              </div> */}
         </div>
         </div>
-                
-                
-        
             </div>
             
           </div>	
@@ -454,7 +433,19 @@ export default function GreyStepper(props) {
             ) : (
                 <></>
             )}
-            <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>{nftName}</div>
+            <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>
+              {nftName}
+            </div>
+            <div>
+            <div className="col-md-6 offset-md-3">
+                  <div className="mintbox">
+                    <span className="text-white">{rarity}</span>
+                    <div className="d-block">
+                      <span className="fs-22 text-white" id="baseField">{tier}</span>
+                    </div>
+                  </div>	
+              </div>
+            </div>
             </div>              
           </div>	
         </div>
@@ -547,7 +538,6 @@ export default function GreyStepper(props) {
     }
   }, [crate]);
 
-
   return (
     <LoadingOverlay
     active={pageLoading}
@@ -581,8 +571,12 @@ export default function GreyStepper(props) {
           {/* <Button className='btn-white-border' disabled={activeStep === 0}onClick={handleBack}>Cancel</Button> */}
                   {claimed && index === 0 &&
 				  <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
-                  { !claimed && 
-					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
+                  {/* { !claimed && 
+					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>} */}
+                  {balance >= 10000000 && !claimed &&
+                  <Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
+                  {balance < 10000000 && !claimed &&
+                  <Button className="btn-primary" variant="contained" onClick={handleBurn} disabled>Burn</Button>}
                   {minting === true && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
                   {mintClicked === true && index === 1 && minting === false &&
