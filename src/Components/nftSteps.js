@@ -380,7 +380,7 @@ export default function GreyStepper(props) {
               <div className="stepperTitle text-white mb-2 font-w600">Burn Hound</div>
             </div>
             <div className="card-body">
-              <p>Time has come to mint your Houndies! To start, burn the required amount of hound below and you will be issued a NFT to mint</p>
+              <p>Time has come to mint your Houndies! To start, burn the required amount of hound below and you will be issued a NFT</p>
         <div className="container text-center">
         <div className="row">
               <div className="col-md-6">
@@ -440,7 +440,7 @@ export default function GreyStepper(props) {
             </div>
         
             <div className="card-body">	
-            <p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>
+            {/*<p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>*/}
 
             {crate === true ? (
                 <div id="cube" class="h-40 w-40 relative flex justify-center items-center cursor-pointer">
@@ -635,7 +635,7 @@ export default function GreyStepper(props) {
                               <div>
                                   <div className='tx-info'>
                                       <span>You Pay</span>
-                                      <p className='text-white'>10m HOUND</p>
+                                      <p className='text-white'>10m $HOUND</p>
                                   </div>
                                   <div className='tx-info'>
                                       <span>Receive</span>
@@ -645,7 +645,7 @@ export default function GreyStepper(props) {
                                   <div className='tx-info'>
                                       <span>Issuer Fee</span>
                                       {/* <p className='text-white'> FREE! </p> */}
-                                      <p>{issueAmount} hound</p>
+                                      <p>{issueAmount} $HOUND</p>
                                   </div>
 
                                   <div className='tx-info'>
