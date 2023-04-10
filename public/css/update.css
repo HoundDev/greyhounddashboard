@@ -768,8 +768,13 @@ table.dataTable thead th, table.dataTable thead td {
 .nft-intro-card img {
     position: absolute;
     height: 360px;
-    right: 0;
-    bottom: 0;
+    right: -30px;
+    /* bottom: 0; */
+    margin-top: -40px;
+}
+.nft-intro-card .card-body {
+	position: relative;
+	z-index: 1;
 }
 
 [data-theme-version="dark"] .nft-intro-card {
@@ -1927,13 +1932,14 @@ p.banner-price span {
 	opacity: 1;
 }
 .MuiStepLabel-iconContainer {
-	padding-right: 15px!important;
+	padding-right: 9px!important;
 }
 
 .mintbox {
 	border: 1px solid #fff;
 	border-radius: 10px;
 	padding: 15px;
+	margin-bottom: 10px;
 }
 .mintbox p{
 	margin: 0;
@@ -1953,9 +1959,8 @@ p.banner-price span {
     margin-top: -160px;
     height: 350px;
 }
-
 #mintbox-3 {
-	margin-top: -240px;
+	margin-top: -280px;
 }
 
 
@@ -2185,3 +2190,33 @@ p.banner-price span {
     bottom: 0;
     right: 0;
 }
+
+
+@media only screen and (max-width: 992px) {
+    .alert{
+        align-items: center;
+        justify-content: space-between;
+         gap: 15px;
+
+    }
+	.MuiTypography-root, .btn-bar {
+		padding-left: 80px;
+	}
+	.MuiSvgIcon-root {
+	    height: 40px!important;
+	}
+	#mintbox-1 {
+		margin-top: -60px;
+	}
+	#mintbox-2 {
+		margin-top: -140px;
+	}
+ 	
+ 	#mintbox-3 {
+ 		margin-top: -220px;
+ 	}
+ 	.nft-intro-card img {
+ 		margin-top: -53px;
+ 	}
+}
+

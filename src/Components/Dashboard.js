@@ -824,7 +824,7 @@ function Dashboard(props) {
                         	<div className="card nft-intro-card">
 	                            <div className="row">
 	
-	                                <div className="col-md-8 justify-content-center align-self-center">
+	                                <div className="col-md-8 col-sm-8 col-8 justify-content-center align-self-center">
 	                                    <div className="card-body">
 	                                        <h2 className="card-text text-white">Discover, Collect Mint Houndies NFTs</h2>
 	                                        <p>Time has come to mint your houndies!</p>
@@ -838,7 +838,7 @@ function Dashboard(props) {
 	                                    </div>
 	                                </div>
 	
-	                                <div className="col-md-4">
+	                                <div className="col-md-4 col-sm-4 col-4">
 	                                    <img draggable="false" src="./images/hound-3d.png" alt="NFT 1" />
 	                                </div>
 	                            </div>
@@ -1074,7 +1074,7 @@ function Dashboard(props) {
 											</li>
 											<li className="nav-item">
 												<a className="nav-link active" data-toggle="tab" href="#received" role="tab" aria-selected="false">
-													Received
+													Rec
 												</a>
 											</li>
 										</ul>

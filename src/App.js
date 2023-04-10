@@ -227,8 +227,8 @@ function App() {
                           <li>
                             <div className="timeline-panel">
                               <div className="media-body">
-                                <small className="d-block mb-1">Welcome To Beta!</small>
-                                <h5 className="text-white">This is just an idea of what notifications will look like when we have big announcements to share with you.</h5>
+                                <small className="d-block mb-1">Announcement!</small>
+                                <h5 className="text-white">The public mint for Houndies is now live! Mint them through the NFT tab of the dashboard.</h5>
                               </div>
                             </div>
                           </li>
