@@ -58,6 +58,7 @@ export default function GreyStepper(props) {
   useEffect(() => {
     //check for mobile
     if (window.innerWidth <= 800) {
+      console.log("mobile");
       setIsMobile(true);
     }
   }, []);
@@ -583,7 +584,7 @@ export default function GreyStepper(props) {
       const nftName = document.getElementById("nft-name");
       const transitionTime = "750ms";
 
-      powerup.style.backgroundImage = `url(${"nftImage"})`;
+      powerup.style.backgroundImage = `url(${nftImage})`;
       // var c = 0;
       
       ctop.style.transition = `all ${transitionTime}`;
