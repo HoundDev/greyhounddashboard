@@ -168,14 +168,6 @@ function Login(props) {
         console.log(responseObj)
         const payload = await getXummPayload(responseObj.payload_uuidv4)
         console.log(payload)
-        var accessAddys = [
-                            "rKXkK5RRJD74anBpTeG23qc1gKggSHQHjB",
-                            "rfFfo87G2a7R7Csr1f6yHm7gxVGvx8ypo3",
-                            "rDdpAkYcMPuRfiQySVWUVjzbEZSH8ZH871",
-                            "rLfP4UznJ65hYTKXjSj2UQQxWDmxmRdbLW",
-                            "rMzRyrhAT1V28VoadRVzZ4QnDpGv2zjiNK",
-                            "rBGJ4n2zZ2yRgJKjq95yNZxtXWme4cY5XK"
-                          ]
         if (payload.success) {
           console.log('signed')
           if (responseObj.signed === true) {

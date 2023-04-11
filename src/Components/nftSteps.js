@@ -170,7 +170,7 @@ export default function GreyStepper(props) {
         console.log(response);
         setNftName("#" + response.num)
         // setNftImage(response.nft_image)
-        setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + response.num + ".png")
+        setNftImage(process.env.REACT_APP_URL + "images/houndies/" + response.num + ".png")
         // setNftNum(response.num);
         setMinting(false);
         setOfferhash(response.offer)
@@ -379,7 +379,7 @@ export default function GreyStepper(props) {
       setNftName("Houndies #" + data.nft_name);
       // setNftNum(data.nft_name);
       // setNftImage(data.nft_image);
-      setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + data.nft_name + ".png")
+      setNftImage(process.env.REACT_APP_URL + "images/houndies/" + data.nft_name + ".png")
       setPageLoading(false);
       // getRarity(data.nft_name);
       // getNftID(data.nft_name);

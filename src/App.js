@@ -74,7 +74,7 @@ function App() {
   function setStateValues(obj) {
     const cookies = new Cookies();
     const currentDate = new Date();
-    const futureDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
+    const futureDate = new Date(currentDate.setDate(currentDate.getDate() + 15));
        
     cookies.set('userAddress', obj.xrpAddress, { path: '/', expires: futureDate });
     cookies.set('userSession', obj.session, { path: '/', expires: futureDate });
@@ -120,8 +120,6 @@ function App() {
       setDashClicked(false);
     }
   }
-
-  //console.log(userAddress)
 
   //wait for dom to be loaded
   useEffect(() => {
