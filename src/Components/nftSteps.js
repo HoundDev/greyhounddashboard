@@ -9,7 +9,9 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton';
+import { confetti } from 'dom-confetti';
+import Confetti from 'react-dom-confetti';
 
 require("dotenv").config();
 
@@ -19,6 +21,8 @@ function getSteps() {
 
 export default function GreyStepper(props) {
 
+
+  const [conf, setConf] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [popupTrade, setPopupTrade] = useState(false);
   const [popupTrade2, setPopupTrade2] = useState(false);
@@ -49,6 +53,40 @@ export default function GreyStepper(props) {
   const [nftId, setNftId] = useState("0");
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
+  
+  
+  
+  const confettiConfig = {
+        angle: 90,
+        spread: 360,
+        startVelocity: 40,
+        elementCount: 100,
+        dragFriction: 0.13,
+        duration: 6000,
+        stagger: 3,
+        width: "7px",
+        height: "7px",
+        perspective: "500px",
+        colors: ["#a7b0cf", "#cd5f71", "#FFE66D", "#a7b0cf"]
+    };
+   
+   const confettiConfigLegend = {
+        angle: 90,
+        spread: 360,
+        startVelocity: 40,
+        elementCount: 100,
+        dragFriction: 0.13,
+        duration: 6000,
+        stagger: 3,
+        width: "7px",
+        height: "7px",
+        perspective: "500px",
+        colors: ["#FFD700", "#D1B000", "#FFED8A", "#FFDE2E"]
+    };
+    
+     
+  
+  
   // const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
 
   const handleNext = () => {
@@ -83,7 +121,7 @@ export default function GreyStepper(props) {
         let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
         response = response.data;
         console.log(response);
-        setNftName("Houndies #" + response.num)
+        setNftName("#" + response.num)
         // setNftImage(response.nft_image)
         setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + response.num + ".png")
         // setNftNum(response.num);
@@ -420,7 +458,12 @@ export default function GreyStepper(props) {
         
             <div className="card-body">	
             {/*<p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>*/}
-
+			
+			<div className="confetti-container">
+				<Confetti active={conf} config={confettiConfigLegend}/>	
+            </div>
+			
+			
             {crate === true ? (
                 <div id="cube" class="h-40 w-40 relative flex justify-center items-center cursor-pointer">
                   <div class="hexagon absolute" id="glow"></div>
@@ -430,22 +473,36 @@ export default function GreyStepper(props) {
                   <div class="cube rightcrate h-40 w-40 absolute top-0 left-0" id="cright"></div>
                   <div class="powerup absolute" id="powerup"></div>
                 </div>
+				
+				
+				
+				
+				
+				
+				
             ) : (
                 <></>
             )}
-            <div className="nft-name text-white" id="nft-name" style={{visibility: "hidden"}}>
-              {nftName}
-            </div>
-            <div>
-            <div className="col-md-6 offset-md-3">
+            <div className="nft-name text-white" id="nft-name" style={{display: "none"}}>
+            
+			  <div className="col-md-6 offset-md-3">
                   <div className="mintbox">
+				    <div className="d-block">{nftName}</div>
                     <span className="text-white">{rarity}</span>
                     <div className="d-block">
                       <span className="fs-22 text-white" id="baseField">{tier}</span>
                     </div>
                   </div>	
               </div>
+			  
             </div>
+            <div>
+            
+			
+			
+            </div>
+			
+			
             </div>              
           </div>	
         </div>
@@ -492,6 +549,7 @@ export default function GreyStepper(props) {
         constructor() {
           if (!isOpen) {
             award();
+			setConf(true)
             ctop.style.transform = "translateY(-3rem)";
             cleft.style.transform = "translateX(-3rem)";
             cback.style.transform = "translateX(-3rem)";
@@ -507,7 +565,7 @@ export default function GreyStepper(props) {
             powerup.style.zIndex = 10;
             powerup.style.height = "300px";
             powerup.style.width = "300px";
-            nftName.style.visibility = "visible";
+            nftName.style.display = "block";
           } else {
             ctop.style.transform = "translateY(0)";
             cleft.style.transform = "translateX(0)";
@@ -526,7 +584,7 @@ export default function GreyStepper(props) {
             powerup.style.height = "160px";
             powerup.style.width = "160px";
             changeVar("rgba(192, 99, 111, 0.5)");
-            nftName.style.visibility = "hidden";
+            nftName.style.display = "none";
           }
         }
       }
@@ -585,6 +643,7 @@ export default function GreyStepper(props) {
           <Button className="btn-primary" variant="contained" onClick={handleClaim} id="claim">Claim</Button>}
                   {offerAccepted === true && index === 2 &&
           // <Button className="btn-primary" variant="contained" onClick={window.location.reload(false)}>Mint Another</Button>}
+		  	 
              <Button
               className="btn-primary"
                variant="contained"
@@ -593,6 +652,13 @@ export default function GreyStepper(props) {
                 }}
               >
                   Mint Another</Button>}
+				  
+				  
+				  {offerAccepted === true && index === 2 &&
+				  <Button className="btn-primary">View NFT</Button>
+				  }
+				  
+				  
                </div>
             </StepContent>
           </Step>

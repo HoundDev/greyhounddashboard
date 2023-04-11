@@ -725,6 +725,10 @@ table.dataTable thead th, table.dataTable thead td {
     width: 18rem;
 }
 
+.nft-name {
+	margin-top: 90px;
+}
+
 /*.nft-card:hover {
     -webkit-transform: translateY(-10px);
     -ms-transform: translateY(-10px);
@@ -2217,6 +2221,6 @@ p.banner-price span {
  	}
  	.nft-intro-card img {
  		margin-top: -53px;
- 	}
+}
 }
 
