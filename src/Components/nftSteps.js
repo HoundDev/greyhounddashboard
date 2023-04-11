@@ -51,10 +51,16 @@ export default function GreyStepper(props) {
   const [rarity, setRarity] = useState("");
   const [tier, setTier] = useState("");
   const [nftId, setNftId] = useState("");
-  let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const [isMobile, setIsMobile] = useState(false);
   const steps = getSteps();
   
   
+  useEffect(() => {
+    //check for mobile
+    if (window.innerWidth <= 800) {
+      setIsMobile(true);
+    }
+  }, []);
   
   const confettiConfigStandard = {
         angle: 90,
@@ -203,7 +209,7 @@ export default function GreyStepper(props) {
   async function createBurnOffer(){
     const cookies = new Cookies();
 
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps');
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
     let data = await response.json();
     console.log(data);
     setBurnAmount(data.burn_amount);
@@ -226,7 +232,7 @@ export default function GreyStepper(props) {
 
   async function createClaimOffer(){
     const cookies = new Cookies();
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps');
+    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
     let data = await response.json();
     console.log(data);
     data = data.payload;
@@ -533,18 +539,12 @@ export default function GreyStepper(props) {
                   <div class="powerup absolute" id="powerup"></div>
                 </div>
 				
-				
-				
-				
-				
-				
-				
             ) : (
                 <></>
             )}
             <div className="nft-name text-white" id="nft-name" style={{display: "none"}}>
             
-			  <div className="col-md-6 offset-md-3">
+			  <div className="col-md-6 offset-md-3 mb-4">
                   <div className="mintbox">
 				    <div className="d-block">{nftName}</div>
                     <span className="text-white">{rarity}</span>
@@ -583,7 +583,7 @@ export default function GreyStepper(props) {
       const nftName = document.getElementById("nft-name");
       const transitionTime = "750ms";
 
-      powerup.style.backgroundImage = `url(${nftImage})`;
+      powerup.style.backgroundImage = `url(${"nftImage"})`;
       // var c = 0;
       
       ctop.style.transition = `all ${transitionTime}`;
