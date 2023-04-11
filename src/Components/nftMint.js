@@ -69,7 +69,7 @@ export default function NftHome(props) {
         						<div className="progress mb-2">
 									<div className="progress-bar progress-animated bg-primary" role="progressbar" style={{width: `${mintedPercentage}%`}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
-        						<p className="text-white banner-minted">{numMinted} / 100000 MINTED</p>
+        						<p className="text-white banner-minted">{numMinted} / 10000 MINTED</p>
                             
                             
                             
