@@ -56,7 +56,7 @@ export default function GreyStepper(props) {
   
   
   
-  const confettiConfig = {
+  const confettiConfigStandard = {
         angle: 90,
         spread: 360,
         startVelocity: 40,
@@ -82,6 +82,32 @@ export default function GreyStepper(props) {
         height: "7px",
         perspective: "500px",
         colors: ["#FFD700", "#D1B000", "#FFED8A", "#FFDE2E"]
+    };
+    const confettiConfigElite = {
+        angle: 90,
+        spread: 360,
+        startVelocity: 40,
+        elementCount: 100,
+        dragFriction: 0.13,
+        duration: 6000,
+        stagger: 3,
+        width: "7px",
+        height: "7px",
+        perspective: "500px",
+        colors: ["#00A300", "#00D100", "#2EFF2E", "#8AFF8A"]
+    };
+    const confettiConfigRare = {
+        angle: 90,
+        spread: 360,
+        startVelocity: 40,
+        elementCount: 100,
+        dragFriction: 0.13,
+        duration: 6000,
+        stagger: 3,
+        width: "7px",
+        height: "7px",
+        perspective: "500px",
+        colors: ["#D7A1F9", "#B24BF3", "#880ED4", "#6C0BA9"]
     };
     
      

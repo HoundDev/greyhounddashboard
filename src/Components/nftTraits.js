@@ -63,11 +63,11 @@ export default function NftTriats(props) {
 																	Headwear
 																</a>
 															</li>
-															<li className="nav-item">
+															{/*<li className="nav-item">
 																<a className="nav-link" data-toggle="tab" href="#secret" role="tab" aria-selected="false">
 																	1 of 1
 																</a>
-															</li>
+															</li>*/}
 														</ul>
 													</div>
 												</div>
@@ -2248,7 +2248,7 @@ export default function NftTriats(props) {
 															</table>
 														</div>
 													</div>
-													<div className="tab-pane fade" id="secret">
+													{/*<div className="tab-pane fade" id="secret">
 														<div id="example-5_wrapper" className="dataTables_wrapper no-footer">
 															<table className="table display mb-4 dataTablesCard dataTable no-footer traits" id="richlist">
 																<thead>
@@ -2336,7 +2336,7 @@ export default function NftTriats(props) {
 																</tbody>
 															</table>
 														</div>
-													</div>
+													</div>*/}
 													
 													
 													
