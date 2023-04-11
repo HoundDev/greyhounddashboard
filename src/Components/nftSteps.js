@@ -50,7 +50,7 @@ export default function GreyStepper(props) {
   const [burnAmount, setBurnAmount] = useState(0);
   const [rarity, setRarity] = useState("");
   const [tier, setTier] = useState("");
-  const [nftId, setNftId] = useState("0");
+  const [nftId, setNftId] = useState("");
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const steps = getSteps();
   
@@ -109,11 +109,32 @@ export default function GreyStepper(props) {
         perspective: "500px",
         colors: ["#D7A1F9", "#B24BF3", "#880ED4", "#6C0BA9"]
     };
+
+    const getConfig = () => {
+        if (rarity === "Legendary") {
+            return confettiConfigLegend;
+        } else if (rarity === "Elite") {
+            return confettiConfigElite;
+        } else if (rarity === "Rare") {
+            return confettiConfigRare;
+        } else {
+            return confettiConfigStandard;  
+        }
+    }
+
     
-     
   
-  
-  // const burnAmount = process.env.REACT_APP_BURN_AMOUNT;
+  const getNftID = (nftNum) => {
+    try {
+      const url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/getNftId?nftNum=' + nftNum;
+      axios.get(url).then((response) => {
+        console.log(response.data);
+        setNftId(response.data.nftId);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -154,7 +175,10 @@ export default function GreyStepper(props) {
         setMinting(false);
         setOfferhash(response.offer)
         handleNext();
-        getRarity(response.num);
+        // getRarity(response.num);
+        // getNftID(response.num);
+        //make both of these calls at the same time
+        await Promise.all([getRarity(response.num), getNftID(response.num)]);
     } catch (error) {
         console.log(error)
         //refresh the page
@@ -357,7 +381,12 @@ export default function GreyStepper(props) {
       // setNftImage(data.nft_image);
       setNftImage("https://houndsden.app.greyhoundcoin.net/images/houndies/" + data.nft_name + ".png")
       setPageLoading(false);
-      getRarity(data.nft_name);
+      // getRarity(data.nft_name);
+      // getNftID(data.nft_name);
+      //make the call in parallel
+      Promise.all([getRarity(data.nft_name), getNftID(data.nft_name)]).then((values) => {
+        console.log(values);
+      });
     } else if (data.status === 'minting') {
       setActiveStep(1);
       setMinting(true);
@@ -427,7 +456,7 @@ export default function GreyStepper(props) {
                     <div className="d-block">
                       <span className="fs-22 text-white" id="baseField">{balance}</span>
                     </div>
-                    <a href="/">Buy More</a>
+                    <a href="https://xpmarket.com/dex/Greyhound-rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ/XRP">Buy More</a>
                   </div>	
               </div>
               <div className="col-md-6">
@@ -486,7 +515,11 @@ export default function GreyStepper(props) {
             {/*<p>First claim the nft<br/>then Click on the crate to reveal your NFT</p>*/}
 			
 			<div className="confetti-container">
-				<Confetti active={conf} config={confettiConfigLegend}/>	
+				<Confetti 
+          active={conf} 
+          config={getConfig()}            
+        />	
+            
             </div>
 			
 			
@@ -679,9 +712,12 @@ export default function GreyStepper(props) {
               >
                   Mint Another</Button>}
 				  
-				  
 				  {offerAccepted === true && index === 2 &&
-				  <Button className="btn-primary">View NFT</Button>
+				  <Button className="btn-primary" variant="contained" onClick={() => {
+                  window.open(process.env.REACT_APP_URL + "nftDetails?nftid=" + nftId, "_blank");
+                }}>
+            View NFT
+          </Button>
 				  }
 				  
 				  
