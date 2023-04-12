@@ -356,16 +356,24 @@ export default function GreyStepper(props) {
     let data = await response.json();
     var flag = false;
     console.log(data);
+    if ('error' in data) {  
+      if (data.error === true) {
+        //refresh the page after 5 seconds
+        setTimeout(function(){ window.location.reload(); }, 5000);
+
+        return;
+      }
+    }
 
     const cookies = new Cookies();
     if (!cookies.get('pid') || cookies.get('pid') === 'undefined' || cookies.get('pid') === undefined || cookies.get('pid') === null) {
       cookies.set('pid', data.request_id, { path: '/nftSteps' });
-      // console.log(`pid set\nPID: ${cookies.get('pid')}\nPID2: ${data.request_id}`);
     } else {
-      // console.log('pid already set');
-      if (cookies.get('pid') !== data.request_id) {
-        console.log('pid changed');
-        flag = true;
+      if ('request_id' in data) {
+        if (cookies.get('pid') !== data.request_id) {
+          console.log('pid changed');
+          flag = true;
+        }
       }
     }
 
@@ -378,6 +386,7 @@ export default function GreyStepper(props) {
       setClaimed(true);
       setMintClicked(false);
       setPageLoading(false);
+      handleMint();
     } else if (data.stage === 'offered') {
       setActiveStep(2);
       setClaimed(true);
@@ -405,11 +414,11 @@ export default function GreyStepper(props) {
 
     }
 
-    if (flag) {
-      console.log('pid changed');
-      setLoadingText('ATTENTION: REQUEST ID IS NOT THE SAME AS THE ONE IN THE COOKIES');
-      setPageLoading(true);
-    }
+    // if (flag) {
+    //   console.log('pid changed');
+    //   setLoadingText('ATTENTION: REQUEST ID IS NOT THE SAME AS THE ONE IN THE COOKIES');
+    //   setPageLoading(true);
+    // }
   }
 
   async function getBalance() {
