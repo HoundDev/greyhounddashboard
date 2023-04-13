@@ -175,6 +175,13 @@ export default function GreyStepper(props) {
         let response = await axios.post(url, { "address": props.xrpAddress, "pid": cookies.get('pid') });
         response = response.data;
         console.log(response);
+        if ('error' in response) {
+          //wait for 5 seconds and then refresh the page
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
+          return;
+        }
         setNftName("#" + response.num)
         // setNftImage(response.nft_image)
         setNftImage(process.env.REACT_APP_URL + "images/houndies/" + response.num + ".png")
@@ -360,7 +367,21 @@ export default function GreyStepper(props) {
       if (data.error === true) {
         //refresh the page after 5 seconds
         setTimeout(function(){ window.location.reload(); }, 5000);
+        return;
+      }
+    }
 
+    if ('message' in data) {
+      setLoadingText("Found missing burn txn! Giving you a mint! You will be redirected in 5 seconds, please wait patiently while we mint your NFT!")
+      setTimeout(function(){ window.location.reload(); }, 5000);
+      return;
+    }
+
+    if ('refresh' in data) {
+      if (data.refresh === true) {
+        setLoadingText("Adding you to the queue!")
+        //refresh the page after 5 seconds
+        setTimeout(function(){ window.location.reload(); }, 2000);
         return;
       }
     }
