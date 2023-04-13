@@ -397,7 +397,6 @@ export default function GreyStepper(props) {
         }
       }
     }
-
     // setPageLoading(false);
     if (data.stage === 'pending') {
       setPageLoading(false);
@@ -409,19 +408,25 @@ export default function GreyStepper(props) {
       setPageLoading(false);
       handleMint();
     } else if (data.stage === 'offered') {
+      var nftNum;
+      if ('nft_name' in data) {
+        nftNum = data.nft_name;
+      } else if ('num' in data) {
+        nftNum = data.num;
+      }
       setActiveStep(2);
       setClaimed(true);
       setMintClicked(true);
       setOfferhash(data.offer);
-      setNftName("Houndies #" + data.nft_name);
+      setNftName("Houndies #" + nftNum);
       // setNftNum(data.nft_name);
       // setNftImage(data.nft_image);
-      setNftImage(process.env.REACT_APP_URL + "images/houndies/" + data.nft_name + ".png")
+      setNftImage(process.env.REACT_APP_URL + "images/houndies/" + nftNum + ".png")
       setPageLoading(false);
       // getRarity(data.nft_name);
       // getNftID(data.nft_name);
       //make the call in parallel
-      Promise.all([getRarity(data.nft_name), getNftID(data.nft_name)]).then((values) => {
+      Promise.all([getRarity(nftNum), getNftID(nftNum)]).then((values) => {
         console.log(values);
       });
     } else if (data.status === 'minting') {
