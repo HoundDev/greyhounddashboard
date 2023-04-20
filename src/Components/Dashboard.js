@@ -999,11 +999,11 @@ function Dashboard(props) {
 													<div>
 														<div className='tx-info'>
 															<span>You Pay</span>
-															<p className='text-white'>{quoteAmount} {curStringB}</p>
+															<p className='text-white'>{quoteAmount} XRP</p>
 														</div>
 														<div className='tx-info'>
 															<span>Receive</span>
-															<p className='text-white'>{baseAmount} {curStringS}</p>
+															<p className='text-white'>{baseAmount} GH</p>
 														</div>
 														{issueCheck && <div className='tx-info'>
 															<span>Issuer Fee</span>
