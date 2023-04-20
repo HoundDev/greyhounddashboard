@@ -189,7 +189,7 @@ function Dashboard(props) {
 						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
 						"value": amountBase
 					},
-					"TakerGets": `${xrpl.dropsToXrp(amountCounter)}}`,
+					"TakerGets": `${amountCounter * 1000000}`,
 					"Flags": 131072
 
 				}
