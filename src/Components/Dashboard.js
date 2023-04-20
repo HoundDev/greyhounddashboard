@@ -354,7 +354,7 @@ function Dashboard(props) {
 		let amountCounter = quoteAmount
 		setBaseAmount(amountBase)
 		setQuoteAmount(quoteAmount)
-		createOffer(amountBase, amountCounter, 'buy')
+		createOffer(amountBase, amountCounter, 'sell')
 		setCurStringS("XRP")
 		setCurStringB("Hound")
 		setIssueAmount(0)
