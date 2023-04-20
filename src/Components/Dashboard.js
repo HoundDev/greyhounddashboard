@@ -189,7 +189,9 @@ function Dashboard(props) {
 						"issuer": "rJWBaKCpQw47vF4rr7XUNqr34i4CoXqhKJ",
 						"value": amountBase
 					},
-					"TakerGets": `${amountCounter}`
+					"TakerGets": `${xrpl.dropsToXrp(amountCounter)}}`,
+					"Flags": 131072
+
 				}
 			}
 		} else {
