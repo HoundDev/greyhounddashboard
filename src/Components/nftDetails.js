@@ -15,8 +15,6 @@ export default function NftDetails(props) {
     const [nftId, setNftId] = useState("");
     const [nftAttrs, setNftAttrs] = useState([]);
     const [setDesc, setSetDesc] = useState("");
-    const [collectionId, setCollectionId] = useState("");
-    const [nftPrice, setNftPrice] = useState(0);
     const [tier, setTier] = useState("");
     const [rarity, setRarity] = useState("");
     const [animFlag, setAnimFlag] = useState(false)
