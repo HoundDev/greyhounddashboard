@@ -12,6 +12,7 @@ export default function UserProfile(props) {
     const [nftImages, setNftImages] = useState([]);
     const [nftNames, setNftNames] = useState([]);
     const [nftIds, setNftIds] = useState([]);
+    const [pins, setPins] = useState([]);
 
     async function getNfts() {
         try {
@@ -26,7 +27,13 @@ export default function UserProfile(props) {
 	        let images = [];
 	        let keys = Object.keys(data);
             let keys2 = []
+            let pins = [];
 	        for (let i = 0; i < keys.length; i++) {
+                let taxon = data[keys[i]].taxon;
+                if (taxon === 2) {
+                    pins.push({"name": data[keys[i]].name, "image": data[keys[i]].image, "nftid": keys[i]});
+                    console.log(`Pin Detected: ${data[keys[i]].name}`)
+                }
                 let name = data[keys[i]].name;
                 if (name === undefined) {
                     continue;
@@ -44,6 +51,7 @@ export default function UserProfile(props) {
 	        setNftImages(images);
 	        setNftNames(names);
             setNftIds(keys2);
+            setPins(pins);
         } catch (error) {
             console.log(error);
         }
@@ -88,29 +96,19 @@ export default function UserProfile(props) {
                                 </div>
                                 <div className="right">
                                     <div className="info-box">
-                                    <h5>Pin Collection</h5>
+                                    <h5>Badges Collection</h5>
                                     <div id="pins">
-                                        <li className="nav-item dropdown medal">
-                                            <a className="nav-link" href="#" data-toggle="modal">
-                                                <img src="./images/badges/airdropnft.png" title="Spring Rescue 2022"
-                                                    draggable="false" />
-                                                <i className="fa-solid fa-lock medal-lock"></i>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item dropdown medal">
-                                            <a className="nav-link" href="#" data-toggle="modal">
-                                                <img src="./images/badges/airdropnft.png" title="Spring Rescue 2022"
-                                                    draggable="false" />
-                                                <i className="fa-solid fa-lock medal-lock"></i>
-                                            </a>
-                                        </li>
-                                        <li className="nav-item dropdown medal">
-                                            <a className="nav-link" href="#" data-toggle="modal">
-                                                <img src="./images/badges/airdropnft.png" title="Spring Rescue 2022"
-                                                    draggable="false" />
-                                                <i className="fa-solid fa-lock medal-lock"></i>
-                                            </a>
-                                        </li>
+                                        {Array(pins.length).fill().map((_, i) => (
+                                            <li className="nav-item dropdown medal">
+                                                <a className="nav-link"
+                                                   href={process.env.REACT_APP_URL + "nftDetails?nftid=" + pins[i].nftid}
+                                                   data-toggle="modal">
+                                                    <img src={pins[i].image} title={pins[i].name}
+                                                        draggable="false" alt="pin"
+                                                        />
+                                                </a>
+                                            </li>
+                                        ))}
 
                                     </div>
                                     </div>

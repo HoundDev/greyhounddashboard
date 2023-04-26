@@ -2,7 +2,6 @@
 import LoadingOverlay from 'react-loading-overlay-ts';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { dataa } from './greyhoundVolume';
 import { data } from './ActivityLine3';
 import { GHdata } from './ActivityLine';
@@ -15,12 +14,7 @@ import GreySupply from "./greyhoundSupply";
 import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
-import NftCard from "./nfts/NftCard";
 import { dataSup } from './greyhoundSupply';
-import checkValidSignature from './Login';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css'
 
 require("dotenv").config();
 const xrpl = require("xrpl");
@@ -122,6 +116,7 @@ function Dashboard(props) {
 	const [showSuccess, setShowSuccess] = useState(false)
 	const [showError, setShowError] = useState(false)
 	const [tradeMode, setTradeMode] = useState(0) // 0 = buy, 1 = sell 
+	const [pins, setPins] = useState([])
 
 	const getMainData = async (requestContent) => {
 		try {
@@ -471,7 +466,7 @@ function Dashboard(props) {
 				setShowChangePos(true)
 				setShowChangeNeg(false)
 			}
-			else if (mainData.data.Change == 0) {
+			else if (mainData.data.Change === 0) {
 				setShowChangePos(false)
 				setShowChangeNeg(false)
 				setShowNoChange(true)
@@ -485,6 +480,32 @@ function Dashboard(props) {
 		}
 
 	getMainDataa()
+
+    async function getPins() {
+        try {
+	        let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/getnfts', {
+	            method: 'POST',
+	            headers: { 'Content-Type': 'application/json' },
+	            body: JSON.stringify({"xrpAddress": props.xrpAddress})
+	            });
+	        let data = await response.json();
+	        console.log(data);
+	        let keys = Object.keys(data);
+            let pins = [];
+	        for (let i = 0; i < keys.length; i++) {
+                let taxon = data[keys[i]].taxon;
+                if (taxon === 2) {
+                    pins.push({"name": data[keys[i]].name, "image": data[keys[i]].image, "nftid": keys[i]});
+                    console.log(`Pin Detected: ${data[keys[i]].name}`)
+                }
+	        }
+            setPins(pins);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+	getPins();
 	}, [])
 
 	function closePopup() {
@@ -726,39 +747,20 @@ function Dashboard(props) {
 
 
 								<div className="card-footer border-0 pt-0">
-									<h5 className="card-title text-white">Pin Collection</h5>
+									<h5 className="card-title text-white">Badges Collection</h5>
 									<div id="pins">
-										<li className="nav-item dropdown medal">
-											<a className="nav-link" href="#" data-toggle="modal">
-												<img src="./images/badges/airdropnft.png" title="Spring Rescue 2022"
-													draggable="false" />
-												<i className="fa-solid fa-lock medal-lock"></i>
-											</a>
-										</li>
-										{/* <li className="nav-item dropdown medal">
-											<a className="nav-link" onClick={() => setBasicModal(true)}>
-												<img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
-													draggable="false" />
-											</a>
-										</li> */}
-										{snapShotTier !== 'None' && <li className="nav-item dropdown medal">
-											<a className="nav-link" onClick={() => setBasicModal(true)}>
-												<img src="./images/badges/airdropnft.png" title="Rosie NFT Snapshot 2022"
-													draggable="false" />
-											</a>
-										</li>}
-										{/* <li className="nav-item dropdown medal">
-											<a className="nav-link" onClick={() => setOgModal(true)}>
-												<img src="./images/badges/og.png" title="Greyhound OG Member"
-													draggable="false" />
-											</a>
-										</li> */}
-										{snapShotTier !== 'None' && <li className="nav-item dropdown medal">
-											<a className="nav-link" onClick={() => setOgModal(true)}>
-												<img src="./images/badges/og.png" title="Greyhound OG Member"
-													draggable="false" />
-											</a>
-										</li>}
+							
+										{Array(pins.length).fill().map((_, i) => (
+                                            <li className="nav-item dropdown medal">
+                                                <a className="nav-link"
+                                                   href={process.env.REACT_APP_URL + "nftDetails?nftid=" + pins[i].nftid}
+                                                   data-toggle="modal">
+                                                    <img src={pins[i].image} title={pins[i].name}
+                                                        draggable="false" alt="pin"
+                                                        />
+                                                </a>
+                                            </li>
+                                        ))}
 									</div>
 								</div>
 
