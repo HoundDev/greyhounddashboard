@@ -10,6 +10,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Cookies from 'universal-cookie';
 import RichList from './Components/Richlist.js';
 import SpringRescue from './Components/springRescue.js';
+import Staking from './Components/staking.js';
 import NftHome from './Components/nftHome.js';
 import NftExplore from './Components/nftExplore';
 import NftDetails from './Components/nftDetails.js';
@@ -35,6 +36,7 @@ function App() {
   const [userSession, setUserSession] = React.useState('')
   const [activeStyleDashboard, setActiveStyleDashboard] = React.useState('mm-active')
   const [activeStyleRichList, setActiveStyleRichlist] = React.useState('')
+  const [activeStyleStaking, setActiveStyleStaking] = React.useState('')
   const [activeStyleNftMint, setActiveStyleNftMint] = React.useState('')
   const [activeStyleDropdown, setActiveStyleDropdown] = React.useState('mm-collapse')
   const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
@@ -97,9 +99,28 @@ function App() {
       setActiveStyleSpringRescue('')
 	  setActiveStyleDropdown('mm-collapse')
       setDashClicked(true);
+    }
+	
+	if (str === 'dashboardLI') {
+      setActiveStyleDashboard('mm-active')
+      setActiveStyleRichlist('')
+      setActiveStyleStaking('')
+	  setActiveStyleNftMint('')
+      setActiveStyleSpringRescue('')
+      setActiveStyleDropdown('mm-collapse')
+      setDashClicked(true);
     } else if (str === 'richlistLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('mm-active')
+      setActiveStyleStaking('')
+	  setActiveStyleNftMint('')
+	  setActiveStyleDropdown('mm-collapse')
+	  setActiveStyleSpringRescue('')
+      setDashClicked(false);
+    } else if (str === 'stakingLI') {
+      setActiveStyleDashboard('')
+      setActiveStyleRichlist('')
+	  setActiveStyleStaking('mm-active')
       setActiveStyleNftMint('')
 	  setActiveStyleDropdown('mm-collapse')
 	  setActiveStyleSpringRescue('')
@@ -107,6 +128,7 @@ function App() {
     } else if (str === 'SpringRescueLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
+	  setActiveStyleStaking('')
 	  setActiveStyleNftMint('')
 	  setActiveStyleDropdown('mm-collapse')
       setActiveStyleSpringRescue('mm-active')
@@ -114,6 +136,7 @@ function App() {
     } else if (str === 'nftMintLI') {
       setActiveStyleDashboard('')
       setActiveStyleRichlist('')
+	  setActiveStyleStaking('')
 	  setActiveStyleNftMint('mm-active')
 	  setActiveStyleDropdown('mm-show')
       setActiveStyleSpringRescue('')
@@ -286,6 +309,15 @@ function App() {
                 <span className="nav-text">Richlist</span>
               </Link>
               </li>
+			  
+			  
+			  <li id="stakingLI" className={activeStyleStaking}><Link onClick={() => setActive('stakingLI')} to="/staking" className=" ai-icon" aria-expanded="false">
+                <i className="fi fi-sr-sack-dollar"></i>
+                <span className="nav-text">Staking <span className="badge badge-primary badge-rounded badge-xs">NEW</span></span>
+              </Link>
+              </li>
+			  
+			  
                <li id="richlistLI" className={activeStyleSpringRescue}>
                 {/* <Link onClick={() => setActive('SpringRescueLI')} to="/springrescue" className=" ai-icon" aria-expanded="false"> */}
                 <Link onClick={null} to="/" className=" ai-icon" aria-expanded="false">
@@ -363,7 +395,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
-          {/*<Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />*/}
+          <Route path="/staking" element={<Staking xrpAddress={userAddress} />} />
+		  <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />

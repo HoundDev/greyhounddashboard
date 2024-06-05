@@ -1670,9 +1670,9 @@ p.banner-price span {
     margin: 0;
 }
 
-.bg-primary {
+/*.bg-primary {
 	width: 10%;
-}
+}*/
 .progress {
 		background-color:#21212A!important;
 		height: 10px;
@@ -1680,9 +1680,129 @@ p.banner-price span {
 		margin-top: 30px;
 }
 
+.progressSmall {
+		height: 5px;
+}
 
 
 
+/*=============================================
+	=                Staking            =
+=============================================*/
+.stakingTabs li{
+	width: 50%;	
+	text-align: center;
+	font-weight: 600;
+}
+.stakingTabs .nav-tabs{
+	border: none;
+	
+}
+
+.stakingTabs .nav-item:first-child .nav-link{
+	border-top-left-radius:10px!important;
+	border-bottom-left-radius:10px!important;
+	border-top-right-radius:0px!important;
+	border-bottom-right-radius:0px!important;
+}
+.stakingTabs .nav-item:last-child .nav-link{
+	border-top-left-radius:0px!important;
+	border-bottom-left-radius:0px!important;
+	border-top-right-radius:10px!important;
+	border-bottom-right-radius:10px!important;
+}
+
+.stakingTabs .nav-link:hover, .stakingTabs .nav-link.active:hover, .stakingTabs .nav-link{
+	border: none;
+	padding: 10px;
+	color: #fff;
+}
+
+.stakingTabs .nav-link.active {
+	    background: #CE5C6D;
+		color: #fff;
+}
+.stakingTabs .nav-link.active:hover, .stakingTabs .nav-link:hover {
+	    transition: all .3s ease-in-out 0s;
+		opacity: 90%;
+}
+
+.stakeNft img {
+    width: 2.5rem!important;
+}
+
+.logoIcon {
+	width: 1.5rem!important;
+}
+.lockIcon {
+	width: 1rem!important;
+}
+.font-primary {
+	color: #a6b0cf;
+}
+.justify-between {
+	justify-content: space-between;
+}
+
+
+.bg-darker {
+	background: #302f3f;
+}
+.nftEnd {
+	width: 15%;
+}
+.nftStart {
+	width: 10%;
+}
+.nftMiddle {
+	width: 37.5%;
+}
+
+
+.toggle-pill-dark input[type=checkbox] {
+    display: none
+}
+.toggle-pill-dark input[type=checkbox]+label {
+    display: block;
+    position: relative;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 1em;
+    border: 2px solid #fff;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    transition: background .1s ease-in-out;
+    --tw-border-opacity: 1;
+    border-color: #CE5C6D;
+    --tw-bg-opacity: 1;
+    background-color: #252430;
+}
+.toggle-pill-dark input[type=checkbox]+label:before {
+    content: "";
+    display: block;
+    width: .75em;
+    height: .75em;
+    border-radius: 1em;
+    background: #252430;
+    position: absolute;
+    left: .3em;
+    top: .3em;
+    transition: all .2s ease-in-out;
+    transform: rotate(90deg);
+    --tw-bg-opacity: 1;
+    background-color: #CE5C6D;
+    opacity: 0
+}
+
+.toggle-pill-dark input[type=checkbox]:checked+label:before {
+    
+    transform: rotate(295deg);
+    background-color: #CE5C6D;
+    opacity: 1
+}
+   
 
 
 
