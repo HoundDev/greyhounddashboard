@@ -88,7 +88,7 @@ export default function NftHome(props) {
     
     
   							</div>
-  							<p className="text-white banner-price">Only <span><span style="text-decoration: line-through">10</span> 5 MILLION HOUND</span> per mint!</p>
+  							<p className="text-white banner-price">Only <span><span style={{textDecoration: "line-through"}}>10</span> 5 MILLION HOUND</span> per mint!</p>
   						
   
                             
