@@ -9,10 +9,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
   // Then, if the checkbox is checked (event.target.checked == true)
   // Then apply `data-theme="dark"` to the body tag
   // Otherwise, remove the attribute
-  checkbox.addEventListener('change', (event) => {
-          
-    event.target.checked ? body.removeAttribute('data-theme-version', "dark") : body.setAttribute('data-theme-version', "dark")
+  if( checkbox ){
+    checkbox.addEventListener('change', (event) => {
+            
+      event.target.checked ? body.removeAttribute('data-theme-version', "dark") : body.setAttribute('data-theme-version', "dark")
 
-  });
-
+    });
+  }
 });
