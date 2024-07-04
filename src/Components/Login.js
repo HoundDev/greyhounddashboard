@@ -264,7 +264,7 @@ function Login(props) {
                   <p className="text-muted fs-18 mb-4">Add an account from a XUMM Wallet</p>
                   <form action="index.html">
                     <div className="mt-3">
-                      <Button className="btn btn-login btn-lg btn-block" onClick={Signin}> <img src="https://greyhoundcoin.net/assets/images/icon/xumm.png"></img>Sign in with XUMM</Button>
+                      <Button className="btn btn-login btn-lg btn-block" onClick={Signin}> <img src="/icons/site/xumm.png"></img>Sign in with XUMM</Button>
                       {!showSpinner && requestResolved && requestResolvedMessage !== '' && requestFailed ?
                         <Alert status="error" style={{ marginTop: '20px' }}><AlertIcon />{requestResolvedMessage}</Alert> : <></>}
 
