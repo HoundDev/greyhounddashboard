@@ -506,7 +506,7 @@ export default function GreyStepper(props) {
                     <span className="text-white">Cost</span>
                     
                     <div className="d-block">
-                      <img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id="baseImage" alt="icon"/><span className="fs-24 text-white"><span style="text-decoration: line-through;">10M</span> 5M HOUND</span>
+                      <img className="gh-icon" src="./images/svg/logo-icon.svg" height="30px" id="baseImage" alt="icon"/><span className="fs-24 text-white"><span style="text-decoration: line-through">10M</span> 5M HOUND</span>
                     </div>
                     <span className="text-white">Per NFT</span>
                   </div>	
