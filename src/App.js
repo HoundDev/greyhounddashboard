@@ -311,11 +311,11 @@ function App() {
               </li>
 			  
 			  
-			  <li id="stakingLI" className={activeStyleStaking}><Link onClick={() => setActive('stakingLI')} to="/staking" className=" ai-icon" aria-expanded="false">
+			  {/*<li id="stakingLI" className={activeStyleStaking}><Link onClick={() => setActive('stakingLI')} to="/staking" className=" ai-icon" aria-expanded="false">
                 <i className="fi fi-sr-sack-dollar"></i>
                 <span className="nav-text">Staking <span className="badge badge-primary badge-rounded badge-xs">NEW</span></span>
               </Link>
-              </li>
+              </li>*/}
 			  
 			  
                <li id="richlistLI" className={activeStyleSpringRescue}>
