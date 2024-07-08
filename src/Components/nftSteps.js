@@ -726,9 +726,9 @@ export default function GreyStepper(props) {
 				  <Button className="btn-primary" variant="contained" onClick={handleNext}>{activeStep === steps.length - 1 ? 'Done' : 'Next' }</Button>}
                   {/* { !claimed && 
 					<Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>} */}
-                  {balance >= 10000000 && !claimed &&
+                  {balance >= 5000000 && !claimed &&
                   <Button className="btn-primary" variant="contained" onClick={handleBurn}>Burn</Button>}
-                  {balance < 10000000 && !claimed &&
+                  {balance < 5000000 && !claimed &&
                   <Button className="btn-primary" variant="contained" onClick={handleBurn} disabled>Burn</Button>}
                   {minting === true && index === 1 &&
           <Button className="btn-primary" variant="contained" onClick={handleMint} disabled>Minting....</Button>}
