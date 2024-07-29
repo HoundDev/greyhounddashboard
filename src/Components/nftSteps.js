@@ -793,7 +793,7 @@ export default function GreyStepper(props) {
                               <div>
                                   <div className='tx-info'>
                                       <span>You Pay</span>
-                                      <p className='text-white'><span style={{textDecoration: "line-through"}}>10M</span> 5M $HOUND</p>
+                                      <p className='text-white'>10M $HOUND</p>
                                   </div>
                                   <div className='tx-info'>
                                       <span>Receive</span>
