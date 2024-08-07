@@ -41,6 +41,17 @@ function App() {
   const [activeStyleDropdown, setActiveStyleDropdown] = React.useState('mm-collapse')
   const [activeStyleSpringRescue, setActiveStyleSpringRescue] = React.useState('')
   const [snapShotTier, setsnapShotTier] = React.useState('None')
+  const [cookie, setCookie] = React.useState('')
+
+  useEffect(() => {
+    const tokenInCOokie = document.cookie.split(';').find(c => c.trim().startsWith('token='));
+    if (tokenInCOokie && tokenInCOokie !== 'undefined') {
+      console.log(tokenInCOokie.split('=')[1]);
+      setCookie(tokenInCOokie.split('=')[1]);
+    } else {
+      setCookie('');
+    }
+  }, [])
 
   const [toggle, setToggle] = useState(false);
   const [dashClicked, setDashClicked] = useState(false);
@@ -155,7 +166,7 @@ function App() {
   }, [dashClicked]);
   return (
     <>
-      {userAddress === '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper" className={`show ${toggle ? "menu-toggle" : ""}`}>
+      {cookie === '' ? <Login setStateValues={setStateValues} /> : <div id="main-wrapper" className={`show ${toggle ? "menu-toggle" : ""}`}>
         <div className="nav-header">
           <a className="brand-logo">
             <div className="logo-abbr" draggable="false" alt=""></div>

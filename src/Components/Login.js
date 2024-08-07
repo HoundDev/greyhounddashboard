@@ -165,19 +165,19 @@ function Login(props) {
       if (!listenWs) return;
       let responseObj = JSON.parse(e.data.toString())
       if (responseObj.signed !== null) {
-        console.log(responseObj)
         const payload = await getXummPayload(responseObj.payload_uuidv4)
-        console.log(payload)
         if (payload.success) {
-          console.log('signed')
           if (responseObj.signed === true) {
             var isValid = await checkValidSignature(payload.data.response.hex)
 
-            console.log(isValid);
+            console.log(isValid.data.token);
+            //set cookies
+            if (isValid.data.token !== undefined) {
+              document.cookie = `token=${isValid.data.token}`;
+            }
           }
           console.log()
         let check = await checkEligibility(payload.data.response.account)
-        console.log(check);
         if (check.success === true) {
           if (isValid.data.xrpAddress !== undefined && isValid.data.session !== undefined) {
             props.setStateValues(isValid.data);
@@ -198,7 +198,7 @@ function Login(props) {
                 "Eligible_og_ad":false,
                 "Eligible_ts_ad":false,
                 "betaAccess":false
-                }
+              }
               const register = await registerUser(data)
               if (register.success) {
                 console.log('User registered successfully')
