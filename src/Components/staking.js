@@ -39,7 +39,27 @@ export default function NftHome(props) {
       });
       const data = await response.json();
       setNfts(data);
-    };
+      //send request to /api/getnftsData
+      const promises = Object.keys(data).map((index) => {
+        return fetch("https://api.greyhoundcoin.net/api/getnftsData", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nftId: index,
+          }),
+        });
+      });
+      const responses = await Promise.all(promises);
+      const nftData = await Promise.all(responses.map((response) => response.json()));
+      const nftss = {};
+      nftData.forEach((nft) => {
+        nftss[nft.nftId] = nft;
+      });
+      console.log(nftss);
+      setNfts(nftss);
+      }
     const getHoundBalance = async () => {
       const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/getHoundBalance";
       const response = await fetch(url, {
