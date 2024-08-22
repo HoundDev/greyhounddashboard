@@ -41,7 +41,7 @@ export default function NftHome(props) {
       setNfts(data);
       //send request to /api/getnftsData
       const promises = Object.keys(data).map((index) => {
-        return fetch("https://api.greyhoundcoin.net/api/getnftsData", {
+        return fetch(process.env.REACT_APP_PROXY_ENDPOINT + "api/getnftsData", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export default function NftHome(props) {
       const nftData = await Promise.all(responses.map((response) => response.json()));
       const nftss = {};
       nftData.forEach((nft) => {
-        nftss[nft.nftId] = nft;
+        nftss[nft.id] = nft;
       });
       console.log(nftss);
       setNfts(nftss);
@@ -128,7 +128,9 @@ export default function NftHome(props) {
                     <div className="card logo-bg">
                       <div className="card-body text-center card-text  align-middle">
                         <h2 className=" text-white fs-32">
-                          {Object.keys(stakedNfts).length}
+                          {
+                            stakedNfts && Object.keys(stakedNfts).length
+                          }
                         </h2>
                         <h2 className="text-white fs-14 mb-2 font-w600">
                           Hounds Locked
@@ -232,7 +234,7 @@ export default function NftHome(props) {
                             </div>
                             <div className="items-center py-3 px-4 flex nftMiddle">
                               <span className="flex items-center ">
-                                <img src={nfts[index].image} className="mr-3" />
+                                <img src={"https://marketplace-api.onxrp.com/api/image/" + nfts[index].id} className="mr-3" />
                                 <span className="text-white font-weight-bold">
                                   {/* {nft.name}{" "} */}
                                   {nfts[index].name}{" "}
@@ -364,7 +366,7 @@ export default function NftHome(props) {
                             </div>
                             <div className="items-center py-3 px-4 flex nftMiddle">
                               <span className="flex items-center ">
-                                <img src={nfts[index].image} className="mr-3" />
+                                <img src={"https://marketplace-api.onxrp.com/api/image/" + nfts[index].id} className="mr-3" />
                                 <span className="text-white font-weight-bold">
                                   {/* {nft.name}{" "} */}
                                   {nfts[index].name}{" "}
