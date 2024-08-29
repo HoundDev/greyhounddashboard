@@ -46,8 +46,24 @@ function App() {
   useEffect(() => {
     const tokenInCOokie = document.cookie.split(';').find(c => c.trim().startsWith('token='));
     if (tokenInCOokie && tokenInCOokie !== 'undefined') {
-      console.log(tokenInCOokie.split('=')[1]);
       setCookie(tokenInCOokie.split('=')[1]);
+      fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'api/auth', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokenInCOokie.split('=')[1]}`
+        }
+      }).then(async response => {
+        if (response.ok) {
+          console.log('token is valid');
+          const json = await response.json();
+          const userAddress = json.xrpAddress;
+          setUserAddress(userAddress);
+          //set cookie
+          const cookies = new Cookies();
+          cookies.set('userAddress', userAddress, { path: '/' });
+        }
+      })
     } else {
       setCookie('');
     }
@@ -100,6 +116,7 @@ function App() {
     cookies.remove('userSession');
     setUserAddress('');
     setUserSession('');
+    window.location = "/";
   }
 
   function setActive(str) {
@@ -407,7 +424,7 @@ function App() {
           <Route path="/" element={<Dashboard xrpAddress={userAddress} updateTier={getTier} />} />
           <Route path="/richlist" element={<RichList xrpAddress={userAddress} />} />
           <Route path="/staking" element={<Staking xrpAddress={userAddress} />} />
-		  <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
+		      <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
           <Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
@@ -418,7 +435,7 @@ function App() {
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
           <Route path="/NftSteps" element={<NftSteps xrpAddress={userAddress} />} />
           <Route path="/nftMint" element={<NftMint xrpAddress={userAddress} />} />
-		  <Route path="/nftTraits" element={<NftTraits xrpAddress={userAddress} />} />
+		      <Route path="/nftTraits" element={<NftTraits xrpAddress={userAddress} />} />
           <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />
           <Route path="/editprofile" element={<EditProfile xrpAddress={userAddress} /> } />
           {/* <Route path=":handle" element={<NftDetails xrpAddress={userAddress} /> } /> */}

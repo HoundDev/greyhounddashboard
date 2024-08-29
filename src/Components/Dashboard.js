@@ -506,7 +506,7 @@ function Dashboard(props) {
     }
 
 	getPins();
-	}, [])
+	}, [props.xrpAddress])
 
 	function closePopup() {
 		document.getElementById("tradeButton").disabled = false
