@@ -75,7 +75,7 @@ export default function NftHome(props) {
       setHoundBalance(Number(data.balance).toFixed(0));
     };
     Promise.all([getNumMinted(), getHoundBalance()]);
-  }, []);
+  }, [props.xrpAddress]);
 
   useEffect(() => {
     if (token) {
@@ -95,7 +95,7 @@ export default function NftHome(props) {
           setStakedNfts(data.nfts);
         });
     }
-  }, [token]);
+  }, [token, props.xrpAddress]);
 
   return (
     <div className="content-body nft-lander">
