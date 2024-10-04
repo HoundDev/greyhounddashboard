@@ -197,6 +197,7 @@ export default function NftHome(props) {
                       if (stakedNfts.includes(index)) {
                         return null
                       } 
+                      console.log(nfts[index])
                       return (
                         <div
                           className="card flex justify-between mb-2 stakeNft"
@@ -234,7 +235,7 @@ export default function NftHome(props) {
                             </div>
                             <div className="items-center py-3 px-4 flex nftMiddle">
                               <span className="flex items-center ">
-                                <img src={"https://marketplace-api.onxrp.com/api/image/" + nfts[index].id} className="mr-3" />
+                                <img src={"https://app.greyhoundcoin.net/images/houndies/" + nfts[index]?.name?.split("#")[1] + ".png"} className="mr-3" />
                                 <span className="text-white font-weight-bold">
                                   {/* {nft.name}{" "} */}
                                   {nfts[index].name}{" "}

@@ -57,11 +57,20 @@ function App() {
         if (response.ok) {
           console.log('token is valid');
           const json = await response.json();
-          const userAddress = json.xrpAddress;
-          setUserAddress(userAddress);
-          //set cookie
-          const cookies = new Cookies();
-          cookies.set('userAddress', userAddress, { path: '/' });
+          if (json.success) {
+            const userAddress = json.xrpAddress;
+            setUserAddress(userAddress);
+            //set cookie
+            const cookies = new Cookies();
+            cookies.set('userAddress', userAddress, { path: '/' });
+          } else {
+            console.log('token is invalid');
+            //remove cookie
+            const cookies = new Cookies();
+            cookies.remove('token');
+            setUserAddress('');
+            window.location = '/';
+          }
         }
       })
     } else {
