@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-
-require("dotenv").config();
 
 export default function NftDetails(props) {
 

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import LoadingOverlay from 'react-loading-overlay-ts';
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
+import React, { useState, useRef, useEffect } from "react";
+import { Tab, Nav, Button, Modal } from "react-bootstrap";
 import { dataa } from './greyhoundVolume';
 import { data } from './ActivityLine3';
 import { GHdata } from './ActivityLine';
@@ -15,9 +15,7 @@ import ActivityLine from "./ActivityLine";
 import ActivityLine3 from "./ActivityLine3";
 import Tilt from 'react-vanilla-tilt';
 import { dataSup } from './greyhoundSupply';
-
-require("dotenv").config();
-const xrpl = require("xrpl");
+import { convertHexToString } from '../utls';
 
 function format(x, p) {
 	if (p === undefined) {
@@ -613,7 +611,7 @@ function Dashboard(props) {
 									//greyhound currency
 									receivedTxns.push({ currency: "HOUND", amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
 								} else {
-									receivedTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
+									receivedTxns.push({ currency: convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash })
 									//non-standard currency
 								}
 							}
@@ -635,7 +633,7 @@ function Dashboard(props) {
 
 								} else {
 									//non-standard currency
-									sentTxns.push({ currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
+									sentTxns.push({ currency: convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: format(mainData.data.Transactions[i].tx.Amount.value), date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash })
 								}
 							}
 

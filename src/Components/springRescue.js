@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container  } from "react-bootstrap";
-import { Link, useSearchParams, useLocation  } from "react-router-dom";
-require("dotenv").config();
+import { Button, Modal } from "react-bootstrap";
 
-    export default function SpringRescue(props) {
+export default function SpringRescue(props) {
     
     
     

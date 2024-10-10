@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-import { confetti } from 'dom-confetti';
+import { Modal } from "react-bootstrap";
 import Confetti from 'react-dom-confetti';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-
 import axios from 'axios';
-
-
-require("dotenv").config();
 
 export default function NftClaim(props) {
     const [popupTrade, setPopupTrade] = useState(false);

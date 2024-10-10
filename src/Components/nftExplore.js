@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import NftCard from "./nfts/NftCard";
 import CardSkeleton from "./skeletons/NftCardSkeleton";
-import { Swiper, SwiperSlide } from 'swiper/react';
-//import dropwdown
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import 'swiper/swiper.min.css'
-
-require("dotenv").config();
 
 export default function NftExplore(props) {
 

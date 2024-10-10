@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import { Line } from "react-chartjs-2";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
-// import GreyHolders from "./greyhoundHolders";
-// import GreyTrustlines from "./greyhoundTrustlines";
 
 const format = (num, decimals) => {
   try {
@@ -14,7 +12,6 @@ const format = (num, decimals) => {
     return num;
   }
 };
-require("dotenv").config();
 
 export default function Richlist(props) {
   const [pager, setPager] = useState({})

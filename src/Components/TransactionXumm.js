@@ -1,31 +1,14 @@
 import {
-  Box,
-  Button,
-  Flex,
-  Link,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Text,
-  Center,
   Stack,
-  useDisclosure,
   Image,
   ChakraProvider
 } from "@chakra-ui/react";
-import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
-
-const ModalHeaderClass = {
-  borderBottom: '1px solid #2D2D2D',
-  textAlign: 'center',
-  fontSize: '16px',
-  background: '#262626',
-  color: 'white'
-};
 
 const ModalBodyClass = {
   color: 'white'

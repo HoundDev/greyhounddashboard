@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-import NftSearchBar from "../forms/NftSearchBar";
 import NftCard from "./../nfts/NftCard"
-
-require("dotenv").config();
 
 export default function UserProfile(props) {
 

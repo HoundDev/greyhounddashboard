@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Tab, Nav, Button, Modal, Container } from "react-bootstrap";
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-
 import NftCard from "./NftCard";
-
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import CardSkeleton from "../skeletons/NftCardSkeleton";
-
-require("dotenv").config();
 
 export default function NftCollection() {
 

@@ -22,14 +22,8 @@ import NftTraits from "./Components/nftTraits";
 import UserProfile from './Components/users/UserProfile';
 import EditProfile from "./Components/users/EditProfile";
 import AccessDenied from './Components/accessDenied.js';
-import Viii from './Components/viii.js';
 import Footer from './layouts/Footer';
 import PerfectScrollbar from "react-perfect-scrollbar";
-require("dotenv").config();
-
-
-
-
 
 function App() {
   const [userAddress, setUserAddress] = React.useState('')

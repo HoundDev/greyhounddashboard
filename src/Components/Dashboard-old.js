@@ -1,10 +1,8 @@
 import LoadingOverlay from 'react-loading-overlay-ts';
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import TransactionsSent from './TransactionsSent'
 import TransactionsReceived from './TransactionsReceived'
-require("dotenv").config();
-const xrpl = require("xrpl");
-
+import { convertHexToString } from '../utls';
 
 function Dashboard(props) {
     const [isActive, setActive] = useState(true)
@@ -106,7 +104,7 @@ function Dashboard(props) {
                                 //standard currency
                                 receivedTxns.push({currency: mainData.data.Transactions[i].tx.Amount.currency, amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash})
                             } else {
-                                receivedTxns.push({currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash})
+                                receivedTxns.push({currency: convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Account, hash: mainData.data.Transactions[i].tx.hash})
                                 //non-standard currency
                             }
 
@@ -124,7 +122,7 @@ function Dashboard(props) {
                                 sentTxns.push({currency: mainData.data.Transactions[i].tx.Amount.currency, amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash})
                             } else {
                                 //non-standard currency
-                                sentTxns.push({currency: xrpl.convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash})
+                                sentTxns.push({currency: convertHexToString(mainData.data.Transactions[i].tx.Amount.currency), amount: mainData.data.Transactions[i].tx.Amount.value, date: convertRippleEpochToDate(mainData.data.Transactions[i].tx.date), account: mainData.data.Transactions[i].tx.Destination, hash: mainData.data.Transactions[i].tx.hash})
                             }
 
                         } else {

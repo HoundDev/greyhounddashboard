@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Modal } from "react-bootstrap";
-import 'swiper/swiper.min.css';
+import 'swiper/css';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import Cookies from 'universal-cookie';
 import Stepper from '@mui/material/Stepper';
@@ -9,11 +9,7 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton';
-import { confetti } from 'dom-confetti';
 import Confetti from 'react-dom-confetti';
-
-require("dotenv").config();
 
 function getSteps() {
   return ['Burn', 'Mint', 'Claim'];

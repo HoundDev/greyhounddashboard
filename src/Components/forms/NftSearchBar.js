@@ -1,11 +1,6 @@
 import React from "react";
 import { Dropdown} from "react-bootstrap";
 
-import 'swiper/swiper.min.css'
-
-
-require("dotenv").config();
-
 export default function NftSearchBar(props) {
 
     return (
@@ -35,19 +30,6 @@ export default function NftSearchBar(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="dropdown"> */}
-                    {/* <div className="btn d-flex " data-toggle="dropdown" aria-expanded="false">
-                        <div className="text-left">
-                            <span className="fs-15 text-white">Recently listed</span>
-                        </div>
-                        <i className="fa fa-angle-down ml-3 text-white" />
-                    </div> */}
-                    {/* <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style={{ position: 'absolute', willChange: 'transform', top: '0px', left: '0px', transform: 'translate3d(-37px, 72px, 0px)' }}>
-                        <a className="dropdown-item" href="">Trending</a>
-                        <a className="dropdown-item" href="">Price: low to high</a>
-                        <a className="dropdown-item" href="">Price: high to low</a>
-                    </div> */}
-                    {/* use dropdown */}
                     <Dropdown>
                         <Dropdown.Toggle variant="dropdown-menu dropdown-menu-right" id="dropdown-basic" >
                             Select Mode
@@ -58,7 +40,6 @@ export default function NftSearchBar(props) {
                             <Dropdown.Item href="/nftExplore?action=3">Price: high to low</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    {/* </div> */}
                 </form>
             </div>
         </div>

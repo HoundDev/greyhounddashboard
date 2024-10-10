@@ -10,8 +10,6 @@ import {
   Link,
   Button
 } from "@chakra-ui/react";
-require("dotenv").config();
-
 
 function Login(props) {
   const ws = useRef(WebSocket);
