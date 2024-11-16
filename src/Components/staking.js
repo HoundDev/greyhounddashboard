@@ -27,7 +27,7 @@ export default function NftHome(props) {
 
   useEffect(() => {
     const getNumMinted = async () => {
-      const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/getnfts";
+      const url = process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/getnfts";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -41,7 +41,7 @@ export default function NftHome(props) {
       setNfts(data);
       //send request to /api/getnftsData
       const promises = Object.keys(data).map((index) => {
-        return fetch(process.env.REACT_APP_PROXY_ENDPOINT + "api/getnftsData", {
+        return fetch(process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/getnftsData", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function NftHome(props) {
       setNfts(nftss);
       }
     const getHoundBalance = async () => {
-      const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/getHoundBalance";
+      const url = process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/getHoundBalance";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -79,7 +79,7 @@ export default function NftHome(props) {
 
   useEffect(() => {
     if (token) {
-      const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/getStakedNfts";
+      const url = process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/getStakedNfts";
       fetch(url, {
         method: "POST",
         headers: {
@@ -275,7 +275,7 @@ export default function NftHome(props) {
                           className="btn btn-primary rounded-4 mb-2 mt-0 btn-md mr-2 items-center px-3"
                           onClick={(e) => {
                             e.preventDefault();
-                            const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/stakeNft";
+                            const url = process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/stakeNft";
                             fetch(url, {
                               method: "POST",
                               headers: {
@@ -408,7 +408,7 @@ export default function NftHome(props) {
                           className="btn btn-primary rounded-4 mb-2 mt-0 btn-md mr-2 items-center px-3"
                           onClick={(e) => {
                             e.preventDefault();
-                            const url = process.env.REACT_APP_PROXY_ENDPOINT + "api/unstakesNft";
+                            const url = process.env.REACT_APP_PROXY_ENDPOINT_2 + "api/unstakesNft";
                             fetch(url, {
                               method: "POST",
                               headers: {
