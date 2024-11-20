@@ -280,7 +280,7 @@ function App() {
                             <div className="timeline-panel">
                               <div className="media-body">
                                 <small className="d-block mb-1">Announcement!</small>
-                                <h5 className="text-white">The public mint for Houndies is now live! Mint them through the NFT tab of the dashboard.</h5>
+                                <h5 className="text-white">You can now staking your houndies to earn rewards!</h5>
                               </div>
                             </div>
                           </li>
@@ -415,10 +415,10 @@ function App() {
 
 
 
-            <div className="add-menu-sidebar ">
+            {/*<div className="add-menu-sidebar ">
               <img src="./images/staking-bitrue.png" draggable="false" />
               <a href="https://www.bitrue.com/powerpiggy/greyhound?pgid=72" className="btn btn-white rounded-4" target="blank">Stake On Bitrue</a>
-            </div>
+            </div>*/}
           </PerfectScrollbar>
         </div>
 
