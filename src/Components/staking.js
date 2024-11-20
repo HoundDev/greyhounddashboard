@@ -153,7 +153,7 @@ export default function NftHome(props) {
                           Unclaimed Rewards
                         </h2>
                         <a
-                          href="#"
+                          href="/nftSteps"
                           className="btn btn-primary rounded-4 mb-2 mt-2 btn-md font-weight-bold"
                         >
                           Claim Now
