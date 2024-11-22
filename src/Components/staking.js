@@ -40,25 +40,32 @@ export default function NftHome(props) {
       const data = await response.json();
       setNfts(data);
       //send request to /api/getnftsData
-      const promises = Object.keys(data).map((index) => {
-        return fetch("https://sapi.greyhoundcoin.net/api/getnftsData", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nftId: index,
-          }),
-        });
+      // const promises = Object.keys(data).map((index) => {
+      //   return fetch("https://sapi.greyhoundcoin.net/api/getnftsData", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       id: index,
+      //     }),
+      //   });
+      // });
+      // const responses = await Promise.all(promises);
+      // const nftData = await Promise.all(responses.map((response) => response.json()));
+      const nftids = Object.keys(data);
+      const nftDataReq = await fetch("https://sapi.greyhoundcoin.net/api/getnftsData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ids: nftids,
+        }),
       });
-      const responses = await Promise.all(promises);
-      const nftData = await Promise.all(responses.map((response) => response.json()));
-      const nftss = {};
-      nftData.forEach((nft) => {
-        nftss[nft.id] = nft;
-      });
-      console.log(nftss);
-      setNfts(nftss);
+      const nftData = await nftDataReq.json(); //dict of nftids
+      console.log(nftData);
+      setNfts(nftData);
       }
     const getHoundBalance = async () => {
       const url = "https://sapi.greyhoundcoin.net/api/getHoundBalance";
@@ -235,7 +242,8 @@ export default function NftHome(props) {
                             </div>
                             <div className="items-center py-3 px-4 flex nftMiddle">
                               <span className="flex items-center ">
-                                <img src={"https://app.greyhoundcoin.net/images/houndies/" + nfts[index]?.name?.split("#")[1] + ".png"} className="mr-3" />
+                                {/* <img src={"https://app.greyhoundcoin.net/images/houndies/" + nfts[index]?.name?.split("#")[1] + ".png"} className="mr-3" /> */}
+                                <img src={"https://marketplace-api.onxrp.com/api/image/" + nfts[index].id} className="mr-3" />
                                 <span className="text-white font-weight-bold">
                                   {/* {nft.name}{" "} */}
                                   {nfts[index].name}{" "}
