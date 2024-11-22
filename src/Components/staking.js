@@ -143,7 +143,7 @@ export default function NftHome(props) {
                           Hounds Locked
                         </h2>
                         <a
-                          href="http://localhost:3000/nftSteps"
+                          href="/nftSteps"
                           className="btn btn-border-white rounded-4 mb-2 mt-2 btn-md font-weight-bold"
                         >
                           Mint Now
