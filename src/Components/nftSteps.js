@@ -129,7 +129,7 @@ export default function GreyStepper(props) {
   
   const getNftID = (nftNum) => {
     try {
-      const url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/getNftId?nftNum=' + nftNum;
+      const url = "https://sapi.greyhoundcoin.net/" + 'api/getNftId?nftNum=' + nftNum;
       axios.get(url).then((response) => {
         console.log(response.data);
         setNftId(response.data.nftId);
@@ -150,7 +150,7 @@ export default function GreyStepper(props) {
 
   const getRarity = (num) => {
     try {
-      const url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/getRarity?nftNum=' + num;
+      const url = "https://sapi.greyhoundcoin.net/" + 'api/getRarity?nftNum=' + num;
       axios.get(url).then((response) => {
         console.log(response.data);
         setRarity(response.data.rarity);
@@ -163,7 +163,7 @@ export default function GreyStepper(props) {
 
   const handleMint = async () => {
     try {
-        let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/mint_txn';
+        let url = "https://sapi.greyhoundcoin.net/" + 'mint/mint_txn';
         setMinting(true);
         setMintClicked(true);
         const cookies = new Cookies();
@@ -198,7 +198,7 @@ export default function GreyStepper(props) {
 
   const getXummPayload = async (requestContent) => {
     try {
-        let response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'xumm/getpayload', {
+        let response = await fetch("https://sapi.greyhoundcoin.net/" + 'xumm/getpayload', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ "payloadID": requestContent })
@@ -213,7 +213,7 @@ export default function GreyStepper(props) {
   async function createBurnOffer(){
     const cookies = new Cookies();
 
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
+    const response = await fetch("https://sapi.greyhoundcoin.net/" + 'mint/burn_txn?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
     let data = await response.json();
     console.log(data);
     setBurnAmount(data.burn_amount);
@@ -236,7 +236,7 @@ export default function GreyStepper(props) {
 
   async function createClaimOffer(){
     const cookies = new Cookies();
-    const response = await fetch(process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
+    const response = await fetch("https://sapi.greyhoundcoin.net/" + 'mint/claim_txn_xumm?address=' + props.xrpAddress + '&pid=' + cookies.get('pid') + '&offer=' + offerhash + '&return_url=' + process.env.REACT_APP_URL + 'nftSteps&mobile=' + isMobile);
     let data = await response.json();
     console.log(data);
     data = data.payload;
@@ -273,7 +273,7 @@ export default function GreyStepper(props) {
             closePopupTradeErr();
             setListenWs(false);
             handleMint();
-            let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/burnt';
+            let url = "https://sapi.greyhoundcoin.net/" + 'mint/burnt';
             const cookies = new Cookies();
             let response = await fetch(url, {
               method: 'POST',
@@ -314,7 +314,7 @@ export default function GreyStepper(props) {
             console.log('signed');
             closePopupTradeErr();
             setListenWs2(false);
-            let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/claim_txn';
+            let url = "https://sapi.greyhoundcoin.net/" + 'mint/claim_txn';
             const cookies = new Cookies();
             let response = await fetch(url, {
               method: 'POST',
@@ -354,7 +354,7 @@ export default function GreyStepper(props) {
   };
     
   async function checkAddress() {
-    let url = process.env.REACT_APP_PROXY_ENDPOINT + 'mint/pending?address=' + props.xrpAddress;
+    let url = "https://sapi.greyhoundcoin.net/" + 'mint/pending?address=' + props.xrpAddress;
     let response = await fetch(url);
     let data = await response.json();
     var flag = false;
@@ -444,7 +444,7 @@ export default function GreyStepper(props) {
   }
 
   async function getBalance() {
-    let url = process.env.REACT_APP_PROXY_ENDPOINT + 'api/greyhoundBalance?address=' + props.xrpAddress;
+    let url = "https://sapi.greyhoundcoin.net/" + 'api/greyhoundBalance?address=' + props.xrpAddress;
     let response = await fetch(url);
     let mainData = await response.json();
     console.log(mainData);
