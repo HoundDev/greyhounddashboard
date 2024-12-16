@@ -280,7 +280,7 @@ function App() {
                             <div className="timeline-panel">
                               <div className="media-body">
                                 <small className="d-block mb-1">Announcement!</small>
-                                <h5 className="text-white">You can now staking your houndies to earn rewards!</h5>
+                                <h5 className="text-white">Staking Houndie NFTs Coming Soon!</h5>
                               </div>
                             </div>
                           </li>
@@ -383,9 +383,9 @@ function App() {
 							<Link onClick={() => setActive('nftMintLI')} to="/userprofile" aria-expanded="false">
 				                Your Hounds
 				            </Link>
-	  						<Link onClick={() => setActive('nftMintLI')} to="/claimNFT" aria-expanded="false">
+	  						{/*<Link onClick={() => setActive('nftMintLI')} to="/claimNFT" aria-expanded="false">
 				                Claim NFTs
-				            </Link>
+				            </Link>*/}
 							<Link onClick={() => setActive('nftMintLI')} to="/nftTraits" aria-expanded="false">
 				                View Traits
 				            </Link>
@@ -429,14 +429,14 @@ function App() {
           <Route path="/staking" element={<Staking xrpAddress={userAddress} />} />
 		      <Route path="/springrescue" element={<SpringRescue xrpAddress={userAddress} />} />
           <Route path="/nftHome" element={<NftHome xrpAddress={userAddress} />} />
-          <Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />
+          {/*<Route path="/claimNFT/" element={<NftClaim xrpAddress={userAddress} />} />*/}
           <Route exact path="/nftDetails" element={<NftDetails xrpAddress={userAddress} />} />
           {/* <Route path="/nftDetails/:id" element={<NftDetails xrpAddress={userAddress} />} /> */}
           {/* <Route path="/nftExplore" element={<NftExplore xrpAddress={userAddress} />} /> */}
           <Route path="/accessdenied" element={<AccessDenied xrpAddress={userAddress} />} />
 		      {/* <Route path="/viii" element={<Viii xrpAddress={userAddress} />} /> */}
           <Route path="/NftCollection" element={<NftCollection xrpAddress={userAddress} />} />
-          <Route path="/NftSteps" element={<NftSteps xrpAddress={userAddress} />} />
+          {/*<Route path="/NftSteps" element={<NftSteps xrpAddress={userAddress} />} />*/}
           <Route path="/nftMint" element={<NftMint xrpAddress={userAddress} />} />
 		      <Route path="/nftTraits" element={<NftTraits xrpAddress={userAddress} />} />
           <Route path="/userprofile" element={<UserProfile xrpAddress={userAddress} /> } />

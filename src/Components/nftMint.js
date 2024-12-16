@@ -63,7 +63,7 @@ export default function NftHome(props) {
 						
         				<div className="col-xl-6 col-xxl-6 col-lg-6 col-md-12 mb-5">
         					<div className="nft-container">
-        						<h1 className="banner-title mt-5">Mint Houndie NFTs Now!</h1>
+        						<h1 className="banner-title mt-5">Further updates coming!</h1>
         						
         						
         						<div className="progress mb-2">
@@ -80,7 +80,7 @@ export default function NftHome(props) {
                             <div className="form-row align-items-center">
     							<div className="col-auto">
   
-  								<a href="/nftSteps" className="btn btn-primary rounded-4 mb-2 mt-2 btn-lg mr-3">Mint Now</a>
+  								<a href="#" className="btn btn-primary rounded-4 mb-2 mt-2 btn-lg mr-3">DISABLED</a>
   								<a href="/nftCollection" className="btn btn-border-white rounded-4 mb-2 mt-2 btn-lg mr-3">Explore Collection</a>
   									
   								</div>
@@ -88,7 +88,7 @@ export default function NftHome(props) {
     
     
   							</div>
-  							<p className="text-white banner-price">Only <span>10 MILLION HOUND</span> per mint!</p>
+  							<p className="text-white banner-price">You can no longer mint houndies - stay tuned!</p>
   						
   
                             
